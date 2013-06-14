@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content">
+    <TextView
+            android:id="@+id/exhibition_theme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1111111111111111111111111111111111111111"
+            android:singleLine="true"/>
+    <TextView
+            android:id="@+id/exhibition_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="222222222222"
+            android:singleLine="true"/>
+    <TextView
+            android:id="@+id/exhibition_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3333333333"
+            android:singleLine="true"/>
+    <TextView
+            android:id="@+id/exhibition_sponsor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="44444444444444444444"
+            android:singleLine="true"/>
+
+</LinearLayout>
