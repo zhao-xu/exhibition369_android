@@ -15,30 +15,32 @@ import java.util.List;
 
 public class HomePageEnrollListAdapter extends BaseAdapter {
 
-	private List<HashMap<String, String>> data;
-	private LayoutInflater mInflater;
+    private List<HashMap<String, String>> data;
+    private LayoutInflater mInflater;
 
-	public HomePageEnrollListAdapter(Context context, List<HashMap<String, String>> data) {
-		this.data = data;
-		mInflater = LayoutInflater.from(context);
-	}
-	@Override
-	public int getCount() {
-		return data.size();
-	}
+    public HomePageEnrollListAdapter(Context context, List<HashMap<String, String>> data) {
+        this.data = data;
+        mInflater = LayoutInflater.from(context);
+    }
 
-	@Override
-	public Object getItem(int position) {
-		return data.get(position);
-	}
+    @Override
+    public int getCount() {
+        return data.size();
+    }
 
-	@Override
-	public long getItemId(int position) {
-		return position;
-	}
-	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
-		ViewHolder holder;
+    @Override
+    public Object getItem(int position) {
+        return data.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        ViewHolder holder;
         if (convertView == null) {
             holder = new ViewHolder();
             convertView = this.mInflater.inflate(R.layout.head_page_enroll_item, null);
@@ -50,7 +52,7 @@ public class HomePageEnrollListAdapter extends BaseAdapter {
         }
         return convertView;
     }
- 
+
     public class ViewHolder {
         TextView mExhibitionName;
         ImageView mEnrollStatus;

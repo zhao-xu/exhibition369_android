@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="61dp" >
+
+    <RelativeLayout
+        android:id="@+id/mFootBgLayout"
+        android:layout_width="215dp"
+        android:layout_height="41dp"
+        android:layout_centerInParent="true"
+        android:layout_margin="10dp"
+        android:background="@drawable/sy01_2x" >
+
+        <ImageView
+            android:id="@+id/mListFootLoading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/refresh_loading_bg"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/refresh_tv_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="查看更多"
+            android:textColor="@color/item_content"
+            android:textSize="16.0sp" />
+    </RelativeLayout>
+
+</RelativeLayout>

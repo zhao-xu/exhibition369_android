@@ -6,7 +6,7 @@ import java.util.ArrayList;
 /**
  * 已报名展会列表
  */
-public class EnrollExhibition implements Serializable{
+public class EnrollExhibition implements Serializable {
 
     private ArrayList<EnrollStatus> list = new ArrayList<EnrollStatus>();
 
@@ -18,12 +18,17 @@ public class EnrollExhibition implements Serializable{
         this.list = list;
     }
 
-    class EnrollStatus implements Serializable{
-        /**展会标识*/
+    class EnrollStatus implements Serializable {
+        /**
+         * 展会标识
+         */
         private String exKey;
-        /**展会名称*/
+        /**
+         * 展会名称
+         */
         private String name;
-        /**审核状态:
+        /**
+         * 审核状态:
          * P 审核中(Processing)，A 审核通过(Approved)，D 审核未通过(Denied)
          */
         private String status;

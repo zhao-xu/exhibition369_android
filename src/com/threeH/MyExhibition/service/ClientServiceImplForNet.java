@@ -34,7 +34,9 @@ public class ClientServiceImplForNet implements ClientService {
         }
         return null;
     }
-    /**全局数据获取
+
+    /**
+     * 全局数据获取
      * type	必须为android_phone
      * osVer Android版本
      * ver	应用版本
@@ -43,18 +45,18 @@ public class ClientServiceImplForNet implements ClientService {
      */
     @Override
     public String OverAllData(String type, String osVer, String ver, String token) throws Exception {
-        final String url = StringPools.APP_SERVER+ "/rest/configurations/get";
-        
-        Map<String,String> map = new HashMap<String,String>();
-        map.put("type",type);
-        map.put("osVer",osVer);
-        map.put("ver",ver);
-        map.put("token",token);
+        final String url = StringPools.APP_SERVER + "/rest/configurations/get";
+
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("type", type);
+        map.put("osVer", osVer);
+        map.put("ver", ver);
+        map.put("token", token);
         try {
-        	System.out.println("1212121212===="+url);
+            System.out.println("1212121212====" + url);
 //            String response = CustomerHttpClient.get(url, map);
-            String res01 = CustomerHttpClient.getRequest(url,map);
-            System.out.print("11312312313123"+res01);
+            String res01 = CustomerHttpClient.getRequest(url, map);
+            System.out.print("11312312313123" + res01);
             return res01;
 //            return response;
         } catch (RuntimeException e) {
@@ -64,7 +66,9 @@ public class ClientServiceImplForNet implements ClientService {
         }
         return "";
     }
-    /**未报名展会列表
+
+    /**
+     * 未报名展会列表
      * token 手机唯一标识码，用于过滤已报名展会(为服务器返回值)
      * size 返回记录条数，size = -1时返回不分页的所有数据
      * last	第一页数据设置为last = -1，第二页设置为第一页最后一条记录的createAt字段值
@@ -73,13 +77,13 @@ public class ClientServiceImplForNet implements ClientService {
      */
     @Override
     public String UnErollExList(String token, int size, long last, String name) throws Exception {
-        final String url = StringPools.APP_SERVER+ "/rest/exhibitions/find";
+        final String url = StringPools.APP_SERVER + "/rest/exhibitions/find";
         final StringBuffer str = null;
 
-        str.append("token="+token+"&");
-        str.append("size="+size+"&");
-        str.append("last="+last+"&");
-        str.append("name="+name);
+        str.append("token=" + token + "&");
+        str.append("size=" + size + "&");
+        str.append("last=" + last + "&");
+        str.append("name=" + name);
 
         try {
 //            String response = CustomerHttpClient.get(url, str.toString());
@@ -92,13 +96,14 @@ public class ClientServiceImplForNet implements ClientService {
         return "";
     }
 
-    /**已报名展会列表
+    /**
+     * 已报名展会列表
      * token 手机唯一标识码，用于过滤已报名展会(为服务器返回值)
      * method:get
      */
     @Override
     public String ErollExList(String token) throws Exception {
-        final String url = StringPools.APP_SERVER+ "/rest/exhibitions/find_applied";
+        final String url = StringPools.APP_SERVER + "/rest/exhibitions/find_applied";
 
         try {
 //            String response = CustomerHttpClient.get(url,"token="+token);
@@ -118,7 +123,7 @@ public class ClientServiceImplForNet implements ClientService {
      */
     @Override
     public String ExNewsList(String exKey) throws Exception {
-        final String url = StringPools.APP_SERVER+ "/rest/news/find";
+        final String url = StringPools.APP_SERVER + "/rest/news/find";
 
         try {
 //            String response = CustomerHttpClient.get(url,"token="+exKey);
@@ -130,14 +135,15 @@ public class ClientServiceImplForNet implements ClientService {
         }
         return "";
     }
+
     /**
-     *  展会报名
-     *  exKey	string	展会标识
-     *	token	string	手机标识
-     *	name	string	姓名
-     *	mobile	string	手机
-     *	email	string	邮箱
-     *  method:put
+     * 展会报名
+     * exKey	string	展会标识
+     * token	string	手机标识
+     * name	string	姓名
+     * mobile	string	手机
+     * email	string	邮箱
+     * method:put
      */
     @Override
     public String ExEnroll(String exKey, String token, String name, String mobile, String email) throws Exception {
@@ -186,15 +192,15 @@ public class ClientServiceImplForNet implements ClientService {
 //                    controller.getCurrentActivity().getApplicationContext(),
 //                    e.getMessage(), Toast.LENGTH_SHORT).show();
 //        }
-        return null;  
+        return null;
     }
-    
-    public String getNewsData() throws Exception {  
-    	try {
+
+    public String getNewsData() throws Exception {
+        try {
 //            String response = CustomerHttpClient.get("", "");
 //            return response;
-        } catch (Exception ignore) {  
+        } catch (Exception ignore) {
         }
         return null;
-    }  
+    }
 }

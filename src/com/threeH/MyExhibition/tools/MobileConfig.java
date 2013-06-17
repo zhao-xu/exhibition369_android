@@ -82,25 +82,25 @@ public class MobileConfig {
     public String getLastDeviceId() {
         return tm.getDeviceId();
     }
-    
-	/**
-	 * 1.获取设备ID,
-	 * <p>
-	 * 2.如果获取不到,在尝试获取手机MAC地址,
-	 * <p>
-	 * 3.如果在获取不到,则获取开机第一次生成的Android ID,
-	 * <p>
-	 * 4.在获取不成功,则随即生成一个唯一标识串.
-	 */
-	public String getDeviceId() {
-		if (getLastDeviceId() == null) {
-			if (getLocalMacAddress() == null) {
-				String mAndroidId = Settings.System.getString(
-						mCon.getContentResolver(), "android_id");
-				if (mAndroidId == null) {
-					SharedPreferences mEverSetting = mCon.getSharedPreferences(
-							StringPools.PERMANENT_SETTING, 0);
-					if (mEverSetting.getString(StringPools.DEVICE_ID_KEY, null) == null) {
+
+    /**
+     * 1.获取设备ID,
+     * <p/>
+     * 2.如果获取不到,在尝试获取手机MAC地址,
+     * <p/>
+     * 3.如果在获取不到,则获取开机第一次生成的Android ID,
+     * <p/>
+     * 4.在获取不成功,则随即生成一个唯一标识串.
+     */
+    public String getDeviceId() {
+        if (getLastDeviceId() == null) {
+            if (getLocalMacAddress() == null) {
+                String mAndroidId = Settings.System.getString(
+                        mCon.getContentResolver(), "android_id");
+                if (mAndroidId == null) {
+                    SharedPreferences mEverSetting = mCon.getSharedPreferences(
+                            StringPools.PERMANENT_SETTING, 0);
+                    if (mEverSetting.getString(StringPools.DEVICE_ID_KEY, null) == null) {
                         mEverSetting
                                 .edit()
                                 .putString(
@@ -109,14 +109,14 @@ public class MobileConfig {
                                                 + Math.random() + "")).commit();
                     }
                     return mEverSetting.getString(StringPools.DEVICE_ID_KEY,
-							null);
-				}
-				return mAndroidId;
-			}
-			return getLocalMacAddress();
-		}
-		return getLastDeviceId();
-	}
+                            null);
+                }
+                return mAndroidId;
+            }
+            return getLocalMacAddress();
+        }
+        return getLastDeviceId();
+    }
 
     public String getLine1Number() {
         return tm.getLine1Number();
@@ -174,7 +174,9 @@ public class MobileConfig {
         return "android";
     }
 
-    /** 返回屏幕宽度(px)*/
+    /**
+     * 返回屏幕宽度(px)
+     */
     public int getWidth() {
         DisplayMetrics dm = mCon.getApplicationContext().getResources()
                 .getDisplayMetrics();
@@ -307,7 +309,9 @@ public class MobileConfig {
 
     }
 
-    /** 获取手机屏幕属于何种尺寸. */
+    /**
+     * 获取手机屏幕属于何种尺寸.
+     */
     public static ScreenType getScreenType(int height, int width) {
         if (width >= 720 && height >= 960) {
             return ScreenType.xlarge;
@@ -332,12 +336,14 @@ public class MobileConfig {
         display.getMetrics(metrics);
         return metrics;
     }
-    
-    /** 获取手机mac地址。*/
+
+    /**
+     * 获取手机mac地址。
+     */
     public String getLocalMacAddress() {
-		WifiManager wifi = (WifiManager) mCon.getSystemService(Context.WIFI_SERVICE);
-		WifiInfo info = wifi.getConnectionInfo();
-		return info.getMacAddress();
-	}
+        WifiManager wifi = (WifiManager) mCon.getSystemService(Context.WIFI_SERVICE);
+        WifiInfo info = wifi.getConnectionInfo();
+        return info.getMacAddress();
+    }
 
 }

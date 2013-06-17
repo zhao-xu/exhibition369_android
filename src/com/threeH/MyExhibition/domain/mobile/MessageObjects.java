@@ -3,11 +3,11 @@ package com.threeH.MyExhibition.domain.mobile;
 public class MessageObjects {
     private static final MessageObject PING = new MessageObject(MessageType.REQ_PING);
     private static final MessageObject PONG = new MessageObject(MessageType.RESP_PONG);
-    
+
     public static MessageObject reqPing() {
         return PING;
     }
-    
+
     public static MessageObject respPong() {
         return PONG;
     }

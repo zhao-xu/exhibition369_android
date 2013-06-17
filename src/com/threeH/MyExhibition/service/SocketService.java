@@ -21,10 +21,10 @@ public class SocketService extends IntentService {
     @Override
     public IBinder onBind(Intent arg0) {
         return null;
-    }                                                           
+    }
 
     private void linkService() {
-        if(!Resources.isSocketLinked){
+        if (!Resources.isSocketLinked) {
             MyClient client = new MyClient(getApplicationContext());
             MobileConfig mMobileConfig = MobileConfig.getMobileConfig(this);
             client.send(AppConfig.HOST, AppConfig.MESSAGE_PORT,

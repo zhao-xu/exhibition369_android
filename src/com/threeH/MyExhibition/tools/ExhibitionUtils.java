@@ -24,7 +24,7 @@ import android.content.Context;
 
 /**
  * Class that provides several utility methods related to GreenDroid.
- * 
+ *
  * @author Cyril Mottier
  */
 public class ExhibitionUtils {
@@ -34,7 +34,7 @@ public class ExhibitionUtils {
 
     /**
      * Return the current {@link com.threeH.MyExhibition.ui.MyApplication}
-     * 
+     *
      * @param context The calling context
      * @return The {@link com.threeH.MyExhibition.ui.MyApplication} the given context is linked to.
      */
@@ -44,7 +44,7 @@ public class ExhibitionUtils {
 
     /**
      * Return the {@link com.threeH.MyExhibition.ui.MyApplication} image cache
-     * 
+     *
      * @param context The calling context
      * @return The image cache of the current {@link com.threeH.MyExhibition.ui.MyApplication}
      */
@@ -54,7 +54,7 @@ public class ExhibitionUtils {
 
     /**
      * Return the {@link com.threeH.MyExhibition.ui.MyApplication} executors pool.
-     * 
+     *
      * @param context The calling context
      * @return The executors pool of the current {@link com.threeH.MyExhibition.ui.MyApplication}
      */

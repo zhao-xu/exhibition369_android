@@ -30,7 +30,7 @@ public class BaseActivity extends Activity {
 
         resources = getResources();
         xmlDB = XmlDB.getInstance(this);
-        mProDialog = new MyDialog(this,false);
+        mProDialog = new MyDialog(this, false);
         mProDialog.setCanceledOnTouchOutside(false);
     }
 
@@ -48,7 +48,6 @@ public class BaseActivity extends Activity {
     }
 
 
-
     public void showLongText(int resId) {
         Toast.makeText(this, getString(resId), Toast.LENGTH_LONG).show();
     }
@@ -62,7 +61,10 @@ public class BaseActivity extends Activity {
         super.onDestroy();
     }
 
-    public void getConacts(){};
+    public void getConacts() {
+    }
+
+    ;
 
     public void hideBaseDialog() {
         try {
@@ -75,7 +77,7 @@ public class BaseActivity extends Activity {
         }
     }
 
-    public void showBaseDialog(){
+    public void showBaseDialog() {
         try {
             if (mProDialog.isShowing()) {
                 mProDialog.dismiss();

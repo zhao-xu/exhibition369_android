@@ -2,11 +2,9 @@ package com.threeH.MyExhibition.netty.client;
 
 import android.app.Notification;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 
-import com.threeH.MyExhibition.R;
 import com.threeH.MyExhibition.cache.XmlDB;
 import com.threeH.MyExhibition.common.StringPools;
 import com.threeH.MyExhibition.domain.mobile.MessageObject;
@@ -28,15 +26,16 @@ import java.util.Map;
  */
 public class ClientHandler extends SimpleChannelUpstreamHandler {
     private Context context;
+
     public ClientHandler(Context context) {
         this.context = context;
     }
 
-    public ClientHandler() {  
-    }    
+    public ClientHandler() {
+    }
 
     /**
-     * linkService(socket连接)回调 
+     * linkService(socket连接)回调
      */
     public void messageReceived(ChannelHandlerContext ctx, MessageEvent e) throws Exception {
         Object obj = e.getMessage();
@@ -58,12 +57,12 @@ public class ClientHandler extends SimpleChannelUpstreamHandler {
 //                    PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
 //                    notification.setLatestEventInfo(context, "推送的消息", message, pendingIntent);
                     NotificationManager noManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-                    notification.defaults =  Notification.DEFAULT_SOUND;  
-                    noManager.notify(110, notification);         
-                    break;           
-            }  
-            if (resp != null) {  
-                ctx.getChannel().write(resp);   
+                    notification.defaults = Notification.DEFAULT_SOUND;
+                    noManager.notify(110, notification);
+                    break;
+            }
+            if (resp != null) {
+                ctx.getChannel().write(resp);
             }
         }
     }
@@ -81,33 +80,34 @@ public class ClientHandler extends SimpleChannelUpstreamHandler {
     private void addMessageToList(String message) {
         Map<String, Object> map = new HashMap<String, Object>();
         Calendar calendar = Calendar.getInstance();
-        int hour = calendar.get(Calendar.HOUR_OF_DAY);  
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
         int minute = calendar.get(Calendar.MINUTE);
-        StringBuilder time = new StringBuilder();    
-        time.append(hour + ":");     
-        time.append(minute + "  ");            
-        map.put("timeAndContent", time.toString() + "         " + message);   
+        StringBuilder time = new StringBuilder();
+        time.append(hour + ":");
+        time.append(minute + "  ");
+        map.put("timeAndContent", time.toString() + "         " + message);
         //Resources.messageMap.add(map);         
 //        Tools.saveMessage(map,context);
-    }   
+    }
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, ExceptionEvent e) throws Exception {
         try {
             e.getChannel().close();
-        } catch (Exception ignore) { 
-        } 
-    } 
+        } catch (Exception ignore) {
+        }
+    }
+
     @Override
     public void channelDisconnected(ChannelHandlerContext ctx, ChannelStateEvent e) throws Exception {
         //super.channelDisconnected(ctx, e);   
-    	Resources.isSocketLinked = false;
-		e.getChannel().close();
+        Resources.isSocketLinked = false;
+        e.getChannel().close();
     }
 
     @Override
     public void channelClosed(ChannelHandlerContext ctx, ChannelStateEvent e)
-    		throws Exception { 
-    	super.channelClosed(ctx, e);   
+            throws Exception {
+        super.channelClosed(ctx, e);
     }
 }
