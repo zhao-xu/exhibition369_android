@@ -26,7 +26,7 @@ import android.graphics.Bitmap;
 
 /**
  * A very basing implementation of an Bitmap cache
- * 
+ *
  * @author Cyril Mottier
  */
 public class ImageCache implements MyApplication.OnLowMemoryListener {

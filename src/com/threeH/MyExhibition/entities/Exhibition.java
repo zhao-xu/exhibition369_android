@@ -3,20 +3,32 @@ package com.threeH.MyExhibition.entities;
 import java.io.Serializable;
 
 /**
- *  展会实体类
+ * 展会实体类
  */
 public class Exhibition implements Serializable {
-    /**展会标识(icon字段)*/
+    /**
+     * 展会标识(icon字段)
+     */
     private String exKey;
-    /**展会名称*/
+    /**
+     * 展会名称
+     */
     private String name;
-    /**展会日期*/
+    /**
+     * 展会日期
+     */
     private String date;
-    /**展会地址*/
+    /**
+     * 展会地址
+     */
     private String address;
-    /**主办单位*/
+    /**
+     * 主办单位
+     */
     private String organizer;
-    /**展会创建时间戳*/
+    /**
+     * 展会创建时间戳
+     */
     private Long createdAt;
 
     public String getExKey() {

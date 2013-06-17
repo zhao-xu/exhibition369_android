@@ -9,6 +9,8 @@ package com.threeH.MyExhibition.ui;
  */
 public interface ActivityInterface {
     public void findView();
+
     public void initdata();
+
     public void addAction();
 }

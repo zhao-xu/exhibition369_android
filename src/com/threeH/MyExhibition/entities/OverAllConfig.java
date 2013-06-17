@@ -6,15 +6,25 @@ import java.io.Serializable;
  * 应用启动时需要读取全局配置信息
  */
 public class OverAllConfig implements Serializable {
-    /**资源服务器地址*/
+    /**
+     * 资源服务器地址
+     */
     private String assetServer;
-    /**报名电话*/
+    /**
+     * 报名电话
+     */
     private String tel;
-    /**服务端生成token*/
+    /**
+     * 服务端生成token
+     */
     private String token;
-    /**Android应用自动更新，为空时表示不需要更新*/
+    /**
+     * Android应用自动更新，为空时表示不需要更新
+     */
     private String upgrade;
-    /**Android应用更新说明*/
+    /**
+     * Android应用更新说明
+     */
     private String upgradeNote;
 
     public String getAssetServer() {

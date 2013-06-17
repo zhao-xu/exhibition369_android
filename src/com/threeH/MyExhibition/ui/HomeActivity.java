@@ -1,6 +1,5 @@
 package com.threeH.MyExhibition.ui;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,19 +12,22 @@ import cn.mobiledaily.module.android.module.mobilepush.service.helper.OnMessageL
 import com.google.gson.Gson;
 import com.threeH.MyExhibition.R;
 import com.threeH.MyExhibition.service.ClientController;
-
+import com.threeH.MyExhibition.widget.MultiDirectionSlidingDrawer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class HomeActivity extends BaseActivity implements ActivityInterface{
+public class HomeActivity extends BaseActivity implements ActivityInterface {
     private Gson mGson = new Gson();
-    private List<HashMap<String,String>> enrollDataes = new ArrayList<HashMap<String, String>>();
-    private List<HashMap<String,String>> exhibitionDataes = new ArrayList<HashMap<String, String>>();
+    private List<HashMap<String, String>> enrollDataes = new ArrayList<HashMap<String, String>>();
+    private List<HashMap<String, String>> exhibitionDataes = new ArrayList<HashMap<String, String>>();
     private EditText mEditText;
     private Button mSearchButton;
-    private ListView mEnrollStatus,mSearchResult;
+    private Button mOpenButton, mCloseButton;
+    private ListView mEnrollStatus, mSearchResult;
     private ClientController mController;
+    private MultiDirectionSlidingDrawer mSlidingDrawer;
+
     /**
      * Called when the activity is first created.
      */
@@ -56,6 +58,24 @@ public class HomeActivity extends BaseActivity implements ActivityInterface{
         mSearchResult = (ListView)findViewById(R.id.search_result_listview);
         mSearchButton = (Button)findViewById(R.id.search_btn);
 
+        mEditText = (EditText) findViewById(R.id.titlebar_et);
+        mEnrollStatus = (ListView) findViewById(R.id.enroll_status_listview);
+        mSearchResult = (ListView) findViewById(R.id.search_result_listview);
+        mSearchButton = (Button) findViewById(R.id.search_btn);
+        mSearchButton.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                System.out.println("2133333213123131");
+                try {
+                    String str = mController.getService().OverAllData("android_phone", "4.0", "1.0", "00-00-00-00-00");
+                    System.out.print("qweyoqyeoiy====" + str);
+                    showShortText(str + "73913819");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     @Override
@@ -81,6 +101,22 @@ public class HomeActivity extends BaseActivity implements ActivityInterface{
                 client.init("test-android",new MyMessageListener());
             }
         });
+        mCloseButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mSlidingDrawer.animateClose();
+            }
+        });
+
+        mOpenButton.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if (!mSlidingDrawer.isOpened())
+                    mSlidingDrawer.animateOpen();
+            }
+        });
+
     }
 
     class MyMessageListener implements OnMessageListener{
@@ -89,5 +125,14 @@ public class HomeActivity extends BaseActivity implements ActivityInterface{
         public void onMessageReceived(String message) {
 Log.i("data",message);
         }
+
+    }
+
+    @Override
+    public void onContentChanged() {
+        super.onContentChanged();
+        mOpenButton = (Button) findViewById(R.id.button_open);
+        mCloseButton = (Button) findViewById(R.id.button_close);
+        mSlidingDrawer = (MultiDirectionSlidingDrawer) findViewById(R.id.slider_drawer);
     }
 }

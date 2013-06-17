@@ -10,14 +10,20 @@ package com.threeH.MyExhibition.common;
 public class StringPools {
     /***/
     public static final String DEVICE_ID_KEY = "device_id_key";
-    /**User初始化数据标示*/
+    /**
+     * User初始化数据标示
+     */
     public static final String USER_INFO = "user_info";
-    /** ${app_server} */
+    /**
+     * ${app_server}
+     */
     public static final String APP_SERVER = "http://180.168.35.37:8080/exhibition369";
     /***/
     public static final String PERMANENT_SETTING = "permanent_setting";
 
-    /**资源服务器标示*/
+    /**
+     * 资源服务器标示
+     */
     public static final String ASSET_SERVER = "asset_server";
 
     public static final String SERVICE_TOKEN = "serviceToken";

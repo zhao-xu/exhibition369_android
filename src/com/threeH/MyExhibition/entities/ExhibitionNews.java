@@ -6,11 +6,15 @@ import java.util.ArrayList;
 /**
  * 新闻列表
  */
-public class ExhibitionNews implements Serializable{
-    /**展会标识*/
+public class ExhibitionNews implements Serializable {
+    /**
+     * 展会标识
+     */
     private String exKey;
-    /**新闻list*/
-    private ArrayList<News> list =new ArrayList<News>();
+    /**
+     * 新闻list
+     */
+    private ArrayList<News> list = new ArrayList<News>();
 
     public String getExKey() {
         return exKey;
@@ -27,12 +31,19 @@ public class ExhibitionNews implements Serializable{
     public void setList(ArrayList<News> list) {
         this.list = list;
     }
-    class News implements Serializable{
-        /**新闻标识*/
+
+    class News implements Serializable {
+        /**
+         * 新闻标识
+         */
         private String newsKey;
-        /**新闻标题*/
+        /**
+         * 新闻标题
+         */
         private String title;
-        /**新闻发布时间*/
+        /**
+         * 新闻发布时间
+         */
         private Long createdAt;
 
         String getNewsKey() {

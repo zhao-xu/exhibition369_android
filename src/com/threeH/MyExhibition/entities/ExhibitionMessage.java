@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * Time: 下午3:01
  * To change this template use File | Settings | File Templates.
  */
-public class ExhibitionMessage implements Serializable{
+public class ExhibitionMessage implements Serializable {
     private String exKey;
     private ArrayList<ExMessage> list = new ArrayList<ExMessage>();
 
@@ -29,14 +29,23 @@ public class ExhibitionMessage implements Serializable{
     public void setList(ArrayList<ExMessage> list) {
         this.list = list;
     }
-    class ExMessage implements Serializable{
-        /**消息标识*/
+
+    class ExMessage implements Serializable {
+        /**
+         * 消息标识
+         */
         private String msgKey;
-        /**消息内容*/
+        /**
+         * 消息内容
+         */
         private String content;
-        /**消息创建时间*/
+        /**
+         * 消息创建时间
+         */
         private String createdAt;
-        /**已读状态，N 未读，Y 已读*/
+        /**
+         * 已读状态，N 未读，Y 已读
+         */
         private String read;
 
         String getMsgKey() {

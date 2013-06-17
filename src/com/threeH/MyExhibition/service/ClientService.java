@@ -11,20 +11,23 @@ public interface ClientService {
 
     /**
      * 全局数据获取
+     *
      * @return
      * @throws Exception
      */
-    public String OverAllData(String type,String osVer,String ver,String token) throws Exception;
+    public String OverAllData(String type, String osVer, String ver, String token) throws Exception;
 
     /**
      * 未报名展会列表
+     *
      * @return
      * @throws Exception
      */
-    public String UnErollExList(String token,int size,long last,String name) throws Exception;
+    public String UnErollExList(String token, int size, long last, String name) throws Exception;
 
     /**
      * 已报名展会列表
+     *
      * @return
      * @throws Exception
      */
@@ -32,6 +35,7 @@ public interface ClientService {
 
     /**
      * 新闻列表
+     *
      * @return
      * @throws Exception
      */
@@ -39,10 +43,11 @@ public interface ClientService {
 
     /**
      * 展会报名
+     *
      * @return
      * @throws Exception
      */
-    public String ExEnroll(String exKey,String token,String name,String mobile,String email) throws Exception;
+    public String ExEnroll(String exKey, String token, String name, String mobile, String email) throws Exception;
 
     /**
      * 签到
@@ -59,10 +64,11 @@ public interface ClientService {
      * @throws Exception
      */
     public String registerService(String serviceToken, String exhibitionCode, String mobilePlatform) throws Exception;
-    
+
     /**
      * 获得新闻数据
-     * @return 
+     *
+     * @return
      * @throws Exception
      */
     public String getNewsData() throws Exception;

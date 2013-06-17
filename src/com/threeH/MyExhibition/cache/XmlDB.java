@@ -3,7 +3,9 @@ package com.threeH.MyExhibition.cache;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-/** The class is used for saving simple key-value in a xml file. */
+/**
+ * The class is used for saving simple key-value in a xml file.
+ */
 public class XmlDB {
 
     private Context context;
@@ -148,15 +150,15 @@ public class XmlDB {
         }
     }
 
-	public void clear(String PrefName) {
-		SharedPreferences mSharePrefs = context.getSharedPreferences(PrefName,
-				0);
-		SharedPreferences.Editor editor;
-		if (mSharePrefs != null) {
-			editor = mSharePrefs.edit();
-			editor.clear();
-			editor.commit();
-		}
-	}
+    public void clear(String PrefName) {
+        SharedPreferences mSharePrefs = context.getSharedPreferences(PrefName,
+                0);
+        SharedPreferences.Editor editor;
+        if (mSharePrefs != null) {
+            editor = mSharePrefs.edit();
+            editor.clear();
+            editor.commit();
+        }
+    }
 
 }

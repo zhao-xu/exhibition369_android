@@ -30,7 +30,7 @@ import android.content.Intent;
 /**
  * Define various methods that should be overridden in order to style your
  * application.
- * 
+ *
  * @author Cyril Mottier
  */
 public class MyApplication extends Application {
@@ -39,13 +39,13 @@ public class MyApplication extends Application {
      * Used for receiving low memory system notification. You should definitely
      * use it in order to clear caches and not important data every time the
      * system needs memory.
-     * 
+     *
      * @author Cyril Mottier
      * @see MyApplication#registerOnLowMemoryListener(MyApplication.OnLowMemoryListener)
      * @see MyApplication#unregisterOnLowMemoryListener(MyApplication.OnLowMemoryListener)
      */
     public static interface OnLowMemoryListener {
-        
+
         /**
          * Callback to be invoked when the system needs memory.
          */
@@ -76,7 +76,7 @@ public class MyApplication extends Application {
     /**
      * Return an ExecutorService (global to the entire application) that may be
      * used by clients when running long tasks in the background.
-     * 
+     *
      * @return An ExecutorService to used when processing long running tasks
      */
     public ExecutorService getExecutor() {
@@ -88,7 +88,7 @@ public class MyApplication extends Application {
 
     /**
      * Return this application {@link ImageCache}.
-     * 
+     *
      * @return The application {@link ImageCache}
      */
     public ImageCache getImageCache() {
@@ -102,7 +102,7 @@ public class MyApplication extends Application {
      * Return the class of the home Activity. The home Activity is the main
      * entrance point of your application. This is usually where the
      * dashboard/general menu is displayed.
-     * 
+     *
      * @return The Class of the home Activity
      */
     public Class<?> getHomeActivityClass() {
@@ -112,7 +112,7 @@ public class MyApplication extends Application {
     /**
      * Each application may have an "application intent" which will be used when
      * the user clicked on the application button.
-     * 
+     *
      * @return The main application Intent (may be null if you don't want to use
      *         the main application Intent feature)
      */
@@ -122,7 +122,7 @@ public class MyApplication extends Application {
 
     /**
      * Add a new listener to registered {@link MyApplication.OnLowMemoryListener}.
-     * 
+     *
      * @param listener The listener to unregister
      * @see MyApplication.OnLowMemoryListener
      */
@@ -134,7 +134,7 @@ public class MyApplication extends Application {
 
     /**
      * Remove a previously registered listener
-     * 
+     *
      * @param listener The listener to unregister
      * @see MyApplication.OnLowMemoryListener
      */
