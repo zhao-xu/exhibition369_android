@@ -48,6 +48,7 @@ public class HomePageEnrollListAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
+
         return convertView;
     }
  

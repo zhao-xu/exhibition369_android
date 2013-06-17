@@ -2,11 +2,14 @@ package com.threeH.MyExhibition.ui;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import cn.mobiledaily.module.android.module.mobilepush.service.helper.AndroidMessageClient;
+import cn.mobiledaily.module.android.module.mobilepush.service.helper.OnMessageListener;
 import com.google.gson.Gson;
 import com.threeH.MyExhibition.R;
 import com.threeH.MyExhibition.service.ClientController;
@@ -30,8 +33,9 @@ public class HomeActivity extends BaseActivity implements ActivityInterface{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentViewWithNoTitle(R.layout.head_page);
-        findView();
         initdata();
+        findView();
+        addAction();
 //        new Thread(){
 //            @Override
 //            public void run() {
@@ -51,20 +55,7 @@ public class HomeActivity extends BaseActivity implements ActivityInterface{
         mEnrollStatus = (ListView)findViewById(R.id.enroll_status_listview);
         mSearchResult = (ListView)findViewById(R.id.search_result_listview);
         mSearchButton = (Button)findViewById(R.id.search_btn);
-        mSearchButton.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				System.out.println("21111111111132414124124");
-		        try {
-		            String str = mController.getService().OverAllData("android_phone","4.0","1.0","00-00-00-00-00");
-		            System.out.print("qweyoqyeoiy===="+str);
-		            showShortText(str+"73913819");
-		        } catch (Exception e) {
-		            e.printStackTrace();
-		        }
-			}
-		});
+
     }
 
     @Override
@@ -74,6 +65,29 @@ public class HomeActivity extends BaseActivity implements ActivityInterface{
 
     @Override
     public void addAction() {
+        mSearchButton.setOnClickListener(new OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
+                /*System.out.println("21111111111132414124124");
+                try {
+                    String str = mController.getService().UnErollExList("",-1,-1,"");
+                    System.out.print("qweyoqyeoiy===="+str);
+                    showShortText(str+"73913819");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }*/
+                AndroidMessageClient client = new AndroidMessageClient();
+                client.init("test-android",new MyMessageListener());
+            }
+        });
+    }
+
+    class MyMessageListener implements OnMessageListener{
+
+        @Override
+        public void onMessageReceived(String message) {
+Log.i("data",message);
+        }
     }
 }

@@ -1,5 +1,6 @@
 package com.threeH.MyExhibition.service;
 
+import android.util.Log;
 import com.threeH.MyExhibition.common.StringPools;
 import com.threeH.MyExhibition.tools.CustomerHttpClient;
 import org.apache.http.NameValuePair;
@@ -74,16 +75,22 @@ public class ClientServiceImplForNet implements ClientService {
     @Override
     public String UnErollExList(String token, int size, long last, String name) throws Exception {
         final String url = StringPools.APP_SERVER+ "/rest/exhibitions/find";
-        final StringBuffer str = null;
+        /*StringBuffer str = new StringBuffer(url);
 
+        str.append("?");
         str.append("token="+token+"&");
         str.append("size="+size+"&");
         str.append("last="+last+"&");
-        str.append("name="+name);
+        str.append("name="+name);*/
+        Map<String,String> params = new HashMap<String, String>();
+        params.put("token",token);
+        params.put("size",String.valueOf(size));
+        params.put("last",String.valueOf(last));
+        params.put("name",name);
 
         try {
-//            String response = CustomerHttpClient.get(url, str.toString());
-//            return response;
+            String response = CustomerHttpClient.getRequest(url, params);
+            return response;
         } catch (RuntimeException e) {
             // 请求失败或者连接失败
             System.out.println("新闻列表请求失败或者连接失败");
