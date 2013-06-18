@@ -97,8 +97,13 @@ public class HomeActivity extends BaseActivity implements ActivityInterface {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }*/
+                try{
                 AndroidMessageClient client = new AndroidMessageClient();
-                client.init("test-android",new MyMessageListener());
+                client.init("pjqandroid",new MyMessageListener());
+Log.i("data","link server");
+                }catch (Exception e){
+Log.e("error",e.getMessage());
+                }
             }
         });
         mCloseButton.setOnClickListener(new OnClickListener() {
@@ -116,16 +121,14 @@ public class HomeActivity extends BaseActivity implements ActivityInterface {
                     mSlidingDrawer.animateOpen();
             }
         });
-
     }
 
     class MyMessageListener implements OnMessageListener{
 
         @Override
         public void onMessageReceived(String message) {
-Log.i("data",message);
+Log.i("data","o ye " + message);
         }
-
     }
 
     @Override

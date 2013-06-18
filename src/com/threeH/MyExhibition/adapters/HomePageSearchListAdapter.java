@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.threeH.MyExhibition.R;
 
 import java.util.HashMap;
 import java.util.List;

@@ -17,118 +17,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b55697a5-550b-4aab-9cc6-5d025ba5d056" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/bin/classes/com/threeH/MyExhibition/ui/HomeActivity$2.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/bin/classes/com/threeH/MyExhibition/widget/MultiDirectionSlidingDrawer$DrawerToggler.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/bin/classes/com/threeH/MyExhibition/widget/MultiDirectionSlidingDrawer$OnDrawerCloseListener.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/bin/classes/com/threeH/MyExhibition/widget/MultiDirectionSlidingDrawer$OnDrawerOpenListener.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/bin/classes/com/threeH/MyExhibition/widget/MultiDirectionSlidingDrawer$OnDrawerScrollListener.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/bin/classes/com/threeH/MyExhibition/widget/MultiDirectionSlidingDrawer$SlidingHandler.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/bin/classes/com/threeH/MyExhibition/widget/MultiDirectionSlidingDrawer.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/bin/classes/com/threeH/MyExhibition/R$styleable.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/drawable-hdpi/drawer_pattern.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/drawable-hdpi/ic_refresh_droparrow.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/drawable-hdpi/sliding_drawer_handle_bottom.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/drawable-hdpi/sy01_2x.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/threeH/MyExhibition/widget/MultiDirectionSlidingDrawer.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/threeH/MyExhibition/tools/PixelDpHelper.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/threeH/MyExhibition/widget/PullToRefreshView.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/threeH/MyExhibition/tools/TimeHelper.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/values/attrs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/values/colors.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/layout/head_pen_content.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/layout/list_footer.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/layout/list_header.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/drawable/pattern1.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/layout/pen_content.xml" />
-      <change type="DELETED" beforePath="D:\MyExhibition\bin\HomeActivity.apk" afterPath="" />
-      <change type="DELETED" beforePath="D:\MyExhibition\bin\classes.dex" afterPath="" />
-      <change type="DELETED" beforePath="D:\MyExhibition\bin\classes\com\threeH\MyExhibition\widget\MyDialog$1.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\MyExhibition\bin\dexedLibs\annotations-035c4c233624b6b88619b8550c4e6068.jar" afterPath="" />
-      <change type="DELETED" beforePath="D:\MyExhibition\bin\dexedLibs\gson-2.2.2-44b3306211f415a571710eb68722e10e.jar" afterPath="" />
-      <change type="DELETED" beforePath="D:\MyExhibition\bin\dexedLibs\netty-3.6.6.Final-c3b020b2bc8ce8689acd1242b4944674.jar" afterPath="" />
-      <change type="DELETED" beforePath="D:\MyExhibition\bin\dexedLibs\pinyin4j-2.5.0-b4839ef0930182f26efc040e030ee8b2.jar" afterPath="" />
-      <change type="DELETED" beforePath="D:\MyExhibition\bin\jarlist.cache" afterPath="" />
-      <change type="DELETED" beforePath="D:\MyExhibition\bin\res\drawable-hdpi\ic_loading_40x40_01.png" afterPath="" />
-      <change type="DELETED" beforePath="D:\MyExhibition\bin\res\drawable-hdpi\ic_loading_40x40_02.png" afterPath="" />
-      <change type="DELETED" beforePath="D:\MyExhibition\bin\res\drawable-hdpi\ic_loading_40x40_03.png" afterPath="" />
-      <change type="DELETED" beforePath="D:\MyExhibition\bin\res\drawable-hdpi\ic_loading_40x40_04.png" afterPath="" />
-      <change type="DELETED" beforePath="D:\MyExhibition\bin\res\drawable-hdpi\ic_loading_40x40_05.png" afterPath="" />
-      <change type="DELETED" beforePath="D:\MyExhibition\bin\res\drawable-hdpi\ic_loading_40x40_06.png" afterPath="" />
-      <change type="DELETED" beforePath="D:\MyExhibition\bin\res\drawable-hdpi\ic_loading_40x40_07.png" afterPath="" />
-      <change type="DELETED" beforePath="D:\MyExhibition\bin\res\drawable-hdpi\ic_loading_40x40_08.png" afterPath="" />
-      <change type="DELETED" beforePath="D:\MyExhibition\bin\resources.ap_" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/threeH/MyExhibition/netty/client/ClientHandler.class" afterPath="$PROJECT_DIR$/bin/classes/com/threeH/MyExhibition/netty/client/ClientHandler.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/threeH/MyExhibition/ui/HomeActivity$1.class" afterPath="$PROJECT_DIR$/bin/classes/com/threeH/MyExhibition/ui/HomeActivity$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/threeH/MyExhibition/ui/HomeActivity.class" afterPath="$PROJECT_DIR$/bin/classes/com/threeH/MyExhibition/ui/HomeActivity.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/threeH/MyExhibition/adapters/HomePageEnrollListAdapter$ViewHolder.class" afterPath="$PROJECT_DIR$/bin/classes/com/threeH/MyExhibition/adapters/HomePageEnrollListAdapter$ViewHolder.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/threeH/MyExhibition/adapters/HomePageEnrollListAdapter.class" afterPath="$PROJECT_DIR$/bin/classes/com/threeH/MyExhibition/adapters/HomePageEnrollListAdapter.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/threeH/MyExhibition/adapters/HomePageSearchListAdapter$ViewHolder.class" afterPath="$PROJECT_DIR$/bin/classes/com/threeH/MyExhibition/adapters/HomePageSearchListAdapter$ViewHolder.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/threeH/MyExhibition/adapters/HomePageSearchListAdapter.class" afterPath="$PROJECT_DIR$/bin/classes/com/threeH/MyExhibition/adapters/HomePageSearchListAdapter.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/threeH/MyExhibition/widget/MyDialog.class" afterPath="$PROJECT_DIR$/bin/classes/com/threeH/MyExhibition/widget/MyDialog.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/threeH/MyExhibition/R$attr.class" afterPath="$PROJECT_DIR$/bin/classes/com/threeH/MyExhibition/R$attr.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/threeH/MyExhibition/R$drawable.class" afterPath="$PROJECT_DIR$/bin/classes/com/threeH/MyExhibition/R$drawable.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/threeH/MyExhibition/R$id.class" afterPath="$PROJECT_DIR$/bin/classes/com/threeH/MyExhibition/R$id.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/threeH/MyExhibition/R$layout.class" afterPath="$PROJECT_DIR$/bin/classes/com/threeH/MyExhibition/R$layout.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/threeH/MyExhibition/R$string.class" afterPath="$PROJECT_DIR$/bin/classes/com/threeH/MyExhibition/R$string.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/threeH/MyExhibition/R.class" afterPath="$PROJECT_DIR$/bin/classes/com/threeH/MyExhibition/R.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/threeH/MyExhibition/ui/ActivityInterface.java" afterPath="$PROJECT_DIR$/src/com/threeH/MyExhibition/ui/ActivityInterface.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/AndroidManifest.xml" afterPath="$PROJECT_DIR$/bin/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/threeH/MyExhibition/common/AppConfig.java" afterPath="$PROJECT_DIR$/src/com/threeH/MyExhibition/common/AppConfig.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/threeH/MyExhibition/tools/AsyncImageLoader.java" afterPath="$PROJECT_DIR$/src/com/threeH/MyExhibition/tools/AsyncImageLoader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/threeH/MyExhibition/entities/AuditingStatus.java" afterPath="$PROJECT_DIR$/src/com/threeH/MyExhibition/entities/AuditingStatus.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/threeH/MyExhibition/ui/BaseActivity.java" afterPath="$PROJECT_DIR$/src/com/threeH/MyExhibition/ui/BaseActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/threeH/MyExhibition/service/ClientContext.java" afterPath="$PROJECT_DIR$/src/com/threeH/MyExhibition/service/ClientContext.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/threeH/MyExhibition/service/ClientController.java" afterPath="$PROJECT_DIR$/src/com/threeH/MyExhibition/service/ClientController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/threeH/MyExhibition/netty/client/ClientData.java" afterPath="$PROJECT_DIR$/src/com/threeH/MyExhibition/netty/client/ClientData.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cn/mobiledaily/module/android/module/mobilepush/service/helper/AndroidMessageClient.java" afterPath="$PROJECT_DIR$/src/cn/mobiledaily/module/android/module/mobilepush/service/helper/AndroidMessageClient.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cn/mobiledaily/module/android/common/config/AppConfig.java" afterPath="$PROJECT_DIR$/src/cn/mobiledaily/module/android/common/config/AppConfig.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/threeH/MyExhibition/netty/client/ClientHandler.java" afterPath="$PROJECT_DIR$/src/com/threeH/MyExhibition/netty/client/ClientHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/threeH/MyExhibition/service/ClientService.java" afterPath="$PROJECT_DIR$/src/com/threeH/MyExhibition/service/ClientService.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/threeH/MyExhibition/service/ClientServiceImplForNet.java" afterPath="$PROJECT_DIR$/src/com/threeH/MyExhibition/service/ClientServiceImplForNet.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/threeH/MyExhibition/netty/client/ClientServiceToken.java" afterPath="$PROJECT_DIR$/src/com/threeH/MyExhibition/netty/client/ClientServiceToken.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/threeH/MyExhibition/tools/CustomerHttpClient.java" afterPath="$PROJECT_DIR$/src/com/threeH/MyExhibition/tools/CustomerHttpClient.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/threeH/MyExhibition/tools/DateFormatUtil.java" afterPath="$PROJECT_DIR$/src/com/threeH/MyExhibition/tools/DateFormatUtil.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/threeH/MyExhibition/entities/EnrollExhibition.java" afterPath="$PROJECT_DIR$/src/com/threeH/MyExhibition/entities/EnrollExhibition.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/threeH/MyExhibition/entities/Exhibition.java" afterPath="$PROJECT_DIR$/src/com/threeH/MyExhibition/entities/Exhibition.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/threeH/MyExhibition/entities/ExhibitionMessage.java" afterPath="$PROJECT_DIR$/src/com/threeH/MyExhibition/entities/ExhibitionMessage.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/threeH/MyExhibition/entities/ExhibitionNews.java" afterPath="$PROJECT_DIR$/src/com/threeH/MyExhibition/entities/ExhibitionNews.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/threeH/MyExhibition/tools/ExhibitionUtils.java" afterPath="$PROJECT_DIR$/src/com/threeH/MyExhibition/tools/ExhibitionUtils.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/threeH/MyExhibition/ui/HomeActivity.java" afterPath="$PROJECT_DIR$/src/com/threeH/MyExhibition/ui/HomeActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/threeH/MyExhibition/adapters/HomePageEnrollListAdapter.java" afterPath="$PROJECT_DIR$/src/com/threeH/MyExhibition/adapters/HomePageEnrollListAdapter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/threeH/MyExhibition/adapters/HomePageSearchListAdapter.java" afterPath="$PROJECT_DIR$/src/com/threeH/MyExhibition/adapters/HomePageSearchListAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/threeH/MyExhibition/cache/ImageCache.java" afterPath="$PROJECT_DIR$/src/com/threeH/MyExhibition/cache/ImageCache.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/threeH/MyExhibition/tools/ImageURLUtil.java" afterPath="$PROJECT_DIR$/src/com/threeH/MyExhibition/tools/ImageURLUtil.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/threeH/MyExhibition/tools/JsonUtil.java" afterPath="$PROJECT_DIR$/src/com/threeH/MyExhibition/tools/JsonUtil.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/threeH/MyExhibition/tools/ListUtil.java" afterPath="$PROJECT_DIR$/src/com/threeH/MyExhibition/tools/ListUtil.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/threeH/MyExhibition/tools/MD5.java" afterPath="$PROJECT_DIR$/src/com/threeH/MyExhibition/tools/MD5.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/threeH/MyExhibition/domain/mobile/MessageObjects.java" afterPath="$PROJECT_DIR$/src/com/threeH/MyExhibition/domain/mobile/MessageObjects.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/threeH/MyExhibition/receiver/MessageReceiver.java" afterPath="$PROJECT_DIR$/src/com/threeH/MyExhibition/receiver/MessageReceiver.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/threeH/MyExhibition/domain/mobile/MessageType.java" afterPath="$PROJECT_DIR$/src/com/threeH/MyExhibition/domain/mobile/MessageType.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/threeH/MyExhibition/tools/MobileConfig.java" afterPath="$PROJECT_DIR$/src/com/threeH/MyExhibition/tools/MobileConfig.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/threeH/MyExhibition/ui/MyApplication.java" afterPath="$PROJECT_DIR$/src/com/threeH/MyExhibition/ui/MyApplication.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/threeH/MyExhibition/widget/MultiDirectionSlidingDrawer.java" afterPath="$PROJECT_DIR$/src/com/threeH/MyExhibition/widget/MultiDirectionSlidingDrawer.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/threeH/MyExhibition/widget/MyDialog.java" afterPath="$PROJECT_DIR$/src/com/threeH/MyExhibition/widget/MyDialog.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/threeH/MyExhibition/receiver/NetworkChangeReceiver.java" afterPath="$PROJECT_DIR$/src/com/threeH/MyExhibition/receiver/NetworkChangeReceiver.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/threeH/MyExhibition/tools/NetworkHelper.java" afterPath="$PROJECT_DIR$/src/com/threeH/MyExhibition/tools/NetworkHelper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/threeH/MyExhibition/entities/OverAllConfig.java" afterPath="$PROJECT_DIR$/src/com/threeH/MyExhibition/entities/OverAllConfig.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/threeH/MyExhibition/tools/PingYinUtil.java" afterPath="$PROJECT_DIR$/src/com/threeH/MyExhibition/tools/PingYinUtil.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/threeH/MyExhibition/tools/PinyinComparator.java" afterPath="$PROJECT_DIR$/src/com/threeH/MyExhibition/tools/PinyinComparator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/threeH/MyExhibition/tools/Resources.java" afterPath="$PROJECT_DIR$/src/com/threeH/MyExhibition/tools/Resources.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/threeH/MyExhibition/service/SocketService.java" afterPath="$PROJECT_DIR$/src/com/threeH/MyExhibition/service/SocketService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/threeH/MyExhibition/common/StringPools.java" afterPath="$PROJECT_DIR$/src/com/threeH/MyExhibition/common/StringPools.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/threeH/MyExhibition/tools/TextViewLinkUtil.java" afterPath="$PROJECT_DIR$/src/com/threeH/MyExhibition/tools/TextViewLinkUtil.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/threeH/MyExhibition/entities/UnEnrollExhibition.java" afterPath="$PROJECT_DIR$/src/com/threeH/MyExhibition/entities/UnEnrollExhibition.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/threeH/MyExhibition/entities/UpgradeParam.java" afterPath="$PROJECT_DIR$/src/com/threeH/MyExhibition/entities/UpgradeParam.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/threeH/MyExhibition/cache/XmlDB.java" afterPath="$PROJECT_DIR$/src/com/threeH/MyExhibition/cache/XmlDB.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/head_page.xml" afterPath="$PROJECT_DIR$/res/layout/head_page.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/my_progress.xml" afterPath="$PROJECT_DIR$/res/layout/my_progress.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/progress.xml" afterPath="$PROJECT_DIR$/res/layout/progress.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/progress_download.xml" afterPath="$PROJECT_DIR$/res/layout/progress_download.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/drawable/refresh_loading_bg.xml" afterPath="$PROJECT_DIR$/res/drawable/refresh_loading_bg.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="MyExhibition.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="b55697a5-550b-4aab-9cc6-5d025ba5d056" time="1371468365587" ignored="false" />
+    <file path="/Dummy.txt" changelist="b55697a5-550b-4aab-9cc6-5d025ba5d056" time="1371521990734" ignored="false" />
     <file path="D:/javaworpace/exhibition369/.idea/workspace.xml" changelist="b55697a5-550b-4aab-9cc6-5d025ba5d056" time="1371287577375" ignored="false" />
-    <file path="/HomeActivity.java" changelist="b55697a5-550b-4aab-9cc6-5d025ba5d056" time="1371461701774" ignored="false" />
+    <file path="/HomeActivity.java" changelist="b55697a5-550b-4aab-9cc6-5d025ba5d056" time="1371525123910" ignored="false" />
     <file path="/ClientServiceImplForNet.java" changelist="b55697a5-550b-4aab-9cc6-5d025ba5d056" time="1371435682768" ignored="false" />
     <file path="$USER_HOME$/Desktop/intellijWorkplace/gen/com/pjq/photoshare/R.java" changelist="b55697a5-550b-4aab-9cc6-5d025ba5d056" time="1371449183872" ignored="false" />
     <file path="$USER_HOME$/Desktop/intellijWorkplace/gen/com/pjq/photoshare/Manifest.java" changelist="b55697a5-550b-4aab-9cc6-5d025ba5d056" time="1371449183872" ignored="false" />
@@ -137,7 +40,7 @@
     <file path="$USER_HOME$/Desktop/intellijWorkplace/expandListviewItem/res/values/strings.xml" changelist="b55697a5-550b-4aab-9cc6-5d025ba5d056" time="1371449185480" ignored="false" />
     <file path="$USER_HOME$/Desktop/intellijWorkplace/expandListviewItem/AndroidManifest.xml" changelist="b55697a5-550b-4aab-9cc6-5d025ba5d056" time="1371449185480" ignored="false" />
     <file path="$USER_HOME$/Desktop/intellijWorkplace/expandListviewItem/build.xml" changelist="b55697a5-550b-4aab-9cc6-5d025ba5d056" time="1371449185480" ignored="false" />
-    <file path="/fragment.java" changelist="b55697a5-550b-4aab-9cc6-5d025ba5d056" time="1371452748450" ignored="false" />
+    <file path="/fragment.java" changelist="b55697a5-550b-4aab-9cc6-5d025ba5d056" time="1371532895766" ignored="false" />
     <file path="$USER_HOME$/Desktop/intellijWorkplace/expandListviewItem/project.properties" changelist="b55697a5-550b-4aab-9cc6-5d025ba5d056" time="1371456317030" ignored="false" />
     <file path="$USER_HOME$/Desktop/intellijWorkplace/project.properties" changelist="b55697a5-550b-4aab-9cc6-5d025ba5d056" time="1371449308715" ignored="false" />
     <file path="/main.xml" changelist="b55697a5-550b-4aab-9cc6-5d025ba5d056" time="1371455806071" ignored="false" />
@@ -151,7 +54,11 @@
     <file path="/MyAdapter.java" changelist="b55697a5-550b-4aab-9cc6-5d025ba5d056" time="1371454117203" ignored="false" />
     <file path="D:/javaworpace/exhibition369/src/main/java/cn/mobiledaily/module/mobilepush/domain/android/MessageType.java" changelist="b55697a5-550b-4aab-9cc6-5d025ba5d056" time="1371460802389" ignored="false" />
     <file path="D:/javaworpace/exhibition369/pom.xml" changelist="b55697a5-550b-4aab-9cc6-5d025ba5d056" time="1371462758196" ignored="false" />
-    <file path="D:/javaworpace/exhibition369/src/main/resources/config.properties" changelist="b55697a5-550b-4aab-9cc6-5d025ba5d056" time="1371462872234" ignored="false" />
+    <file path="D:/javaworpace/exhibition369/src/main/resources/config.properties" changelist="b55697a5-550b-4aab-9cc6-5d025ba5d056" time="1371471487509" ignored="false" />
+    <file path="/config.properties" changelist="b55697a5-550b-4aab-9cc6-5d025ba5d056" time="1371470511829" ignored="false" />
+    <file path="/AndroidMessageClient.java" changelist="b55697a5-550b-4aab-9cc6-5d025ba5d056" time="1371527389941" ignored="false" />
+    <file path="/*.regexp" changelist="b55697a5-550b-4aab-9cc6-5d025ba5d056" time="1371525503050" ignored="false" />
+    <file path="/a.dummy" changelist="b55697a5-550b-4aab-9cc6-5d025ba5d056" time="1371525534633" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -171,6 +78,51 @@
     <disable_hints />
   </component>
   <component name="DebuggerManager">
+    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
+    <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true">
+      <breakpoint url="file://$PROJECT_DIR$/src/cn/mobiledaily/module/android/module/mobilepush/service/helper/AndroidMessageClient.java" line="55" class="cn.mobiledaily.module.android.module.mobilepush.service.helper.AndroidMessageClient.ChannelHandler" package="cn.mobiledaily.module.android.module.mobilepush.service.helper">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint url="file://$PROJECT_DIR$/src/cn/mobiledaily/module/android/module/mobilepush/service/helper/AndroidMessageClient.java" line="48" class="cn.mobiledaily.module.android.module.mobilepush.service.helper.AndroidMessageClient" package="cn.mobiledaily.module.android.module.mobilepush.service.helper">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint url="file://$PROJECT_DIR$/src/cn/mobiledaily/module/android/module/mobilepush/service/helper/AndroidMessageClient.java" line="81" class="cn.mobiledaily.module.android.module.mobilepush.service.helper.AndroidMessageClient.ChannelHandler" package="cn.mobiledaily.module.android.module.mobilepush.service.helper">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+    </line_breakpoints>
     <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
       <breakpoint>
         <option name="NOTIFY_CAUGHT" value="true" />
@@ -205,7 +157,6 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </breakpoint_any>
-    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -215,24 +166,39 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="AndroidMessageClient.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/cn/mobiledaily/module/android/module/mobilepush/service/helper/AndroidMessageClient.java">
+      <file leaf-file-name="HomeActivity.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/threeH/MyExhibition/ui/HomeActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="66" column="33" selection-start="3040" selection-end="3040" vertical-scroll-proportion="0.0">
-              <folding />
+            <state line="129" column="0" selection-start="4753" selection-end="4785" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="e#3377#4153#0" expanded="true" />
+                <element signature="e#4142#4143#0" expanded="true" />
+                <element signature="e#4196#4357#0" expanded="true" />
+                <element signature="e#4346#4347#0" expanded="true" />
+                <element signature="e#4400#4610#0" expanded="true" />
+                <element signature="e#4599#4600#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HomeActivity.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/threeH/MyExhibition/ui/HomeActivity.java">
+      <file leaf-file-name="AndroidMessageClient.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/cn/mobiledaily/module/android/module/mobilepush/service/helper/AndroidMessageClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="81" column="31" selection-start="3224" selection-end="3224" vertical-scroll-proportion="2.6032028">
+            <state line="45" column="36" selection-start="2143" selection-end="2143" vertical-scroll-proportion="0.62189054">
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#881#906#0" expanded="true" />
-                <element signature="e#984#1009#0" expanded="true" />
+                <element signature="e#1623#2167#0" expanded="true" />
+                <element signature="e#2156#2157#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AppConfig.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/cn/mobiledaily/module/android/common/config/AppConfig.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="6" column="61" selection-start="321" selection-end="321" vertical-scroll-proportion="0.0">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -255,13 +221,17 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/com/threeH/MyExhibition/service/ClientServiceImplForNet.java" />
         <option value="$PROJECT_DIR$/src/com/threeH/MyExhibition/adapters/HomePageEnrollListAdapter.java" />
-        <option value="$PROJECT_DIR$/src/com/threeH/MyExhibition/adapters/HomePageSearchListAdapter.java" />
         <option value="$PROJECT_DIR$/src/com/threeH/MyExhibition/AndroidMessageClient.java" />
         <option value="$PROJECT_DIR$/src/cn/mobiledaily/module/android/module/mobilepush/service/helper/AppConfig.java" />
-        <option value="$PROJECT_DIR$/src/cn/mobiledaily/module/android/module/mobilepush/service/helper/AndroidMessageClient.java" />
+        <option value="$PROJECT_DIR$/src/com/threeH/MyExhibition/service/ClientServiceImplForNet.java" />
+        <option value="$PROJECT_DIR$/src/com/threeH/MyExhibition/widget/MyDialog.java" />
+        <option value="$PROJECT_DIR$/src/com/threeH/MyExhibition/adapters/HomePageSearchListAdapter.java" />
+        <option value="$PROJECT_DIR$/src/com/threeH/MyExhibition/netty/client/ClientHandler.java" />
+        <option value="$PROJECT_DIR$/src/com/threeH/MyExhibition/widget/MultiDirectionSlidingDrawer.java" />
         <option value="$PROJECT_DIR$/src/com/threeH/MyExhibition/ui/HomeActivity.java" />
+        <option value="$PROJECT_DIR$/src/cn/mobiledaily/module/android/common/config/AppConfig.java" />
+        <option value="$PROJECT_DIR$/src/cn/mobiledaily/module/android/module/mobilepush/service/helper/AndroidMessageClient.java" />
       </list>
     </option>
   </component>
@@ -297,7 +267,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -370,23 +339,10 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MyExhibition" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MyExhibition" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="libs" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -398,11 +354,14 @@
     <property name="MemberChooser.sorted" value="false" />
     <property name="options.lastSelected" value="android.dex.compiler" />
     <property name="recentsLimit" value="5" />
-    <property name="last_opened_file_path" value="D:/javaworpace/exhibition369" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.side.proportion" value="0.2" />
+    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="6f23209a" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_AVD" value="andrid4.1" />
+    <property name="restartRequiresConfirmation" value="true" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="options.searchVisible" value="true" />
@@ -547,7 +506,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <option name="MODE" value="default_activity" />
       <option name="DEPLOY" value="true" />
-      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
+      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
       <option name="PREFERRED_AVD" value="" />
       <option name="COMMAND_LINE" value="" />
       <option name="WIPE_USER_DATA" value="false" />
@@ -577,32 +536,32 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32879046" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26916525" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.81260645" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.18739353" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32879046" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.44293016" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2969697" sideWeight="0.1584327" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2931818" sideWeight="0.8279387" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.17206132" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2969697" sideWeight="0.7308348" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32197616" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32767403" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -667,102 +626,108 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/threeH/MyExhibition/service/ClientService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="18" selection-start="289" selection-end="289" vertical-scroll-proportion="0.33333334" />
+    <entry file="file://$PROJECT_DIR$/res/drawable-hdpi/ic_loading_40x40_01.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
+    <entry file="file://$PROJECT_DIR$/res/drawable-hdpi/ic_loading_40x40_04.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/drawable-hdpi/ic_loading_40x40_06.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/drawable-hdpi/ic_refresh_droparrow.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/drawable-hdpi/sliding_drawer_handle_bottom.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/drawable-hdpi/sy01_2x.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/drawable-hdpi/ic_loading_40x40_08.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/drawable-hdpi/ic_loading_40x40_05.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://D:/android-sdk-windows/sources/android-14/android/os/Looper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="44" selection-start="540" selection-end="540" vertical-scroll-proportion="0.37188613">
+        <state line="124" column="0" selection-start="4315" selection-end="4315" vertical-scroll-proportion="0.33333334">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/threeH/MyExhibition/ui/BaseActivity.java">
+    <entry file="file://D:/android-sdk-windows/sources/android-14/android/os/Handler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="49" column="31" selection-start="1434" selection-end="1434" vertical-scroll-proportion="0.5796296">
+        <state line="109" column="43" selection-start="4372" selection-end="4372" vertical-scroll-proportion="4.8588233">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/threeH/MyExhibition/tools/CustomerHttpClient.java">
+    <entry file="file://D:/android-sdk-windows/sources/android-14/android/util/Log.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="137" column="25" selection-start="4550" selection-end="4550" vertical-scroll-proportion="0.3317757" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/threeH/MyExhibition/service/ClientServiceImplForNet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="105" column="13" selection-start="3205" selection-end="3205" vertical-scroll-proportion="0.03380783" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/threeH/MyExhibition/adapters/HomePageEnrollListAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="31" selection-start="1080" selection-end="1080" vertical-scroll-proportion="0.13043478" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/threeH/MyExhibition/adapters/HomePageSearchListAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="51" column="60" selection-start="1784" selection-end="1784" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/cn/mobiledaily/module/android/common/config/AppConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="20" selection-start="198" selection-end="198" vertical-scroll-proportion="0.20284697" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/cn/mobiledaily/module/mobilepush/domain/android/MessageObject.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="17" selection-start="158" selection-end="158" vertical-scroll-proportion="0.0">
+        <state line="158" column="0" selection-start="5440" selection-end="5440" vertical-scroll-proportion="0.33235294">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/cn/mobiledaily/module/mobilepush/domain/android/MessageType.java">
+    <entry file="file://D:/android-sdk-windows/sources/android-14/android/view/View.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="67" selection-start="144" selection-end="144" vertical-scroll-proportion="0.2366548" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/cn/mobiledaily/module/mobilepush/domain/android/TextMessage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="40" selection-start="361" selection-end="361" vertical-scroll-proportion="0.5747331">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/cn/mobiledaily/module/mobilepush/domain/android/MessageObjects.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="25" selection-start="518" selection-end="518" vertical-scroll-proportion="0.019572955">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/libs/netty-3.6.6.Final.jar!/org/jboss/netty/channel/DefaultChannelPipeline.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="11" selection-start="854" selection-end="854" vertical-scroll-proportion="0.34923664" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/cn/mobiledaily/module/android/module/mobilepush/service/helper/OnMessageListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="16" selection-start="156" selection-end="156" vertical-scroll-proportion="0.16903915">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/cn/mobiledaily/module/android/module/mobilepush/service/helper/AndroidMessageClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="66" column="33" selection-start="3040" selection-end="3040" vertical-scroll-proportion="0.0">
+        <state line="2407" column="0" selection-start="86750" selection-end="86750" vertical-scroll-proportion="0.33235294">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/threeH/MyExhibition/ui/HomeActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="81" column="31" selection-start="3224" selection-end="3224" vertical-scroll-proportion="2.6032028">
+        <state line="129" column="0" selection-start="4753" selection-end="4785" vertical-scroll-proportion="0.0">
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#881#906#0" expanded="true" />
-            <element signature="e#984#1009#0" expanded="true" />
+            <element signature="e#3377#4153#0" expanded="true" />
+            <element signature="e#4142#4143#0" expanded="true" />
+            <element signature="e#4196#4357#0" expanded="true" />
+            <element signature="e#4346#4347#0" expanded="true" />
+            <element signature="e#4400#4610#0" expanded="true" />
+            <element signature="e#4599#4600#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/libs/netty-3.6.6.Final.jar!/org/jboss/netty/bootstrap/ClientBootstrap.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="53" selection-start="528" selection-end="528" vertical-scroll-proportion="0.65267175">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cn/mobiledaily/module/android/common/config/AppConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="61" selection-start="321" selection-end="321" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cn/mobiledaily/module/android/module/mobilepush/service/helper/AndroidMessageClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="45" column="36" selection-start="2143" selection-end="2143" vertical-scroll-proportion="0.62189054">
+          <folding>
+            <element signature="e#1623#2167#0" expanded="true" />
+            <element signature="e#2156#2157#0" expanded="true" />
           </folding>
         </state>
       </provider>

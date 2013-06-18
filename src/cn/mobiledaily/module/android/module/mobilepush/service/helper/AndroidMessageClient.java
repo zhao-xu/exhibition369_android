@@ -1,5 +1,6 @@
 package cn.mobiledaily.module.android.module.mobilepush.service.helper;
 
+import android.util.Log;
 import cn.mobiledaily.module.android.common.config.AppConfig;
 import cn.mobiledaily.module.mobilepush.domain.android.MessageObject;
 import cn.mobiledaily.module.mobilepush.domain.android.MessageObjects;
@@ -25,7 +26,7 @@ public class AndroidMessageClient {
         host = AppConfig.MESSAGE_SERVER;
         port = AppConfig.MESSAGE_SERVER_PORT;
         onMessageListener = listener;
-        if ((token == null) || token.isEmpty()) {
+        if ((token == null) || token.length() == 0) {
             throw new RuntimeException("require token");
         }
         if (listener == null) {
@@ -51,6 +52,7 @@ public class AndroidMessageClient {
     class ChannelHandler extends SimpleChannelHandler {
         @Override
         public void messageReceived(ChannelHandlerContext ctx, MessageEvent e) throws Exception {
+Log.i("data", "o ye " + e.getMessage());
             Object obj = e.getMessage();
             if (obj instanceof MessageObject) {
                 MessageObject resp = null;
@@ -77,7 +79,7 @@ public class AndroidMessageClient {
 
         @Override
         public void exceptionCaught(ChannelHandlerContext ctx, ExceptionEvent e) throws Exception {
-            super.exceptionCaught(ctx, e);
+             super.exceptionCaught(ctx, e);
             ctx.getChannel().close();
         }
     }
