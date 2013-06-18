@@ -50,7 +50,7 @@ public class HomePageEnrollListAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-
+        holder.mExhibitionName.setText( data.get(position).get("exhibitionName"));
         return convertView;
     }
 

@@ -8,22 +8,21 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp">
+            android:layout_marginRight="20dp"
+            android:id="@+id/relativeLayout">
         <TextView
                 android:id="@+id/exhibition_name"
-                android:layout_width="170dp"
+                android:layout_width="180dp"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_alignParentLeft="true"
-                android:text="test1111111111111111111111111111111111"
-                android:singleLine="true"/>
-        <ImageView
-                android:id="@+id/enroll_status"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:background="@drawable/ic_loading_40x40_01"/>
+                android:textColor="@android:color/black"/>
     </RelativeLayout>
+    <ImageView
+            android:id="@+id/enroll_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/sign_unfocus"
+            android:layout_toRightOf="@+id/relativeLayout"/>
 
 </RelativeLayout>

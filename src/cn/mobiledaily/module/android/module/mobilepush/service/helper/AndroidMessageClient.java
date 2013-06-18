@@ -52,7 +52,6 @@ public class AndroidMessageClient {
     class ChannelHandler extends SimpleChannelHandler {
         @Override
         public void messageReceived(ChannelHandlerContext ctx, MessageEvent e) throws Exception {
-Log.i("data", "o ye " + e.getMessage());
             Object obj = e.getMessage();
             if (obj instanceof MessageObject) {
                 MessageObject resp = null;
