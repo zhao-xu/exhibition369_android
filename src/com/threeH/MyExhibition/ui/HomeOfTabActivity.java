@@ -58,14 +58,12 @@ public class HomeOfTabActivity extends TabActivity implements ActivityInterface{
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
                     case R.id.exhibitionlsit_radiobutton_singup:
-Log.i("data", "已报名");
                         tabhost.setCurrentTabByTag(TAB_SIGNUP);
-                        //radioGroup.setBackgroundResource(R.drawable.tag_signed);
+                        radioGroup.setBackgroundResource(R.drawable.tag_signed);
                         break;
                     case R.id.exhibitionlsit_radiobutton_no_singup:
-Log.i("data", "未报名");
                         tabhost.setCurrentTabByTag(TAB_NO_SIGNUP);
-                        //radioGroup.setBackgroundResource(R.drawable.tag_no_signup);
+                        radioGroup.setBackgroundResource(R.drawable.tag_no_signup);
                         break;
                 }
             }

@@ -12,8 +12,6 @@
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
                  layout="@layout/headpage_titlebar"/>
-
-
         <TabWidget
                 android:id="@android:id/tabs"
                 android:layout_width="fill_parent"
@@ -28,7 +26,7 @@
                  android:layout_gravity="top"
                  android:gravity="center_vertical"
                  android:orientation="horizontal"
-                 android:background="@drawable/tag_signed">
+                 android:background="@drawable/tag_no_signup">
              <RadioButton
                      android:id="@+id/exhibitionlsit_radiobutton_singup"
                      android:layout_width="wrap_content"
