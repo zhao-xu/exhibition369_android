@@ -14,10 +14,7 @@ public class StringPools {
      * User初始化数据标示
      */
     public static final String USER_INFO = "user_info";
-    /**
-     * ${app_server}
-     */
-    public static final String APP_SERVER = "http://180.168.35.37:8080/exhibition369";
+
     /***/
     public static final String PERMANENT_SETTING = "permanent_setting";
 
@@ -27,6 +24,11 @@ public class StringPools {
     public static final String ASSET_SERVER = "asset_server";
 
     public static final String SERVICE_TOKEN = "serviceToken";
+    /**全局数据储存字段*/
+    public static final String OVERALL_CONFIG = "overall_config";
+    /**手机类型*/
+    public static final String PHONE_TYPE="android_phone";
+
 
 
 }

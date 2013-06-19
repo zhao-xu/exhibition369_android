@@ -16,28 +16,34 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:visibility="gone"/>
-    <com.threeH.MyExhibition.widget.MultiDirectionSlidingDrawer
-            xmlns:mySlider="http://schemas.android.com/apk/res/com.threeH.MyExhibition"
-            android:id="@+id/slider_drawer"
-            mySlider:direction="topToBottom"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            mySlider:handle="@+id/slider_handle"
-            mySlider:content="@+id/slider_content"
-            android:layout_below="@id/title_bar">
-        <include
-                android:id="@id/slider_content"
-                layout="@layout/pen_content"/>
-        <ImageView
-                android:id="@id/slider_handle"
-                android:layout_width="wrap_content"
-                android:layout_height="40px"
-                android:src="@drawable/sliding_drawer_handle_bottom"/>
-    </com.threeH.MyExhibition.widget.MultiDirectionSlidingDrawer>
-    -->
-    <ListView
+    <!--<com.threeH.MyExhibition.widget.MultiDirectionSlidingDrawer-->
+            <!--xmlns:mySlider="http://schemas.android.com/apk/res/com.threeH.MyExhibition"-->
+            <!--android:id="@+id/slider_drawer"-->
+            <!--mySlider:direction="topToBottom"-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--mySlider:handle="@+id/slider_handle"-->
+            <!--mySlider:content="@+id/slider_content"-->
+            <!--android:layout_below="@id/title_bar">-->
+        <!--<include-->
+                <!--android:id="@id/slider_content"-->
+                <!--layout="@layout/pen_content"/>-->
+        <!--<ImageView-->
+                <!--android:id="@id/slider_handle"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="40px"-->
+                <!--android:src="@drawable/sliding_drawer_handle_bottom"/>-->
+    <!--</com.threeH.MyExhibition.widget.MultiDirectionSlidingDrawer>-->
+
+    <com.threeH.MyExhibition.widget.PullToRefreshView
             android:id="@+id/search_result_listview"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"/>
+            android:layout_height="fill_parent"
+            android:layout_marginTop="2dp"
+            android:dividerHeight="1dp"
+            android:fadingEdge="none"
+            android:fastScrollEnabled="true"
+            android:persistentDrawingCache="all"
+            android:scrollbarStyle="insideOverlay"/>
 
 </LinearLayout>

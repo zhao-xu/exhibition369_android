@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.threeH.MyExhibition.R;
 
 import java.util.HashMap;
 import java.util.List;
@@ -50,6 +51,11 @@ public class HomePageSearchListAdapter extends BaseAdapter {
             holder.mExhibitionAddress = (TextView) convertView.findViewById(R.id.exhibition_address);
             holder.mExhibitionSponsor = (TextView) convertView.findViewById(R.id.exhibition_sponsor);
             holder.mEnrollBtn = (Button) convertView.findViewById(R.id.enroll_btn);
+
+            holder.mExhibitionTheme.setText(data.get(position).get("name"));
+            holder.mExhibitionSponsor.setText(data.get(position).get("the_me"));
+            holder.mExhibitionAddress.setText(data.get(position).get("address"));
+            holder.mExhibitionDate.setText(data.get(position).get("date"));
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
