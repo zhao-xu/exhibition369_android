@@ -2,6 +2,7 @@ package com.threeH.MyExhibition.ui;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -28,6 +29,7 @@ public class HomeActivity extends BaseActivity implements ActivityInterface {
     private ClientController mController;
     private MultiDirectionSlidingDrawer mSlidingDrawer;
     private HomePageEnrollListAdapter adapter;
+    private Button button;
 
     private ListView exhibitionListView;
     /**
@@ -45,7 +47,7 @@ public class HomeActivity extends BaseActivity implements ActivityInterface {
     @Override
     public void findView() {
         exhibitionListView = (ListView) this.findViewById(R.id.home_listview);
-
+        button = (Button) this.findViewById(R.id.search_btn);
     }
 
     @Override
@@ -100,6 +102,12 @@ Log.e("error",e.getMessage());
         });*/
 
         exhibitionListView.setAdapter(adapter);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                v.setBackgroundResource(R.drawable.search_focus);
+            }
+        });
     }
 
     class MyMessageListener implements OnMessageListener{
