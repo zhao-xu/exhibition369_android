@@ -3,7 +3,8 @@ package com.threeH.MyExhibition.service;
 import android.app.IntentService;
 import android.content.Intent;
 import android.os.IBinder;
-import com.threeH.MyExhibition.common.AppConfig;
+import com.threeH.MyExhibition.common.StringPools;
+import com.threeH.MyExhibition.common.UrlPools;
 import com.threeH.MyExhibition.domain.mobile.MessageObjects;
 import com.threeH.MyExhibition.netty.client.MyClient;
 import com.threeH.MyExhibition.tools.MobileConfig;
@@ -27,8 +28,8 @@ public class SocketService extends IntentService {
         if (!Resources.isSocketLinked) {
             MyClient client = new MyClient(getApplicationContext());
             MobileConfig mMobileConfig = MobileConfig.getMobileConfig(this);
-            client.send(AppConfig.HOST, AppConfig.MESSAGE_PORT,
-                    MessageObjects.reqToken(AppConfig.APP_CODE, mMobileConfig.getLocalMacAddress()));
+            client.send(UrlPools.HOST, UrlPools.MESSAGE_PORT,
+                    MessageObjects.reqToken(UrlPools.APP_CODE, mMobileConfig.getLocalMacAddress()));
         }
     }
 

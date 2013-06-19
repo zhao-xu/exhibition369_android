@@ -6,7 +6,10 @@ import android.os.Bundle;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.Toast;
+import com.google.gson.Gson;
 import com.threeH.MyExhibition.cache.XmlDB;
+import com.threeH.MyExhibition.common.StringPools;
+import com.threeH.MyExhibition.entities.OverAllConfig;
 import com.threeH.MyExhibition.widget.MyDialog;
 
 /**
@@ -17,11 +20,16 @@ import com.threeH.MyExhibition.widget.MyDialog;
  * To change this template use File | Settings | File Templates.
  */
 public class BaseActivity extends Activity {
+    protected Gson mGson = new Gson();
     protected MyApplication context;
     protected Resources resources;
     protected XmlDB xmlDB;
     public MyDialog mProDialog;
     public ImageView mAnimView;
+    public OverAllConfig mOverAllConfig;
+    public String token;
+    public String tel_nummber;
+    public String assetServer;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,6 +40,13 @@ public class BaseActivity extends Activity {
         xmlDB = XmlDB.getInstance(this);
         mProDialog = new MyDialog(this, false);
         mProDialog.setCanceledOnTouchOutside(false);
+        if(null!=mGson.fromJson(xmlDB.getKeyStringValue(StringPools.OVERALL_CONFIG,""),OverAllConfig.class)){
+            mOverAllConfig = mGson.fromJson(xmlDB.getKeyStringValue(StringPools.OVERALL_CONFIG,""),OverAllConfig.class);
+            tel_nummber = mOverAllConfig.getTel();
+            token = mOverAllConfig.getToken();
+            assetServer = mOverAllConfig.getAssetServer();
+        }
+
     }
 
     public void setContentViewWithNoTitle(int contentresid) {

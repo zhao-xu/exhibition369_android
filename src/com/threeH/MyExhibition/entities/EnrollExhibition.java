@@ -18,7 +18,7 @@ public class EnrollExhibition implements Serializable {
         this.list = list;
     }
 
-    class EnrollStatus implements Serializable {
+    public class EnrollStatus implements Serializable {
         /**
          * 展会标识
          */

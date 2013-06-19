@@ -2,6 +2,7 @@ package com.threeH.MyExhibition.service;
 
 import android.util.Log;
 import com.threeH.MyExhibition.common.StringPools;
+import com.threeH.MyExhibition.common.UrlPools;
 import com.threeH.MyExhibition.tools.CustomerHttpClient;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -46,23 +47,18 @@ public class ClientServiceImplForNet implements ClientService {
      */
     @Override
     public String OverAllData(String type, String osVer, String ver, String token) throws Exception {
-        final String url = StringPools.APP_SERVER + "/rest/configurations/get";
-
+        final String url = UrlPools.APP_SERVER + "/rest/configurations/get";
         Map<String, String> map = new HashMap<String, String>();
         map.put("type", type);
         map.put("osVer", osVer);
         map.put("ver", ver);
         map.put("token", token);
         try {
-            System.out.println("1212121212====" + url);
-//            String response = CustomerHttpClient.get(url, map);
-            String res01 = CustomerHttpClient.getRequest(url, map);
-            System.out.print("11312312313123" + res01);
-            return res01;
-//            return response;
+            String respones = CustomerHttpClient.getRequest(url, map);
+            return respones;
         } catch (RuntimeException e) {
             // 请求失败或者连接失败
-            System.out.println("新闻列表请求失败或者连接失败");
+            e.getMessage();
         } catch (Exception e) {
         }
         return "";
@@ -78,26 +74,34 @@ public class ClientServiceImplForNet implements ClientService {
      */
     @Override
     public String UnErollExList(String token, int size, long last, String name) throws Exception {
-        final String url = StringPools.APP_SERVER+ "/rest/exhibitions/find";
-        /*StringBuffer str = new StringBuffer(url);
+        /*final String url = StringPools.APP_SERVER+ "/rest/exhibitions/find";
+        *//*StringBuffer str = new StringBuffer(url);
 
         str.append("?");
         str.append("token="+token+"&");
         str.append("size="+size+"&");
         str.append("last="+last+"&");
-        str.append("name="+name);*/
+        str.append("name="+name);*//*
         Map<String,String> params = new HashMap<String, String>();
         params.put("token",token);
         params.put("size",String.valueOf(size));
         params.put("last",String.valueOf(last));
-        params.put("name",name);
+        params.put("name",name);*/
+
+
+        final String url = UrlPools.APP_SERVER + "/rest/exhibitions/find";
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("type", token);
+        map.put("size", size+"");
+        map.put("last", last+"");
+        map.put("name", name);
 
         try {
-            String response = CustomerHttpClient.getRequest(url, params);
+            String response = CustomerHttpClient.getRequest(url,map);
             return response;
         } catch (RuntimeException e) {
             // 请求失败或者连接失败
-            System.out.println("新闻列表请求失败或者连接失败");
+            e.getMessage();
         } catch (Exception e) {
         }
         return "";
@@ -110,14 +114,15 @@ public class ClientServiceImplForNet implements ClientService {
      */
     @Override
     public String ErollExList(String token) throws Exception {
-        final String url = StringPools.APP_SERVER + "/rest/exhibitions/find_applied";
-
+        final String url = UrlPools.APP_SERVER + "/rest/exhibitions/find_applied";
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("type", token);
         try {
-//            String response = CustomerHttpClient.get(url,"token="+token);
-//            return response;
+            String response = CustomerHttpClient.getRequest(url,map);
+            return response;
         } catch (RuntimeException e) {
             // 请求失败或者连接失败
-            System.out.println("新闻列表请求失败或者连接失败");
+            e.getMessage();
         } catch (Exception e) {
         }
         return "";
@@ -130,7 +135,7 @@ public class ClientServiceImplForNet implements ClientService {
      */
     @Override
     public String ExNewsList(String exKey) throws Exception {
-        final String url = StringPools.APP_SERVER + "/rest/news/find";
+        final String url = UrlPools.APP_SERVER + "/rest/news/find";
 
         try {
 //            String response = CustomerHttpClient.get(url,"token="+exKey);
