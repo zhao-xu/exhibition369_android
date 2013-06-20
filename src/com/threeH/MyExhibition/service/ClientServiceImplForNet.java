@@ -136,10 +136,12 @@ public class ClientServiceImplForNet implements ClientService {
     @Override
     public String ExNewsList(String exKey) throws Exception {
         final String url = UrlPools.APP_SERVER + "/rest/news/find";
+        Map<String,String> params = new HashMap<String, String>();
+        params.put("exKey",exKey);
 
         try {
-//            String response = CustomerHttpClient.get(url,"token="+exKey);
-//            return response;
+            String response = CustomerHttpClient.getRequest(url,params);
+            return response;
         } catch (RuntimeException e) {
             // 请求失败或者连接失败
             System.out.println("新闻列表请求失败或者连接失败");

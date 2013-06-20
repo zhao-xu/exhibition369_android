@@ -15,10 +15,9 @@ import com.threeH.MyExhibition.R;
  * Time: 上午10:38
  * To change this template use File | Settings | File Templates.
  */
-public class ExhibitionActivity extends TabActivity {
+public class ExhibitionActivity extends TabActivity implements ActivityInterface{
     private static final String NEWS_TAB = "news";
     private static final String SCHEDULE_TAB = "schedule";
-
     private static final String SUMMARY_TAB = "summary";
     private static final String MESSAGE_TAB = "message";
     private static final String TWODCODE_TAB = "2dcode";
@@ -26,7 +25,8 @@ public class ExhibitionActivity extends TabActivity {
     private TextView titleTV;
     private SharedPreferences pres;
     private final static int RESULT_CODE = 1;
-
+    private String exKey;
+    private RadioGroup radiogroup;
     //消息，二维码
 
     @Override
@@ -36,11 +36,27 @@ public class ExhibitionActivity extends TabActivity {
         requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         setContentView(R.layout.exhibition_tab_page);
 
-        tabhost = this.getTabHost();
+        initdata();
+        findView();
+        addAction();
+    }
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+    }
+
+    @Override
+    public void findView() {
+        radiogroup = (RadioGroup) this.findViewById(R.id.rg_tabs_btns);
+    }
+
+    @Override
+    public void initdata() {
+        tabhost  = this.getTabHost();
+        exKey = getIntent().getStringExtra("exKey");
         TabHost.TabSpec newSpec = tabhost.newTabSpec(NEWS_TAB).setIndicator(NEWS_TAB)
-                .setContent(new Intent(this, NewsPageActivity.class));
+                .setContent(new Intent(this, NewsPageActivity.class).putExtra("exKey",exKey));
         TabHost.TabSpec showSpec = tabhost.newTabSpec(SUMMARY_TAB).setIndicator(SUMMARY_TAB)
-                .setContent(new Intent(this, SummaryPageActivity.class));
+                .setContent(new Intent (this, SummaryPageActivity.class));
         TabHost.TabSpec homeSpec = tabhost.newTabSpec(SCHEDULE_TAB)
                 .setIndicator(SCHEDULE_TAB)
                 .setContent(new Intent(this, ScheduleActivity.class));
@@ -54,10 +70,10 @@ public class ExhibitionActivity extends TabActivity {
         tabhost.addTab(homeSpec);
         tabhost.addTab(memberSpec);
         tabhost.addTab(moreSpec);
+    }
 
-        RadioGroup radiogroup = (RadioGroup) this
-                .findViewById(R.id.rg_tabs_btns);
-
+    @Override
+    public void addAction() {
         radiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 // TODO Auto-generated method stub
@@ -66,19 +82,15 @@ public class ExhibitionActivity extends TabActivity {
                         tabhost.setCurrentTabByTag(NEWS_TAB);
                         break;
                     case R.id.rb_show:
-
                         tabhost.setCurrentTabByTag(SUMMARY_TAB);
                         break;
                     case R.id.rb_store:
-
                         tabhost.setCurrentTabByTag(SCHEDULE_TAB);
                         break;
                     case R.id.rb_member:
-
                         tabhost.setCurrentTabByTag(MESSAGE_TAB);
                         break;
                     case R.id.rb_more:
-
                         tabhost.setCurrentTabByTag(TWODCODE_TAB);
                         break;
                     default:
@@ -86,11 +98,5 @@ public class ExhibitionActivity extends TabActivity {
                 }
             }
         });
-
-    }
-
-
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
     }
 }

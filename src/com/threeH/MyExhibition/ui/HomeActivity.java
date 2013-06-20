@@ -175,7 +175,6 @@ Log.i("data","o ye " + message);
         super.onContentChanged();
         mOpenButton = (Button) findViewById(R.id.button_open);
         mCloseButton = (Button) findViewById(R.id.button_close);
-<<<<<<< HEAD
         mSlidingDrawer = (MultiDirectionSlidingDrawer) findViewById(R.id.slider_drawer);
     }*/
 //        mSlidingDrawer = (MultiDirectionSlidingDrawer) findViewById(R.id.slider_drawer);

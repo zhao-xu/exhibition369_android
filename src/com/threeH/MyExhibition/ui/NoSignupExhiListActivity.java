@@ -1,7 +1,11 @@
 package com.threeH.MyExhibition.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.ViewStub;
 import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import com.google.gson.Gson;
 import com.threeH.MyExhibition.R;
@@ -21,10 +25,11 @@ import java.util.List;
  * Time: 下午2:29
  * To change this template use File | Settings | File Templates.
  */
-public class NoSignupExhiListActivity extends BaseActivity implements ActivityInterface {
+public class NoSignupExhiListActivity extends BaseActivity implements ActivityInterface,AdapterView.OnItemClickListener {
     private ListView listView;
     private ClientController mController;
     private HomePageEnrollListAdapter adapter;
+    private UnEnrollExhibition allExhibitionData;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +50,7 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
         mController = ClientController.getController(this);
         try {
             String str = mController.getService().UnErollExList("",-1,-1,"");
-            UnEnrollExhibition allExhibitionData = new Gson().fromJson(str,UnEnrollExhibition.class);
+            allExhibitionData = new Gson().fromJson(str,UnEnrollExhibition.class);
             List<HashMap<String,String>> data = new ArrayList<HashMap<String, String>>();
             for(Exhibition exhibition : allExhibitionData.getList()){
                 HashMap<String,String> map = new HashMap<String, String>();
@@ -61,5 +66,13 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
     @Override
     public void addAction() {
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(this);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent intent = new Intent(this,ExhibitionActivity.class);
+        intent.putExtra("exKey",allExhibitionData.getList().get(position).getExKey());
+        startActivity(intent);
     }
 }

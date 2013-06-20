@@ -32,7 +32,7 @@ public class ExhibitionNews implements Serializable {
         this.list = list;
     }
 
-    class News implements Serializable {
+    public class News implements Serializable {
         /**
          * 新闻标识
          */
@@ -46,27 +46,27 @@ public class ExhibitionNews implements Serializable {
          */
         private Long createdAt;
 
-        String getNewsKey() {
+        public String getNewsKey() {
             return newsKey;
         }
 
-        void setNewsKey(String newsKey) {
+        public void setNewsKey(String newsKey) {
             this.newsKey = newsKey;
         }
 
-        String getTitle() {
+        public String getTitle() {
             return title;
         }
 
-        void setTitle(String title) {
+        public void setTitle(String title) {
             this.title = title;
         }
 
-        Long getCreatedAt() {
+        public Long getCreatedAt() {
             return createdAt;
         }
 
-        void setCreatedAt(Long createdAt) {
+        public void setCreatedAt(Long createdAt) {
             this.createdAt = createdAt;
         }
     }
