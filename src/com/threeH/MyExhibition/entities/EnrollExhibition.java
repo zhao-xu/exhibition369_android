@@ -33,7 +33,7 @@ public class EnrollExhibition implements Serializable {
          */
         private String status;
 
-        String getExKey() {
+        public String getExKey() {
             return exKey;
         }
 
@@ -41,7 +41,7 @@ public class EnrollExhibition implements Serializable {
             this.exKey = exKey;
         }
 
-        String getName() {
+        public String getName() {
             return name;
         }
 
@@ -49,7 +49,7 @@ public class EnrollExhibition implements Serializable {
             this.name = name;
         }
 
-        String getStatus() {
+        public String getStatus() {
             return status;
         }
 
