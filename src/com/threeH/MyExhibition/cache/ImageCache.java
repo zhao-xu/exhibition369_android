@@ -52,7 +52,6 @@ public class ImageCache implements MyApplication.OnLowMemoryListener {
         if (bitmap == null) {
             mSoftCache.remove(url);
         }
-
         return bitmap;
     }
 

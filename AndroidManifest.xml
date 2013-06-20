@@ -22,7 +22,7 @@
         <activity android:name=".ui.NewsPageActivity"/>
         <activity android:name=".ui.MessageActivity"/>
         <activity android:name=".ui.ScheduleActivity"/>
-        <activity android:name=".ui.TwoDCodeActivity"/>
+        <activity android:name=".ui.QrDCodeActivity"/>
         <activity android:name=".ui.SummaryPageActivity"/>
         <activity android:name=".ui.ShowHtmlActivity"/>
         <activity android:name=".ui.SignupActivity"/>

@@ -33,9 +33,9 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+        //requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.exhibition_tab_page);
-
         initdata();
         findView();
         addAction();
@@ -66,7 +66,7 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
                 .setIndicator(MESSAGE_TAB)
                 .setContent(new Intent(this, MessageActivity.class));
         TabHost.TabSpec moreSpec = tabhost.newTabSpec(TWODCODE_TAB).setIndicator(TWODCODE_TAB)
-                .setContent(new Intent(this, TwoDCodeActivity.class));
+                .setContent(new Intent(this, QrDCodeActivity.class));
         tabhost.addTab(newSpec);
         tabhost.addTab(showSpec);
         tabhost.addTab(homeSpec);

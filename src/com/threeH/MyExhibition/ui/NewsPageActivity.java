@@ -38,7 +38,7 @@ public class NewsPageActivity extends Activity  implements ActivityInterface,Ada
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.unsingup_exhibitionlist);
+        setContentView(R.layout.newslist);
         initdata();
         findView();
         addAction();
@@ -46,7 +46,7 @@ public class NewsPageActivity extends Activity  implements ActivityInterface,Ada
 
     @Override
     public void findView() {
-        listView = (ListView) this.findViewById(R.id.unsingup_exhibition_listview);
+        listView = (ListView) this.findViewById(R.id.newslist_listview);
     }
 
     @Override

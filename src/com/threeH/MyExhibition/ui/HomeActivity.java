@@ -112,7 +112,6 @@ public class HomeActivity extends BaseActivity implements ActivityInterface,
             public void onClick(View v) {
                 System.out.println("21111111111132414124124");
 
-<<<<<<< HEAD
                 *//*try{
                 AndroidMessageClient client = new AndroidMessageClient();
                 client.init("pjqandroid",new MyMessageListener());
