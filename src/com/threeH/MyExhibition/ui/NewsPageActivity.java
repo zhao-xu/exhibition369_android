@@ -1,6 +1,7 @@
 package com.threeH.MyExhibition.ui;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -76,10 +77,22 @@ public class NewsPageActivity extends Activity  implements ActivityInterface,Ada
     @Override
     public void addAction() {
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(this);
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent intent = new Intent(this,ShowHtmlActivity.class);
+        intent.putExtra("url",makeURL(exKey,newsData.getList().get(position).getNewsKey()));
+        startActivity(intent);
+    }
 
+    public String makeURL(String exKey,String newsKey){
+        StringBuilder builder = new StringBuilder("http://180.168.35.37:8080/e369_asset/");
+        builder.append(exKey);
+        builder.append("/news/");
+        builder.append(newsKey);
+        builder.append(".html");
+        return builder.toString();
     }
 }

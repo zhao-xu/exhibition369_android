@@ -24,6 +24,8 @@
         <activity android:name=".ui.ScheduleActivity"/>
         <activity android:name=".ui.TwoDCodeActivity"/>
         <activity android:name=".ui.SummaryPageActivity"/>
+        <activity android:name=".ui.ShowHtmlActivity"/>
+        <activity android:name=".ui.SignupActivity"/>
     </application>
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"></uses-permission>

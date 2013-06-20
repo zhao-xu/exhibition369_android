@@ -56,10 +56,12 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
         TabHost.TabSpec newSpec = tabhost.newTabSpec(NEWS_TAB).setIndicator(NEWS_TAB)
                 .setContent(new Intent(this, NewsPageActivity.class).putExtra("exKey",exKey));
         TabHost.TabSpec showSpec = tabhost.newTabSpec(SUMMARY_TAB).setIndicator(SUMMARY_TAB)
-                .setContent(new Intent (this, SummaryPageActivity.class));
+                .setContent(new Intent (this, ShowHtmlActivity.class)
+                        .putExtra("url","http://180.168.35.37:8080/e369_asset/"+ exKey + "/brief.html"));
         TabHost.TabSpec homeSpec = tabhost.newTabSpec(SCHEDULE_TAB)
                 .setIndicator(SCHEDULE_TAB)
-                .setContent(new Intent(this, ScheduleActivity.class));
+                .setContent(new Intent(this, ShowHtmlActivity.class)
+                        .putExtra("url","http://180.168.35.37:8080/e369_asset/"+ exKey + "/schedule.html"));
         TabHost.TabSpec memberSpec = tabhost.newTabSpec(MESSAGE_TAB)
                 .setIndicator(MESSAGE_TAB)
                 .setContent(new Intent(this, MessageActivity.class));
