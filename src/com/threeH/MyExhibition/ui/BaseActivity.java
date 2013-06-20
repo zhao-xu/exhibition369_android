@@ -10,6 +10,7 @@ import com.google.gson.Gson;
 import com.threeH.MyExhibition.cache.XmlDB;
 import com.threeH.MyExhibition.common.StringPools;
 import com.threeH.MyExhibition.entities.OverAllConfig;
+import com.threeH.MyExhibition.service.ClientController;
 import com.threeH.MyExhibition.widget.MyDialog;
 
 /**
@@ -30,6 +31,7 @@ public class BaseActivity extends Activity {
     public String token;
     public String tel_nummber;
     public String assetServer;
+    public ClientController mController;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,7 +48,7 @@ public class BaseActivity extends Activity {
             token = mOverAllConfig.getToken();
             assetServer = mOverAllConfig.getAssetServer();
         }
-
+        mController = ClientController.getController(this);
     }
 
     public void setContentViewWithNoTitle(int contentresid) {
