@@ -50,6 +50,14 @@ public interface ClientService {
     public String ExEnroll(String exKey, String token, String name, String mobile, String email) throws Exception;
 
     /**
+     * 展会消息
+     *
+     * @return
+     * @throws Exception
+     */
+    public String ExMessage(String exKey, String token) throws Exception;
+
+    /**
      * 签到
      *
      * @throws Exception
