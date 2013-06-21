@@ -191,7 +191,7 @@ Log.i("data","o ye " + message);
     private void getNetData(){
         try {
             final String mEnrollJson = mController.getService().ErollExList(token);
-            mEnExhibitions = mGson.fromJson(mEnrollJson,EnrollExhibition.class).getList();
+            //mEnExhibitions = mGson.fromJson(mEnrollJson,EnrollExhibition.class).getList();
 
             mSearchAdapter = new HomePageSearchListAdapter(context,exhibitionDataes);
         } catch (Exception e) {

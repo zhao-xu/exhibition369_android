@@ -5,7 +5,6 @@ import android.widget.ListView;
 import com.threeH.MyExhibition.R;
 import com.threeH.MyExhibition.adapters.MessageListAdapter;
 import com.threeH.MyExhibition.entities.ExhibitionMessage;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,13 +36,12 @@ public class MessageActivity extends BaseActivity implements ActivityInterface{
 
     @Override
     public void initdata() {
-
     }
 
     @Override
     public void addAction() {
         try {
-            String mJsonData = mController.getService().ExMessage("ccbn",token);
+            String mJsonData = mController.getService().ExMessage("1103","pjqAndroid");
             ExhibitionMessage mMessage = mGson.fromJson(mJsonData,ExhibitionMessage.class);
             for (ExhibitionMessage.ExMessage exMessage : mMessage.getList()){
                 HashMap<String,String> map = new HashMap<String, String>();

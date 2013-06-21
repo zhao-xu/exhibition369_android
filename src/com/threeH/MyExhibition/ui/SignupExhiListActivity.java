@@ -1,11 +1,14 @@
 package com.threeH.MyExhibition.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import com.threeH.MyExhibition.R;
 import com.threeH.MyExhibition.adapters.SignExhiListAdapter;
 import com.threeH.MyExhibition.entities.EnrollExhibition;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,17 +20,18 @@ import java.util.List;
  * Time: 下午2:41
  * To change this template use File | Settings | File Templates.
  */
-public class SignupExhiListActivity extends BaseActivity implements ActivityInterface {
+public class SignupExhiListActivity extends BaseActivity implements ActivityInterface,AdapterView.OnItemClickListener {
     private ListView mListView;
     private List<HashMap<String,String>> mdataes = new ArrayList<HashMap<String,String>>();
     private SignExhiListAdapter mSignExhiListAdapter;
+    private EnrollExhibition.EnrollStatus[] enrollStatuses;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentViewWithNoTitle(R.layout.signup_exhibition_page);
+        initdata();
         findView();
         addAction();
-        mSignExhiListAdapter = new SignExhiListAdapter(context,mdataes);
-        mListView.setAdapter(mSignExhiListAdapter);
+
     }
 
     @Override
@@ -37,15 +41,10 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
 
     @Override
     public void initdata() {
-
-    }
-
-    @Override
-    public void addAction() {
         try {
-            String jsonData = mController.getService().ErollExList(token);
-            EnrollExhibition mEnrollExhibition = mGson.fromJson(jsonData, EnrollExhibition.class);
-            for(EnrollExhibition.EnrollStatus mEnrollStatus : mEnrollExhibition.getList()){
+            String jsonData = mController.getService().ErollExList("pjqAndroid");
+            enrollStatuses =  mGson.fromJson(jsonData, EnrollExhibition.EnrollStatus[].class);
+            for(EnrollExhibition.EnrollStatus mEnrollStatus : enrollStatuses){
                 HashMap<String,String> map =new HashMap<String,String>();
                 map.put("icon",mEnrollStatus.getExKey());
                 map.put("name",mEnrollStatus.getName());
@@ -53,7 +52,21 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
                 mdataes.add(map);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e("data",e.getMessage());
         }
+        mSignExhiListAdapter = new SignExhiListAdapter(context,mdataes);
+    }
+
+    @Override
+    public void addAction() {
+        mListView.setAdapter(mSignExhiListAdapter);
+        mListView.setOnItemClickListener(this);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent intent = new Intent(this,ExhibitionActivity.class);
+        intent.putExtra("exKey",enrollStatuses[position].getExKey());
+        startActivity(intent);
     }
 }

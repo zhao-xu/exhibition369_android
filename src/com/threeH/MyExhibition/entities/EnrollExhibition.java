@@ -8,7 +8,15 @@ import java.util.ArrayList;
  */
 public class EnrollExhibition implements Serializable {
 
-    private ArrayList<EnrollStatus> list = new ArrayList<EnrollStatus>();
+    private EnrollStatus[] enrollStatuses;
+    public EnrollStatus[] getEnrollStatuses() {
+        return enrollStatuses;
+    }
+
+    public void setEnrollStatuses(EnrollStatus[] enrollStatuses) {
+        this.enrollStatuses = enrollStatuses;
+    }
+    /*private ArrayList<EnrollStatus> list = new ArrayList<EnrollStatus>();
 
     public ArrayList<EnrollStatus> getList() {
         return list;
@@ -16,7 +24,7 @@ public class EnrollExhibition implements Serializable {
 
     public void setList(ArrayList<EnrollStatus> list) {
         this.list = list;
-    }
+    }*/
 
     public class EnrollStatus implements Serializable {
         /**

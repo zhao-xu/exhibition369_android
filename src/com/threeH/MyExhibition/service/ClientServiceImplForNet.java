@@ -116,7 +116,7 @@ public class ClientServiceImplForNet implements ClientService {
     public String ErollExList(String token) throws Exception {
         final String url = UrlPools.APP_SERVER + "/rest/exhibitions/find_applied";
         Map<String, String> map = new HashMap<String, String>();
-        map.put("type", token);
+        map.put("token", token);
         try {
             String response = CustomerHttpClient.getRequest(url,map);
             return response;

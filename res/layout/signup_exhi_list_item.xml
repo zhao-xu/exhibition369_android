@@ -17,10 +17,12 @@
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
                 android:textStyle="bold"
+                android:textColor="@android:color/black"
                 />
     </LinearLayout>
     <include
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             layout="@layout/head_page_search_item"/>
+
 </LinearLayout>
