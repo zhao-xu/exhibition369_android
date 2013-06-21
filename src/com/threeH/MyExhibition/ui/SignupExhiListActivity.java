@@ -35,11 +35,6 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
     }
 
     @Override
-    public void findView() {
-        mListView = (ListView)findViewById(R.id.signup_exhi_listview);
-    }
-
-    @Override
     public void initdata() {
         try {
             String jsonData = mController.getService().ErollExList("pjqAndroid");
@@ -57,6 +52,10 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
         mSignExhiListAdapter = new SignExhiListAdapter(context,mdataes);
     }
 
+    @Override
+    public void findView() {
+        mListView = (ListView)findViewById(R.id.signup_exhi_listview);
+    }
     @Override
     public void addAction() {
         mListView.setAdapter(mSignExhiListAdapter);

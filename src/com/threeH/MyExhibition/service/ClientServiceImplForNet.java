@@ -74,24 +74,10 @@ public class ClientServiceImplForNet implements ClientService {
      */
     @Override
     public String UnErollExList(String token, int size, long last, String name) throws Exception {
-        /*final String url = StringPools.APP_SERVER+ "/rest/exhibitions/find";
-        *//*StringBuffer str = new StringBuffer(url);
-
-        str.append("?");
-        str.append("token="+token+"&");
-        str.append("size="+size+"&");
-        str.append("last="+last+"&");
-        str.append("name="+name);*//*
-        Map<String,String> params = new HashMap<String, String>();
-        params.put("token",token);
-        params.put("size",String.valueOf(size));
-        params.put("last",String.valueOf(last));
-        params.put("name",name);*/
-
 
         final String url = UrlPools.APP_SERVER + "/rest/exhibitions/find";
         Map<String, String> map = new HashMap<String, String>();
-        map.put("type", token);
+        map.put("token", token);
         map.put("size", size+"");
         map.put("last", last+"");
         map.put("name", name);

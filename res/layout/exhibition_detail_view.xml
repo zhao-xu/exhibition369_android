@@ -3,7 +3,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="wrap_content"
-              android:layout_height="wrap_content">
+              android:layout_height="wrap_content"
+              android:id="@+id/exhibition_detail_view">
     <TextView
             android:id="@+id/exhibition_theme"
             android:layout_width="wrap_content"
@@ -16,18 +17,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="222222222222"
-            android:singleLine="true"/>
+            android:singleLine="true"
+            android:textColor="@android:color/black"/>
     <TextView
             android:id="@+id/exhibition_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="3333333333"
-            android:singleLine="true"/>
+            android:singleLine="true"
+            android:textColor="@android:color/black"/>
     <TextView
             android:id="@+id/exhibition_sponsor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="44444444444444444444"
-            android:singleLine="true"/>
+            android:singleLine="true"
+            android:textColor="@android:color/black"/>
 
 </LinearLayout>

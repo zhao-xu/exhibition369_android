@@ -15,6 +15,7 @@ import com.threeH.MyExhibition.entities.ExhibitionNews;
 import com.threeH.MyExhibition.entities.UnEnrollExhibition;
 import com.threeH.MyExhibition.listener.TelephoneClickListener;
 import com.threeH.MyExhibition.service.ClientController;
+import com.threeH.MyExhibition.tools.Tool;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -85,16 +86,9 @@ public class NewsPageActivity extends Activity  implements ActivityInterface,Ada
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(this,ShowHtmlActivity.class);
-        intent.putExtra("url",makeURL(exKey,newsData.getList().get(position).getNewsKey()));
+        intent.putExtra("url", Tool.makeNewsURL(exKey,newsData.getList().get(position).getNewsKey()));
         startActivity(intent);
     }
 
-    public String makeURL(String exKey,String newsKey){
-        StringBuilder builder = new StringBuilder("http://180.168.35.37:8080/e369_asset/");
-        builder.append(exKey);
-        builder.append("/news/");
-        builder.append(newsKey);
-        builder.append(".html");
-        return builder.toString();
-    }
+
 }

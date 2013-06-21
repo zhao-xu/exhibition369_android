@@ -11,6 +11,7 @@ import com.threeH.MyExhibition.R;
 import com.threeH.MyExhibition.cache.ImageCache;
 import com.threeH.MyExhibition.listener.TelephoneClickListener;
 import com.threeH.MyExhibition.tools.CustomerHttpClient;
+import com.threeH.MyExhibition.tools.ImageURLUtil;
 
 /**
  * Created with IntelliJ IDEA.
@@ -19,7 +20,7 @@ import com.threeH.MyExhibition.tools.CustomerHttpClient;
  * Time: 上午11:40
  * To change this template use File | Settings | File Templates.
  */
-public class QrDCodeActivity extends Activity implements  ActivityInterface{
+public class QrCodeActivity extends Activity implements  ActivityInterface{
     private ImageView imageView;
     private Bitmap bitmap;
     private ImageButton button_telephone;
@@ -33,20 +34,20 @@ public class QrDCodeActivity extends Activity implements  ActivityInterface{
     }
 
     @Override
-    public void findView() {
+    public void findView(){
          imageView = (ImageView) this.findViewById(R.id.qrcode_imageview);
          button_telephone = (ImageButton) this.findViewById(R.id.exhibition_titlebar_button_telephone);
     }
 
     @Override
-    public void initdata() {
-        String url = "http://180.168.35.37:8080/e369_asset/1103/qrcode/pjqandroid.png";
-        bitmap = ImageCache.from(this).get(url);
+    public void initdata(){
+
     }
 
     @Override
     public void addAction() {
-         //imageView.setImageBitmap(bitmap);
+        /*String url = "http://180.168.35.37:8080/e369_asset/1103/qrcode/pjqandroid.png";
+        ImageURLUtil.loadImage(url,imageView);*/
         button_telephone.setOnClickListener(new TelephoneClickListener(this));
     }
 }

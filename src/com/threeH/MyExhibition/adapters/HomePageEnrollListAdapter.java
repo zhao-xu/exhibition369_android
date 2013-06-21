@@ -6,12 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.threeH.MyExhibition.R;
+import com.threeH.MyExhibition.tools.ImageURLUtil;
+import com.threeH.MyExhibition.tools.Tool;
 import com.threeH.MyExhibition.ui.SignupActivity;
-import com.threeH.MyExhibition.ui.SignupExhiListActivity;
 
 import java.util.HashMap;
 import java.util.List;
@@ -22,10 +22,11 @@ public class HomePageEnrollListAdapter extends BaseAdapter {
     private List<HashMap<String, String>> data;
     private LayoutInflater mInflater;
     private Context context;
+    private String status;
     public HomePageEnrollListAdapter(Context context, List<HashMap<String, String>> data) {
         this.data = data;
         mInflater = LayoutInflater.from(context);
-        context = this.context;
+        this.context = context;
     }
 
     @Override
@@ -49,24 +50,43 @@ public class HomePageEnrollListAdapter extends BaseAdapter {
         if (convertView == null) {
             holder = new ViewHolder();
             convertView = this.mInflater.inflate(R.layout.head_page_enroll_item, null);
-            holder.mEnrollSignup = (ImageView) convertView.findViewById(R.id.button_signup);
-            holder.mExhibitionName = (TextView) convertView.findViewById(R.id.exhibition_name);
+            holder.mEnrollSignup = (ImageView) convertView.findViewById(R.id.imageview_signup);
+            holder.mExhibitionTheme = (TextView) convertView.findViewById(R.id.exhibition_theme);
+            holder.mExhibitionDate = (TextView) convertView.findViewById(R.id.exhibition_date);
+            holder.mExhibitionAddress = (TextView) convertView.findViewById(R.id.exhibition_address);
+            holder.mExhibitionSponser = (TextView) convertView.findViewById(R.id.exhibition_sponsor);
+            holder.mExhibitionIcon = (ImageView) convertView.findViewById(R.id.imageview_icon);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        holder.mExhibitionName.setText( data.get(position).get("exhibitionName"));
-        /*holder.mEnrollSignup.setOnClickListener(new View.OnClickListener() {
+        holder.mExhibitionTheme.setText(data.get(position).get("exhibitionName"));
+        holder.mExhibitionDate.setText(data.get(position).get("exhibitionDate"));
+        holder.mExhibitionAddress.setText(data.get(position).get("exhibitionAddress"));
+        holder.mExhibitionSponser.setText(data.get(position).get("exhibitionSponser"));
+        ImageURLUtil.loadImage(Tool.makeExhibitionIconURL(data.get(position).get("exhibitionExkey")),
+                               holder.mExhibitionIcon);
+        status = data.get(position).get("exhibitionApplied");
+        if(null != status && "Y".equals(status)){
+             holder.mEnrollSignup.setImageResource(R.drawable.enter_unfocus);
+        }
+
+        holder.mEnrollSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, SignupActivity.class);
+                context.startActivity(intent);
             }
-        });*/
+        });
         return convertView;
     }
 
     public class ViewHolder {
-        TextView mExhibitionName;
+        ImageView mExhibitionIcon;
+        TextView mExhibitionTheme;
+        TextView mExhibitionDate;
+        TextView mExhibitionAddress;
+        TextView mExhibitionSponser;
         //ImageButton mEnrollSignup;
         ImageView mEnrollSignup;
     }

@@ -68,7 +68,7 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
                 .setIndicator(MESSAGE_TAB)
                 .setContent(new Intent(this, MessageActivity.class));
         TabHost.TabSpec moreSpec = tabhost.newTabSpec(TWODCODE_TAB).setIndicator(TWODCODE_TAB)
-                .setContent(new Intent(this, QrDCodeActivity.class));
+                .setContent(new Intent(this, QrCodeActivity.class));
         tabhost.addTab(newSpec);
         tabhost.addTab(showSpec);
         tabhost.addTab(homeSpec);

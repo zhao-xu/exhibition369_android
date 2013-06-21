@@ -7,9 +7,9 @@
               android:background="@drawable/backgroud">
 
     <ListView
+            android:id="@+id/unsingup_exhibition_listview"
             android:layout_height="match_parent"
             android:layout_width="match_parent"
             android:cacheColorHint="#00000000"
-            android:id="@+id/unsingup_exhibition_listview">
-    </ListView>
+            android:scrollbars="none"/>
 </LinearLayout>

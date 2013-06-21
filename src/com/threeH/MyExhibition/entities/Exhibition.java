@@ -31,6 +31,8 @@ public class Exhibition implements Serializable {
      */
     private Long createdAt;
 
+    private String applied;
+
     public String getExKey() {
         return exKey;
     }
@@ -77,5 +79,13 @@ public class Exhibition implements Serializable {
 
     public void setCreatedAt(Long createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String getApplied() {
+        return applied;
+    }
+
+    public void setApplied(String applied) {
+        this.applied = applied;
     }
 }

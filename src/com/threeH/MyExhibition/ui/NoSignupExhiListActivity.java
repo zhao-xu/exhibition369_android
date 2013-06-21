@@ -49,12 +49,17 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
     public void initdata() {
         mController = ClientController.getController(this);
         try {
-            String str = mController.getService().UnErollExList("",-1,-1,"");
+            String str = mController.getService().UnErollExList("pjqAndroid",-1,-1,"");
             allExhibitionData = new Gson().fromJson(str,UnEnrollExhibition.class);
             List<HashMap<String,String>> data = new ArrayList<HashMap<String, String>>();
             for(Exhibition exhibition : allExhibitionData.getList()){
                 HashMap<String,String> map = new HashMap<String, String>();
-                map.put("exhibitionName",exhibition.getName() + "\n" + exhibition.getDate());
+                map.put("exhibitionName",exhibition.getName());
+                map.put("exhibitionDate",exhibition.getDate());
+                map.put("exhibitionAddress",exhibition.getAddress());
+                map.put("exhibitionSponser",exhibition.getOrganizer());
+                map.put("exhibitionApplied",exhibition.getApplied());
+                map.put("exhibitionExkey",exhibition.getExKey());
                 data.add(map);
             }
             adapter = new HomePageEnrollListAdapter(this,data);
