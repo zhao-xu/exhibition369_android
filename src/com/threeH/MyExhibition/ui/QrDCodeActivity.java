@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.Window;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.threeH.MyExhibition.R;
 import com.threeH.MyExhibition.cache.ImageCache;
+import com.threeH.MyExhibition.listener.TelephoneClickListener;
 import com.threeH.MyExhibition.tools.CustomerHttpClient;
 
 /**
@@ -20,6 +22,7 @@ import com.threeH.MyExhibition.tools.CustomerHttpClient;
 public class QrDCodeActivity extends Activity implements  ActivityInterface{
     private ImageView imageView;
     private Bitmap bitmap;
+    private ImageButton button_telephone;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -32,6 +35,7 @@ public class QrDCodeActivity extends Activity implements  ActivityInterface{
     @Override
     public void findView() {
          imageView = (ImageView) this.findViewById(R.id.qrcode_imageview);
+         button_telephone = (ImageButton) this.findViewById(R.id.exhibition_titlebar_button_telephone);
     }
 
     @Override
@@ -42,6 +46,7 @@ public class QrDCodeActivity extends Activity implements  ActivityInterface{
 
     @Override
     public void addAction() {
-         imageView.setImageBitmap(bitmap);
+         //imageView.setImageBitmap(bitmap);
+        button_telephone.setOnClickListener(new TelephoneClickListener(this));
     }
 }

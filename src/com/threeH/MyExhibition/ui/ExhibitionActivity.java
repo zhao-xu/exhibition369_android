@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.Window;
 import android.widget.*;
 import com.threeH.MyExhibition.R;
+import com.threeH.MyExhibition.listener.TelephoneClickListener;
 
 /**
  * Created with IntelliJ IDEA.
@@ -28,7 +29,7 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
     private String exKey;
     private RadioGroup radiogroup;
     //消息，二维码
-
+    private ImageButton button_telephone;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -47,6 +48,7 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
     @Override
     public void findView() {
         radiogroup = (RadioGroup) this.findViewById(R.id.rg_tabs_btns);
+        button_telephone = (ImageButton) this.findViewById(R.id.exhibition_titlebar_button_telephone);
     }
 
     @Override
@@ -100,5 +102,6 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
                 }
             }
         });
+        button_telephone.setOnClickListener(new TelephoneClickListener(this));
     }
 }

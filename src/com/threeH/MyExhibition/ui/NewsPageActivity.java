@@ -2,19 +2,18 @@ package com.threeH.MyExhibition.ui;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
-import android.widget.Toast;
+import android.widget.*;
 import com.google.gson.Gson;
 import com.threeH.MyExhibition.R;
 import com.threeH.MyExhibition.adapters.HomePageEnrollListAdapter;
 import com.threeH.MyExhibition.entities.Exhibition;
 import com.threeH.MyExhibition.entities.ExhibitionNews;
 import com.threeH.MyExhibition.entities.UnEnrollExhibition;
+import com.threeH.MyExhibition.listener.TelephoneClickListener;
 import com.threeH.MyExhibition.service.ClientController;
 
 import java.util.ArrayList;
@@ -35,6 +34,7 @@ public class NewsPageActivity extends Activity  implements ActivityInterface,Ada
     private ClientController mController;
     private String exKey;
     private ExhibitionNews newsData;
+    private ImageButton button_telephone;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -47,6 +47,7 @@ public class NewsPageActivity extends Activity  implements ActivityInterface,Ada
     @Override
     public void findView() {
         listView = (ListView) this.findViewById(R.id.newslist_listview);
+        button_telephone = (ImageButton) this.findViewById(R.id.exhibition_titlebar_button_telephone);
     }
 
     @Override
@@ -78,6 +79,7 @@ public class NewsPageActivity extends Activity  implements ActivityInterface,Ada
     public void addAction() {
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(this);
+        button_telephone.setOnClickListener(new TelephoneClickListener(this));
     }
 
     @Override

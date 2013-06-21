@@ -4,7 +4,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/exhibition_titlebar_background">
-    <ImageButton
+    <!--<ImageButton
             android:id="@+id/exhibition_titlebar_imagebutton_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -12,14 +12,14 @@
             android:background="@android:color/transparent"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="17dp"/>
+            android:layout_marginTop="17dp"/>-->
 
     <TextView
             android:id="@+id/exhibition_titlebar_textview_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     <ImageButton
-            android:id="@+id/exhibition_titlebar_textview_title"
+            android:id="@+id/exhibition_titlebar_button_telephone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"

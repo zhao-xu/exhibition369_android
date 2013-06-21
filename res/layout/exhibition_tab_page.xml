@@ -62,7 +62,7 @@
                      android:layout_height="wrap_content"
                      android:text="二维码"
                      style="@style/main_btn_style"
-                     android:drawableTop="@drawable/qrcode"/>
+                     android:drawableTop="@drawable/icon_qrcode"/>
     </RadioGroup>
 
 </TabHost>
