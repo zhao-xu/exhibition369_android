@@ -30,7 +30,7 @@ public class ExhibitionMessage implements Serializable {
         this.list = list;
     }
 
-    class ExMessage implements Serializable {
+    public class ExMessage implements Serializable {
         /**
          * 消息标识
          */
@@ -42,7 +42,7 @@ public class ExhibitionMessage implements Serializable {
         /**
          * 消息创建时间
          */
-        private String createdAt;
+        private long createdAt;
         /**
          * 已读状态，N 未读，Y 已读
          */
@@ -56,7 +56,7 @@ public class ExhibitionMessage implements Serializable {
             this.msgKey = msgKey;
         }
 
-        String getContent() {
+        public String getContent() {
             return content;
         }
 
@@ -64,15 +64,15 @@ public class ExhibitionMessage implements Serializable {
             this.content = content;
         }
 
-        String getCreatedAt() {
+        public long getCreatedAt() {
             return createdAt;
         }
 
-        void setCreatedAt(String createdAt) {
+        void setCreatedAt(long createdAt) {
             this.createdAt = createdAt;
         }
 
-        String getRead() {
+        public String getRead() {
             return read;
         }
 
