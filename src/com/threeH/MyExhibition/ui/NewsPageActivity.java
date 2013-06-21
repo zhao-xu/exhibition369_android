@@ -1,19 +1,19 @@
 package com.threeH.MyExhibition.ui;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
-import android.widget.Toast;
+import android.widget.*;
 import com.google.gson.Gson;
 import com.threeH.MyExhibition.R;
 import com.threeH.MyExhibition.adapters.HomePageEnrollListAdapter;
 import com.threeH.MyExhibition.entities.Exhibition;
 import com.threeH.MyExhibition.entities.ExhibitionNews;
 import com.threeH.MyExhibition.entities.UnEnrollExhibition;
+import com.threeH.MyExhibition.listener.TelephoneClickListener;
 import com.threeH.MyExhibition.service.ClientController;
 
 import java.util.ArrayList;
@@ -34,10 +34,11 @@ public class NewsPageActivity extends Activity  implements ActivityInterface,Ada
     private ClientController mController;
     private String exKey;
     private ExhibitionNews newsData;
+    private ImageButton button_telephone;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.unsingup_exhibitionlist);
+        setContentView(R.layout.newslist);
         initdata();
         findView();
         addAction();
@@ -45,7 +46,8 @@ public class NewsPageActivity extends Activity  implements ActivityInterface,Ada
 
     @Override
     public void findView() {
-        listView = (ListView) this.findViewById(R.id.unsingup_exhibition_listview);
+        listView = (ListView) this.findViewById(R.id.newslist_listview);
+        button_telephone = (ImageButton) this.findViewById(R.id.exhibition_titlebar_button_telephone);
     }
 
     @Override
@@ -76,10 +78,23 @@ public class NewsPageActivity extends Activity  implements ActivityInterface,Ada
     @Override
     public void addAction() {
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(this);
+        button_telephone.setOnClickListener(new TelephoneClickListener(this));
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent intent = new Intent(this,ShowHtmlActivity.class);
+        intent.putExtra("url",makeURL(exKey,newsData.getList().get(position).getNewsKey()));
+        startActivity(intent);
+    }
 
+    public String makeURL(String exKey,String newsKey){
+        StringBuilder builder = new StringBuilder("http://180.168.35.37:8080/e369_asset/");
+        builder.append(exKey);
+        builder.append("/news/");
+        builder.append(newsKey);
+        builder.append(".html");
+        return builder.toString();
     }
 }
