@@ -41,7 +41,7 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
             enrollStatuses =  mGson.fromJson(jsonData, EnrollExhibition.EnrollStatus[].class);
             for(EnrollExhibition.EnrollStatus mEnrollStatus : enrollStatuses){
                 HashMap<String,String> map =new HashMap<String,String>();
-                map.put("icon",mEnrollStatus.getExKey());
+                map.put("exhibitionExkey",mEnrollStatus.getExKey());
                 map.put("name",mEnrollStatus.getName());
                 map.put("status",mEnrollStatus.getStatus());
                 mdataes.add(map);

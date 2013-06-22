@@ -1,6 +1,8 @@
 package com.threeH.MyExhibition.adapters;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,7 +10,12 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import com.google.gson.Gson;
 import com.threeH.MyExhibition.R;
+import com.threeH.MyExhibition.entities.Exhibition;
+import com.threeH.MyExhibition.entities.UnEnrollExhibition;
+import com.threeH.MyExhibition.tools.ImageURLUtil;
+import com.threeH.MyExhibition.tools.Tool;
 
 import java.util.HashMap;
 import java.util.List;
@@ -18,10 +25,11 @@ public class SignExhiListAdapter extends BaseAdapter {
 
     private List<HashMap<String, String>> data;
     private LayoutInflater mInflater;
-
+    private Context context;
     public SignExhiListAdapter(Context context, List<HashMap<String, String>> data) {
         this.data = data;
         mInflater = LayoutInflater.from(context);
+        this.context = context;
     }
 
     @Override
@@ -42,10 +50,11 @@ public class SignExhiListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
+        String exKey = data.get(position).get("exhibitionExkey");
         if (convertView == null) {
             holder = new ViewHolder();
             convertView = this.mInflater.inflate(R.layout.signup_exhi_list_item, null);
-            holder.mExhibitionIcon = (ImageView) convertView.findViewById(R.id.exhibition_icon);
+            holder.mExhibitionIcon = (ImageView) convertView.findViewById(R.id.imageview_icon);
             holder.mExhibitionTheme = (TextView) convertView.findViewById(R.id.exhibition_theme);
             holder.mExhibitionDate = (TextView) convertView.findViewById(R.id.exhibition_date);
             holder.mExhibitionAddress = (TextView) convertView.findViewById(R.id.exhibition_address);
@@ -56,6 +65,7 @@ public class SignExhiListAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
+        Exhibition exhibition = getExhibitionData(exKey);
         String showStatus = "";
         String hideStatus = "";
         //P 审核中(Processing)，A 审核通过(Approved)，D 审核未通过(Denied)
@@ -89,10 +99,24 @@ public class SignExhiListAdapter extends BaseAdapter {
         }
 
         holder.mExhibitionTheme.setText(data.get(position).get("name"));
-        holder.mExhibitionSponsor.setText(data.get(position).get("the_me"));
-        holder.mExhibitionAddress.setText(data.get(position).get("address"));
-        holder.mExhibitionDate.setText(data.get(position).get("date"));
+        holder.mExhibitionSponsor.setText(exhibition.getOrganizer());
+        holder.mExhibitionAddress.setText(exhibition.getAddress());
+        holder.mExhibitionDate.setText(exhibition.getDate());
+        ImageURLUtil.loadImage(Tool.makeExhibitionIconURL(exKey),
+                holder.mExhibitionIcon);
         return convertView;
+    }
+
+    private Exhibition getExhibitionData(String exKey) {
+        SharedPreferences sharedPreferences =   context.getSharedPreferences("allExhibitionData", Activity.MODE_PRIVATE);
+        String strExhibitionData = sharedPreferences.getString("exhibitionData",null);
+        UnEnrollExhibition allExhibitionData = new Gson().fromJson(strExhibitionData,UnEnrollExhibition.class);
+        for(Exhibition exhibition : allExhibitionData.getList()){
+            if(null != exKey && exhibition.getExKey().equals(exKey)){
+                return exhibition;
+            }
+        }
+         return null;
     }
 
     public class ViewHolder {
