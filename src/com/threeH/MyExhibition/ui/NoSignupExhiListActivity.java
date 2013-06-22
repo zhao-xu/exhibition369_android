@@ -7,12 +7,14 @@ import android.view.ViewStub;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import com.google.gson.Gson;
 import com.threeH.MyExhibition.R;
 import com.threeH.MyExhibition.adapters.HomePageEnrollListAdapter;
 import com.threeH.MyExhibition.entities.Exhibition;
 import com.threeH.MyExhibition.entities.UnEnrollExhibition;
 import com.threeH.MyExhibition.service.ClientController;
+import com.threeH.MyExhibition.tools.Tool;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,7 +28,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public class NoSignupExhiListActivity extends BaseActivity implements ActivityInterface,AdapterView.OnItemClickListener {
-    private ListView listView;
+    public static   ListView listView;
     private ClientController mController;
     private HomePageEnrollListAdapter adapter;
     private UnEnrollExhibition allExhibitionData;
@@ -51,17 +53,7 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
         try {
             String str = mController.getService().UnErollExList("pjqAndroid",-1,-1,"");
             allExhibitionData = new Gson().fromJson(str,UnEnrollExhibition.class);
-            List<HashMap<String,String>> data = new ArrayList<HashMap<String, String>>();
-            for(Exhibition exhibition : allExhibitionData.getList()){
-                HashMap<String,String> map = new HashMap<String, String>();
-                map.put("exhibitionName",exhibition.getName());
-                map.put("exhibitionDate",exhibition.getDate());
-                map.put("exhibitionAddress",exhibition.getAddress());
-                map.put("exhibitionSponser",exhibition.getOrganizer());
-                map.put("exhibitionApplied",exhibition.getApplied());
-                map.put("exhibitionExkey",exhibition.getExKey());
-                data.add(map);
-            }
+            List<HashMap<String,String>> data = Tool.makeAllExhibitionListAdapterData(allExhibitionData);
             adapter = new HomePageEnrollListAdapter(this,data);
         } catch (Exception e) {
             e.printStackTrace();
@@ -80,4 +72,5 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
         intent.putExtra("exKey",allExhibitionData.getList().get(position).getExKey());
         startActivity(intent);
     }
+
 }

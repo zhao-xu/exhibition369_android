@@ -3,7 +3,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:background="@drawable/backgroud">
        <include android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                layout="@layout/signup_page_header"/>
@@ -23,12 +24,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="参展邀请函"/>
+                android:text="参展邀请函"
+                android:textColor="@android:color/black"/>
         </LinearLayout>
         <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_marginLeft="25dp">
 
             <LinearLayout
                     android:layout_width="wrap_content"
@@ -37,11 +40,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="公司名称："
-                        android:layout_gravity="center_vertical"/>
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@android:color/black"/>
                 <EditText
                         android:id="@+id/company_name"
                         android:layout_width="200dp"
-                        android:layout_height="30dp"
+                        android:layout_height="40dp"
                         android:layout_gravity="center_vertical"/>
             </LinearLayout>
             <LinearLayout
@@ -51,11 +55,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="联  系  人："
-                        android:layout_gravity="center_vertical"/>
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@android:color/black"/>
                 <EditText
                         android:id="@+id/user_name"
                         android:layout_width="200dp"
-                        android:layout_height="30dp"
+                        android:layout_height="40dp"
                         android:layout_gravity="center_vertical"/>
             </LinearLayout>
             <LinearLayout
@@ -65,11 +70,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="联系电话："
-                        android:layout_gravity="center_vertical"/>
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@android:color/black"/>
                 <EditText
                         android:id="@+id/phone_nummber"
                         android:layout_width="200dp"
-                        android:layout_height="30dp"
+                        android:layout_height="40dp"
                         android:layout_gravity="center_vertical"/>
             </LinearLayout>
             <LinearLayout
@@ -78,32 +84,33 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="E - M a i l："
-                        android:layout_gravity="center_vertical"/>
+                        android:text="E - M a il："
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@android:color/black"/>
                 <EditText
                         android:id="@+id/email_address"
                         android:layout_width="200dp"
-                        android:layout_height="30dp"
+                        android:layout_height="40dp"
                         android:layout_gravity="center_vertical"/>
             </LinearLayout>
         </LinearLayout>
         <RelativeLayout
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                >
             <Button
                     android:id="@+id/cancel_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"/>
+                    android:layout_alignParentLeft="true"
+                    android:background="@drawable/cancel_unfocus"/>
             <Button
                     android:id="@+id/confirm_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"/>
-
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/ok_unfocus"/>
         </RelativeLayout>
-
     </LinearLayout>
-
 
 </LinearLayout>

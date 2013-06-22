@@ -70,11 +70,12 @@ public class HomePageEnrollListAdapter extends BaseAdapter {
         if(null != status && "Y".equals(status)){
              holder.mEnrollSignup.setImageResource(R.drawable.enter_unfocus);
         }
-
+        final int i = position;
         holder.mEnrollSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, SignupActivity.class);
+                intent.putExtra("exKey",data.get(i).get("exhibitionExkey"));
                 context.startActivity(intent);
             }
         });

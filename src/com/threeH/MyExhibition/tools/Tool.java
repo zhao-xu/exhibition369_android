@@ -1,6 +1,12 @@
 package com.threeH.MyExhibition.tools;
 
 import android.util.Log;
+import com.threeH.MyExhibition.entities.Exhibition;
+import com.threeH.MyExhibition.entities.UnEnrollExhibition;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -26,5 +32,22 @@ public class Tool {
         builder.append("/icon.png");
 Log.i("data",builder.toString());
         return builder.toString();
+    }
+
+    public static List<HashMap<String,String>> makeAllExhibitionListAdapterData(UnEnrollExhibition allExhibitionData){
+        List<HashMap<String,String>> data = new ArrayList<HashMap<String, String>>();
+        if(null != allExhibitionData){
+            for(Exhibition exhibition : allExhibitionData.getList()){
+                HashMap<String,String> map = new HashMap<String, String>();
+                map.put("exhibitionName",exhibition.getName());
+                map.put("exhibitionDate",exhibition.getDate());
+                map.put("exhibitionAddress",exhibition.getAddress());
+                map.put("exhibitionSponser",exhibition.getOrganizer());
+                map.put("exhibitionApplied",exhibition.getApplied());
+                map.put("exhibitionExkey",exhibition.getExKey());
+                data.add(map);
+            }
+        }
+        return data;
     }
 }

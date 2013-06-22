@@ -6,10 +6,18 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
-import android.widget.RadioGroup;
-import android.widget.TabHost;
+import android.widget.*;
+import com.google.gson.Gson;
 import com.threeH.MyExhibition.R;
+import com.threeH.MyExhibition.adapters.HomePageEnrollListAdapter;
+import com.threeH.MyExhibition.entities.UnEnrollExhibition;
+import com.threeH.MyExhibition.service.ClientController;
+import com.threeH.MyExhibition.tools.Tool;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -24,7 +32,9 @@ public class HomeOfTabActivity extends TabActivity implements ActivityInterface{
     private Button buttonSearch;
     private static final String TAB_SIGNUP = "tabSingup";
     private static final String TAB_NO_SIGNUP = "tabNoSingup";
-
+    private ClientController mController;
+    private EditText editText;
+    private String name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,13 +47,15 @@ public class HomeOfTabActivity extends TabActivity implements ActivityInterface{
 
     @Override
     public void findView() {
-          radioGroup = (RadioGroup) this.findViewById(R.id.homeoftab_radiogroup);
-          buttonSearch = (Button) this.findViewById(R.id.search_btn);
+        radioGroup = (RadioGroup) this.findViewById(R.id.homeoftab_radiogroup);
+        buttonSearch = (Button) this.findViewById(R.id.search_btn);
+        editText = (EditText) this.findViewById(R.id.titlebar_et);
     }
 
     @Override
     public void initdata() {
-          tabhost = this.getTabHost();
+        tabhost = this.getTabHost();
+        mController = ClientController.getController(this);
     }
 
     @Override
@@ -72,6 +84,16 @@ public class HomeOfTabActivity extends TabActivity implements ActivityInterface{
             @Override
             public void onClick(View v) {
                 v.setBackgroundResource(R.drawable.search_focus);
+                try {
+                    name = editText.getText().toString();
+                    String str = mController.getService().UnErollExList("pjqAndroid",-1,-1,name);
+                    UnEnrollExhibition allExhibitionData = new Gson().fromJson(str,UnEnrollExhibition.class);
+                    List<HashMap<String,String>> data = Tool.makeAllExhibitionListAdapterData(allExhibitionData);
+                    HomePageEnrollListAdapter adapter = new HomePageEnrollListAdapter(HomeOfTabActivity.this,data);
+                    NoSignupExhiListActivity.listView.setAdapter(adapter);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
     }

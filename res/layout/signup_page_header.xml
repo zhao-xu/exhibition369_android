@@ -22,7 +22,8 @@
                 android:layout_height="wrap_content"
                 android:singleLine="true"
                 android:text="221313131231"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="10dp"
+                android:textColor="@android:color/black"/>
         <include android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
                 layout="@layout/signup_status_view"/>
