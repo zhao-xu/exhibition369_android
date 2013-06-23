@@ -34,7 +34,6 @@
             android:id="@+id/imageview_signup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/sign_unfocus"
             android:layout_gravity="center_vertical"
             android:layout_alignTop="@+id/imageview_icon"
             android:layout_alignParentRight="true"/>

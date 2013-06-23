@@ -2,6 +2,7 @@ package com.threeH.MyExhibition.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,6 +60,8 @@ public class HomePageEnrollListAdapter extends BaseAdapter {
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
+            holder.mEnrollSignup.setImageBitmap(null);
+            holder.mExhibitionIcon.setImageBitmap(null);
         }
         holder.mExhibitionTheme.setText(data.get(position).get("exhibitionName"));
         holder.mExhibitionDate.setText(data.get(position).get("exhibitionDate"));
@@ -67,9 +70,10 @@ public class HomePageEnrollListAdapter extends BaseAdapter {
         ImageURLUtil.loadImage(Tool.makeExhibitionIconURL(data.get(position).get("exhibitionExkey")),
                                holder.mExhibitionIcon);
         status = data.get(position).get("exhibitionApplied");
-        if(null != status && "Y".equals(status)){
-             holder.mEnrollSignup.setImageResource(R.drawable.enter_unfocus);
+        if(null != status && "N".equals(status)){
+             holder.mEnrollSignup.setImageResource(R.drawable.sign_unfocus);
         }
+Log.i("data",data.get(position).get("exhibitionExkey") + " status: " + data.get(position).get("exhibitionApplied"));
         final int i = position;
         holder.mEnrollSignup.setOnClickListener(new View.OnClickListener() {
             @Override
