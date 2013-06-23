@@ -65,14 +65,17 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
                 .setContent(new Intent(this, NewsPageActivity.class).putExtra("exKey",exKey));
         TabHost.TabSpec showSpec = tabhost.newTabSpec(SUMMARY_TAB).setIndicator(SUMMARY_TAB)
                 .setContent(new Intent (this, ShowHtmlActivity.class)
-                        .putExtra("url","http://180.168.35.37:8080/e369_asset/"+ exKey + "/brief.html"));
+                        .putExtra("url","http://180.168.35.37:8080/e369_asset/"+ exKey + "/brief.html")
+                        .putExtra("title","简介"));
         TabHost.TabSpec homeSpec = tabhost.newTabSpec(SCHEDULE_TAB)
                 .setIndicator(SCHEDULE_TAB)
                 .setContent(new Intent(this, ShowHtmlActivity.class)
-                        .putExtra("url","http://180.168.35.37:8080/e369_asset/"+ exKey + "/schedule.html"));
+                        .putExtra("url","http://180.168.35.37:8080/e369_asset/"+ exKey + "/schedule.html")
+                        .putExtra("title","日程"));
         TabHost.TabSpec memberSpec = tabhost.newTabSpec(MESSAGE_TAB)
                 .setIndicator(MESSAGE_TAB)
-                .setContent(new Intent(this, MessageActivity.class));
+                .setContent(new Intent(this, MessageActivity.class)
+                        .putExtra("exhibitionKey",exKey));
         TabHost.TabSpec moreSpec = tabhost.newTabSpec(TWODCODE_TAB).setIndicator(TWODCODE_TAB)
                 .setContent(new Intent(this, QrCodeActivity.class)
                         .putExtra("exhibitionKey",exKey)

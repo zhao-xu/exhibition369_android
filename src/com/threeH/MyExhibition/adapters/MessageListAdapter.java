@@ -44,39 +44,14 @@ public class MessageListAdapter extends BaseAdapter {
         ViewHolder holder;
         if (convertView == null) {
             holder = new ViewHolder();
-            convertView = this.mInflater.inflate(R.layout.message_list_item, null);
-            holder.mLinearLayout = (LinearLayout) convertView.findViewById(R.id.message_title);
+            convertView = this.mInflater.inflate(R.layout.messagelist_item, null);
             holder.mMessageDate = (TextView)convertView.findViewById(R.id.message_date);
             holder.mMessageContent = (TextView)convertView.findViewById(R.id.message_content);
-            holder.mMessageIcon =(ImageView)convertView.findViewById(R.id.message_icon);
-            holder.mItemBtn = (ImageView)convertView.findViewById(R.id.item_button);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        String showDate = "";
-        String hideDate = "";
-        //P 审核中(Processing)，A 审核通过(Approved)，D 审核未通过(Denied)
-        if(null != data.get(position).get("date")){
-            showDate = data.get(position).get("date");
-        }
-        if(position==0){
-            holder.mLinearLayout.setVisibility(View.VISIBLE);
-            holder.mLinearLayout.setBackgroundResource(R.drawable.tag_pass);
-            holder.mMessageDate.setText(showDate);
-
-        }else {
-            if (null != data.get(position).get("date")) {
-                 hideDate = data.get(position - 1).get("date");
-            }
-            if (showDate.equals(hideDate)) {
-                holder.mLinearLayout.setVisibility(View.GONE);
-            } else {
-                holder.mLinearLayout.setVisibility(View.VISIBLE);
-                holder.mLinearLayout.setBackgroundResource(R.drawable.tag_pass);
-                holder.mMessageDate.setText(showDate);
-            }
-        }
+        holder.mMessageDate.setText(data.get(position).get("date"));
         holder.mMessageContent.setText(data.get(position).get("content"));
         return convertView;
     }

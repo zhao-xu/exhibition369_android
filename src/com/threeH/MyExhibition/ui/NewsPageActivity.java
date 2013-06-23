@@ -36,6 +36,9 @@ public class NewsPageActivity extends Activity  implements ActivityInterface,Ada
     private String exKey;
     private ExhibitionNews newsData;
     private ImageButton button_telephone;
+    private TextView textViewTitle;
+
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -49,6 +52,7 @@ public class NewsPageActivity extends Activity  implements ActivityInterface,Ada
     public void findView() {
         listView = (ListView) this.findViewById(R.id.newslist_listview);
         button_telephone = (ImageButton) this.findViewById(R.id.exhibition_titlebar_button_telephone);
+        textViewTitle = (TextView) this.findViewById(R.id.exhibition_titlebar_textview_title);
     }
 
     @Override
@@ -68,7 +72,6 @@ public class NewsPageActivity extends Activity  implements ActivityInterface,Ada
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         adapter =  new SimpleAdapter(this,
                                      data,
                                      R.layout.newslist_item,
@@ -81,14 +84,15 @@ public class NewsPageActivity extends Activity  implements ActivityInterface,Ada
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(this);
         button_telephone.setOnClickListener(new TelephoneClickListener(this));
+        textViewTitle.setText("展会新闻");
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(this,ShowHtmlActivity.class);
         intent.putExtra("url", Tool.makeNewsURL(exKey,newsData.getList().get(position).getNewsKey()));
+        intent.putExtra("title","展会新闻");
         startActivity(intent);
     }
-
 
 }

@@ -24,7 +24,9 @@ public class QrCodeActivity extends BaseActivity implements  ActivityInterface{
     private ImageButton buttonTelephone;
     private char charSingupStatus;
     private String strExhibitionKey;
+    private TextView textViewTitle;
     private TextView textView;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentViewWithNoTitle(R.layout.qrcode);
@@ -38,6 +40,7 @@ public class QrCodeActivity extends BaseActivity implements  ActivityInterface{
         imageView = (ImageView) this.findViewById(R.id.qrcode_imageview);
         buttonTelephone = (ImageButton) this.findViewById(R.id.exhibition_titlebar_button_telephone);
         textView = (TextView) this.findViewById(R.id.qrcode_textview_prompt);
+        textViewTitle = (TextView) this.findViewById(R.id.exhibition_titlebar_textview_title);
     }
 
     @Override
@@ -64,7 +67,7 @@ public class QrCodeActivity extends BaseActivity implements  ActivityInterface{
                 break;
         }
 
-
+        textViewTitle.setText("二维码");
         buttonTelephone.setOnClickListener(new TelephoneClickListener(this));
     }
 }
