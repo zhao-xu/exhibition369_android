@@ -88,9 +88,7 @@ public class BaseActivity extends Activity {
             if (mProDialog.isShowing()) {
                 mProDialog.dismiss();
             }
-
         } catch (Exception e) {
-            ;
         }
     }
 

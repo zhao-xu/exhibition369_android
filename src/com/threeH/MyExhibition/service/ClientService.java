@@ -81,4 +81,5 @@ public interface ClientService {
      */
     public String getNewsData() throws Exception;
 
+    public String getSignupStatus(String exKey,String token) throws Exception;
 }

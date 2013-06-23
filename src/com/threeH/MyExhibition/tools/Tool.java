@@ -30,6 +30,15 @@ public class Tool {
         StringBuilder builder = new StringBuilder(ASSET_SERVER);
         builder.append(exKey);
         builder.append("/icon.png");
+        return builder.toString();
+    }
+
+    public static String makeQrcodeURL(String exKey,String token){
+        StringBuilder builder = new StringBuilder(ASSET_SERVER);
+        builder.append(exKey);
+        builder.append("/qrcode/");
+        builder.append(token);
+        builder.append(".png");
 Log.i("data",builder.toString());
         return builder.toString();
     }
@@ -50,4 +59,6 @@ Log.i("data",builder.toString());
         }
         return data;
     }
+
+
 }

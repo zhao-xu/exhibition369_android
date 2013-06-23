@@ -6,8 +6,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Window;
 import android.widget.*;
+import com.google.gson.Gson;
 import com.threeH.MyExhibition.R;
+import com.threeH.MyExhibition.entities.AuditingStatus;
 import com.threeH.MyExhibition.listener.TelephoneClickListener;
+import com.threeH.MyExhibition.service.ClientController;
 
 /**
  * Created with IntelliJ IDEA.
@@ -28,8 +31,9 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
     private final static int RESULT_CODE = 1;
     private String exKey;
     private RadioGroup radiogroup;
-    //消息，二维码
-    private ImageButton button_telephone;
+    private ImageButton buttonTelephone;
+    private ClientController clientController;
+    private char  singupStatus;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -48,13 +52,15 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
     @Override
     public void findView() {
         radiogroup = (RadioGroup) this.findViewById(R.id.rg_tabs_btns);
-        button_telephone = (ImageButton) this.findViewById(R.id.exhibition_titlebar_button_telephone);
+        buttonTelephone = (ImageButton) this.findViewById(R.id.exhibition_titlebar_button_telephone);
     }
 
     @Override
     public void initdata() {
         tabhost  = this.getTabHost();
+        clientController = ClientController.getController(this);
         exKey = getIntent().getStringExtra("exKey");
+        singupStatus = getSignupStatus(exKey,"pjqAndroid");
         TabHost.TabSpec newSpec = tabhost.newTabSpec(NEWS_TAB).setIndicator(NEWS_TAB)
                 .setContent(new Intent(this, NewsPageActivity.class).putExtra("exKey",exKey));
         TabHost.TabSpec showSpec = tabhost.newTabSpec(SUMMARY_TAB).setIndicator(SUMMARY_TAB)
@@ -68,13 +74,17 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
                 .setIndicator(MESSAGE_TAB)
                 .setContent(new Intent(this, MessageActivity.class));
         TabHost.TabSpec moreSpec = tabhost.newTabSpec(TWODCODE_TAB).setIndicator(TWODCODE_TAB)
-                .setContent(new Intent(this, QrCodeActivity.class));
+                .setContent(new Intent(this, QrCodeActivity.class)
+                        .putExtra("exhibitionKey",exKey)
+                        .putExtra("singupStatus",singupStatus));
         tabhost.addTab(newSpec);
         tabhost.addTab(showSpec);
         tabhost.addTab(homeSpec);
         tabhost.addTab(memberSpec);
         tabhost.addTab(moreSpec);
     }
+
+
 
     @Override
     public void addAction() {
@@ -102,6 +112,19 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
                 }
             }
         });
-        button_telephone.setOnClickListener(new TelephoneClickListener(this));
+        buttonTelephone.setOnClickListener(new TelephoneClickListener(this));
+    }
+
+    private char getSignupStatus(String exKey, String token) {
+        try {
+            String strSignupStatusData = clientController.getService().getSignupStatus(exKey, token);
+            AuditingStatus jsonSignupStatusData = new Gson().fromJson(strSignupStatusData,AuditingStatus.class);
+            if(null != jsonSignupStatusData){
+                 return jsonSignupStatusData.getStatus().charAt(0);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ' ';
     }
 }

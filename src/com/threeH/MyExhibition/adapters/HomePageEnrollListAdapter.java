@@ -92,7 +92,6 @@ Log.i("data",data.get(position).get("exhibitionExkey") + " status: " + data.get(
         TextView mExhibitionDate;
         TextView mExhibitionAddress;
         TextView mExhibitionSponser;
-        //ImageButton mEnrollSignup;
         ImageView mEnrollSignup;
     }
 }

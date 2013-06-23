@@ -31,14 +31,12 @@ import java.util.List;
  */
 public class NoSignupExhiListActivity extends BaseActivity implements ActivityInterface,AdapterView.OnItemClickListener {
     public static   ListView listView;
-    private ClientController mController;
     private HomePageEnrollListAdapter adapter;
     private UnEnrollExhibition allExhibitionData;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.unsingup_exhibitionlist);
+        setContentViewWithNoTitle(R.layout.unsingup_exhibitionlist);
         initdata();
         findView();
         addAction();
@@ -51,7 +49,6 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
 
     @Override
     public void initdata() {
-        mController = ClientController.getController(this);
         try {
             String str = mController.getService().UnErollExList("pjqAndroid",-1,-1,"");
             if(null != str){
