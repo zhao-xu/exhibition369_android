@@ -31,9 +31,9 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
     private final static int RESULT_CODE = 1;
     private String exKey;
     private RadioGroup radiogroup;
-    private ImageButton buttonTelephone;
     private ClientController clientController;
     private char  singupStatus;
+    private RadioButton radioButtonNews;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -52,7 +52,7 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
     @Override
     public void findView() {
         radiogroup = (RadioGroup) this.findViewById(R.id.rg_tabs_btns);
-        buttonTelephone = (ImageButton) this.findViewById(R.id.exhibition_titlebar_button_telephone);
+        radioButtonNews = (RadioButton) this.findViewById(R.id.rb_news);
     }
 
     @Override
@@ -97,6 +97,7 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
                 switch (checkedId) {
                     case R.id.rb_news:
                         tabhost.setCurrentTabByTag(NEWS_TAB);
+                        //radioButtonNews.setBackgroundResource(R.drawable.news_focus);
                         break;
                     case R.id.rb_show:
                         tabhost.setCurrentTabByTag(SUMMARY_TAB);
@@ -115,7 +116,7 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
                 }
             }
         });
-        buttonTelephone.setOnClickListener(new TelephoneClickListener(this));
+
     }
 
     private char getSignupStatus(String exKey, String token) {

@@ -3,4 +3,7 @@
     <string name="app_name">MyExhibition</string>
     <string name="singup">已报名</string>
     <string name="no_singup">未报名</string>
+    <string name="name"> 姓名</string>
+    <string name="telephone"> 联系方式</string>
+    <string name="email"> 邮箱地址</string>
 </resources>

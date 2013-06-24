@@ -3,7 +3,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/exhibition_titlebar_background">
+                android:background="@drawable/homepage_titilebar_background">
     <!--<ImageButton
             android:id="@+id/exhibition_titlebar_imagebutton_back"
             android:layout_width="wrap_content"
@@ -22,13 +22,17 @@
             android:layout_alignTop="@+id/exhibition_titlebar_button_telephone"
             android:textSize="20dp"
             android:textColor="@android:color/black"/>
-    <ImageButton
+    <ImageView
             android:id="@+id/exhibition_titlebar_button_telephone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:background="@android:color/transparent"
-            android:src="@drawable/telephone_unfocus"
-            android:layout_marginRight="8dp"
-            android:layout_marginTop="17dp"/>
+            android:background="@drawable/new_telephone_unfocus"
+            />
+    <ImageView
+            android:id="@+id/exhibition_titlebar_signup"
+            android:background="@drawable/information_unfocus"
+            android:layout_toLeftOf="@id/exhibition_titlebar_button_telephone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 </RelativeLayout>

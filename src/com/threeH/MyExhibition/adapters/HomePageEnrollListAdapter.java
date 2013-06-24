@@ -71,7 +71,7 @@ public class HomePageEnrollListAdapter extends BaseAdapter {
                                holder.mExhibitionIcon);
         status = data.get(position).get("exhibitionApplied");
         if(null != status && "N".equals(status)){
-             holder.mEnrollSignup.setImageResource(R.drawable.sign_unfocus);
+             holder.mEnrollSignup.setImageResource(R.drawable.signup);
         }
         final int i = position;
         holder.mEnrollSignup.setOnClickListener(new View.OnClickListener() {

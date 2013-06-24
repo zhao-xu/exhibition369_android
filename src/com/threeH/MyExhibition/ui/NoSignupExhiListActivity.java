@@ -25,6 +25,7 @@ import com.threeH.MyExhibition.entities.Exhibition;
 import com.threeH.MyExhibition.entities.UnEnrollExhibition;
 import com.threeH.MyExhibition.service.ClientController;
 import com.threeH.MyExhibition.tools.Tool;
+import com.threeH.MyExhibition.widget.PullToRefreshView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,7 +39,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public class NoSignupExhiListActivity extends BaseActivity implements ActivityInterface,AdapterView.OnItemClickListener {
-    public static   ListView listView;
+    public static ListView listView;
     private HomePageEnrollListAdapter adapter;
     private UnEnrollExhibition allExhibitionData;
     @Override
@@ -65,7 +66,6 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
             allExhibitionData = new Gson().fromJson(str,UnEnrollExhibition.class);
             List<HashMap<String,String>> data = Tool.makeAllExhibitionListAdapterData(allExhibitionData);
             adapter = new HomePageEnrollListAdapter(this,data);
-
             AndroidMessageClient client = new AndroidMessageClient();
             client.init("pjqAndroid",new MyMessageListener());
         } catch (Exception e) {

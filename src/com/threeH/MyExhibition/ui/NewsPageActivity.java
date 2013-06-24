@@ -35,7 +35,7 @@ public class NewsPageActivity extends BaseActivity  implements ActivityInterface
     private NewslistAdapter adapter;
     private String exKey;
     private ExhibitionNews newsData;
-    private ImageButton button_telephone;
+    private ImageView imageviewTelephone;
     private TextView textViewTitle;
 
 
@@ -51,7 +51,7 @@ public class NewsPageActivity extends BaseActivity  implements ActivityInterface
     @Override
     public void findView() {
         listView = (ListView) this.findViewById(R.id.newslist_listview);
-        button_telephone = (ImageButton) this.findViewById(R.id.exhibition_titlebar_button_telephone);
+        imageviewTelephone = (ImageView) this.findViewById(R.id.exhibition_titlebar_button_telephone);
         textViewTitle = (TextView) this.findViewById(R.id.exhibition_titlebar_textview_title);
     }
 
@@ -79,7 +79,7 @@ public class NewsPageActivity extends BaseActivity  implements ActivityInterface
     public void addAction() {
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(this);
-        button_telephone.setOnClickListener(new TelephoneClickListener(this));
+        imageviewTelephone.setOnClickListener(new TelephoneClickListener(this));
         textViewTitle.setText("展会新闻");
     }
 

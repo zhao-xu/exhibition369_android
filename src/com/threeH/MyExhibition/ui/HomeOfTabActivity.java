@@ -60,10 +60,10 @@ public class HomeOfTabActivity extends TabActivity implements ActivityInterface{
 
     @Override
     public void addAction() {
-        tabhost.addTab(tabhost.newTabSpec(TAB_NO_SIGNUP).setIndicator(TAB_NO_SIGNUP)
-                .setContent(new Intent(this,NoSignupExhiListActivity.class)));
         tabhost.addTab(tabhost.newTabSpec(TAB_SIGNUP).setIndicator(TAB_SIGNUP)
                 .setContent(new Intent(this,SignupExhiListActivity.class)));
+        tabhost.addTab(tabhost.newTabSpec(TAB_NO_SIGNUP).setIndicator(TAB_NO_SIGNUP)
+                .setContent(new Intent(this,NoSignupExhiListActivity.class)));
         tabhost.setCurrentTabByTag(TAB_NO_SIGNUP);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -71,11 +71,11 @@ public class HomeOfTabActivity extends TabActivity implements ActivityInterface{
                 switch (checkedId) {
                     case R.id.exhibitionlsit_radiobutton_singup:
                         tabhost.setCurrentTabByTag(TAB_SIGNUP);
-                        radioGroup.setBackgroundResource(R.drawable.tag_signed);
+                        radioGroup.setBackgroundResource(R.drawable.homepage_titlebar_background_signup);
                         break;
                     case R.id.exhibitionlsit_radiobutton_no_singup:
                         tabhost.setCurrentTabByTag(TAB_NO_SIGNUP);
-                        radioGroup.setBackgroundResource(R.drawable.tag_no_signup);
+                        radioGroup.setBackgroundResource(R.drawable.homepage_titlebar_background_exhibition);
                         break;
                 }
             }
@@ -83,7 +83,7 @@ public class HomeOfTabActivity extends TabActivity implements ActivityInterface{
         buttonSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                v.setBackgroundResource(R.drawable.search_focus);
+                //v.setBackgroundResource(R.drawable.search_focus);
                 try {
                     name = editText.getText().toString();
                     String str = mController.getService().UnErollExList("pjqAndroid",-1,-1,name);

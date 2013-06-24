@@ -21,7 +21,7 @@ import com.threeH.MyExhibition.tools.Tool;
 public class QrCodeActivity extends BaseActivity implements  ActivityInterface{
     private ImageView imageView;
     private Bitmap bitmap;
-    private ImageButton buttonTelephone;
+    private ImageView imageviewTelephone;
     private char charSingupStatus;
     private String strExhibitionKey;
     private TextView textViewTitle;
@@ -38,7 +38,7 @@ public class QrCodeActivity extends BaseActivity implements  ActivityInterface{
     @Override
     public void findView(){
         imageView = (ImageView) this.findViewById(R.id.qrcode_imageview);
-        buttonTelephone = (ImageButton) this.findViewById(R.id.exhibition_titlebar_button_telephone);
+        imageviewTelephone = (ImageView) this.findViewById(R.id.exhibition_titlebar_button_telephone);
         textView = (TextView) this.findViewById(R.id.qrcode_textview_prompt);
         textViewTitle = (TextView) this.findViewById(R.id.exhibition_titlebar_textview_title);
     }
@@ -51,7 +51,6 @@ public class QrCodeActivity extends BaseActivity implements  ActivityInterface{
 
     @Override
     public void addAction() {
-
         switch (charSingupStatus){
             case 'N':
                 textView.setText("对不起您还没有报名参加此展会，请报名！");
@@ -68,6 +67,6 @@ public class QrCodeActivity extends BaseActivity implements  ActivityInterface{
         }
 
         textViewTitle.setText("二维码");
-        buttonTelephone.setOnClickListener(new TelephoneClickListener(this));
+        imageviewTelephone.setOnClickListener(new TelephoneClickListener(this));
     }
 }

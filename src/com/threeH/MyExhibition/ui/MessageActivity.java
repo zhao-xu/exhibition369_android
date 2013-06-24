@@ -1,16 +1,14 @@
 package com.threeH.MyExhibition.ui;
 
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.*;
 import com.threeH.MyExhibition.R;
 import com.threeH.MyExhibition.adapters.MessageListAdapter;
 import com.threeH.MyExhibition.entities.ExhibitionMessage;
 import com.threeH.MyExhibition.listener.TelephoneClickListener;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -25,7 +23,7 @@ public class MessageActivity extends BaseActivity implements ActivityInterface{
     private List<HashMap<String,String>> mdataes = new ArrayList<HashMap<String, String>>();
     private ListView mMessageListView;
     private MessageListAdapter mMessageListAdapter;
-    private ImageButton buttonTelephone;
+    private ImageView imageviewTelephone;
     private TextView textViewTitle;
     private String exKey;
     public void onCreate(Bundle savedInstanceState) {
@@ -41,7 +39,7 @@ public class MessageActivity extends BaseActivity implements ActivityInterface{
     @Override
     public void findView() {
         mMessageListView = (ListView)findViewById(R.id.message_list_view);
-        buttonTelephone = (ImageButton) this.findViewById(R.id.exhibition_titlebar_button_telephone);
+        imageviewTelephone = (ImageView) this.findViewById(R.id.exhibition_titlebar_button_telephone);
         textViewTitle = (TextView) this.findViewById(R.id.exhibition_titlebar_textview_title);
     }
 
@@ -57,7 +55,7 @@ public class MessageActivity extends BaseActivity implements ActivityInterface{
             ExhibitionMessage mMessage = mGson.fromJson(mJsonData,ExhibitionMessage.class);
             for (ExhibitionMessage.ExMessage exMessage : mMessage.getList()){
                 HashMap<String,String> map = new HashMap<String, String>();
-                map.put("date",exMessage.getCreatedAt()+"");
+                map.put("date",new Date(exMessage.getCreatedAt()).toLocaleString());
                 map.put("content",exMessage.getContent());
                 map.put("status",exMessage.getRead());
                 mdataes.add(map);
@@ -65,7 +63,7 @@ public class MessageActivity extends BaseActivity implements ActivityInterface{
         } catch (Exception e) {
             e.printStackTrace();
         }
-        buttonTelephone.setOnClickListener(new TelephoneClickListener(this));
+        imageviewTelephone.setOnClickListener(new TelephoneClickListener(this));
         textViewTitle.setText("消息");
     }
 }

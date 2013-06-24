@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.Window;
 import android.webkit.WebView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.threeH.MyExhibition.R;
 import com.threeH.MyExhibition.listener.TelephoneClickListener;
@@ -19,7 +20,7 @@ import com.threeH.MyExhibition.listener.TelephoneClickListener;
 public class ShowHtmlActivity extends BaseActivity implements ActivityInterface  {
     private WebView webView;
     private String url;
-    private ImageButton button_telephone;
+    private ImageView imageviewTelephone;
     private TextView textViewTitle;
     private String strTitle;
 
@@ -36,7 +37,7 @@ public class ShowHtmlActivity extends BaseActivity implements ActivityInterface 
     @Override
     public void findView() {
         webView = (WebView) this.findViewById(R.id.webview);
-        button_telephone = (ImageButton) this.findViewById(R.id.exhibition_titlebar_button_telephone);
+        imageviewTelephone = (ImageView) this.findViewById(R.id.exhibition_titlebar_button_telephone);
         textViewTitle = (TextView) this.findViewById(R.id.exhibition_titlebar_textview_title);
     }
 
@@ -49,7 +50,7 @@ public class ShowHtmlActivity extends BaseActivity implements ActivityInterface 
     @Override
     public void addAction() {
         webView.loadUrl(url);
-        button_telephone.setOnClickListener(new TelephoneClickListener(this));
+        imageviewTelephone.setOnClickListener(new TelephoneClickListener(this));
         textViewTitle.setText(strTitle);
     }
 }

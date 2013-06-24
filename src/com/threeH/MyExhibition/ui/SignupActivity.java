@@ -40,7 +40,7 @@ public class SignupActivity extends  BaseActivity implements ActivityInterface{
         editTextName = (EditText) this.findViewById(R.id.user_name);
         editTextTelephone = (EditText) this.findViewById(R.id.phone_nummber);
         editTextEmail = (EditText) this.findViewById(R.id.email_address);
-        buttonSingUp = (Button) this.findViewById(R.id.confirm_btn);
+        buttonSingUp = (Button) this.findViewById(R.id.submit_btn);
     }
 
     @Override
@@ -59,7 +59,6 @@ public class SignupActivity extends  BaseActivity implements ActivityInterface{
                        email = editTextEmail.getText().toString();
                        mController.getService().ExEnroll(exKey,"pjqAndroid",name,telephone,email);
                    }catch (Exception e){
-Log.e("data",e.getMessage());
                    }
                }
            });

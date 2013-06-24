@@ -3,12 +3,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/search_unfocus">
+                >
 
     <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/relativeLayout">
+            android:id="@+id/relativeLayout"
+            android:background="@drawable/soushuokuang">
         <Button
                 android:id="@+id/search_btn"
                 android:layout_width="49dp"
@@ -18,7 +19,7 @@
                 android:layout_marginLeft="8dp"
                 android:layout_alignBottom="@+id/relativeLayout"
                 android:layout_marginTop="6dp"
-                />
+                style=""/>
         <EditText
                 android:id="@+id/titlebar_et"
                 android:layout_width="230dp"

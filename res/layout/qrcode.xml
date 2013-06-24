@@ -50,8 +50,8 @@
                     android:layout_margin="10dp"/>
             <ImageView
                     android:id="@+id/qrcode_imageview"
-                    android:layout_width="200dp"
-                    android:layout_height="200dp"
+                    android:layout_width="300dp"
+                    android:layout_height="300dp"
                     android:layout_gravity="center"
                     android:scaleType="fitXY"/>
             <TextView
