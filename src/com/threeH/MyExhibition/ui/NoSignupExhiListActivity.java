@@ -85,8 +85,12 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
 
         listView.setDividerHeight(0);
         listView.setOnItemClickListener(this);
+        try{
         AndroidMessageClient client = new AndroidMessageClient();
         client.init("pjqAndroid",new MyMessageListener());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override
