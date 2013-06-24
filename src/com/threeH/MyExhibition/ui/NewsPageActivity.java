@@ -10,6 +10,7 @@ import android.widget.*;
 import com.google.gson.Gson;
 import com.threeH.MyExhibition.R;
 import com.threeH.MyExhibition.adapters.HomePageEnrollListAdapter;
+import com.threeH.MyExhibition.adapters.NewslistAdapter;
 import com.threeH.MyExhibition.entities.Exhibition;
 import com.threeH.MyExhibition.entities.ExhibitionNews;
 import com.threeH.MyExhibition.entities.UnEnrollExhibition;
@@ -29,10 +30,9 @@ import java.util.Map;
  * Time: 上午11:38
  * To change this template use File | Settings | File Templates.
  */
-public class NewsPageActivity extends Activity  implements ActivityInterface,AdapterView.OnItemClickListener{
+public class NewsPageActivity extends BaseActivity  implements ActivityInterface,AdapterView.OnItemClickListener{
     private ListView listView;
-    private SimpleAdapter adapter;
-    private ClientController mController;
+    private NewslistAdapter adapter;
     private String exKey;
     private ExhibitionNews newsData;
     private ImageButton button_telephone;
@@ -42,7 +42,7 @@ public class NewsPageActivity extends Activity  implements ActivityInterface,Ada
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.newslist);
+        setContentViewWithNoTitle(R.layout.newslist);
         initdata();
         findView();
         addAction();
@@ -58,25 +58,21 @@ public class NewsPageActivity extends Activity  implements ActivityInterface,Ada
     @Override
     public void initdata() {
         exKey = getIntent().getStringExtra("exKey");
-        mController = ClientController.getController(this);
         List<HashMap<String,String>> data = new ArrayList<HashMap<String, String>>();
         try {
             String str = mController.getService().ExNewsList(exKey);
             newsData = new Gson().fromJson(str, ExhibitionNews.class);
-
             for(ExhibitionNews.News news : newsData.getList()){
                 HashMap<String,String> map = new HashMap<String, String>();
+                map.put("exKey",exKey);
+                map.put("newsKey",news.getNewsKey());
                 map.put("newsTitle",news.getTitle());
                 data.add(map);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        adapter =  new SimpleAdapter(this,
-                                     data,
-                                     R.layout.newslist_item,
-                                     new String[]{"newsTitle"},
-                                     new int[]{R.id.newslist_item_text});
+        adapter =  new NewslistAdapter(data,context);
     }
 
     @Override

@@ -26,6 +26,15 @@ public class Tool {
         return builder.toString();
     }
 
+    public static String makeNewsIconURL(String exKey,String newsKey){
+        StringBuilder builder = new StringBuilder(ASSET_SERVER);
+        builder.append(exKey);
+        builder.append("/news/");
+        builder.append(newsKey);
+        builder.append(".png");
+        return builder.toString();
+    }
+
     public static String makeExhibitionIconURL(String exKey){
         StringBuilder builder = new StringBuilder(ASSET_SERVER);
         builder.append(exKey);
@@ -39,7 +48,6 @@ public class Tool {
         builder.append("/qrcode/");
         builder.append(token);
         builder.append(".png");
-Log.i("data",builder.toString());
         return builder.toString();
     }
 
