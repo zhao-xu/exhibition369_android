@@ -4,15 +4,22 @@
               android:orientation="vertical"
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
-              android:background="@drawable/backgroud">
+              android:background="@drawable/homepage_background">
     <include
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             layout="@layout/exhibition_titlebar"/>
     <ListView
+            android:id="@+id/newslist_listview"
             android:layout_height="match_parent"
             android:layout_width="match_parent"
             android:cacheColorHint="#00000000"
-            android:id="@+id/newslist_listview">
-    </ListView>
+            android:scrollbars="none"
+            android:paddingLeft="6dp"
+            android:paddingRight="6dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:divider="@null"
+            android:dividerHeight="12dp"
+            />
 </LinearLayout>

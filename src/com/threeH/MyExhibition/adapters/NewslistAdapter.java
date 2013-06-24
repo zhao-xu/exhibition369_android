@@ -1,6 +1,7 @@
 package com.threeH.MyExhibition.adapters;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,11 +26,15 @@ public class NewslistAdapter extends BaseAdapter {
     private List<HashMap<String, String>> data;
     private LayoutInflater mInflater;
     private Context context;
+    Typeface typeface;
+    Typeface typeface_bold;
 
     public NewslistAdapter(List<HashMap<String, String>> data, Context context) {
         this.data = data;
         mInflater = LayoutInflater.from(context);
         this.context = context;
+        typeface = Typeface.createFromAsset(context.getAssets(), "fonts/msyh.ttf");
+        typeface_bold = Typeface.createFromAsset(context.getAssets(), "fonts/msyhbd.ttf");
     }
 
     @Override
@@ -55,6 +60,8 @@ public class NewslistAdapter extends BaseAdapter {
             convertView = mInflater.inflate(R.layout.newslist_item,null);
             holder.mNewsIcon = (ImageView) convertView.findViewById(R.id.newslist_item_imageview);
             holder.mNewsTitle = (TextView) convertView.findViewById(R.id.newslist_item_textview_newstitle);
+
+            holder.mNewsTitle.setTypeface(typeface_bold);
             convertView.setTag(holder);
         }else{
             holder = (ViewHolder) convertView.getTag();
