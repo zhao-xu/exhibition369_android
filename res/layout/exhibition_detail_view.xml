@@ -11,6 +11,7 @@
             android:layout_height="wrap_content"
             android:text="1111111111111111111111111111111111111111"
             android:singleLine="true"
+            android:textSize="15dp"
             android:textColor="@android:color/black"/>
     <TextView
             android:id="@+id/exhibition_date"
@@ -18,20 +19,18 @@
             android:layout_height="wrap_content"
             android:text="222222222222"
             android:singleLine="true"
-            android:textColor="@android:color/black"/>
+            />
     <TextView
             android:id="@+id/exhibition_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="3333333333"
-            android:singleLine="true"
-            android:textColor="@android:color/black"/>
+            android:singleLine="true"/>
     <TextView
             android:id="@+id/exhibition_sponsor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="44444444444444444444"
-            android:singleLine="true"
-            android:textColor="@android:color/black"/>
+            android:singleLine="true"/>
 
 </LinearLayout>

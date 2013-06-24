@@ -8,7 +8,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.LabeledIntent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewStub;
@@ -42,6 +45,14 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
     public static ListView listView;
     private HomePageEnrollListAdapter adapter;
     private UnEnrollExhibition allExhibitionData;
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            if(1 == msg.what){
+                listView.setAdapter(adapter);
+            }
+        }
+    };
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,20 +69,8 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
 
     @Override
     public void initdata() {
-        try {
-            String str = mController.getService().UnErollExList("pjqAndroid",-1,-1,"");
-            if(null != str){
-                saveExhibitionData(str);
-            }
-            allExhibitionData = new Gson().fromJson(str,UnEnrollExhibition.class);
-            List<HashMap<String,String>> data = Tool.makeAllExhibitionListAdapterData(allExhibitionData);
-            adapter = new HomePageEnrollListAdapter(this,data);
-            AndroidMessageClient client = new AndroidMessageClient();
-            client.init("pjqAndroid",new MyMessageListener());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        MyAsyncTask myAsyncTask = new MyAsyncTask();
+        myAsyncTask.execute();
     }
 
     private void saveExhibitionData(String str) {
@@ -83,8 +82,11 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
 
     @Override
     public void addAction() {
-        listView.setAdapter(adapter);
+
+        listView.setDividerHeight(0);
         listView.setOnItemClickListener(this);
+        AndroidMessageClient client = new AndroidMessageClient();
+        client.init("pjqAndroid",new MyMessageListener());
     }
 
     @Override
@@ -108,4 +110,30 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
         }
     }
 
+    class MyAsyncTask extends AsyncTask<Void,Integer,Integer>{
+
+        @Override
+        protected Integer doInBackground(Void... voids) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        String str = mController.getService().UnErollExList("pjqAndroid",-1,-1,"");
+                        if(null != str){
+                            saveExhibitionData(str);
+                        }
+                        allExhibitionData = new Gson().fromJson(str,UnEnrollExhibition.class);
+                        List<HashMap<String,String>> data = Tool.makeAllExhibitionListAdapterData(allExhibitionData);
+                        adapter = new HomePageEnrollListAdapter(context,data);
+                        Message message = handler.obtainMessage();
+                        message.what = 1;
+                        handler.sendMessage(message);
+                    } catch (Exception e) {
+Log.e("data", e.getMessage());
+                    }
+                }
+            }).start();
+            return null;
+        }
+    }
 }

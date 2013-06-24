@@ -37,27 +37,26 @@
                      android:layout_height="wrap_content"
                      style="@style/main_btn_style"
                      android:checked="true"
-                     android:drawableTop="@drawable/news_unfocus"/>
+                     android:background="@drawable/news_btn"/>
         <RadioButton android:id="@+id/rb_show"
                      android:layout_width="50dp"
                      android:layout_height="wrap_content"
                      style="@style/main_btn_style"
-                     android:drawableTop="@drawable/brief_unfocus"/>
+                     android:background="@drawable/brief_btn"/>
         <RadioButton android:id="@+id/rb_store"
                      android:layout_width="50dp"
                      android:layout_height="wrap_content"
                      style="@style/main_btn_style"
-                     android:drawableTop="@drawable/schedule_unfocus"/>
+                     android:background="@drawable/schedule_btn"/>
         <RadioButton android:id="@+id/rb_member"
                      android:layout_width="50dp"
                      android:layout_height="wrap_content"
                      style="@style/main_btn_style"
-                     android:drawableTop="@drawable/message_unfocus"/>
+                     android:background="@drawable/message_btn"/>
         <RadioButton android:id="@+id/rb_more"
                      android:layout_width="50dp"
                      android:layout_height="wrap_content"
                      style="@style/main_btn_style"
-                     android:drawableTop="@drawable/qrcode_unfocus"/>
+                     android:background="@drawable/qrcode_btn"/>
     </RadioGroup>
-
 </TabHost>
