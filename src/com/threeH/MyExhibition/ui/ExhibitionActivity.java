@@ -87,8 +87,6 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
         tabhost.addTab(moreSpec);
     }
 
-
-
     @Override
     public void addAction() {
         radiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -97,7 +95,6 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
                 switch (checkedId) {
                     case R.id.rb_news:
                         tabhost.setCurrentTabByTag(NEWS_TAB);
-                        //radioButtonNews.setBackgroundResource(R.drawable.news_focus);
                         break;
                     case R.id.rb_show:
                         tabhost.setCurrentTabByTag(SUMMARY_TAB);

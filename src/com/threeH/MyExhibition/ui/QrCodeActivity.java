@@ -2,6 +2,7 @@ package com.threeH.MyExhibition.ui;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
@@ -26,7 +27,7 @@ public class QrCodeActivity extends BaseActivity implements  ActivityInterface{
     private String strExhibitionKey;
     private TextView textViewTitle;
     private TextView textView;
-
+    private ImageView imageViewSignup;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentViewWithNoTitle(R.layout.qrcode);
@@ -39,6 +40,7 @@ public class QrCodeActivity extends BaseActivity implements  ActivityInterface{
     public void findView(){
         imageView = (ImageView) this.findViewById(R.id.qrcode_imageview);
         imageviewTelephone = (ImageView) this.findViewById(R.id.exhibition_titlebar_button_telephone);
+        imageViewSignup = (ImageView) this.findViewById(R.id.exhibition_titlebar_signup);
         textView = (TextView) this.findViewById(R.id.qrcode_textview_prompt);
         textViewTitle = (TextView) this.findViewById(R.id.exhibition_titlebar_textview_title);
     }
@@ -65,8 +67,8 @@ public class QrCodeActivity extends BaseActivity implements  ActivityInterface{
                 textView.setText("对不起，您的个人信息未能通过审核，您可以拨打客服热线进行咨询。");
                 break;
         }
-
         textViewTitle.setText("二维码");
         imageviewTelephone.setOnClickListener(new TelephoneClickListener(this));
+        imageViewSignup.setVisibility(View.GONE);
     }
 }

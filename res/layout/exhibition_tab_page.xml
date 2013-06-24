@@ -52,7 +52,7 @@
                      android:layout_width="50dp"
                      android:layout_height="wrap_content"
                      style="@style/main_btn_style"
-                     android:drawableTop="@drawable/message_unfocus" />
+                     android:drawableTop="@drawable/message_unfocus"/>
         <RadioButton android:id="@+id/rb_more"
                      android:layout_width="50dp"
                      android:layout_height="wrap_content"

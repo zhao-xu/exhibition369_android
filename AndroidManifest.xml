@@ -6,26 +6,38 @@
     <uses-sdk android:minSdkVersion="8"/>
     <application android:label="@string/app_name"
                  android:name=".ui.MyApplication">
-        <activity android:name=".ui.HomeOfTabActivity">
+        <activity android:name=".ui.HomeOfTabActivity"
+                  android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity android:name=".ui.HomeActivity"
-                  android:label="@string/app_name">
+                  android:label="@string/app_name"
+                  android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".ui.BaseActivity"/>
-        <activity android:name=".ui.NoSignupExhiListActivity"/>
-        <activity android:name=".ui.SignupExhiListActivity"/>
-        <activity android:name=".ui.ExhibitionActivity"/>
+        <activity android:name=".ui.BaseActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".ui.NoSignupExhiListActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".ui.SignupExhiListActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".ui.ExhibitionActivity"
+                  android:screenOrientation="portrait"/>
         <activity android:name=".ui.NewsPageActivity"/>
-        <activity android:name=".ui.MessageActivity"/>
-        <activity android:name=".ui.ScheduleActivity"/>
-        <activity android:name=".ui.QrCodeActivity"/>
-        <activity android:name=".ui.SummaryPageActivity"/>
-        <activity android:name=".ui.ShowHtmlActivity"/>
-        <activity android:name=".ui.SignupActivity"/>
+        <activity android:name=".ui.MessageActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".ui.ScheduleActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".ui.QrCodeActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".ui.SummaryPageActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".ui.ShowHtmlActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".ui.SignupActivity"
+                  android:screenOrientation="portrait"/>
     </application>
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"></uses-permission>

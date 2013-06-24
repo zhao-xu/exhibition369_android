@@ -3,7 +3,6 @@ package com.threeH.MyExhibition.ui;
 import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.*;
@@ -14,10 +13,8 @@ import com.threeH.MyExhibition.entities.UnEnrollExhibition;
 import com.threeH.MyExhibition.service.ClientController;
 import com.threeH.MyExhibition.tools.Tool;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -71,11 +68,11 @@ public class HomeOfTabActivity extends TabActivity implements ActivityInterface{
                 switch (checkedId) {
                     case R.id.exhibitionlsit_radiobutton_singup:
                         tabhost.setCurrentTabByTag(TAB_SIGNUP);
-                        radioGroup.setBackgroundResource(R.drawable.homepage_titlebar_background_signup);
+                        radioGroup.setBackgroundResource(R.drawable.homepage_titlebar_background_exhibition);
                         break;
                     case R.id.exhibitionlsit_radiobutton_no_singup:
                         tabhost.setCurrentTabByTag(TAB_NO_SIGNUP);
-                        radioGroup.setBackgroundResource(R.drawable.homepage_titlebar_background_exhibition);
+                        radioGroup.setBackgroundResource(R.drawable.homepage_titlebar_background_signup);
                         break;
                 }
             }
