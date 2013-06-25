@@ -2,12 +2,12 @@
 <resources>
 
     <!-- 测试 -->
-    <color name="main_bg_color">#04508b</color> 
-    
+    <color name="main_bg_color">#04508b</color>
+
     <!-- 动态详情顶部HeadView背景颜色设置 -->
     <color name="mDetailTop">#f2eee9</color>
     <!-- ******************************************************* -->
-    
+
     <color name="white">#ffffffff</color>
     <color name="black">#ff000000</color>
     <color name="green">#32CD32</color>
@@ -51,20 +51,22 @@
 	<color name="top_title">#d52b1c</color>
 	<color name="top_left_right">#626262</color>
 	<color name="fossa_tab_text_enter">#626262</color>
-	
+
 	<color name="homeTitleColor">#cd1c0c</color>
-	
+
 	<color name="mPointSelect">#b59f88</color>
 	<color name="mPointUnSelect">#dad4cc</color>
-	
+
 	<color name="mDetailVisitors">#f9f9f9</color>
 	<color name="dynamic_tab_text">#666666</color>
 	<color name="dynamic_tabed_text">#363636</color>
 	<color name="dynamic_tab">#f3f3f3</color>
-	
+
 	<color name="possible_result_points">#c0ffbd21</color> <!-- Android standard ICS color -->
     <color name="result_view">#b0000000</color>
     <color name="viewfinder_laser">#ffcc0000</color> <!-- Android standard ICS color -->
     <color name="viewfinder_mask">#60000000</color>
+
+    <color name="light_gray">#7a7a7a</color>
 
 </resources>

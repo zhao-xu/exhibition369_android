@@ -19,10 +19,10 @@ import com.threeH.MyExhibition.entities.UnEnrollExhibition;
 import com.threeH.MyExhibition.service.ClientController;
 import com.threeH.MyExhibition.widget.MultiDirectionSlidingDrawer;
 import com.threeH.MyExhibition.widget.PullToRefreshView;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class HomeActivity extends BaseActivity implements ActivityInterface,
         OnClickListener,AdapterView.OnItemClickListener {
@@ -82,7 +82,7 @@ public class HomeActivity extends BaseActivity implements ActivityInterface,
         mEditText = (EditText) findViewById(R.id.titlebar_et);
         mEnrollStatusListView = (ListView) findViewById(R.id.enroll_status_listview);
         mSearchResult = (PullToRefreshView) findViewById(R.id.search_result_listview);
-        mSearchButton = (Button) findViewById(R.id.search_btn);
+//        mSearchButton = (Button) findViewById(R.id.search_btn);
     }
 
     @Override
@@ -138,12 +138,12 @@ Log.e("error",e.getMessage());
         });*/
 
         exhibitionListView.setAdapter(adapter);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                v.setBackgroundResource(R.drawable.search_focus);
-            }
-        });
+//        button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                v.setBackgroundResource(R.drawable.search_focus);
+//            }
+//        });
 //        mCloseButton.setOnClickListener(new OnClickListener() {
 //            @Override
 //            public void onClick(View view) {

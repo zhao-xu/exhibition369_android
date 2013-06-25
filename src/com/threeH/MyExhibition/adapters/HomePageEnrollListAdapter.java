@@ -2,7 +2,7 @@ package com.threeH.MyExhibition.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,10 +24,15 @@ public class HomePageEnrollListAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
     private Context context;
     private String status;
+    Typeface typeface;
+    Typeface typeface_bold;
+
     public HomePageEnrollListAdapter(Context context, List<HashMap<String, String>> data) {
         this.data = data;
         mInflater = LayoutInflater.from(context);
         this.context = context;
+        typeface = Typeface.createFromAsset(context.getAssets(), "fonts/msyh.ttf");
+        typeface_bold = Typeface.createFromAsset(context.getAssets(), "fonts/msyhbd.ttf");
     }
 
     @Override
@@ -57,6 +62,11 @@ public class HomePageEnrollListAdapter extends BaseAdapter {
             holder.mExhibitionAddress = (TextView) convertView.findViewById(R.id.exhibition_address);
             holder.mExhibitionSponser = (TextView) convertView.findViewById(R.id.exhibition_sponsor);
             holder.mExhibitionIcon = (ImageView) convertView.findViewById(R.id.imageview_icon);
+
+            holder.mExhibitionTheme.setTypeface(typeface_bold);
+            holder.mExhibitionDate.setTypeface(typeface);
+            holder.mExhibitionAddress.setTypeface(typeface);
+            holder.mExhibitionSponser.setTypeface(typeface);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();

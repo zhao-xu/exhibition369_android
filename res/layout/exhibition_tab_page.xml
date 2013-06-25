@@ -20,7 +20,9 @@
                android:visibility="gone"/>
     <FrameLayout android:id="@android:id/tabcontent"
                  android:layout_width="fill_parent"
-                 android:layout_height="match_parent"/>
+                 android:layout_height="match_parent"
+                 android:layout_marginBottom="60dp"
+            />
     <!--<FrameLayout android:id="@android:id/tabcontent"
                  android:layout_width="fill_parent"
                  android:layout_height="0.0dip"
@@ -31,10 +33,11 @@
                 android:layout_gravity="bottom"
                 android:orientation="horizontal"
                 android:gravity="center_horizontal"
-                android:background="@drawable/exhibition_tab_background">
+                android:background="@drawable/exhibition_tab_background"
+            >
         <RadioButton android:id="@+id/rb_news"
                      android:layout_width="50dp"
-                     android:layout_height="wrap_content"
+                     android:layout_height="60dp"
                      style="@style/main_btn_style"
                      android:checked="true"
                      android:background="@drawable/news_btn"/>
@@ -58,5 +61,7 @@
                      android:layout_height="wrap_content"
                      style="@style/main_btn_style"
                      android:background="@drawable/qrcode_btn"/>
+
+
     </RadioGroup>
 </TabHost>

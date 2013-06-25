@@ -3,18 +3,13 @@ package com.threeH.MyExhibition.ui;
 import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.view.Window;
-import android.widget.*;
-import com.google.gson.Gson;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioGroup;
+import android.widget.TabHost;
 import com.threeH.MyExhibition.R;
-import com.threeH.MyExhibition.adapters.HomePageEnrollListAdapter;
-import com.threeH.MyExhibition.entities.UnEnrollExhibition;
 import com.threeH.MyExhibition.service.ClientController;
-import com.threeH.MyExhibition.tools.Tool;
-
-import java.util.HashMap;
-import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -68,30 +63,30 @@ public class HomeOfTabActivity extends TabActivity implements ActivityInterface{
                 switch (checkedId) {
                     case R.id.exhibitionlsit_radiobutton_singup:
                         tabhost.setCurrentTabByTag(TAB_SIGNUP);
-                        radioGroup.setBackgroundResource(R.drawable.homepage_titlebar_background_exhibition);
+                        radioGroup.setBackgroundResource(R.drawable.homepage_titlebar_background_signup);
                         break;
                     case R.id.exhibitionlsit_radiobutton_no_singup:
                         tabhost.setCurrentTabByTag(TAB_NO_SIGNUP);
-                        radioGroup.setBackgroundResource(R.drawable.homepage_titlebar_background_signup);
+                        radioGroup.setBackgroundResource(R.drawable.homepage_titlebar_background_exhibition);
                         break;
                 }
             }
         });
-        buttonSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //v.setBackgroundResource(R.drawable.search_focus);
-                try {
-                    name = editText.getText().toString();
-                    String str = mController.getService().UnErollExList("pjqAndroid",-1,-1,name);
-                    UnEnrollExhibition allExhibitionData = new Gson().fromJson(str,UnEnrollExhibition.class);
-                    List<HashMap<String,String>> data = Tool.makeAllExhibitionListAdapterData(allExhibitionData);
-                    HomePageEnrollListAdapter adapter = new HomePageEnrollListAdapter(HomeOfTabActivity.this,data);
-                    NoSignupExhiListActivity.listView.setAdapter(adapter);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+//        buttonSearch.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //v.setBackgroundResource(R.drawable.search_focus);
+//                try {
+//                    name = editText.getText().toString();
+//                    String str = mController.getService().UnErollExList("pjqAndroid",-1,-1,name);
+//                    UnEnrollExhibition allExhibitionData = new Gson().fromJson(str,UnEnrollExhibition.class);
+//                    List<HashMap<String,String>> data = Tool.makeAllExhibitionListAdapterData(allExhibitionData);
+//                    HomePageEnrollListAdapter adapter = new HomePageEnrollListAdapter(HomeOfTabActivity.this,data);
+//                    NoSignupExhiListActivity.listView.setAdapter(adapter);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
     }
 }

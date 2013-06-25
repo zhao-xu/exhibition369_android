@@ -3,27 +3,80 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/exhibitionlist_item_selctor">
+                android:background="@drawable/list_selector"
+                >
     <ImageView
             android:id="@+id/imageview_icon"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_margin="10dp"/>
-    <include
+    <!--<include
             android:id="@+id/include"
             android:layout_height="wrap_content"
+            android:contentDescription=""
+            android:src="@drawable/icon1"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            />-->
+    <RelativeLayout
+            android:id="@+id/relativelayout"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_toRightOf="@id/imageview_icon"
-            android:layout_centerVertical="true"
-            layout="@layout/exhibition_detail_view"/>
+            android:layout_marginTop="10dp">
+    <TextView
+            android:id="@+id/exhibition_theme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="第八届上海国际石油石化天然气技术装备展览会"
+            android:singleLine="true"
+            android:textColor="@android:color/black"/>
+    <TextView
+            android:id="@+id/exhibition_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="时间：2013.10.28—2013.10.30"
+            android:singleLine="true"
+            android:textColor="@color/light_gray"
+            android:ellipsize="marquee"
+            android:layout_below="@id/exhibition_theme"
+            android:textSize="13sp"
+            />
+    <TextView
+            android:id="@+id/exhibition_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="地址：上海新国际博览中心"
+            android:singleLine="true"
+            android:textColor="@color/light_gray"
+            android:ellipsize="marquee"
+            android:layout_below="@id/exhibition_date"
+            android:textSize="13sp"
+            />
+    <TextView
+            android:id="@+id/exhibition_sponsor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="主办单位：中国石油学会、中国机电产品进出口商会、中国国际贸易促进委员会"
+            android:singleLine="true"
+            android:textColor="@color/light_gray"
+            android:ellipsize="marquee"
+            android:layout_below="@id/exhibition_address"
+            android:textSize="13sp"
+            />
+    </RelativeLayout>
     <ImageView
             android:id="@+id/imageview_signup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
             android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"/>
+            android:layout_alignParentRight="true"
+            android:src="@drawable/signup"
+            android:contentDescription=""
+            />
 
 </RelativeLayout>
