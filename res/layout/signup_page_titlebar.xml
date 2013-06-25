@@ -16,5 +16,6 @@
             android:background="@drawable/information_focus"
             android:layout_toLeftOf="@id/signup_page_titltbar_iv_telephone"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
 </RelativeLayout>

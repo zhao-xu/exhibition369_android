@@ -22,6 +22,7 @@ public class TelephoneClickListener implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + telephone));
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
 }

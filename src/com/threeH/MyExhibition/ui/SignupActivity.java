@@ -1,14 +1,14 @@
 package com.threeH.MyExhibition.ui;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.threeH.MyExhibition.R;
+import com.threeH.MyExhibition.listener.TelephoneClickListener;
 
 /**
  * Created with IntelliJ IDEA.
@@ -27,7 +27,9 @@ public class SignupActivity extends  BaseActivity implements ActivityInterface{
     private Button buttonSingUp;
     private String exKey;
     private String type = "A";
-    private ImageView imageViewAttendee,imageviewExhibitor;
+    private ImageView imageViewAttendee,imageviewExhibitor,imageviewTelephone;
+    Typeface typeface;
+    private TextView textViewTitle;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,11 +47,14 @@ public class SignupActivity extends  BaseActivity implements ActivityInterface{
         buttonSingUp = (Button) this.findViewById(R.id.submit_btn);
         imageViewAttendee = (ImageView) this.findViewById(R.id.signup_imageview_canhui);
         imageviewExhibitor = (ImageView) this.findViewById(R.id.signup_imageview_canzhan);
+        textViewTitle = (TextView) this.findViewById(R.id.exhibition_titlebar_textview_title);
+        imageviewTelephone = (ImageView) this.findViewById(R.id.exhibition_titlebar_button_telephone);
     }
 
     @Override
     public void initdata() {
         exKey = getIntent().getStringExtra("exKey");
+        typeface = Typeface.createFromAsset(context.getAssets(),"fonts/msyh.ttf");
     }
 
     @Override
@@ -69,6 +74,9 @@ public class SignupActivity extends  BaseActivity implements ActivityInterface{
         TypeClickListener typeClickListener = new TypeClickListener();
         imageViewAttendee.setOnClickListener(typeClickListener);
         imageviewExhibitor.setOnClickListener(typeClickListener);
+        imageviewTelephone.setOnClickListener(new TelephoneClickListener(context,tel_nummber));
+        textViewTitle.setTypeface(typeface);
+        textViewTitle.setText("申请报名");
     }
 
     class  TypeClickListener implements View.OnClickListener{

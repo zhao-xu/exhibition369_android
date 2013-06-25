@@ -9,11 +9,10 @@
             android:layout_height="70dp"
             android:layout_alignParentLeft="true"
             android:contentDescription=""
-            android:src="@drawable/icon1"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="12dp"
             android:layout_marginTop="12dp"
-            android:layout_marginBottom="12dp"
+            android:layout_marginBottom= "12dp"
             />
     <TextView
             android:id="@+id/newslist_item_textview_newstitle"
