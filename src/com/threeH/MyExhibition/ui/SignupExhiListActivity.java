@@ -1,14 +1,20 @@
 package com.threeH.MyExhibition.ui;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import com.google.gson.Gson;
 import com.threeH.MyExhibition.R;
 import com.threeH.MyExhibition.adapters.SignExhiListAdapter;
 import com.threeH.MyExhibition.entities.EnrollExhibition;
+import com.threeH.MyExhibition.entities.Exhibition;
+import com.threeH.MyExhibition.entities.UnEnrollExhibition;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -45,7 +51,6 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
                 mdataes.add(map);
             }
         } catch (Exception e) {
-
         }
         mSignExhiListAdapter = new SignExhiListAdapter(context,mdataes);
     }
@@ -65,8 +70,22 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(this,ExhibitionActivity.class);
         intent.putExtra("exKey",enrollStatuses[position].getExKey());
+        Exhibition exhibition = getExhibitionData(enrollStatuses[position].getExKey());
+        intent.putExtra("exAddress",exhibition.getAddress());
+        intent.putExtra("exTime",exhibition.getDate());
+        intent.putExtra("token",token);
         startActivity(intent);
     }
 
-
+    private Exhibition getExhibitionData(String exKey) {
+        SharedPreferences sharedPreferences =   context.getSharedPreferences("allExhibitionData", Activity.MODE_PRIVATE);
+        String strExhibitionData = sharedPreferences.getString("exhibitionData",null);
+        UnEnrollExhibition allExhibitionData = new Gson().fromJson(strExhibitionData,UnEnrollExhibition.class);
+        for(Exhibition exhibition : allExhibitionData.getList()){
+            if(null != exKey && exhibition.getExKey().equals(exKey)){
+                return exhibition;
+            }
+        }
+        return null;
+    }
 }
