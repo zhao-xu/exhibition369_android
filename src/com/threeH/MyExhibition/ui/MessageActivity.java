@@ -1,5 +1,6 @@
 package com.threeH.MyExhibition.ui;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.widget.*;
 import com.threeH.MyExhibition.R;
@@ -26,6 +27,7 @@ public class MessageActivity extends BaseActivity implements ActivityInterface{
     private ImageView imageviewTelephone;
     private TextView textViewTitle;
     private String exKey;
+    private Typeface typeface;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentViewWithNoTitle(R.layout.message_page);
@@ -46,6 +48,7 @@ public class MessageActivity extends BaseActivity implements ActivityInterface{
     @Override
     public void initdata() {
         exKey = getIntent().getStringExtra("exhibitionKey");
+        typeface = Typeface.createFromAsset(context.getAssets(),"fonts/msyh.ttf");
     }
 
     @Override
@@ -63,7 +66,8 @@ public class MessageActivity extends BaseActivity implements ActivityInterface{
         } catch (Exception e) {
             e.printStackTrace();
         }
-        imageviewTelephone.setOnClickListener(new TelephoneClickListener(this));
+        imageviewTelephone.setOnClickListener(new TelephoneClickListener(this,tel_nummber));
+        textViewTitle.setTypeface(typeface);
         textViewTitle.setText("消息");
     }
 }

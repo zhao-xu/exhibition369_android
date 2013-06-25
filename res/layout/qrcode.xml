@@ -32,7 +32,6 @@
                 android:layout_width="wrap_content"
                 android:layout_below="@id/qrconde_textview_one"
                 android:>
-
         </RelativeLayout>
 </RelativeLayout>-->
 
@@ -44,7 +43,7 @@
     <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="50dp">
+            android:layout_margin="30dp">
         <include
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -60,9 +59,11 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/address"/>
             <TextView
+                    android:id="@+id/qrcode_textview_exaddress"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="kljadjflak"/>
+                    android:text="kljadjflak"
+                    android:textColor="#344e78"/>
         </LinearLayout>
         <LinearLayout
                 android:id="@+id/qrcode_linearlayout_time"
@@ -74,28 +75,30 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/time"/>
             <TextView
+                    android:id="@+id/qrcode_textview_extime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="kljadjflak"/>
+                    android:text="kljadjflak"
+                    android:textColor="#344e78"/>
         </LinearLayout>
-
         <ImageView
                 android:id="@+id/qrcode_imageview"
                 android:layout_below="@id/qrcode_linearlayout_time"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:scaleType="fitXY"/>
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                />
         <TextView
                 android:id="@+id/qrcode_textview_prompt"
+                android:layout_below="@id/qrcode_imageview"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:text="入会场时，凭此二维码进入，请妥善保存，谢谢！"
                 android:textSize="10dp"
                 android:layout_gravity="center_horizontal"
-                android:textColor="@android:color/black"
-                android:layout_marginTop="300dp"/>
+                android:textColor="@android:color/black"/>
     </RelativeLayout>
 </LinearLayout>
 

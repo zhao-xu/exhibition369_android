@@ -20,6 +20,5 @@
             android:paddingTop="6dp"
             android:paddingBottom="6dp"
             android:divider="@null"
-            android:dividerHeight="12dp"
             />
 </LinearLayout>

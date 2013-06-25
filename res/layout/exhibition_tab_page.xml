@@ -33,35 +33,37 @@
                 android:layout_gravity="bottom"
                 android:orientation="horizontal"
                 android:gravity="center_horizontal"
-                android:background="@drawable/exhibition_tab_background"
-            >
-        <RadioButton android:id="@+id/rb_news"
-                     android:layout_width="50dp"
-                     android:layout_height="60dp"
-                     style="@style/main_btn_style"
-                     android:checked="true"
-                     android:background="@drawable/news_btn"/>
+                android:background="@drawable/exhibition_tab_background">
         <RadioButton android:id="@+id/rb_show"
                      android:layout_width="50dp"
+                     android:checked="true"
                      android:layout_height="wrap_content"
                      style="@style/main_btn_style"
-                     android:background="@drawable/brief_btn"/>
-        <RadioButton android:id="@+id/rb_store"
-                     android:layout_width="50dp"
-                     android:layout_height="wrap_content"
-                     style="@style/main_btn_style"
-                     android:background="@drawable/schedule_btn"/>
+                     android:background="@drawable/brief_btn"
+                     android:layout_gravity="center_horizontal|bottom"/>
         <RadioButton android:id="@+id/rb_member"
                      android:layout_width="50dp"
                      android:layout_height="wrap_content"
                      style="@style/main_btn_style"
-                     android:background="@drawable/message_btn"/>
+                     android:background="@drawable/message_btn"
+                     android:layout_gravity="center_horizontal|bottom"/>
+        <RadioButton android:id="@+id/rb_news"
+                     android:layout_width="50dp"
+                     android:layout_height="60dp"
+                     style="@style/main_btn_style"
+                     android:background="@drawable/news_btn"
+                     android:layout_gravity="center_horizontal|bottom"/>
+        <RadioButton android:id="@+id/rb_store"
+                     android:layout_width="50dp"
+                     android:layout_height="wrap_content"
+                     style="@style/main_btn_style"
+                     android:background="@drawable/schedule_btn"
+                     android:layout_gravity="center_horizontal|bottom"/>
         <RadioButton android:id="@+id/rb_more"
                      android:layout_width="50dp"
                      android:layout_height="wrap_content"
                      style="@style/main_btn_style"
-                     android:background="@drawable/qrcode_btn"/>
-
-
+                     android:background="@drawable/qrcode_btn"
+                     android:layout_gravity="center_horizontal|bottom"/>
     </RadioGroup>
 </TabHost>

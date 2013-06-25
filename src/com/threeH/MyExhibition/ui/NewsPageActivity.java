@@ -2,8 +2,13 @@ package com.threeH.MyExhibition.ui;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.*;
@@ -37,14 +42,21 @@ public class NewsPageActivity extends BaseActivity  implements ActivityInterface
     private ExhibitionNews newsData;
     private ImageView imageviewTelephone;
     private TextView textViewTitle;
-
+    private Typeface typeface;
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            if(1 == msg.what){
+                listView.setAdapter(adapter);
+            }
+        }
+    };
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentViewWithNoTitle(R.layout.newslist);
-        initdata();
         findView();
+        initdata();
         addAction();
     }
 
@@ -57,29 +69,18 @@ public class NewsPageActivity extends BaseActivity  implements ActivityInterface
 
     @Override
     public void initdata() {
+        typeface = Typeface.createFromAsset(context.getAssets(),"fonts/msyh.ttf");
         exKey = getIntent().getStringExtra("exKey");
-        List<HashMap<String,String>> data = new ArrayList<HashMap<String, String>>();
-        try {
-            String str = mController.getService().ExNewsList(exKey);
-            newsData = new Gson().fromJson(str, ExhibitionNews.class);
-            for(ExhibitionNews.News news : newsData.getList()){
-                HashMap<String,String> map = new HashMap<String, String>();
-                map.put("exKey",exKey);
-                map.put("newsKey",news.getNewsKey());
-                map.put("newsTitle",news.getTitle());
-                data.add(map);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        adapter =  new NewslistAdapter(data,context);
+        LoadDataAsyncTask loadDataAsyncTask = new LoadDataAsyncTask();
+        loadDataAsyncTask.execute();
     }
 
     @Override
     public void addAction() {
-        listView.setAdapter(adapter);
+        //listView.setAdapter(adapter);
         listView.setOnItemClickListener(this);
-        imageviewTelephone.setOnClickListener(new TelephoneClickListener(this));
+        imageviewTelephone.setOnClickListener(new TelephoneClickListener(this,tel_nummber));
+        textViewTitle.setTypeface(typeface);
         textViewTitle.setText("展会新闻");
     }
 
@@ -91,4 +92,34 @@ public class NewsPageActivity extends BaseActivity  implements ActivityInterface
         startActivity(intent);
     }
 
+    class LoadDataAsyncTask extends AsyncTask<Void,Integer,Integer> {
+
+        @Override
+        protected Integer doInBackground(Void... voids) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    List<HashMap<String,String>> data = new ArrayList<HashMap<String, String>>();
+                    try {
+                        String str = mController.getService().ExNewsList(exKey);
+                        newsData = new Gson().fromJson(str, ExhibitionNews.class);
+                        for(ExhibitionNews.News news : newsData.getList()){
+                            HashMap<String,String> map = new HashMap<String, String>();
+                            map.put("exKey",exKey);
+                            map.put("newsKey",news.getNewsKey());
+                            map.put("newsTitle",news.getTitle());
+                            data.add(map);
+                        }
+                        adapter =  new NewslistAdapter(data,context);
+                        Message message = handler.obtainMessage();
+                        message.what = 1;
+                        handler.sendMessage(message);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+            return null;
+        }
+    }
 }

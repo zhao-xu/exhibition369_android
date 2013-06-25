@@ -47,7 +47,7 @@ public interface ClientService {
      * @return
      * @throws Exception
      */
-    public String ExEnroll(String exKey, String token, String name, String mobile, String email) throws Exception;
+    public String ExEnroll(String exKey, String token, String name, String mobile, String email,String type) throws Exception;
 
     /**
      * 展会消息

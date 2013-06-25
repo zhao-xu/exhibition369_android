@@ -121,7 +121,6 @@ public class CustomerHttpClient {
     public static String postJson(String url, String jSonData) {
         HttpClient client = getHttpClient();
         HttpResponse response;
-
         try {
             HttpPost post = new HttpPost(url);
             StringEntity se = new StringEntity(jSonData);
@@ -147,7 +146,6 @@ public class CustomerHttpClient {
             if (null != params) {
 
                 urlBuilder.append("?");
-
                 Iterator<Map.Entry<String, String>> iterator = params.entrySet()
                         .iterator();
 
@@ -289,7 +287,6 @@ Log.i("data",urlBuilder.toString());
                 // 获取响应内容
                 BufferedReader reader = new BufferedReader(
                         new InputStreamReader(response.getEntity().getContent()));
-
                 for (String s = reader.readLine(); s != null; s = reader
                         .readLine()) {
                     builder.append(s);
@@ -300,7 +297,6 @@ Log.i("data",urlBuilder.toString());
             e.getMessage();
             System.out.println("211313=======" + e.getMessage());
         }
-
         return null;
     }
 

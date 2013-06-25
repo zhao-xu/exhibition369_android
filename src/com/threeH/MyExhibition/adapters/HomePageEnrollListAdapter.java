@@ -89,6 +89,7 @@ public class HomePageEnrollListAdapter extends BaseAdapter {
             public void onClick(View v) {
                 Intent intent = new Intent(context, SignupActivity.class);
                 intent.putExtra("exKey",data.get(i).get("exhibitionExkey"));
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
             }
         });

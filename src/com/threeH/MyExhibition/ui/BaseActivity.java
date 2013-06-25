@@ -3,6 +3,7 @@ package com.threeH.MyExhibition.ui;
 import android.app.Activity;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -80,8 +81,6 @@ public class BaseActivity extends Activity {
 
     public void getConacts() {
     }
-
-    ;
 
     public void hideBaseDialog() {
         try {

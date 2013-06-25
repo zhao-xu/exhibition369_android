@@ -1,5 +1,7 @@
 package com.threeH.MyExhibition.ui;
 
+import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
@@ -23,7 +25,7 @@ public class ShowHtmlActivity extends BaseActivity implements ActivityInterface 
     private ImageView imageviewTelephone;
     private TextView textViewTitle;
     private String strTitle;
-
+    Typeface typeface;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,12 +47,28 @@ public class ShowHtmlActivity extends BaseActivity implements ActivityInterface 
     public void initdata() {
         url = getIntent().getStringExtra("url");
         strTitle = getIntent().getStringExtra("title");
+        typeface = Typeface.createFromAsset(context.getAssets(),"fonts/msyh.ttf");
     }
 
     @Override
     public void addAction() {
-        webView.loadUrl(url);
-        imageviewTelephone.setOnClickListener(new TelephoneClickListener(this));
+        imageviewTelephone.setOnClickListener(new TelephoneClickListener(this,tel_nummber));
+        textViewTitle.setTypeface(typeface);
         textViewTitle.setText(strTitle);
+        LoadHtmlTask loadHtmlTask = new LoadHtmlTask();
+        loadHtmlTask.execute();
+
+    }
+    class LoadHtmlTask extends AsyncTask<Void,Integer,Integer>{
+        @Override
+        protected Integer doInBackground(Void... params) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    webView.loadUrl(url);
+                }
+            }).start();
+            return null;
+        }
     }
 }

@@ -24,9 +24,12 @@ import cn.mobiledaily.module.android.module.mobilepush.service.helper.OnMessageL
 import com.google.gson.Gson;
 import com.threeH.MyExhibition.R;
 import com.threeH.MyExhibition.adapters.HomePageEnrollListAdapter;
+import com.threeH.MyExhibition.cache.XmlDB;
+import com.threeH.MyExhibition.common.StringPools;
 import com.threeH.MyExhibition.entities.Exhibition;
 import com.threeH.MyExhibition.entities.UnEnrollExhibition;
 import com.threeH.MyExhibition.service.ClientController;
+import com.threeH.MyExhibition.tools.MobileConfig;
 import com.threeH.MyExhibition.tools.Tool;
 import com.threeH.MyExhibition.widget.PullToRefreshView;
 
@@ -57,8 +60,8 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentViewWithNoTitle(R.layout.unsingup_exhibitionlist);
-        initdata();
         findView();
+        initdata();
         addAction();
     }
 
@@ -82,7 +85,6 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
 
     @Override
     public void addAction() {
-
         listView.setDividerHeight(0);
         listView.setOnItemClickListener(this);
         try{
@@ -97,6 +99,9 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(this,ExhibitionActivity.class);
         intent.putExtra("exKey",allExhibitionData.getList().get(position).getExKey());
+        intent.putExtra("exAddress",allExhibitionData.getList().get(position).getAddress());
+        intent.putExtra("exTime",allExhibitionData.getList().get(position).getDate());
+        intent.putExtra("token",token);
         startActivity(intent);
     }
 
@@ -122,7 +127,7 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
                 @Override
                 public void run() {
                     try {
-                        String str = mController.getService().UnErollExList("pjqAndroid",-1,-1,"");
+                        String str = mController.getService().UnErollExList(token,-1,-1,"");
                         if(null != str){
                             saveExhibitionData(str);
                         }
@@ -132,6 +137,10 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
                         Message message = handler.obtainMessage();
                         message.what = 1;
                         handler.sendMessage(message);
+                        /*MobileConfig mobileConfig = MobileConfig.getMobileConfig(context);
+                        XmlDB.getInstance(NoSignupExhiListActivity.this).saveKey(StringPools.OVERALL_CONFIG,
+                                mController.getService().OverAllData(StringPools.PHONE_TYPE,
+                                        "369exhibition", "1.0", mobileConfig.getLocalMacAddress()));*/
                     } catch (Exception e) {
 Log.e("data", e.getMessage());
                     }

@@ -7,8 +7,8 @@
                 >
     <ImageView
             android:id="@+id/imageview_icon"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_margin="10dp"/>
@@ -34,6 +34,7 @@
             android:layout_height="wrap_content"
             android:text="第八届上海国际石油石化天然气技术装备展览会"
             android:singleLine="true"
+            android:textSize="15dp"
             android:textColor="@android:color/black"/>
     <TextView
             android:id="@+id/exhibition_date"
@@ -45,7 +46,7 @@
             android:ellipsize="marquee"
             android:layout_below="@id/exhibition_theme"
             android:textSize="13sp"
-            />
+            android:layout_marginTop="3dp"/>
     <TextView
             android:id="@+id/exhibition_address"
             android:layout_width="wrap_content"
@@ -55,8 +56,7 @@
             android:textColor="@color/light_gray"
             android:ellipsize="marquee"
             android:layout_below="@id/exhibition_date"
-            android:textSize="13sp"
-            />
+            android:textSize="13sp"/>
     <TextView
             android:id="@+id/exhibition_sponsor"
             android:layout_width="wrap_content"
@@ -66,8 +66,7 @@
             android:textColor="@color/light_gray"
             android:ellipsize="marquee"
             android:layout_below="@id/exhibition_address"
-            android:textSize="13sp"
-            />
+            android:textSize="13sp"/>
     </RelativeLayout>
     <ImageView
             android:id="@+id/imageview_signup"
@@ -76,7 +75,5 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             android:src="@drawable/signup"
-            android:contentDescription=""
-            />
-
+            android:contentDescription=""/>
 </RelativeLayout>

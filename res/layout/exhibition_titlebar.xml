@@ -18,21 +18,21 @@
             android:id="@+id/exhibition_titlebar_textview_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="21dp"
+            android:textColor="@android:color/white"
             android:layout_centerHorizontal="true"
-            android:layout_alignTop="@+id/exhibition_titlebar_button_telephone"
-            android:textSize="20dp"
-            android:textColor="@android:color/black"/>
+            android:layout_centerVertical="true"/>
     <ImageView
             android:id="@+id/exhibition_titlebar_button_telephone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:background="@drawable/new_telephone_unfocus"
-            />
+            android:background="@drawable/new_telephone_unfocus"/>
     <ImageView
             android:id="@+id/exhibition_titlebar_signup"
             android:background="@drawable/information_unfocus"
             android:layout_toLeftOf="@id/exhibition_titlebar_button_telephone"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
 </RelativeLayout>

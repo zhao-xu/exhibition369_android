@@ -31,13 +31,11 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
         initdata();
         findView();
         addAction();
-
     }
-
     @Override
     public void initdata() {
         try {
-            String jsonData = mController.getService().ErollExList("pjqAndroid");
+            String jsonData = mController.getService().ErollExList(token);
             enrollStatuses =  mGson.fromJson(jsonData, EnrollExhibition.EnrollStatus[].class);
             for(EnrollExhibition.EnrollStatus mEnrollStatus : enrollStatuses){
                 HashMap<String,String> map =new HashMap<String,String>();
@@ -47,7 +45,7 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
                 mdataes.add(map);
             }
         } catch (Exception e) {
-            Log.e("data",e.getMessage());
+
         }
         mSignExhiListAdapter = new SignExhiListAdapter(context,mdataes);
     }
@@ -59,6 +57,7 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
     @Override
     public void addAction() {
         mListView.setAdapter(mSignExhiListAdapter);
+        mListView.setDividerHeight(0);
         mListView.setOnItemClickListener(this);
     }
 
@@ -68,4 +67,6 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
         intent.putExtra("exKey",enrollStatuses[position].getExKey());
         startActivity(intent);
     }
+
+
 }

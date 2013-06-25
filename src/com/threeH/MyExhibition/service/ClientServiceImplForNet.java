@@ -146,14 +146,15 @@ public class ClientServiceImplForNet implements ClientService {
      * method:post
      */
     @Override
-    public String ExEnroll(String exKey, String token, String name, String mobile, String email) throws Exception {
+    public String ExEnroll(String exKey, String token, String name, String mobile, String email,String type) throws Exception {
         final String url = UrlPools.APP_SERVER + "/rest/applies/put";
         NameValuePair param1 = new BasicNameValuePair("exKey", exKey);
         NameValuePair param2 = new BasicNameValuePair("token", token);
         NameValuePair param3 = new BasicNameValuePair("name", name);
         NameValuePair param4 = new BasicNameValuePair("mobile", mobile);
         NameValuePair param5 = new BasicNameValuePair("email", email);
-        CustomerHttpClient.post(url,param1,param2,param3,param4,param5);
+        NameValuePair param6 = new BasicNameValuePair("type", type);
+        CustomerHttpClient.post(url,param1,param2,param3,param4,param5,param6);
         return null;
     }
 

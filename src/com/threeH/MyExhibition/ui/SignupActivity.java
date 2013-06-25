@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.threeH.MyExhibition.R;
 
@@ -25,10 +26,11 @@ public class SignupActivity extends  BaseActivity implements ActivityInterface{
     private String email;
     private Button buttonSingUp;
     private String exKey;
+    private String type = "A";
+    private ImageView imageViewAttendee,imageviewExhibitor;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentViewWithNoTitle(R.layout.signup_page);
         findView();
         initdata();
@@ -41,6 +43,8 @@ public class SignupActivity extends  BaseActivity implements ActivityInterface{
         editTextTelephone = (EditText) this.findViewById(R.id.phone_nummber);
         editTextEmail = (EditText) this.findViewById(R.id.email_address);
         buttonSingUp = (Button) this.findViewById(R.id.submit_btn);
+        imageViewAttendee = (ImageView) this.findViewById(R.id.signup_imageview_canhui);
+        imageviewExhibitor = (ImageView) this.findViewById(R.id.signup_imageview_canzhan);
     }
 
     @Override
@@ -57,10 +61,32 @@ public class SignupActivity extends  BaseActivity implements ActivityInterface{
                        name = editTextName.getText().toString();
                        telephone = editTextTelephone.getText().toString();
                        email = editTextEmail.getText().toString();
-                       mController.getService().ExEnroll(exKey,"pjqAndroid",name,telephone,email);
+                       mController.getService().ExEnroll(exKey,token,name,telephone,email,type);
                    }catch (Exception e){
                    }
                }
            });
+        TypeClickListener typeClickListener = new TypeClickListener();
+        imageViewAttendee.setOnClickListener(typeClickListener);
+        imageviewExhibitor.setOnClickListener(typeClickListener);
     }
+
+    class  TypeClickListener implements View.OnClickListener{
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()){
+                case R.id.signup_imageview_canzhan:
+                    imageviewExhibitor.setBackgroundResource(R.drawable.yuan_focus);
+                    imageViewAttendee.setBackgroundResource(R.drawable.yuan_unfocus);
+                    type ="E";
+                    break;
+                case R.id.signup_imageview_canhui:
+                    imageviewExhibitor.setBackgroundResource(R.drawable.yuan_unfocus);
+                    imageViewAttendee.setBackgroundResource(R.drawable.yuan_focus);
+                    type ="A";
+                    break;
+            }
+        }
+    }
+
 }

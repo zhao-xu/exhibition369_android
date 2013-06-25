@@ -14,12 +14,14 @@ import android.view.View;
  */
 public class TelephoneClickListener implements View.OnClickListener {
     private Context context;
-    public TelephoneClickListener(Context context) {
+    private String telephone;
+    public TelephoneClickListener(Context context,String telephone) {
         this.context = context;
+        this.telephone = telephone;
     }
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + 10086));
+        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + telephone));
         context.startActivity(intent);
     }
 }

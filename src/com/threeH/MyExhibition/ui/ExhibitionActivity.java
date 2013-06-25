@@ -3,14 +3,23 @@ package com.threeH.MyExhibition.ui;
 import android.app.TabActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Message;
+import android.util.Log;
 import android.view.Window;
 import android.widget.*;
 import com.google.gson.Gson;
 import com.threeH.MyExhibition.R;
+import com.threeH.MyExhibition.adapters.HomePageEnrollListAdapter;
 import com.threeH.MyExhibition.entities.AuditingStatus;
+import com.threeH.MyExhibition.entities.UnEnrollExhibition;
 import com.threeH.MyExhibition.listener.TelephoneClickListener;
 import com.threeH.MyExhibition.service.ClientController;
+import com.threeH.MyExhibition.tools.Tool;
+
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -33,12 +42,14 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
     private RadioGroup radiogroup;
     private ClientController clientController;
     private char  singupStatus;
+    private String strExAddress;
+    private String strExDate;
     private RadioButton radioButtonNews;
+    private String token;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
-        //requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.exhibition_tab_page);
         initdata();
@@ -60,13 +71,16 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
         tabhost  = this.getTabHost();
         clientController = ClientController.getController(this);
         exKey = getIntent().getStringExtra("exKey");
-        singupStatus = getSignupStatus(exKey,"pjqAndroid");
+        strExAddress = getIntent().getStringExtra("exAddress");
+        strExDate = getIntent().getStringExtra("exTime");
+        token = getIntent().getStringExtra("token");
+        singupStatus = getSignupStatus(exKey,token);
         TabHost.TabSpec newSpec = tabhost.newTabSpec(NEWS_TAB).setIndicator(NEWS_TAB)
                 .setContent(new Intent(this, NewsPageActivity.class).putExtra("exKey",exKey));
         TabHost.TabSpec showSpec = tabhost.newTabSpec(SUMMARY_TAB).setIndicator(SUMMARY_TAB)
                 .setContent(new Intent (this, ShowHtmlActivity.class)
                         .putExtra("url","http://180.168.35.37:8080/e369_asset/"+ exKey + "/brief.html")
-                        .putExtra("title","简介"));
+                        .putExtra("title","会展介绍"));
         TabHost.TabSpec homeSpec = tabhost.newTabSpec(SCHEDULE_TAB)
                 .setIndicator(SCHEDULE_TAB)
                 .setContent(new Intent(this, ShowHtmlActivity.class)
@@ -79,9 +93,11 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
         TabHost.TabSpec moreSpec = tabhost.newTabSpec(TWODCODE_TAB).setIndicator(TWODCODE_TAB)
                 .setContent(new Intent(this, QrCodeActivity.class)
                         .putExtra("exhibitionKey",exKey)
-                        .putExtra("singupStatus",singupStatus));
-        tabhost.addTab(newSpec);
+                        .putExtra("singupStatus",singupStatus)
+                        .putExtra("exAddress",strExAddress)
+                        .putExtra("exTime",strExDate));
         tabhost.addTab(showSpec);
+        tabhost.addTab(newSpec);
         tabhost.addTab(homeSpec);
         tabhost.addTab(memberSpec);
         tabhost.addTab(moreSpec);
@@ -91,7 +107,6 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
     public void addAction() {
         radiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                // TODO Auto-generated method stub
                 switch (checkedId) {
                     case R.id.rb_news:
                         tabhost.setCurrentTabByTag(NEWS_TAB);
@@ -128,4 +143,5 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
         }
         return ' ';
     }
+
 }
