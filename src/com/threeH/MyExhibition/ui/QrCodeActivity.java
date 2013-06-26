@@ -1,5 +1,9 @@
 package com.threeH.MyExhibition.ui;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -64,9 +68,27 @@ public class QrCodeActivity extends BaseActivity implements  ActivityInterface{
 
     @Override
     public void addAction() {
+        textViewTitle.setTypeface(typeface);
+        textViewTitle.setText("二维码");
+        imageviewTelephone.setOnClickListener(new TelephoneClickListener(this,tel_nummber));
+        ImageURLUtil.loadImage(Tool.makeExhibitionIconURL(strExhibitionKey),imageViewIcon);
+        textViewAddress.setText(strExAddress);
+        textViewTime.setText(strExDate);
+        imageViewSignup.setVisibility(View.GONE);
+        imageViewSingup2.setVisibility(View.GONE);
         switch (charSingupStatus){
             case 'N':
                 textView.setText("对不起您还没有报名参加此展会，请报名！");
+                new AlertDialog.Builder(QrCodeActivity.this)
+                        .setMessage("您还未报名，请先报名")
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = new Intent(QrCodeActivity.this,SignupActivity.class);
+                                intent.putExtra("exKey",strExhibitionKey);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                                startActivity(intent);
+                            }
+                        }).show();
                 break;
             case 'P':
                 textView.setText("您的个人信息还在审核中，请耐心等待。。。");
@@ -78,13 +100,5 @@ public class QrCodeActivity extends BaseActivity implements  ActivityInterface{
                 textView.setText("对不起，您的个人信息未能通过审核，您可以拨打客服热线进行咨询。");
                 break;
         }
-        textViewTitle.setTypeface(typeface);
-        textViewTitle.setText("二维码");
-        imageviewTelephone.setOnClickListener(new TelephoneClickListener(this,tel_nummber));
-        ImageURLUtil.loadImage(Tool.makeExhibitionIconURL(strExhibitionKey),imageViewIcon);
-        textViewAddress.setText(strExAddress);
-        textViewTime.setText(strExDate);
-        imageViewSignup.setVisibility(View.GONE);
-        imageViewSingup2.setVisibility(View.GONE);
     }
 }

@@ -1,5 +1,8 @@
 package com.threeH.MyExhibition.ui;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
@@ -67,6 +70,14 @@ public class SignupActivity extends  BaseActivity implements ActivityInterface{
                        telephone = editTextTelephone.getText().toString();
                        email = editTextEmail.getText().toString();
                        mController.getService().ExEnroll(exKey,token,name,telephone,email,type);
+                       new AlertDialog.Builder(SignupActivity.this)
+                               .setMessage("提交成功")
+                               .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                   public void onClick(DialogInterface dialog, int which) {
+                                       Intent intent = new Intent(SignupActivity.this,HomeOfTabActivity.class);
+                                       startActivity(intent);
+                                   }
+                               }).show();
                    }catch (Exception e){
                    }
                }

@@ -95,7 +95,8 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
                         .putExtra("exhibitionKey",exKey)
                         .putExtra("singupStatus",singupStatus)
                         .putExtra("exAddress",strExAddress)
-                        .putExtra("exTime",strExDate));
+                        .putExtra("exTime",strExDate)
+                        .addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY));
         tabhost.addTab(showSpec);
         tabhost.addTab(newSpec);
         tabhost.addTab(homeSpec);
