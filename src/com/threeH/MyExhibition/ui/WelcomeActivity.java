@@ -1,7 +1,9 @@
 package com.threeH.MyExhibition.ui;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import com.threeH.MyExhibition.R;
 import com.threeH.MyExhibition.cache.XmlDB;
 import com.threeH.MyExhibition.common.StringPools;
@@ -36,7 +38,7 @@ public class WelcomeActivity extends BaseActivity implements ActivityInterface{
                         MobileConfig mobileConfig = MobileConfig.getMobileConfig(context);
                         XmlDB.getInstance(WelcomeActivity.this).saveKey(StringPools.OVERALL_CONFIG,
                                 mController.getService().OverAllData(StringPools.PHONE_TYPE,
-                                        "369exhibition", "1.0", mobileConfig.getLocalMacAddress()));
+                                        Build.VERSION.RELEASE, "1.0", mobileConfig.getLocalMacAddress()));
                         sleep(3000);
                         goToNextPage();
 

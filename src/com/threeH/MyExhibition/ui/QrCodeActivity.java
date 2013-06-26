@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.threeH.MyExhibition.R;
 import com.threeH.MyExhibition.listener.TelephoneClickListener;
 import com.threeH.MyExhibition.tools.ImageURLUtil;
+import com.threeH.MyExhibition.tools.MSYH;
 import com.threeH.MyExhibition.tools.Tool;
 
 /**
@@ -63,7 +64,8 @@ public class QrCodeActivity extends BaseActivity implements  ActivityInterface{
 
     @Override
     public void initdata(){
-        typeface = Typeface.createFromAsset(context.getAssets(), "fonts/msyh.ttf");
+//        typeface = Typeface.createFromAsset(context.getAssets(), "fonts/msyh.ttf");
+        typeface = MSYH.getInstance(context.getApplicationContext()).getNormal();
         charSingupStatus = getIntent().getCharExtra("singupStatus", ' ');
         strExhibitionKey = getIntent().getStringExtra("exhibitionKey");
         strExAddress = getIntent().getStringExtra("exAddress");

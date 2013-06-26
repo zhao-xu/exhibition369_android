@@ -6,11 +6,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
 import android.webkit.WebView;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.threeH.MyExhibition.R;
 import com.threeH.MyExhibition.listener.TelephoneClickListener;
+import com.threeH.MyExhibition.tools.MSYH;
 
 /**
  * Created with IntelliJ IDEA.
@@ -26,19 +28,32 @@ public class ShowHtmlActivity extends BaseActivity implements ActivityInterface 
     private TextView textViewTitle;
     private String strTitle;
     Typeface typeface;
+    FrameLayout webContainer;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.webview);
+
+        webContainer = (FrameLayout) findViewById(R.id.webContainer);
+        webView = new WebView(getApplicationContext());
+        webContainer.addView(webView);
+
         initdata();
         findView();
         addAction();
     }
 
     @Override
+    protected void onDestroy() {
+        webContainer.removeAllViews();
+        webView.destroy();
+        super.onDestroy();
+    }
+
+    @Override
     public void findView() {
-        webView = (WebView) this.findViewById(R.id.webview);
+//        webView = (WebView) this.findViewById(R.id.webview);
         imageviewTelephone = (ImageView) this.findViewById(R.id.exhibition_titlebar_button_telephone);
         textViewTitle = (TextView) this.findViewById(R.id.exhibition_titlebar_textview_title);
     }
@@ -47,7 +62,9 @@ public class ShowHtmlActivity extends BaseActivity implements ActivityInterface 
     public void initdata() {
         url = getIntent().getStringExtra("url");
         strTitle = getIntent().getStringExtra("title");
-        typeface = Typeface.createFromAsset(context.getAssets(),"fonts/msyh.ttf");
+//        typeface = Typeface.createFromAsset(context.getAssets(),"fonts/msyh.ttf");
+
+        typeface = MSYH.getInstance(context.getApplicationContext()).getNormal();
     }
 
     @Override

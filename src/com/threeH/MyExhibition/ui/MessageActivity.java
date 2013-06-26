@@ -10,6 +10,7 @@ import com.threeH.MyExhibition.R;
 import com.threeH.MyExhibition.adapters.MessageListAdapter;
 import com.threeH.MyExhibition.entities.ExhibitionMessage;
 import com.threeH.MyExhibition.listener.TelephoneClickListener;
+import com.threeH.MyExhibition.tools.MSYH;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -31,6 +32,7 @@ public class MessageActivity extends BaseActivity implements ActivityInterface{
     private TextView textViewTitle;
     private String exKey;
     private Typeface typeface;
+    private LoadMessageTask loadMessageTask;
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -57,8 +59,9 @@ public class MessageActivity extends BaseActivity implements ActivityInterface{
     @Override
     public void initdata() {
         exKey = getIntent().getStringExtra("exhibitionKey");
-        typeface = Typeface.createFromAsset(context.getAssets(),"fonts/msyh.ttf");
-        LoadMessageTask loadMessageTask = new LoadMessageTask();
+//        typeface = Typeface.createFromAsset(context.getAssets(),"fonts/msyh.ttf");
+        typeface = MSYH.getInstance(context.getApplicationContext()).getNormal();
+        loadMessageTask = new LoadMessageTask();
         loadMessageTask.execute();
     }
 
@@ -96,5 +99,11 @@ public class MessageActivity extends BaseActivity implements ActivityInterface{
             }).start();
             return null;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        loadMessageTask = null;
+        super.onDestroy();
     }
 }

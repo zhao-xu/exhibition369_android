@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.threeH.MyExhibition.R;
+import com.threeH.MyExhibition.tools.MSYH;
 
 import java.util.HashMap;
 import java.util.List;
@@ -24,7 +25,8 @@ public class MessageListAdapter extends BaseAdapter {
     public MessageListAdapter(Context context, List<HashMap<String, String>> data) {
         this.data = data;
         mInflater = LayoutInflater.from(context);
-        typeface_bold = Typeface.createFromAsset(context.getAssets(), "fonts/msyhbd.ttf");
+//        typeface_bold = Typeface.createFromAsset(context.getAssets(), "fonts/msyhbd.ttf");
+        typeface_bold = MSYH.getInstance(context.getApplicationContext()).getBold();
     }
 
     @Override

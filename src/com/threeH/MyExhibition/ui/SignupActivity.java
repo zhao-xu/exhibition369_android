@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.threeH.MyExhibition.R;
 import com.threeH.MyExhibition.listener.TelephoneClickListener;
+import com.threeH.MyExhibition.tools.MSYH;
 
 /**
  * Created with IntelliJ IDEA.
@@ -57,7 +58,8 @@ public class SignupActivity extends  BaseActivity implements ActivityInterface{
     @Override
     public void initdata() {
         exKey = getIntent().getStringExtra("exKey");
-        typeface = Typeface.createFromAsset(context.getAssets(),"fonts/msyh.ttf");
+//        typeface = Typeface.createFromAsset(context.getAssets(),"fonts/msyh.ttf");
+        typeface = MSYH.getInstance(context.getApplicationContext()).getNormal();
     }
 
     @Override

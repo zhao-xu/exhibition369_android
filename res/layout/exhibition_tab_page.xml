@@ -33,7 +33,8 @@
                 android:layout_gravity="bottom"
                 android:orientation="horizontal"
                 android:gravity="center_horizontal"
-                android:background="@drawable/exhibition_tab_background">
+                android:background="@drawable/exhibition_tab_background"
+                android:focusable="true">
         <RadioButton android:id="@+id/rb_show"
                      android:layout_width="50dp"
                      android:checked="true"

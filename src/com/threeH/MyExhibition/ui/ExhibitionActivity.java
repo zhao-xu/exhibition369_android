@@ -7,11 +7,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 import android.widget.*;
 import com.google.gson.Gson;
 import com.threeH.MyExhibition.R;
 import com.threeH.MyExhibition.entities.AuditingStatus;
+import com.threeH.MyExhibition.entities.ExhibitionMessage;
 import com.threeH.MyExhibition.service.ClientController;
 
 /**
@@ -36,8 +38,10 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
     private ClientController clientController;
     private char  singupStatus;
     private String strExAddress,strExDate,strTheme,strSponser;
-    private RadioButton radioButtonNews,radioButtonQrcode;
+    private RadioButton radioButtonNews,radioButtonQrcode,radioButtonMessage;
     private String token;
+    private Gson mGson = new Gson();
+    private int id = R.id.rb_show;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -57,6 +61,7 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
         radiogroup = (RadioGroup) this.findViewById(R.id.rg_tabs_btns);
         radioButtonNews = (RadioButton) this.findViewById(R.id.rb_news);
         radioButtonQrcode = (RadioButton) this.findViewById(R.id.rb_more);
+        radioButtonMessage = (RadioButton) this.findViewById(R.id.rb_member);
     }
 
     @Override
@@ -102,26 +107,37 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
 
     @Override
     public void addAction() {
+
         radiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
+            public void onCheckedChanged(RadioGroup group, int checkedId){
 
                 switch (checkedId) {
                     case R.id.rb_news:
                         tabhost.setCurrentTabByTag(NEWS_TAB);
+                        id = R.id.rb_news;
                         break;
                     case R.id.rb_show:
                         tabhost.setCurrentTabByTag(SUMMARY_TAB);
+                        id = R.id.rb_show;
                         break;
                     case R.id.rb_store:
                         tabhost.setCurrentTabByTag(SCHEDULE_TAB);
+                        id = R.id.rb_store;
                         break;
                     case R.id.rb_member:
-                        tabhost.setCurrentTabByTag(MESSAGE_TAB);
+                            if( 'N' == singupStatus){
+                                showRemindSignDialog();
+                                radioButtonMessage.setChecked(false);
+                                radiogroup.check(id);
+                            }else{
+                                tabhost.setCurrentTabByTag(MESSAGE_TAB);
+                            }
                         break;
                     case R.id.rb_more:
                         if ('N' == singupStatus) {
                             showRemindSignDialog();
                             radioButtonQrcode.setChecked(false);
+                            radiogroup.check(id);
                             //tabhost.setCurrentTabByTag(tabhost.getCurrentTabTag());
                         }else{
                             tabhost.setCurrentTabByTag(TWODCODE_TAB);

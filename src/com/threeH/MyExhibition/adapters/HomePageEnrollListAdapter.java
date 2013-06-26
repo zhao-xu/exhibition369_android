@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.threeH.MyExhibition.R;
 import com.threeH.MyExhibition.tools.ImageURLUtil;
+import com.threeH.MyExhibition.tools.MSYH;
 import com.threeH.MyExhibition.tools.Tool;
 import com.threeH.MyExhibition.ui.SignupActivity;
 
@@ -31,8 +32,10 @@ public class HomePageEnrollListAdapter extends BaseAdapter {
         this.data = data;
         mInflater = LayoutInflater.from(context);
         this.context = context;
-        typeface = Typeface.createFromAsset(context.getAssets(), "fonts/msyh.ttf");
-        typeface_bold = Typeface.createFromAsset(context.getAssets(), "fonts/msyhbd.ttf");
+//        typeface = Typeface.createFromAsset(context.getAssets(), "fonts/msyh.ttf");
+//        typeface_bold = Typeface.createFromAsset(context.getAssets(), "fonts/msyhbd.ttf");
+        typeface = MSYH.getInstance(context.getApplicationContext()).getNormal();
+        typeface_bold = MSYH.getInstance(context.getApplicationContext()).getBold();
     }
 
     @Override

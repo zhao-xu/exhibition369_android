@@ -21,6 +21,7 @@ import com.threeH.MyExhibition.entities.ExhibitionNews;
 import com.threeH.MyExhibition.entities.UnEnrollExhibition;
 import com.threeH.MyExhibition.listener.TelephoneClickListener;
 import com.threeH.MyExhibition.service.ClientController;
+import com.threeH.MyExhibition.tools.MSYH;
 import com.threeH.MyExhibition.tools.Tool;
 
 import java.util.ArrayList;
@@ -69,7 +70,8 @@ public class NewsPageActivity extends BaseActivity  implements ActivityInterface
 
     @Override
     public void initdata() {
-        typeface = Typeface.createFromAsset(context.getAssets(),"fonts/msyh.ttf");
+//        typeface = Typeface.createFromAsset(context.getAssets(),"fonts/msyh.ttf");
+        typeface = MSYH.getInstance(context.getApplicationContext()).getNormal();
         exKey = getIntent().getStringExtra("exKey");
         LoadDataAsyncTask loadDataAsyncTask = new LoadDataAsyncTask();
         loadDataAsyncTask.execute();
