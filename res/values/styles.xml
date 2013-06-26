@@ -75,4 +75,12 @@
 		<item name="android:windowTitleBackgroundStyle">@style/CustomWindowTitleBackground</item>
 	</style>
 
+    <style name="dialog_fullscreen" >
+        <!--<item name="android:windowFullscreen">true</item>-->
+        <item name="android:windowNoTitle">true</item>
+        <!--<item name="android:background">@android:color/transparent</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">false</item>-->
+        <item name="android:windowCloseOnTouchOutside">true</item>
+    </style>
 </resources>

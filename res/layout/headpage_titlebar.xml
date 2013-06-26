@@ -2,12 +2,15 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                >
+                android:layout_height="40dp"
+                android:background="@drawable/sousuobeijing">
     <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="40dp"
+            android:layout_centerVertical="true"
             android:id="@+id/relativeLayout"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:background="@drawable/soushuokuang">
         <Button
                 android:id="@+id/search_btn"
@@ -25,6 +28,7 @@
                 android:layout_height="50dp"
                 android:background="@android:color/transparent"
                 android:clickable="true"
+                android:hint="搜索"
                 android:layout_toRightOf="@id/search_btn"
                 android:layout_alignTop="@+id/search_btn"
                 android:layout_marginLeft="2dp"/>

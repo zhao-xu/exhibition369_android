@@ -73,6 +73,8 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
         Exhibition exhibition = getExhibitionData(enrollStatuses[position].getExKey());
         intent.putExtra("exAddress",exhibition.getAddress());
         intent.putExtra("exTime",exhibition.getDate());
+        intent.putExtra("exTheme",exhibition.getName());
+        intent.putExtra("exSponser",exhibition.getOrganizer());
         intent.putExtra("token",token);
         startActivity(intent);
     }

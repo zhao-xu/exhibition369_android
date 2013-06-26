@@ -46,7 +46,6 @@ public class MessageActivity extends BaseActivity implements ActivityInterface{
         findView();
         initdata();
         addAction();
-
     }
 
     @Override
@@ -68,10 +67,10 @@ public class MessageActivity extends BaseActivity implements ActivityInterface{
         imageviewTelephone.setOnClickListener(new TelephoneClickListener(this,tel_nummber));
         textViewTitle.setTypeface(typeface);
         textViewTitle.setText("消息");
+        mMessageListView.setDividerHeight(0);
     }
 
     class LoadMessageTask extends AsyncTask<Void,Integer,Integer>{
-
         @Override
         protected Integer doInBackground(Void... params) {
             new Thread(new Runnable() {

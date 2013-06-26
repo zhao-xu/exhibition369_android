@@ -2,31 +2,39 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
-              android:layout_height="wrap_content"
+              android:layout_height="match_parent"
               android:background="@drawable/homepage_background">
+    <!--<RelativeLayout
+            android:id="@+id/unsignup_list_linearlayout"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:background="@drawable/sousuobeijing">
     <ImageView
             android:id="@+id/search_exhibition"
             android:layout_height="wrap_content"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:src="@drawable/soushuokuang"
             android:contentDescription=""
             android:paddingLeft="12dp"
-            android:paddingRight="12dp"
-            android:background="@drawable/sousuobeijing"
-            />
+            android:paddingRight="12dp"/>
     <EditText
             android:id="@+id/search_text"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="textShortMessage"
             android:background="@android:color/transparent"
             android:text=""
-            android:hint="点击搜索"
-            android:paddingLeft="60dp"
+            android:hint="搜索"
             android:paddingRight="25dp"
             android:paddingTop="23dp"
             android:textSize="15dp"
-            />
+            android:layout_marginLeft="60dp"/>
+    </RelativeLayout>-->
+    <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/headpage_titlebar"
+            android:id="@+id/unsingup_list_include"/>
     <ListView
             android:id="@+id/unsingup_exhibition_listview"
             android:layout_height="match_parent"
@@ -39,6 +47,6 @@
             android:paddingBottom="6dp"
             android:divider="@null"
             android:dividerHeight="12dp"
-            android:layout_below="@id/search_exhibition"
-            />
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/unsingup_list_include"/>
 </RelativeLayout>

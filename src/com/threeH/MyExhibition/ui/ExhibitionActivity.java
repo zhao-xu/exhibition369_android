@@ -1,25 +1,18 @@
 package com.threeH.MyExhibition.ui;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.TabActivity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Message;
-import android.util.Log;
 import android.view.Window;
 import android.widget.*;
 import com.google.gson.Gson;
 import com.threeH.MyExhibition.R;
-import com.threeH.MyExhibition.adapters.HomePageEnrollListAdapter;
 import com.threeH.MyExhibition.entities.AuditingStatus;
-import com.threeH.MyExhibition.entities.UnEnrollExhibition;
-import com.threeH.MyExhibition.listener.TelephoneClickListener;
 import com.threeH.MyExhibition.service.ClientController;
-import com.threeH.MyExhibition.tools.Tool;
-
-import java.util.HashMap;
-import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -42,9 +35,8 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
     private RadioGroup radiogroup;
     private ClientController clientController;
     private char  singupStatus;
-    private String strExAddress;
-    private String strExDate;
-    private RadioButton radioButtonNews;
+    private String strExAddress,strExDate,strTheme,strSponser;
+    private RadioButton radioButtonNews,radioButtonQrcode;
     private String token;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +56,7 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
     public void findView() {
         radiogroup = (RadioGroup) this.findViewById(R.id.rg_tabs_btns);
         radioButtonNews = (RadioButton) this.findViewById(R.id.rb_news);
+        radioButtonQrcode = (RadioButton) this.findViewById(R.id.rb_more);
     }
 
     @Override
@@ -73,6 +66,8 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
         exKey = getIntent().getStringExtra("exKey");
         strExAddress = getIntent().getStringExtra("exAddress");
         strExDate = getIntent().getStringExtra("exTime");
+        strTheme  = getIntent().getStringExtra("exTheme");
+        strSponser  = getIntent().getStringExtra("exSponser");
         token = getIntent().getStringExtra("token");
         singupStatus = getSignupStatus(exKey,token);
         TabHost.TabSpec newSpec = tabhost.newTabSpec(NEWS_TAB).setIndicator(NEWS_TAB)
@@ -96,7 +91,8 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
                         .putExtra("singupStatus",singupStatus)
                         .putExtra("exAddress",strExAddress)
                         .putExtra("exTime",strExDate)
-                        .addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY));
+                        .putExtra("exTheme",strTheme)
+                        .putExtra("exSponser",strSponser));
         tabhost.addTab(showSpec);
         tabhost.addTab(newSpec);
         tabhost.addTab(homeSpec);
@@ -108,6 +104,7 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
     public void addAction() {
         radiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
+
                 switch (checkedId) {
                     case R.id.rb_news:
                         tabhost.setCurrentTabByTag(NEWS_TAB);
@@ -122,7 +119,13 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
                         tabhost.setCurrentTabByTag(MESSAGE_TAB);
                         break;
                     case R.id.rb_more:
-                        tabhost.setCurrentTabByTag(TWODCODE_TAB);
+                        if ('N' == singupStatus) {
+                            showRemindSignDialog();
+                            radioButtonQrcode.setChecked(false);
+                            //tabhost.setCurrentTabByTag(tabhost.getCurrentTabTag());
+                        }else{
+                            tabhost.setCurrentTabByTag(TWODCODE_TAB);
+                        }
                         break;
                     default:
                         break;
@@ -145,4 +148,18 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
         return ' ';
     }
 
+    private void showRemindSignDialog(){
+
+            Dialog dialog = new AlertDialog.Builder(ExhibitionActivity.this)
+                    .setMessage("您还未报名，请先报名").create();
+            dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                @Override
+                public void onDismiss(DialogInterface dialog) {
+                    Intent intent = new Intent(ExhibitionActivity.this, SignupActivity.class);
+                    intent.putExtra("exKey", exKey);
+                    startActivity(intent);
+                }
+            });
+            dialog.show();
+    }
 }

@@ -49,7 +49,7 @@
                      android:layout_gravity="center_horizontal|bottom"/>
         <RadioButton android:id="@+id/rb_news"
                      android:layout_width="50dp"
-                     android:layout_height="60dp"
+                     android:layout_height="wrap_content"
                      style="@style/main_btn_style"
                      android:background="@drawable/news_btn"
                      android:layout_gravity="center_horizontal|bottom"/>

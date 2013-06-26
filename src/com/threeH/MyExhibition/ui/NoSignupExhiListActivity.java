@@ -16,9 +16,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewStub;
 import android.view.Window;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.*;
 import cn.mobiledaily.module.android.module.mobilepush.service.helper.AndroidMessageClient;
 import cn.mobiledaily.module.android.module.mobilepush.service.helper.OnMessageListener;
 import com.google.gson.Gson;
@@ -48,6 +46,10 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
     public static ListView listView;
     private HomePageEnrollListAdapter adapter;
     private UnEnrollExhibition allExhibitionData;
+    private Button buttonSearch;
+    private EditText editText;
+    private String name;
+    private MyAsyncTask myAsyncTask;
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -67,12 +69,14 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
 
     @Override
     public void findView() {
-         listView = (ListView) this.findViewById(R.id.unsingup_exhibition_listview);
+        listView = (ListView) this.findViewById(R.id.unsingup_exhibition_listview);
+        buttonSearch = (Button) this.findViewById(R.id.search_btn);
+        editText = (EditText) this.findViewById(R.id.titlebar_et);
     }
 
     @Override
     public void initdata() {
-        MyAsyncTask myAsyncTask = new MyAsyncTask();
+        myAsyncTask = new MyAsyncTask();
         myAsyncTask.execute();
     }
 
@@ -93,6 +97,22 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
         }catch (Exception e){
             e.printStackTrace();
         }
+        buttonSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try{
+                    name = editText.getText().toString().trim();
+                    String str = mController.getService().UnErollExList(token,-1,-1,name);
+                    UnEnrollExhibition allExhibitionData = new Gson().fromJson(str,UnEnrollExhibition.class);
+                    List<HashMap<String,String>> data = Tool.makeAllExhibitionListAdapterData(allExhibitionData);
+                    HomePageEnrollListAdapter adapter = new HomePageEnrollListAdapter(NoSignupExhiListActivity.this,data);
+                    listView.setAdapter(adapter);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
+
     }
 
     @Override
@@ -101,6 +121,8 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
         intent.putExtra("exKey",allExhibitionData.getList().get(position).getExKey());
         intent.putExtra("exAddress",allExhibitionData.getList().get(position).getAddress());
         intent.putExtra("exTime",allExhibitionData.getList().get(position).getDate());
+        intent.putExtra("exTheme",allExhibitionData.getList().get(position).getName());
+        intent.putExtra("exSponser",allExhibitionData.getList().get(position).getOrganizer());
         intent.putExtra("token",token);
         startActivity(intent);
     }
@@ -148,5 +170,11 @@ Log.e("data", e.getMessage());
             }).start();
             return null;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        myAsyncTask = null;
+        super.onDestroy();
     }
 }

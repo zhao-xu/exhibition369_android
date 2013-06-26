@@ -72,21 +72,21 @@ public class HomeOfTabActivity extends TabActivity implements ActivityInterface{
                 }
             }
         });
-//        buttonSearch.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                //v.setBackgroundResource(R.drawable.search_focus);
-//                try {
-//                    name = editText.getText().toString();
-//                    String str = mController.getService().UnErollExList("pjqAndroid",-1,-1,name);
-//                    UnEnrollExhibition allExhibitionData = new Gson().fromJson(str,UnEnrollExhibition.class);
-//                    List<HashMap<String,String>> data = Tool.makeAllExhibitionListAdapterData(allExhibitionData);
-//                    HomePageEnrollListAdapter adapter = new HomePageEnrollListAdapter(HomeOfTabActivity.this,data);
-//                    NoSignupExhiListActivity.listView.setAdapter(adapter);
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
+         /*buttonSearch.setOnClickListener(new View.OnClickListener() {
+         @Override
+            public void onClick(View v) {
+                        //v.setBackgroundResource(R.drawable.search_focus);
+                        try {
+                            name = editText.getText().toString();
+                            String str = mController.getService().UnErollExList("pjqAndroid",-1,-1,name);
+                           UnEnrollExhibition allExhibitionData = new Gson().fromJson(str,UnEnrollExhibition.class);
+                            List<HashMap<String,String>> data = Tool.makeAllExhibitionListAdapterData(allExhibitionData);
+                            HomePageEnrollListAdapter adapter = new HomePageEnrollListAdapter(HomeOfTabActivity.this,data);
+                            NoSignupExhiListActivity.listView.setAdapter(adapter);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });*/
     }
 }

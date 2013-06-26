@@ -94,7 +94,7 @@
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:text="入会场时，凭此二维码进入，请妥善保存，谢谢！"
-                android:textSize="10dp"
+
                 android:layout_gravity="center_horizontal"
                 android:textColor="@android:color/black"/>
     </RelativeLayout>

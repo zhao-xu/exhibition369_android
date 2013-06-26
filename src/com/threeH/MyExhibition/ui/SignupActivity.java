@@ -69,15 +69,24 @@ public class SignupActivity extends  BaseActivity implements ActivityInterface{
                        name = editTextName.getText().toString();
                        telephone = editTextTelephone.getText().toString();
                        email = editTextEmail.getText().toString();
-                       mController.getService().ExEnroll(exKey,token,name,telephone,email,type);
-                       new AlertDialog.Builder(SignupActivity.this)
-                               .setMessage("提交成功")
-                               .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                                   public void onClick(DialogInterface dialog, int which) {
-                                       Intent intent = new Intent(SignupActivity.this,HomeOfTabActivity.class);
-                                       startActivity(intent);
-                                   }
-                               }).show();
+                       if(!("".equals(name)) && !("".equals(telephone)) && !("".equals(email))){
+                           mController.getService().ExEnroll(exKey,token,name,telephone,email,type);
+                           new AlertDialog.Builder(SignupActivity.this)
+                                   .setMessage("提交成功")
+                                   .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                       public void onClick(DialogInterface dialog, int which) {
+                                           Intent intent = new Intent(SignupActivity.this,HomeOfTabActivity.class);
+                                           startActivity(intent);
+                                       }
+                                   }).show();
+                       }else{
+                           new AlertDialog.Builder(SignupActivity.this)
+                                   .setMessage("姓名，联系方式，邮箱地址不能为空")
+                                   .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                       public void onClick(DialogInterface dialog, int which) {
+                                       }
+                                   }).show();
+                       }
                    }catch (Exception e){
                    }
                }

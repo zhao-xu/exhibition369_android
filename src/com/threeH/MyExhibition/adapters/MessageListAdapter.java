@@ -1,6 +1,7 @@
 package com.threeH.MyExhibition.adapters;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,10 +19,12 @@ public class MessageListAdapter extends BaseAdapter {
 
     private List<HashMap<String, String>> data;
     private LayoutInflater mInflater;
+    Typeface typeface_bold;
 
     public MessageListAdapter(Context context, List<HashMap<String, String>> data) {
         this.data = data;
         mInflater = LayoutInflater.from(context);
+        typeface_bold = Typeface.createFromAsset(context.getAssets(), "fonts/msyhbd.ttf");
     }
 
     @Override
@@ -47,6 +50,7 @@ public class MessageListAdapter extends BaseAdapter {
             convertView = this.mInflater.inflate(R.layout.messagelist_item, null);
             holder.mMessageDate = (TextView)convertView.findViewById(R.id.message_date);
             holder.mMessageContent = (TextView)convertView.findViewById(R.id.message_content);
+            holder.mMessageContent.setTypeface(typeface_bold);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
