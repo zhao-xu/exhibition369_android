@@ -22,11 +22,12 @@ public class HomeOfTabActivity extends TabActivity implements ActivityInterface{
     private TabHost tabhost;
     private RadioGroup radioGroup;
     private Button buttonSearch;
-    private static final String TAB_SIGNUP = "tabSingup";
-    private static final String TAB_NO_SIGNUP = "tabNoSingup";
+    public static final String TAB_SIGNUP = "tabSingup";
+    public static final String TAB_NO_SIGNUP = "tabNoSingup";
     private ClientController mController;
     private EditText editText;
     private String name;
+    private String strCurrentTab;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +49,7 @@ public class HomeOfTabActivity extends TabActivity implements ActivityInterface{
     public void initdata() {
         tabhost = this.getTabHost();
         mController = ClientController.getController(this);
+        strCurrentTab = getIntent().getStringExtra("currentTab");
     }
 
     @Override
@@ -56,7 +58,12 @@ public class HomeOfTabActivity extends TabActivity implements ActivityInterface{
                 .setContent(new Intent(this,SignupExhiListActivity.class)));
         tabhost.addTab(tabhost.newTabSpec(TAB_NO_SIGNUP).setIndicator(TAB_NO_SIGNUP)
                 .setContent(new Intent(this,NoSignupExhiListActivity.class)));
-        tabhost.setCurrentTabByTag(TAB_NO_SIGNUP);
+        if(null != strCurrentTab && !"".equals(strCurrentTab)){
+            tabhost.setCurrentTabByTag(TAB_SIGNUP);
+            radioGroup.setBackgroundResource(R.drawable.homepage_titlebar_background_signup);
+        }else{
+            tabhost.setCurrentTabByTag(TAB_NO_SIGNUP);
+        }
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {

@@ -98,22 +98,23 @@ public class SignExhiListAdapter extends BaseAdapter {
         }*/
         if(null != data.get(position).get("status")){
             showStatus = data.get(position).get("status").charAt(0);
+            switch (showStatus){
+                case 'P':
+                    holder.mSignupStatus.setBackgroundResource(R.drawable.examine);
+                    break;
+                case 'A':
+                    holder.mSignupStatus.setBackgroundResource(R.drawable.pass);
+                    break;
+                case 'D':
+                    holder.mSignupStatus.setBackgroundResource(R.drawable.no_pass);
+                    break;
+            }
         }
         holder.mExhibitionTheme.setText(data.get(position).get("name"));
         holder.mExhibitionSponsor.setText(exhibition.getOrganizer());
         holder.mExhibitionAddress.setText(exhibition.getAddress());
         holder.mExhibitionDate.setText(exhibition.getDate());
-        switch (showStatus){
-            case 'P':
-                holder.mSignupStatus.setBackgroundResource(R.drawable.examine);
-                break;
-            case 'A':
-                holder.mSignupStatus.setBackgroundResource(R.drawable.pass);
-                break;
-            case 'D':
-                holder.mSignupStatus.setBackgroundResource(R.drawable.no_pass);
-                break;
-        }
+
         ImageURLUtil.loadImage(Tool.makeExhibitionIconURL(exKey),
                 holder.mExhibitionIcon);
         return convertView;

@@ -33,6 +33,7 @@ public class Exhibition implements Serializable {
 
     private String applied;
 
+    private String status;
     public String getExKey() {
         return exKey;
     }
@@ -87,5 +88,13 @@ public class Exhibition implements Serializable {
 
     public void setApplied(String applied) {
         this.applied = applied;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

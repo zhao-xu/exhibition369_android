@@ -104,7 +104,7 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
                     name = editText.getText().toString().trim();
                     String str = mController.getService().UnErollExList(token,-1,-1,name);
                     UnEnrollExhibition allExhibitionData = new Gson().fromJson(str,UnEnrollExhibition.class);
-                    List<HashMap<String,String>> data = Tool.makeAllExhibitionListAdapterData(allExhibitionData);
+                    List<HashMap<String,String>> data = makeAllExhibitionListAdapterData(allExhibitionData);
                     HomePageEnrollListAdapter adapter = new HomePageEnrollListAdapter(NoSignupExhiListActivity.this,data);
                     listView.setAdapter(adapter);
                 }catch (Exception e){
@@ -154,7 +154,7 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
                             saveExhibitionData(str);
                         }
                         allExhibitionData = new Gson().fromJson(str,UnEnrollExhibition.class);
-                        List<HashMap<String,String>> data = Tool.makeAllExhibitionListAdapterData(allExhibitionData);
+                        List<HashMap<String,String>> data = makeAllExhibitionListAdapterData(allExhibitionData);
                         adapter = new HomePageEnrollListAdapter(context,data);
                         Message message = handler.obtainMessage();
                         message.what = 1;
@@ -176,5 +176,23 @@ Log.e("data", e.getMessage());
     protected void onDestroy() {
         myAsyncTask = null;
         super.onDestroy();
+    }
+
+    public  List<HashMap<String,String>> makeAllExhibitionListAdapterData(UnEnrollExhibition allExhibitionData){
+        List<HashMap<String,String>> data = new ArrayList<HashMap<String, String>>();
+        if(null != allExhibitionData){
+            for(Exhibition exhibition : allExhibitionData.getList()){
+                HashMap<String,String> map = new HashMap<String, String>();
+                map.put("exhibitionName",exhibition.getName());
+                map.put("exhibitionDate",exhibition.getDate());
+                map.put("exhibitionAddress",exhibition.getAddress());
+                map.put("exhibitionSponser",exhibition.getOrganizer());
+                map.put("exhibitionApplied",exhibition.getApplied());
+                map.put("exhibitionExkey",exhibition.getExKey());
+                map.put("status",exhibition.getStatus());
+                data.add(map);
+            }
+        }
+        return data;
     }
 }

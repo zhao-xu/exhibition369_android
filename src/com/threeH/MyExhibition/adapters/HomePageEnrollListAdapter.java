@@ -32,8 +32,6 @@ public class HomePageEnrollListAdapter extends BaseAdapter {
         this.data = data;
         mInflater = LayoutInflater.from(context);
         this.context = context;
-//        typeface = Typeface.createFromAsset(context.getAssets(), "fonts/msyh.ttf");
-//        typeface_bold = Typeface.createFromAsset(context.getAssets(), "fonts/msyhbd.ttf");
         typeface = MSYH.getInstance(context.getApplicationContext()).getNormal();
         typeface_bold = MSYH.getInstance(context.getApplicationContext()).getBold();
     }
@@ -86,6 +84,23 @@ public class HomePageEnrollListAdapter extends BaseAdapter {
         if(null != status && "N".equals(status)){
              holder.mEnrollSignup.setImageResource(R.drawable.signup);
         }
+        char  showStatus = ' ';
+        if(null != data.get(position).get("status") && !"".equals(data.get(position).get("status"))){
+            showStatus = data.get(position).get("status").charAt(0);
+            switch (showStatus){
+                case 'P':
+                    holder.mEnrollSignup.setImageResource(R.drawable.examine);
+                    break;
+                case 'A':
+                    holder.mEnrollSignup.setImageResource(R.drawable.pass);
+                    break;
+                case 'D':
+                    holder.mEnrollSignup.setImageResource(R.drawable.no_pass);
+                    break;
+            }
+            holder.mEnrollSignup.setPadding(0, 60, 0, 0);
+        }
+
         final int i = position;
         holder.mEnrollSignup.setOnClickListener(new View.OnClickListener() {
             @Override
