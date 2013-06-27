@@ -5,10 +5,12 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.View;
 import android.widget.*;
 import com.threeH.MyExhibition.R;
 import com.threeH.MyExhibition.adapters.MessageListAdapter;
 import com.threeH.MyExhibition.entities.ExhibitionMessage;
+import com.threeH.MyExhibition.listener.SignupClickListener;
 import com.threeH.MyExhibition.listener.TelephoneClickListener;
 import com.threeH.MyExhibition.tools.MSYH;
 
@@ -28,11 +30,12 @@ public class MessageActivity extends BaseActivity implements ActivityInterface{
     private List<HashMap<String,String>> mdataes = new ArrayList<HashMap<String, String>>();
     private ListView mMessageListView;
     private MessageListAdapter mMessageListAdapter;
-    private ImageView imageviewTelephone;
+    private ImageView imageviewTelephone,imageViewSignup;
     private TextView textViewTitle;
     private String exKey;
     private Typeface typeface;
     private LoadMessageTask loadMessageTask;
+    private char charSingupStatus;
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -55,12 +58,14 @@ public class MessageActivity extends BaseActivity implements ActivityInterface{
         mMessageListView = (ListView)findViewById(R.id.message_list_view);
         imageviewTelephone = (ImageView) this.findViewById(R.id.exhibition_titlebar_button_telephone);
         textViewTitle = (TextView) this.findViewById(R.id.exhibition_titlebar_textview_title);
+        imageViewSignup = (ImageView) this.findViewById(R.id.exhibition_titlebar_signup);
     }
     @Override
     public void initdata() {
         exKey = getIntent().getStringExtra("exhibitionKey");
 //        typeface = Typeface.createFromAsset(context.getAssets(),"fonts/msyh.ttf");
         typeface = MSYH.getInstance(context.getApplicationContext()).getNormal();
+        charSingupStatus = getIntent().getCharExtra("singupStatus", ' ');
         loadMessageTask = new LoadMessageTask();
         loadMessageTask.execute();
     }
@@ -71,6 +76,16 @@ public class MessageActivity extends BaseActivity implements ActivityInterface{
         textViewTitle.setTypeface(typeface);
         textViewTitle.setText("消息");
         mMessageListView.setDividerHeight(0);
+        switch (charSingupStatus){
+            case 'D':
+            case 'N':
+                break;
+            case 'P':
+            case 'A':
+                imageViewSignup.setVisibility(View.GONE);
+                break;
+        }
+        imageViewSignup.setOnClickListener(new SignupClickListener(MessageActivity.this,exKey));
     }
 
     class LoadMessageTask extends AsyncTask<Void,Integer,Integer>{

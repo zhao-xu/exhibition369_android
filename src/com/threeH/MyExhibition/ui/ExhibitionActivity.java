@@ -7,13 +7,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
 import android.view.Window;
 import android.widget.*;
 import com.google.gson.Gson;
 import com.threeH.MyExhibition.R;
 import com.threeH.MyExhibition.entities.AuditingStatus;
-import com.threeH.MyExhibition.entities.ExhibitionMessage;
 import com.threeH.MyExhibition.service.ClientController;
 
 /**
@@ -36,8 +34,8 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
     private String exKey;
     private RadioGroup radiogroup;
     private ClientController clientController;
-    private char  singupStatus;
-    private String strExAddress,strExDate,strTheme,strSponser;
+    private char singupStatus;
+    private String strExAddress,strExDate,strTheme,strSponser,strSing;
     private RadioButton radioButtonNews,radioButtonQrcode,radioButtonMessage;
     private String token;
     private Gson mGson = new Gson();
@@ -76,24 +74,31 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
         token = getIntent().getStringExtra("token");
         singupStatus = getSignupStatus(exKey,token);
         TabHost.TabSpec newSpec = tabhost.newTabSpec(NEWS_TAB).setIndicator(NEWS_TAB)
-                .setContent(new Intent(this, NewsPageActivity.class).putExtra("exKey",exKey));
+                .setContent(new Intent(this, NewsPageActivity.class)
+                        .putExtra("exKey", exKey)
+                        .putExtra("singupStatus", singupStatus));
         TabHost.TabSpec showSpec = tabhost.newTabSpec(SUMMARY_TAB).setIndicator(SUMMARY_TAB)
                 .setContent(new Intent (this, ShowHtmlActivity.class)
                         .putExtra("url","http://180.168.35.37:8080/e369_asset/"+ exKey + "/brief.html")
-                        .putExtra("title","会展介绍"));
+                        .putExtra("title", "会展介绍")
+                        .putExtra("exKey", exKey)
+                        .putExtra("singupStatus", singupStatus));
         TabHost.TabSpec homeSpec = tabhost.newTabSpec(SCHEDULE_TAB)
                 .setIndicator(SCHEDULE_TAB)
                 .setContent(new Intent(this, ShowHtmlActivity.class)
                         .putExtra("url","http://180.168.35.37:8080/e369_asset/"+ exKey + "/schedule.html")
-                        .putExtra("title","日程"));
+                        .putExtra("title", "日程")
+                        .putExtra("exKey", exKey)
+                        .putExtra("singupStatus", singupStatus));
         TabHost.TabSpec memberSpec = tabhost.newTabSpec(MESSAGE_TAB)
                 .setIndicator(MESSAGE_TAB)
                 .setContent(new Intent(this, MessageActivity.class)
-                        .putExtra("exhibitionKey",exKey));
+                        .putExtra("exhibitionKey",exKey)
+                        .putExtra("singupStatus", singupStatus));
         TabHost.TabSpec moreSpec = tabhost.newTabSpec(TWODCODE_TAB).setIndicator(TWODCODE_TAB)
                 .setContent(new Intent(this, QrCodeActivity.class)
                         .putExtra("exhibitionKey",exKey)
-                        .putExtra("singupStatus",singupStatus)
+                        .putExtra("singupStatus", singupStatus)
                         .putExtra("exAddress",strExAddress)
                         .putExtra("exTime",strExDate)
                         .putExtra("exTheme",strTheme)
@@ -125,23 +130,19 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
                         id = R.id.rb_store;
                         break;
                     case R.id.rb_member:
-                            if( 'N' == singupStatus){
-                                showRemindSignDialog();
-                                radioButtonMessage.setChecked(false);
-                                radiogroup.check(id);
-                            }else{
-                                tabhost.setCurrentTabByTag(MESSAGE_TAB);
-                            }
+                        if( 'N' == singupStatus){
+                            //radioButtonMessage.setChecked(false);
+                           // radiogroup.check(id);
+                        }
+                        tabhost.setCurrentTabByTag(MESSAGE_TAB);
                         break;
                     case R.id.rb_more:
                         if ('N' == singupStatus) {
-                            showRemindSignDialog();
-                            radioButtonQrcode.setChecked(false);
-                            radiogroup.check(id);
+                            //radioButtonQrcode.setChecked(false);
+                            //radiogroup.check(id);
                             //tabhost.setCurrentTabByTag(tabhost.getCurrentTabTag());
-                        }else{
-                            tabhost.setCurrentTabByTag(TWODCODE_TAB);
                         }
+                        tabhost.setCurrentTabByTag(TWODCODE_TAB);
                         break;
                     default:
                         break;

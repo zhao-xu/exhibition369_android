@@ -33,6 +33,5 @@
             android:background="@drawable/information_unfocus"
             android:layout_toLeftOf="@id/exhibition_titlebar_button_telephone"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"/>
+            android:layout_height="wrap_content"/>
 </RelativeLayout>

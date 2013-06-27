@@ -181,6 +181,7 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
     }
 
     public  List<HashMap<String,String>> makeAllExhibitionListAdapterData(UnEnrollExhibition allExhibitionData){
+
         List<HashMap<String,String>> data = new ArrayList<HashMap<String, String>>();
         if(null != allExhibitionData){
             for(Exhibition exhibition : allExhibitionData.getList()){

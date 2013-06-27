@@ -1,9 +1,5 @@
 package com.threeH.MyExhibition.ui;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -12,6 +8,7 @@ import android.widget.ImageView;
 
 import android.widget.TextView;
 import com.threeH.MyExhibition.R;
+import com.threeH.MyExhibition.listener.SignupClickListener;
 import com.threeH.MyExhibition.listener.TelephoneClickListener;
 import com.threeH.MyExhibition.tools.ImageURLUtil;
 import com.threeH.MyExhibition.tools.MSYH;
@@ -34,7 +31,7 @@ public class QrCodeActivity extends BaseActivity implements  ActivityInterface{
     private TextView textViewAddress,textViewTime;
     private TextView textViewTheme, textViewDate,textViewAddressUp,textViewSponsor;
     private TextView textView;
-    private ImageView imageViewSignup,imageViewIcon,imageViewSingup2;
+    private ImageView imageViewIcon, imageViewSingup,imageviewSignup2;
     Typeface typeface;
     private String strExAddress,strExDate,strExTheme,strExSponser;
 
@@ -49,8 +46,8 @@ public class QrCodeActivity extends BaseActivity implements  ActivityInterface{
     public void findView(){
         imageViewQrcode = (ImageView) this.findViewById(R.id.qrcode_imageview);
         imageviewTelephone = (ImageView) this.findViewById(R.id.exhibition_titlebar_button_telephone);
-        imageViewSignup = (ImageView) this.findViewById(R.id.exhibition_titlebar_signup);
-        imageViewSingup2 = (ImageView) this.findViewById(R.id.imageview_signup);
+        imageViewSingup = (ImageView) this.findViewById(R.id.imageview_signup);
+        imageviewSignup2 = (ImageView) this.findViewById(R.id.exhibition_titlebar_signup);
         textView = (TextView) this.findViewById(R.id.qrcode_textview_prompt);
         textViewTitle = (TextView) this.findViewById(R.id.exhibition_titlebar_textview_title);
         imageViewIcon = (ImageView) this.findViewById(R.id.imageview_icon);
@@ -82,17 +79,18 @@ public class QrCodeActivity extends BaseActivity implements  ActivityInterface{
         ImageURLUtil.loadImage(Tool.makeExhibitionIconURL(strExhibitionKey),imageViewIcon);
         textViewAddress.setText(strExAddress);
         textViewTime.setText(strExDate);
-        imageViewSignup.setVisibility(View.GONE);
-        imageViewSingup2.setVisibility(View.GONE);
+        imageViewSingup.setVisibility(View.GONE);
         switch (charSingupStatus){
             case 'N':
                 textView.setText("对不起您还没有报名参加此展会，请报名！");
                 break;
             case 'P':
                 textView.setText("您的个人信息还在审核中，请耐心等待。。。");
+                imageviewSignup2.setVisibility(View.GONE);
                 break;
             case 'A':
                 ImageURLUtil.loadImage(Tool.makeQrcodeURL(strExhibitionKey,token), imageViewQrcode);
+                imageviewSignup2.setVisibility(View.GONE);
                 break;
             case 'D':
                 textView.setText("对不起，您的个人信息未能通过审核，您可以拨打客服热线进行咨询。");
@@ -102,5 +100,6 @@ public class QrCodeActivity extends BaseActivity implements  ActivityInterface{
         textViewDate.setText(strExDate);
         textViewAddressUp.setText(strExAddress);
         textViewSponsor.setText(strExSponser);
+        imageviewSignup2.setOnClickListener(new SignupClickListener(QrCodeActivity.this,strExhibitionKey));
     }
 }

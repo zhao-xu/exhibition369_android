@@ -19,6 +19,7 @@ import com.threeH.MyExhibition.adapters.NewslistAdapter;
 import com.threeH.MyExhibition.entities.Exhibition;
 import com.threeH.MyExhibition.entities.ExhibitionNews;
 import com.threeH.MyExhibition.entities.UnEnrollExhibition;
+import com.threeH.MyExhibition.listener.SignupClickListener;
 import com.threeH.MyExhibition.listener.TelephoneClickListener;
 import com.threeH.MyExhibition.service.ClientController;
 import com.threeH.MyExhibition.tools.MSYH;
@@ -41,9 +42,10 @@ public class NewsPageActivity extends BaseActivity  implements ActivityInterface
     private NewslistAdapter adapter;
     private String exKey;
     private ExhibitionNews newsData;
-    private ImageView imageviewTelephone;
+    private ImageView imageviewTelephone,imageViewSignup;
     private TextView textViewTitle;
     private Typeface typeface;
+    private char charSingupStatus;
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -66,6 +68,7 @@ public class NewsPageActivity extends BaseActivity  implements ActivityInterface
         listView = (ListView) this.findViewById(R.id.newslist_listview);
         imageviewTelephone = (ImageView) this.findViewById(R.id.exhibition_titlebar_button_telephone);
         textViewTitle = (TextView) this.findViewById(R.id.exhibition_titlebar_textview_title);
+        imageViewSignup = (ImageView) this.findViewById(R.id.exhibition_titlebar_signup);
     }
 
     @Override
@@ -73,6 +76,7 @@ public class NewsPageActivity extends BaseActivity  implements ActivityInterface
 //        typeface = Typeface.createFromAsset(context.getAssets(),"fonts/msyh.ttf");
         typeface = MSYH.getInstance(context.getApplicationContext()).getNormal();
         exKey = getIntent().getStringExtra("exKey");
+        charSingupStatus = getIntent().getCharExtra("singupStatus", ' ');
         LoadDataAsyncTask loadDataAsyncTask = new LoadDataAsyncTask();
         loadDataAsyncTask.execute();
     }
@@ -84,6 +88,16 @@ public class NewsPageActivity extends BaseActivity  implements ActivityInterface
         imageviewTelephone.setOnClickListener(new TelephoneClickListener(this,tel_nummber));
         textViewTitle.setTypeface(typeface);
         textViewTitle.setText("展会新闻");
+        switch (charSingupStatus){
+            case 'D':
+            case 'N':
+                break;
+            case 'P':
+            case 'A':
+                imageViewSignup.setVisibility(View.GONE);
+                break;
+        }
+        imageViewSignup.setOnClickListener(new SignupClickListener(this,exKey));
     }
 
     @Override
@@ -91,6 +105,8 @@ public class NewsPageActivity extends BaseActivity  implements ActivityInterface
         Intent intent = new Intent(this,ShowHtmlActivity.class);
         intent.putExtra("url", Tool.makeNewsURL(exKey,newsData.getList().get(position).getNewsKey()));
         intent.putExtra("title","展会新闻");
+        intent.putExtra("singupStatus", charSingupStatus);
+        intent.putExtra("exKey",exKey);
         startActivity(intent);
     }
 
