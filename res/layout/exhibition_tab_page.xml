@@ -42,11 +42,11 @@
                      style="@style/main_btn_style"
                      android:background="@drawable/brief_btn"
                      android:layout_gravity="center_horizontal|bottom"/>
-        <RadioButton android:id="@+id/rb_member"
+        <RadioButton android:id="@+id/rb_store"
                      android:layout_width="50dp"
                      android:layout_height="wrap_content"
                      style="@style/main_btn_style"
-                     android:background="@drawable/message_btn"
+                     android:background="@drawable/schedule_btn"
                      android:layout_gravity="center_horizontal|bottom"/>
         <RadioButton android:id="@+id/rb_news"
                      android:layout_width="50dp"
@@ -54,11 +54,11 @@
                      style="@style/main_btn_style"
                      android:background="@drawable/news_btn"
                      android:layout_gravity="center_horizontal|bottom"/>
-        <RadioButton android:id="@+id/rb_store"
+        <RadioButton android:id="@+id/rb_member"
                      android:layout_width="50dp"
                      android:layout_height="wrap_content"
                      style="@style/main_btn_style"
-                     android:background="@drawable/schedule_btn"
+                     android:background="@drawable/message_btn"
                      android:layout_gravity="center_horizontal|bottom"/>
         <RadioButton android:id="@+id/rb_more"
                      android:layout_width="50dp"
