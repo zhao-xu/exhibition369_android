@@ -11,6 +11,8 @@ import android.widget.ListView;
 import com.google.gson.Gson;
 import com.threeH.MyExhibition.R;
 import com.threeH.MyExhibition.adapters.SignExhiListAdapter;
+import com.threeH.MyExhibition.cache.XmlDB;
+import com.threeH.MyExhibition.common.StringPools;
 import com.threeH.MyExhibition.entities.EnrollExhibition;
 import com.threeH.MyExhibition.entities.Exhibition;
 import com.threeH.MyExhibition.entities.UnEnrollExhibition;
@@ -80,8 +82,7 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
     }
 
     private Exhibition getExhibitionData(String exKey) {
-        SharedPreferences sharedPreferences =   context.getSharedPreferences("allExhibitionData", Activity.MODE_PRIVATE);
-        String strExhibitionData = sharedPreferences.getString("exhibitionData",null);
+        String strExhibitionData = XmlDB.getInstance(context).getKeyStringValue(StringPools.ALL_EXHIBITION_DATA,"");
         UnEnrollExhibition allExhibitionData = new Gson().fromJson(strExhibitionData,UnEnrollExhibition.class);
         for(Exhibition exhibition : allExhibitionData.getList()){
             if(null != exKey && exhibition.getExKey().equals(exKey)){

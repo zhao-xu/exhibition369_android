@@ -29,6 +29,6 @@ public class StringPools {
     /**手机类型*/
     public static final String PHONE_TYPE="android_phone";
 
-
+    public static final String ALL_EXHIBITION_DATA = "allExhibitionData";
 
 }

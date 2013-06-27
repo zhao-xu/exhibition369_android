@@ -35,6 +35,7 @@ public class SignupActivity extends  BaseActivity implements ActivityInterface{
     private ImageView imageViewAttendee,imageviewExhibitor,imageviewTelephone;
     Typeface typeface;
     private TextView textViewTitle;
+    private TextView textViewCanzhan,textViewCanhui;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +55,8 @@ public class SignupActivity extends  BaseActivity implements ActivityInterface{
         imageviewExhibitor = (ImageView) this.findViewById(R.id.signup_imageview_canzhan);
         textViewTitle = (TextView) this.findViewById(R.id.exhibition_titlebar_textview_title);
         imageviewTelephone = (ImageView) this.findViewById(R.id.exhibition_titlebar_button_telephone);
+        textViewCanzhan = (TextView) this.findViewById(R.id.signup_textview_canzhan);
+        textViewCanhui = (TextView) this.findViewById(R.id.signup_textview_canhui);
     }
 
     @Override
@@ -101,6 +104,8 @@ public class SignupActivity extends  BaseActivity implements ActivityInterface{
         TypeClickListener typeClickListener = new TypeClickListener();
         imageViewAttendee.setOnClickListener(typeClickListener);
         imageviewExhibitor.setOnClickListener(typeClickListener);
+        textViewCanzhan.setOnClickListener(typeClickListener);
+        textViewCanhui.setOnClickListener(typeClickListener);
         imageviewTelephone.setOnClickListener(new TelephoneClickListener(context,tel_nummber));
         textViewTitle.setTypeface(typeface);
         textViewTitle.setText("申请报名");
@@ -110,11 +115,13 @@ public class SignupActivity extends  BaseActivity implements ActivityInterface{
         @Override
         public void onClick(View v) {
             switch (v.getId()){
+                case R.id.signup_textview_canzhan:
                 case R.id.signup_imageview_canzhan:
                     imageviewExhibitor.setBackgroundResource(R.drawable.yuan_focus);
                     imageViewAttendee.setBackgroundResource(R.drawable.yuan_unfocus);
                     type ="E";
                     break;
+                case R.id.signup_textview_canhui:
                 case R.id.signup_imageview_canhui:
                     imageviewExhibitor.setBackgroundResource(R.drawable.yuan_unfocus);
                     imageViewAttendee.setBackgroundResource(R.drawable.yuan_focus);

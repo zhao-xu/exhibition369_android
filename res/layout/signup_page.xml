@@ -60,7 +60,8 @@
                         android:hint="@string/telephone"
                         android:layout_gravity="center_vertical"
                         android:textSize="15dp"
-                        android:paddingLeft="10dp"/>
+                        android:paddingLeft="10dp"
+                        android:numeric="integer"/>
             </LinearLayout>
             <LinearLayout
                     android:layout_width="wrap_content"
@@ -95,6 +96,7 @@
                         android:background="@drawable/yuan_unfocus"
                         android:layout_gravity="center_vertical"/>
                 <TextView
+                        android:id="@+id/signup_textview_canzhan"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@android:color/black"
@@ -109,6 +111,7 @@
                         android:layout_gravity="center_vertical"
                         />
                 <TextView
+                        android:id="@+id/signup_textview_canhui"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@android:color/black"

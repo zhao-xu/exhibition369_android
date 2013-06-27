@@ -81,7 +81,7 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
     }
 
     private void saveExhibitionData(String str) {
-        SharedPreferences sharedPreferences =   getSharedPreferences("allExhibitionData", Activity.MODE_PRIVATE);
+        SharedPreferences sharedPreferences =   getSharedPreferences(StringPools.ALL_EXHIBITION_DATA, Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("exhibitionData",str);
         editor.commit();
@@ -132,7 +132,7 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
         @Override
         public void onMessageReceived(String message) {
             NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-            Notification notification  = new Notification(R.drawable.icon1,message,System.currentTimeMillis());
+            Notification notification  = new Notification(R.drawable.appicon,message,System.currentTimeMillis());
             Intent intent = new Intent(context,MessageActivity.class);
             PendingIntent pendingIntent = PendingIntent.getActivity(context,0,intent,0);
             notification.setLatestEventInfo(context,"展会消息通知",message,pendingIntent);
@@ -150,8 +150,10 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
                 public void run() {
                     try {
                         String str = mController.getService().UnErollExList(token,-1,-1,"");
-                        if(null != str){
-                            saveExhibitionData(str);
+                        if(null != str && !"".equals(str)){
+                            XmlDB.getInstance(context).saveKey(StringPools.ALL_EXHIBITION_DATA,str);
+                        }else{
+                            str = XmlDB.getInstance(context).getKeyStringValue(StringPools.ALL_EXHIBITION_DATA,"");
                         }
                         allExhibitionData = new Gson().fromJson(str,UnEnrollExhibition.class);
                         List<HashMap<String,String>> data = makeAllExhibitionListAdapterData(allExhibitionData);
@@ -164,7 +166,7 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
                                 mController.getService().OverAllData(StringPools.PHONE_TYPE,
                                         "369exhibition", "1.0", mobileConfig.getLocalMacAddress()));*/
                     } catch (Exception e) {
-Log.e("data", e.getMessage());
+                        Log.e("data", e.getMessage());
                     }
                 }
             }).start();

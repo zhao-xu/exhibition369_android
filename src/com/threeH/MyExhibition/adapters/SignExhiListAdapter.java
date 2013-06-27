@@ -1,8 +1,6 @@
 package com.threeH.MyExhibition.adapters;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.google.gson.Gson;
 import com.threeH.MyExhibition.R;
+import com.threeH.MyExhibition.cache.XmlDB;
+import com.threeH.MyExhibition.common.StringPools;
 import com.threeH.MyExhibition.entities.Exhibition;
 import com.threeH.MyExhibition.entities.UnEnrollExhibition;
 import com.threeH.MyExhibition.tools.ImageURLUtil;
@@ -57,8 +57,6 @@ public class SignExhiListAdapter extends BaseAdapter {
             holder.mExhibitionAddress = (TextView) convertView.findViewById(R.id.signup_list_exhibition_address);
             holder.mExhibitionSponsor = (TextView) convertView.findViewById(R.id.signup_list_exhibition_sponsor);
             holder.mSignupStatus = (ImageView) convertView.findViewById(R.id.signup_list_imageview_signup);
-            //holder.mLinearLayout = (LinearLayout) convertView.findViewById(R.id.status_titlebar);
-            //holder.mStatusBarText = (TextView)convertView.findViewById(R.id.status_bar);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -66,36 +64,6 @@ public class SignExhiListAdapter extends BaseAdapter {
         }
         Exhibition exhibition = getExhibitionData(exKey);
         char showStatus = ' ';
-        String hideStatus = "";
-        //P 审核中(Processing)，A 审核通过(Approved)，D 审核未通过(Denied)
-        /*if(null != data.get(position).get("status")){
-            showStatus = data.get(position).get("status");
-        }
-        if(position==0){
-            holder.mLinearLayout.setVisibility(View.VISIBLE);
-            holder.mLinearLayout.setBackgroundResource(R.drawable.tag_pass);
-            holder.mStatusBarText.setText("通过");
-
-        }else {
-            if (null != data.get(position).get("status")) {
-                 hideStatus = data.get(position - 1).get("status");
-            }
-            if (showStatus.equals(hideStatus)) {
-                holder.mLinearLayout.setVisibility(View.GONE);
-            } else {
-                holder.mLinearLayout.setVisibility(View.VISIBLE);
-                if("P".equals(data.get(position).get("status"))){
-                    holder.mLinearLayout.setBackgroundResource(R.drawable.tag_check);
-                    holder.mStatusBarText.setText("审核中");
-                }else if("A".equals(data.get(position).get("status"))){
-                    holder.mLinearLayout.setBackgroundResource(R.drawable.tag_pass);
-                    holder.mStatusBarText.setText("通过");
-                }else {
-                    holder.mLinearLayout.setBackgroundResource(R.drawable.tag_signed);
-                    holder.mStatusBarText.setText("未通过");
-                }
-            }
-        }*/
         if(null != data.get(position).get("status")){
             showStatus = data.get(position).get("status").charAt(0);
             switch (showStatus){
@@ -121,8 +89,7 @@ public class SignExhiListAdapter extends BaseAdapter {
     }
 
     private Exhibition getExhibitionData(String exKey) {
-        SharedPreferences sharedPreferences =   context.getSharedPreferences("allExhibitionData", Activity.MODE_PRIVATE);
-        String strExhibitionData = sharedPreferences.getString("exhibitionData",null);
+        String strExhibitionData = XmlDB.getInstance(context).getKeyStringValue(StringPools.ALL_EXHIBITION_DATA, "");
         UnEnrollExhibition allExhibitionData = new Gson().fromJson(strExhibitionData,UnEnrollExhibition.class);
         for(Exhibition exhibition : allExhibitionData.getList()){
             if(null != exKey && exhibition.getExKey().equals(exKey)){
@@ -135,7 +102,5 @@ public class SignExhiListAdapter extends BaseAdapter {
     public class ViewHolder {
         TextView mExhibitionTheme, mExhibitionDate, mExhibitionAddress, mExhibitionSponsor;
         ImageView mExhibitionIcon,mSignupStatus;
-        //LinearLayout mLinearLayout;
-        //TextView mStatusBarText;
     }
 }
