@@ -20,6 +20,7 @@ public class MessageListAdapter extends BaseAdapter {
 
     private List<HashMap<String, String>> data;
     private LayoutInflater mInflater;
+    public static int selectedID;
     Typeface typeface_bold;
 
     public MessageListAdapter(Context context, List<HashMap<String, String>> data) {
@@ -59,6 +60,11 @@ public class MessageListAdapter extends BaseAdapter {
         }
         holder.mMessageDate.setText(data.get(position).get("date"));
         holder.mMessageContent.setText(data.get(position).get("content"));
+        if(position == selectedID){
+            holder.mMessageContent.setSingleLine(false);
+        }else {
+            holder.mMessageContent.setSingleLine(true);
+        }
         return convertView;
     }
 

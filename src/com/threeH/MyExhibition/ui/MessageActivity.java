@@ -26,7 +26,7 @@ import java.util.List;
  * Time: 上午11:38
  * To change this template use File | Settings | File Templates.
  */
-public class MessageActivity extends BaseActivity implements ActivityInterface{
+public class MessageActivity extends BaseActivity implements ActivityInterface,AdapterView.OnItemClickListener{
     private List<HashMap<String,String>> mdataes = new ArrayList<HashMap<String, String>>();
     private ListView mMessageListView;
     private MessageListAdapter mMessageListAdapter;
@@ -86,6 +86,13 @@ public class MessageActivity extends BaseActivity implements ActivityInterface{
                 break;
         }
         imageViewSignup.setOnClickListener(new SignupClickListener(MessageActivity.this,exKey));
+        mMessageListView.setOnItemClickListener(this);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        MessageListAdapter.selectedID = position;
+        mMessageListAdapter.notifyDataSetChanged();
     }
 
     class LoadMessageTask extends AsyncTask<Void,Integer,Integer>{
