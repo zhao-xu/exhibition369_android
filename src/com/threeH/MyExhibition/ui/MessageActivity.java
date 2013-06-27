@@ -40,8 +40,12 @@ public class MessageActivity extends BaseActivity implements ActivityInterface,A
         @Override
         public void handleMessage(Message msg) {
             if(1 == msg.what){
-                mMessageListAdapter = new MessageListAdapter(context,mdataes);
-                mMessageListView.setAdapter(mMessageListAdapter);
+                if(mdataes.size() == 0){
+                    mMessageListView.setVisibility(View.GONE);
+                }else{
+                    mMessageListAdapter = new MessageListAdapter(context,mdataes);
+                    mMessageListView.setAdapter(mMessageListAdapter);
+                }
             }
         }
     };
