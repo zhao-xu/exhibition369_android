@@ -31,13 +31,16 @@
                 android:hint="搜索"
                 android:layout_toRightOf="@id/search_btn"
                 android:layout_alignParentTop="true"
-                android:layout_marginLeft="2dp"/>
+                android:layout_marginLeft="2dp"
+                android:inputType="text"
+                android:imeOptions="actionSend"/>
         <ImageView
             android:id="@+id/titlebar_imageview_cancel"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:layout_toRightOf="@id/titlebar_et"
             android:layout_alignTop="@id/search_btn"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
             android:background="@drawable/shanchu"
             android:visibility="gone"/>
     </RelativeLayout>

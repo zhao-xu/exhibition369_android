@@ -49,6 +49,7 @@
         android:dividerHeight="12dp"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/unsingup_list_include"/>
+
     <!--<com.threeH.MyExhibition.widget.PullToRefreshView
             android:id="@+id/unsingup_exhibition_listview"
             android:layout_height="match_parent"
