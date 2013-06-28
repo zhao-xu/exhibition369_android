@@ -56,6 +56,7 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
     private View viewFooter;
     private LinearLayout linlLoad;
     private long createdAt = -1;
+    private ImageView imageviewCancel;
     List<HashMap<String,String>> data = new ArrayList<HashMap<String, String>>();
     private Handler handler = new Handler(){
         @Override
@@ -82,6 +83,7 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
         editText = (EditText) this.findViewById(R.id.titlebar_et);
         viewFooter = mInflater.inflate(R.layout.list_footer_new,null);
         linlLoad = (LinearLayout) viewFooter.findViewById(R.id.list_footer_new);
+        imageviewCancel = (ImageView) this.findViewById(R.id.titlebar_imageview_cancel);
     }
 
     @Override
@@ -126,6 +128,20 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
             }
         });
 
+        imageviewCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editText.setText("");
+            }
+        });
+
+        editText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imageviewCancel.setVisibility(View.VISIBLE);
+            }
+        });
+
     }
 
     @Override
@@ -142,13 +158,13 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
 
     @Override
     public void onScrollStateChanged(AbsListView view, int scrollState) {
-        if(scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE){
+        /*if(scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE){
             if(view.getLastVisiblePosition() == view.getCount() - 1){
                 linlLoad.setVisibility(View.VISIBLE);
                 PullupLoadAsyncTask  pullupLoadAsyncTask = new PullupLoadAsyncTask();
                 pullupLoadAsyncTask.execute();
             }
-        }
+        }*/
     }
 
     @Override
@@ -254,5 +270,11 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
             }).start();
             return null;
         }
+    }
+
+    @Override
+    protected void onResume() {
+        imageviewCancel.setVisibility(View.GONE);
+        super.onResume();
     }
 }

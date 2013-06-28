@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.Window;
 import android.widget.*;
 import com.google.gson.Gson;
+import com.readystatesoftware.viewbadger.BadgeView;
 import com.threeH.MyExhibition.R;
 import com.threeH.MyExhibition.entities.AuditingStatus;
 import com.threeH.MyExhibition.service.ClientController;
@@ -112,10 +113,8 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
 
     @Override
     public void addAction() {
-
         radiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             public void onCheckedChanged(RadioGroup group, int checkedId){
-
                 switch (checkedId) {
                     case R.id.rb_news:
                         tabhost.setCurrentTabByTag(NEWS_TAB);
@@ -149,7 +148,13 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
                 }
             }
         });
-
+        TabWidget tabs = (TabWidget) this.findViewById(android.R.id.tabs);
+        BadgeView badgeView = new BadgeView(this,tabs,0);
+        badgeView.show();
+        /*BadgeView badgeView = new BadgeView(this,radioButtonMessage);
+        //badgeView.toggle(true);
+        badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);
+        badgeView.show();*/
     }
 
     private char getSignupStatus(String exKey, String token) {

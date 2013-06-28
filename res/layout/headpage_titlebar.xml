@@ -24,14 +24,22 @@
                 style=""/>
         <EditText
                 android:id="@+id/titlebar_et"
-                android:layout_width="230dp"
+                android:layout_width="200dp"
                 android:layout_height="50dp"
                 android:background="@android:color/transparent"
                 android:clickable="true"
                 android:hint="搜索"
                 android:layout_toRightOf="@id/search_btn"
-                android:layout_alignTop="@+id/search_btn"
+                android:layout_alignParentTop="true"
                 android:layout_marginLeft="2dp"/>
+        <ImageView
+            android:id="@+id/titlebar_imageview_cancel"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_toRightOf="@id/titlebar_et"
+            android:layout_alignTop="@id/search_btn"
+            android:background="@drawable/shanchu"
+            android:visibility="gone"/>
     </RelativeLayout>
 
 

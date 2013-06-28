@@ -7,10 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AbsListView;
-import android.widget.AdapterView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
+import android.widget.*;
 import com.google.gson.Gson;
 import com.threeH.MyExhibition.R;
 import com.threeH.MyExhibition.adapters.SignExhiListAdapter;
@@ -40,6 +37,8 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
     private LayoutInflater mInflater;
     private View viewFooter;
     private LinearLayout linlLoad;
+    private ImageView imageviewCancel;
+    private EditText editText;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentViewWithNoTitle(R.layout.signup_exhibition_page);
@@ -75,15 +74,30 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
         mListView = (ListView)findViewById(R.id.signup_exhi_listview);
         viewFooter = mInflater.inflate(R.layout.list_footer_new,null);
         linlLoad = (LinearLayout) viewFooter.findViewById(R.id.list_footer_new);
+        editText = (EditText) this.findViewById(R.id.titlebar_et);
+        imageviewCancel = (ImageView) this.findViewById(R.id.titlebar_imageview_cancel);
     }
     @Override
     public void addAction() {
-        linlLoad.setVisibility(View.GONE);
-        mListView.addFooterView(viewFooter);
+        /*linlLoad.setVisibility(View.GONE);
+        mListView.addFooterView(viewFooter);*/
         mListView.setAdapter(mSignExhiListAdapter);
         mListView.setDividerHeight(0);
-        mListView.setOnScrollListener(this);
+        //mListView.setOnScrollListener(this);
         mListView.setOnItemClickListener(this);
+        imageviewCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editText.setText("");
+            }
+        });
+
+        editText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imageviewCancel.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     @Override
@@ -125,5 +139,9 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
 
     }
 
-
+    @Override
+    protected void onResume() {
+        imageviewCancel.setVisibility(View.GONE);
+        super.onResume();
+    }
 }

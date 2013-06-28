@@ -5,10 +5,16 @@
    android:layout_width="match_parent"
    android:layout_height="match_parent"
    android:background="@drawable/homepage_background">
+    <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/headpage_titlebar"
+            android:id="@+id/unsingup_list_include"/>
    <ListView
            android:id="@+id/signup_exhi_listview"
            android:layout_width="fill_parent"
            android:layout_height="fill_parent"
+           android:scrollbars="none"
            android:paddingLeft="6dp"
            android:paddingRight="6dp"
            android:paddingTop="6dp"
