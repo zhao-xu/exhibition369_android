@@ -5,8 +5,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import com.google.gson.Gson;
 import com.threeH.MyExhibition.R;
@@ -28,11 +31,15 @@ import java.util.List;
  * Time: 下午2:41
  * To change this template use File | Settings | File Templates.
  */
-public class SignupExhiListActivity extends BaseActivity implements ActivityInterface,AdapterView.OnItemClickListener {
+public class SignupExhiListActivity extends BaseActivity implements ActivityInterface,
+            AdapterView.OnItemClickListener,AbsListView.OnScrollListener {
     private ListView mListView;
     private List<HashMap<String,String>> mdataes = new ArrayList<HashMap<String,String>>();
     private SignExhiListAdapter mSignExhiListAdapter;
     private EnrollExhibition.EnrollStatus[] enrollStatuses;
+    private LayoutInflater mInflater;
+    private View viewFooter;
+    private LinearLayout linlLoad;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentViewWithNoTitle(R.layout.signup_exhibition_page);
@@ -44,6 +51,11 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
     public void initdata() {
         try {
             String jsonData = mController.getService().ErollExList(token);
+            if (null != jsonData && !"".equals(jsonData)) {
+                XmlDB.getInstance(context).saveKey(StringPools.SIGNUP_EXHIBITION_DATA, jsonData);
+            } else {
+                jsonData = XmlDB.getInstance(context).getKeyStringValue(StringPools.SIGNUP_EXHIBITION_DATA, "");
+            }
             enrollStatuses =  mGson.fromJson(jsonData, EnrollExhibition.EnrollStatus[].class);
             for(EnrollExhibition.EnrollStatus mEnrollStatus : enrollStatuses){
                 HashMap<String,String> map =new HashMap<String,String>();
@@ -55,16 +67,22 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
         } catch (Exception e) {
         }
         mSignExhiListAdapter = new SignExhiListAdapter(context,mdataes);
+        mInflater = LayoutInflater.from(context);
     }
 
     @Override
     public void findView() {
         mListView = (ListView)findViewById(R.id.signup_exhi_listview);
+        viewFooter = mInflater.inflate(R.layout.list_footer_new,null);
+        linlLoad = (LinearLayout) viewFooter.findViewById(R.id.list_footer_new);
     }
     @Override
     public void addAction() {
+        linlLoad.setVisibility(View.GONE);
+        mListView.addFooterView(viewFooter);
         mListView.setAdapter(mSignExhiListAdapter);
         mListView.setDividerHeight(0);
+        mListView.setOnScrollListener(this);
         mListView.setOnItemClickListener(this);
     }
 
@@ -91,4 +109,21 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
         }
         return null;
     }
+
+    @Override
+    public void onScrollStateChanged(AbsListView view, int scrollState) {
+        /*if(scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE){
+            if(view.getLastVisiblePosition() == view.getCount() - 1){
+                linlLoad.setVisibility(View.VISIBLE);
+                mSignExhiListAdapter.notifyDataSetChanged();
+            }
+        }*/
+    }
+
+    @Override
+    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+    }
+
+
 }

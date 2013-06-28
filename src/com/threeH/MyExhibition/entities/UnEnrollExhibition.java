@@ -16,7 +16,7 @@ public class UnEnrollExhibition implements Serializable {
      * 第一页数据设置为last = -1，
      * 第二页设置为第一页最后一条记录的createAt字段值
      */
-    private String last;
+    private Long last;
     /**
      * 展会数组
      */
@@ -30,11 +30,11 @@ public class UnEnrollExhibition implements Serializable {
         this.name = name;
     }
 
-    public String getLast() {
+    public Long getLast() {
         return last;
     }
 
-    public void setLast(String last) {
+    public void setLast(Long last) {
         this.last = last;
     }
 

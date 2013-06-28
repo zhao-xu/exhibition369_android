@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewStub;
 import android.view.Window;
@@ -42,7 +43,8 @@ import java.util.List;
  * Time: 下午2:29
  * To change this template use File | Settings | File Templates.
  */
-public class NoSignupExhiListActivity extends BaseActivity implements ActivityInterface,AdapterView.OnItemClickListener {
+public class NoSignupExhiListActivity extends BaseActivity implements ActivityInterface,
+            AdapterView.OnItemClickListener,AbsListView.OnScrollListener {
     public static ListView listView;
     private HomePageEnrollListAdapter adapter;
     private UnEnrollExhibition allExhibitionData;
@@ -50,6 +52,11 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
     private EditText editText;
     private String name;
     private MyAsyncTask myAsyncTask;
+    private LayoutInflater mInflater;
+    private View viewFooter;
+    private LinearLayout linlLoad;
+    private long createdAt = -1;
+    List<HashMap<String,String>> data = new ArrayList<HashMap<String, String>>();
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -62,6 +69,7 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentViewWithNoTitle(R.layout.unsingup_exhibitionlist);
+        mInflater = LayoutInflater.from(context);
         findView();
         initdata();
         addAction();
@@ -72,6 +80,8 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
         listView = (ListView) this.findViewById(R.id.unsingup_exhibition_listview);
         buttonSearch = (Button) this.findViewById(R.id.search_btn);
         editText = (EditText) this.findViewById(R.id.titlebar_et);
+        viewFooter = mInflater.inflate(R.layout.list_footer_new,null);
+        linlLoad = (LinearLayout) viewFooter.findViewById(R.id.list_footer_new);
     }
 
     @Override
@@ -91,6 +101,9 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
     public void addAction() {
         listView.setDividerHeight(0);
         listView.setOnItemClickListener(this);
+        linlLoad.setVisibility(View.GONE);
+        listView.addFooterView(viewFooter);
+        listView.setOnScrollListener(this);
         try{
             AndroidMessageClient client = new AndroidMessageClient();
             client.init(token,new MyMessageListener());
@@ -104,8 +117,8 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
                     name = editText.getText().toString().trim();
                     String str = mController.getService().UnErollExList(token,-1,-1,name);
                     UnEnrollExhibition allExhibitionData = new Gson().fromJson(str,UnEnrollExhibition.class);
-                    List<HashMap<String,String>> data = makeAllExhibitionListAdapterData(allExhibitionData);
-                    HomePageEnrollListAdapter adapter = new HomePageEnrollListAdapter(NoSignupExhiListActivity.this,data);
+                    List<HashMap<String,String>> searchData = Tool.makeAllExhibitionListAdapterData(allExhibitionData);
+                    HomePageEnrollListAdapter adapter = new HomePageEnrollListAdapter(NoSignupExhiListActivity.this,searchData);
                     listView.setAdapter(adapter);
                 }catch (Exception e){
                     e.printStackTrace();
@@ -127,6 +140,22 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
         startActivity(intent);
     }
 
+    @Override
+    public void onScrollStateChanged(AbsListView view, int scrollState) {
+        if(scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE){
+            if(view.getLastVisiblePosition() == view.getCount() - 1){
+                linlLoad.setVisibility(View.VISIBLE);
+                PullupLoadAsyncTask  pullupLoadAsyncTask = new PullupLoadAsyncTask();
+                pullupLoadAsyncTask.execute();
+            }
+        }
+    }
+
+    @Override
+    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+    }
+
     class MyMessageListener implements OnMessageListener {
 
         @Override
@@ -141,48 +170,13 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
         }
     }
 
-    class MyAsyncTask extends AsyncTask<Void,Integer,Integer>{
-
-        @Override
-        protected Integer doInBackground(Void... voids) {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        String str = mController.getService().UnErollExList(token,-1,-1,"");
-                        if(null != str && !"".equals(str)){
-                            XmlDB.getInstance(context).saveKey(StringPools.ALL_EXHIBITION_DATA,str);
-                        }else{
-                            str = XmlDB.getInstance(context).getKeyStringValue(StringPools.ALL_EXHIBITION_DATA,"");
-                        }
-                        allExhibitionData = new Gson().fromJson(str,UnEnrollExhibition.class);
-                        List<HashMap<String,String>> data = makeAllExhibitionListAdapterData(allExhibitionData);
-                        adapter = new HomePageEnrollListAdapter(context,data);
-                        Message message = handler.obtainMessage();
-                        message.what = 1;
-                        handler.sendMessage(message);
-                        /*MobileConfig mobileConfig = MobileConfig.getMobileConfig(context);
-                        XmlDB.getInstance(NoSignupExhiListActivity.this).saveKey(StringPools.OVERALL_CONFIG,
-                                mController.getService().OverAllData(StringPools.PHONE_TYPE,
-                                        "369exhibition", "1.0", mobileConfig.getLocalMacAddress()));*/
-                    } catch (Exception e) {
-                        Log.e("data", e.getMessage());
-                    }
-                }
-            }).start();
-            return null;
-        }
-    }
-
     @Override
     protected void onDestroy() {
         myAsyncTask = null;
         super.onDestroy();
     }
 
-    public  List<HashMap<String,String>> makeAllExhibitionListAdapterData(UnEnrollExhibition allExhibitionData){
-
-        List<HashMap<String,String>> data = new ArrayList<HashMap<String, String>>();
+    public  void makeAllExhibitionListAdapterData(UnEnrollExhibition allExhibitionData){
         if(null != allExhibitionData){
             for(Exhibition exhibition : allExhibitionData.getList()){
                 HashMap<String,String> map = new HashMap<String, String>();
@@ -196,6 +190,69 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
                 data.add(map);
             }
         }
-        return data;
+    }
+
+    class MyAsyncTask extends AsyncTask<Void,Integer,Integer>{
+
+        @Override
+        protected Integer doInBackground(Void... voids) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        String str = mController.getService().UnErollExList(token,5,-1,"");
+                        if(null != str && !"".equals(str)){
+                            XmlDB.getInstance(context).saveKey(StringPools.ALL_EXHIBITION_DATA,str);
+                        }else{
+                            str = XmlDB.getInstance(context).getKeyStringValue(StringPools.ALL_EXHIBITION_DATA,"");
+                        }
+                        allExhibitionData = new Gson().fromJson(str,UnEnrollExhibition.class);
+                        int last = allExhibitionData.getList().size() - 1;
+                        if(last >= 0){
+                            createdAt = allExhibitionData.getList().get(last).getCreatedAt();
+                        }
+                        makeAllExhibitionListAdapterData(allExhibitionData);
+                        adapter = new HomePageEnrollListAdapter(context,data);
+                        Message message = handler.obtainMessage();
+                        message.what = 1;
+                        handler.sendMessage(message);
+                    } catch (Exception e) {
+                        Log.e("data", e.getMessage());
+                    }
+                }
+            }).start();
+            return null;
+        }
+    }
+
+    class PullupLoadAsyncTask extends AsyncTask<Void,Integer,Integer>{
+
+        @Override
+        protected Integer doInBackground(Void... voids) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Thread.sleep(2000);
+                        linlLoad.setVisibility(View.GONE);
+                        String str = mController.getService().UnErollExList(token,5,createdAt,"");
+                        allExhibitionData = new Gson().fromJson(str,UnEnrollExhibition.class);
+                        int last = allExhibitionData.getList().size() - 1;
+                        if(last >= 0){
+                            createdAt = allExhibitionData.getList().get(last).getCreatedAt();
+                        }
+                        makeAllExhibitionListAdapterData(allExhibitionData);
+                        //adapter.notifyDataSetChanged();
+                        listView.setAdapter(adapter);
+                        /*Message message = handler.obtainMessage();
+                        message.what = 1;
+                        handler.sendMessage(message);*/
+                    } catch (Exception e) {
+                        Log.e("data", e.getMessage());
+                    }
+                }
+            }).start();
+            return null;
+        }
     }
 }
