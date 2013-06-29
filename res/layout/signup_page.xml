@@ -1,33 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:background="@drawable/signup_background">
     <include
+            android:id="@+id/signup_page_include"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             layout="@layout/exhibition_titlebar"/>
 
-        <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="50dp">
-            <LinearLayout
+    <RelativeLayout
+            android:layout_below="@id/signup_page_include"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="50dp">
+            <RelativeLayout
+                    android:id="@+id/relativelayout_one"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp">
                 <ImageView
+                        android:id="@+id/imageview_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/name"
-                        android:layout_gravity="center_vertical"
+                        android:layout_centerVertical="true"
                         />
                 <EditText
                         android:id="@+id/user_name"
+                        android:layout_toRightOf="@id/imageview_name"
                         android:layout_width="200dp"
                         android:layout_height="40dp"
                         android:background="@drawable/sousuobeijing"
@@ -37,19 +42,23 @@
                         android:textSize="15dp"
                         android:paddingLeft="10dp"
                         android:inputType="textPersonName"/>
-            </LinearLayout>
-            <LinearLayout
+            </RelativeLayout>
+            <RelativeLayout
+                    android:id="@+id/relativelayout_two"
+                    android:layout_below="@id/relativelayout_one"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp">
                 <ImageView
+                        android:id="@+id/imageview_phone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/dianhua"
-                        android:layout_gravity="center_vertical"
+                        android:layout_centerVertical="true"
                         android:textColor="@android:color/black"/>
                 <EditText
                         android:id="@+id/phone_nummber"
+                        android:layout_toRightOf="@id/imageview_phone"
                         android:layout_width="200dp"
                         android:layout_height="40dp"
                         android:background="@drawable/sousuobeijing"
@@ -59,19 +68,23 @@
                         android:textSize="15dp"
                         android:paddingLeft="10dp"
                         android:inputType="phone"/>
-            </LinearLayout>
-            <LinearLayout
+            </RelativeLayout>
+            <RelativeLayout
+                    android:id="@+id/relativelayout_three"
+                    android:layout_below="@id/relativelayout_two"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp">
                 <ImageView
+                        android:id="@+id/imageview_email"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/youxiang"
-                        android:layout_gravity="center_vertical"
+                        android:layout_centerVertical="true"
                         android:textColor="@android:color/black"/>
                 <EditText
                         android:id="@+id/email_address"
+                        android:layout_toRightOf="@id/imageview_email"
                         android:layout_width="200dp"
                         android:layout_height="40dp"
                         android:background="@drawable/sousuobeijing"
@@ -81,56 +94,55 @@
                         android:textSize="15dp"
                         android:paddingLeft="10dp"
                         android:inputType="textAutoCorrect"/>
-            </LinearLayout>
-            <LinearLayout
+            </RelativeLayout>
+            <RelativeLayout
+                    android:layout_below="@id/relativelayout_three"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
+                    android:layout_centerHorizontal="true"
                     android:layout_margin="5dp">
                 <ImageView
                         android:id="@+id/signup_imageview_canzhan"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/yuan_unfocus"
-                        android:layout_gravity="center_vertical"/>
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/yuan_unfocus"/>
                 <TextView
                         android:id="@+id/signup_textview_canzhan"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@android:color/black"
-                        android:layout_margin="10dp"
                         android:text="参展"
-                        android:textSize="15dp"/>
+                        android:textSize="15dp"
+                        android:layout_toRightOf="@id/signup_imageview_canzhan"
+                        android:layout_alignTop="@id/signup_imageview_canzhan"/>
                 <ImageView
                         android:id="@+id/signup_imageview_canhui"
+                        android:layout_toRightOf="@id/signup_textview_canzhan"
+                        android:layout_marginLeft="30dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/yuan_focus"
-                        android:layout_gravity="center_vertical"
-                        />
+                        android:layout_centerVertical="true"/>
                 <TextView
                         android:id="@+id/signup_textview_canhui"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@android:color/black"
-                        android:layout_margin="10dp"
                         android:text="参会"
-                        android:textSize="15dp"/>
-            </LinearLayout>
-
-        <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:layout_marginTop="100dp">
-            <Button
-                    android:id="@+id/submit_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/submit_btn"
-                    android:layout_centerHorizontal="true"/>
-        </RelativeLayout>
-    </LinearLayout>
+                        android:textSize="15dp"
+                        android:layout_toRightOf="@+id/signup_imageview_canhui"
+                        android:layout_alignTop="@+id/signup_imageview_canzhan"/>
+            </RelativeLayout>
 
 
-</LinearLayout>
+    </RelativeLayout>
+    <Button
+            android:id="@+id/submit_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/submit_btn"
+            android:layout_centerHorizontal="true"/>
+
+</RelativeLayout>
