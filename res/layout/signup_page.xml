@@ -5,21 +5,17 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:background="@drawable/signup_background">
-        <include
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                layout="@layout/exhibition_titlebar"/>
-    <LinearLayout
-            android:layout_width="fill_parent"
+    <include
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:orientation="vertical">
+            layout="@layout/exhibition_titlebar"/>
+
         <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginLeft="50dp"
-                android:layout_marginTop="30dp">
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="50dp">
             <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -84,7 +80,7 @@
                         android:layout_gravity="center_vertical"
                         android:textSize="15dp"
                         android:paddingLeft="10dp"
-                        android:inputType="textEmailAddress|textAutoCorrect"/>
+                        android:inputType="textAutoCorrect"/>
             </LinearLayout>
             <LinearLayout
                     android:layout_width="wrap_content"
@@ -121,7 +117,7 @@
                         android:text="参会"
                         android:textSize="15dp"/>
             </LinearLayout>
-        </LinearLayout>
+
         <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

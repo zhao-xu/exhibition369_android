@@ -4,13 +4,29 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/list_selector">
-    <ImageView
-            android:id="@+id/imageview_icon"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_margin="10dp"/>
+    <RelativeLayout
+            android:id="@+id/iconview"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerVertical="true">
+        <ImageView
+                android:id="@+id/imageview_icon"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerInParent="true"
+                android:layout_margin="10dp"
+                android:background="@drawable/icon1"/>
+        <ImageView
+                android:id="@+id/message_icon"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/new_message"
+                android:visibility="gone"/>
+    </RelativeLayout>
     <!--<include
             android:id="@+id/include"
             android:layout_height="wrap_content"
@@ -25,7 +41,7 @@
             android:id="@+id/relativelayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/imageview_icon"
+            android:layout_toRightOf="@id/iconview"
             android:layout_marginTop="10dp">
     <TextView
             android:id="@+id/exhibition_theme"

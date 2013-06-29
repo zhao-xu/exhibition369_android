@@ -15,6 +15,9 @@ import com.threeH.MyExhibition.R;
 import com.threeH.MyExhibition.listener.TelephoneClickListener;
 import com.threeH.MyExhibition.tools.MSYH;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * Created with IntelliJ IDEA.
  * User: pjq
@@ -74,10 +77,17 @@ public class SignupActivity extends  BaseActivity implements ActivityInterface{
                    try{
                        name = editTextName.getText().toString();
                        telephone = editTextTelephone.getText().toString();
+                       String regEx="^[1][3-8]\\d{9}$";
+                       Pattern  p = Pattern.compile(regEx);
+                       Matcher matcher = p.matcher(telephone);
+                       if(!matcher.find()){
+                           editTextTelephone.setText("请输入正确的手机号码");
+                           return;
+                       }
                        email = editTextEmail.getText().toString();
                        if(!("".equals(name)) && !("".equals(telephone)) && !("".equals(email))){
                            mController.getService().ExEnroll(exKey,token,name,telephone,email,type);
-                           Dialog dialog = new AlertDialog.Builder(SignupActivity.this)
+                           /*Dialog dialog = new AlertDialog.Builder(SignupActivity.this)
                                    .setMessage("提交成功").create();
                            dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                                @Override
@@ -88,14 +98,9 @@ public class SignupActivity extends  BaseActivity implements ActivityInterface{
                                    startActivity(intent);
                                }
                            });
-                           dialog.show();
+                           dialog.show();*/
                        }else{
-                           new AlertDialog.Builder(SignupActivity.this)
-                                   .setMessage("姓名，联系方式，邮箱地址不能为空")
-                                   .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                                       public void onClick(DialogInterface dialog, int which) {
-                                       }
-                                   }).show();
+
                        }
                    }catch (Exception e){
                    }
