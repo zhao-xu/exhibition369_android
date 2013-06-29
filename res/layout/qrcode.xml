@@ -1,46 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
               android:background="@drawable/qrcode_background">
 <include
+        android:id="@+id/qrcode_include"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         layout="@layout/exhibition_titlebar"/>
-<!--<RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <ImageView
-                android:id="@+id/qrconde_imageview_exhibitionicon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_margin="10dp"
-                android:src="@drawable/icon1"/>
-        <TextView
-                android:id="@+id/qrconde_textview_one"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_toRightOf="@id/qrconde_imageview_exhibitionicon"
-                android:textColor="@android:color/black"
-                android:layout_alignTop="@id/qrconde_imageview_exhibitionicon"
-                android:text="2013俄罗斯莫斯科秋季国际消费品"/>
-        <RelativeLayout
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_below="@id/qrconde_textview_one"
-                android:>
-        </RelativeLayout>
-</RelativeLayout>-->
-
-<LinearLayout
+<RelativeLayout
+        android:id="@+id/qrcode_rl_one"
+        android:layout_below="@id/qrcode_include"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:orientation="vertical"
         android:background="@drawable/qrcode_body_background">
     <RelativeLayout
+            android:id="@+id/qrcode_rl_two"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="30dp">
@@ -88,16 +65,18 @@
                 android:layout_height="250dp"
                 android:layout_centerHorizontal="true"
                 android:scaleType="fitXY"/>
-        <TextView
-                android:id="@+id/qrcode_textview_prompt"
-                android:layout_below="@id/qrcode_imageview"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:text="入会场时，凭此二维码进入，请妥善保存，谢谢！"
 
-                android:layout_gravity="center_horizontal"
-                android:textColor="@android:color/black"/>
     </RelativeLayout>
-</LinearLayout>
-
-</LinearLayout>
+</RelativeLayout>
+    <TextView
+            android:id="@+id/qrcode_textview_prompt"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="入会场时，凭此二维码进入，请妥善保存，谢谢！"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@android:color/black"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="50dp"
+            android:paddingBottom="20dp"
+            />
+</RelativeLayout>
