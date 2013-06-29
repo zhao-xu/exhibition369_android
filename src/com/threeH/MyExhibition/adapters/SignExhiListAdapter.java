@@ -62,7 +62,7 @@ public class SignExhiListAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
             holder.mSignupStatus.setImageBitmap(null);
         }
-        Exhibition exhibition = getExhibitionData(exKey);
+        //Exhibition exhibition = getExhibitionData(exKey);
         char showStatus = ' ';
         if(null != data.get(position).get("status")){
             showStatus = data.get(position).get("status").charAt(0);
@@ -79,9 +79,9 @@ public class SignExhiListAdapter extends BaseAdapter {
             }
         }
         holder.mExhibitionTheme.setText(data.get(position).get("name"));
-        holder.mExhibitionSponsor.setText(exhibition.getOrganizer());
-        holder.mExhibitionAddress.setText(exhibition.getAddress());
-        holder.mExhibitionDate.setText(exhibition.getDate());
+        holder.mExhibitionSponsor.setText(data.get(position).get("organizer"));
+        holder.mExhibitionAddress.setText(data.get(position).get("address"));
+        holder.mExhibitionDate.setText(data.get(position).get("date"));
 
         ImageURLUtil.loadImage(Tool.makeExhibitionIconURL(exKey),
                 holder.mExhibitionIcon);

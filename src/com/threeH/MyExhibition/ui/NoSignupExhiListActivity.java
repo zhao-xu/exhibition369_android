@@ -13,10 +13,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewStub;
-import android.view.Window;
+import android.view.*;
+import android.view.inputmethod.EditorInfo;
 import android.widget.*;
 import cn.mobiledaily.module.android.module.mobilepush.service.helper.AndroidMessageClient;
 import cn.mobiledaily.module.android.module.mobilepush.service.helper.OnMessageListener;
@@ -48,7 +46,6 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
     public static ListView listView;
     private HomePageEnrollListAdapter adapter;
     private UnEnrollExhibition allExhibitionData;
-    private Button buttonSearch;
     private EditText editText;
     private String name;
     private MyAsyncTask myAsyncTask;
@@ -56,8 +53,10 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
     private View viewFooter;
     private LinearLayout linlLoad;
     private long createdAt = -1;
+    private static final int SIZE = 5;
     private ImageView imageviewCancel;
     List<HashMap<String,String>> data = new ArrayList<HashMap<String, String>>();
+
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -79,7 +78,6 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
     @Override
     public void findView() {
         listView = (ListView) this.findViewById(R.id.unsingup_exhibition_listview);
-        buttonSearch = (Button) this.findViewById(R.id.search_btn);
         editText = (EditText) this.findViewById(R.id.titlebar_et);
         viewFooter = mInflater.inflate(R.layout.list_footer_new,null);
         linlLoad = (LinearLayout) viewFooter.findViewById(R.id.list_footer_new);
@@ -112,21 +110,6 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
         }catch (Exception e){
             e.printStackTrace();
         }
-        buttonSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try{
-                    name = editText.getText().toString().trim();
-                    String str = mController.getService().UnErollExList(token,-1,-1,name);
-                    UnEnrollExhibition allExhibitionData = new Gson().fromJson(str,UnEnrollExhibition.class);
-                    List<HashMap<String,String>> searchData = Tool.makeAllExhibitionListAdapterData(allExhibitionData);
-                    HomePageEnrollListAdapter adapter = new HomePageEnrollListAdapter(NoSignupExhiListActivity.this,searchData);
-                    listView.setAdapter(adapter);
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-            }
-        });
 
         imageviewCancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,6 +125,34 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
             }
         });
 
+        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                boolean  handled = false;
+                if(actionId == EditorInfo.IME_ACTION_SEARCH || actionId == 0){
+                    searchExhibition();
+                    handled = true;
+                }
+                return handled;
+            }
+        });
+    }
+
+    private void searchExhibition() {
+        try{
+            name = editText.getText().toString().trim();
+            String str;
+            if(null != name && "".equals(name)){
+                str = mController.getService().UnErollExList(token,SIZE,-1,name);
+            }
+            str = mController.getService().UnErollExList(token,-1,-1,name);
+            UnEnrollExhibition allExhibitionData = new Gson().fromJson(str,UnEnrollExhibition.class);
+            List<HashMap<String,String>> searchData = Tool.makeAllExhibitionListAdapterData(allExhibitionData);
+            HomePageEnrollListAdapter adapter = new HomePageEnrollListAdapter(NoSignupExhiListActivity.this,searchData);
+            listView.setAdapter(adapter);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -178,7 +189,7 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
         public void onMessageReceived(String message) {
             NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
             Notification notification  = new Notification(R.drawable.appicon,message,System.currentTimeMillis());
-            Intent intent = new Intent(context,MessageActivity.class);
+            Intent intent = new Intent(context,HomeOfTabActivity.class);
             PendingIntent pendingIntent = PendingIntent.getActivity(context,0,intent,0);
             notification.setLatestEventInfo(context,"展会消息通知",message,pendingIntent);
             notification.defaults = Notification.DEFAULT_SOUND;
@@ -216,7 +227,7 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
                 @Override
                 public void run() {
                     try {
-                        String str = mController.getService().UnErollExList(token,5,-1,"");
+                        String str = mController.getService().UnErollExList(token,SIZE,-1,"");
                         if(null != str && !"".equals(str)){
                             XmlDB.getInstance(context).saveKey(StringPools.ALL_EXHIBITION_DATA,str);
                         }else{
@@ -277,4 +288,6 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
         imageviewCancel.setVisibility(View.GONE);
         super.onResume();
     }
+
+
 }

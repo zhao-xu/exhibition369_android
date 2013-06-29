@@ -35,12 +35,48 @@ public class EnrollExhibition implements Serializable {
          * 展会名称
          */
         private String name;
+        private String date;
+        private String address;
+        private String organizer;
         /**
          * 审核状态:
          * P 审核中(Processing)，A 审核通过(Approved)，D 审核未通过(Denied)
          */
         private String status;
 
+        public int getCount() {
+            return count;
+        }
+
+        public void setCount(int count) {
+            this.count = count;
+        }
+
+        public String getOrganizer() {
+            return organizer;
+        }
+
+        public void setOrganizer(String organizer) {
+            this.organizer = organizer;
+        }
+
+        public String getAddress() {
+            return address;
+        }
+
+        public void setAddress(String address) {
+            this.address = address;
+        }
+
+        public String getDate() {
+            return date;
+        }
+
+        public void setDate(String date) {
+            this.date = date;
+        }
+
+        private int count;
         public String getExKey() {
             return exKey;
         }

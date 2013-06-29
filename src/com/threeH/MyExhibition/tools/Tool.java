@@ -62,6 +62,7 @@ public class Tool {
                 map.put("exhibitionSponser",exhibition.getOrganizer());
                 map.put("exhibitionApplied",exhibition.getApplied());
                 map.put("exhibitionExkey",exhibition.getExKey());
+                map.put("status",exhibition.getStatus());
                 data.add(map);
             }
         }
