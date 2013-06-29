@@ -11,24 +11,22 @@
             android:layout_height="wrap_content"
             layout="@layout/exhibition_titlebar"/>
 
-    <RelativeLayout
-            android:layout_below="@id/signup_page_include"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="50dp"
-            android:layout_marginLeft="50dp">
             <RelativeLayout
                     android:id="@+id/relativelayout_one"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp">
+                    android:layout_below="@id/signup_page_include"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="60dp"
+                    android:layout_marginBottom="5dp">
                 <ImageView
                         android:id="@+id/imageview_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/name"
                         android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_alignParentLeft="true"
                         />
                 <EditText
                         android:id="@+id/user_name"
@@ -42,12 +40,22 @@
                         android:textSize="15dp"
                         android:paddingLeft="10dp"
                         android:inputType="textPersonName"/>
+                <TextView
+                        android:id="@+id/signup_tv_name"
+                        android:layout_below="@id/user_name"
+                        android:layout_alignLeft="@id/user_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="请输入姓名"
+                        android:textColor="@android:color/holo_red_dark"
+                        android:visibility="gone"/>
             </RelativeLayout>
             <RelativeLayout
                     android:id="@+id/relativelayout_two"
                     android:layout_below="@id/relativelayout_one"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
                     android:layout_margin="5dp">
                 <ImageView
                         android:id="@+id/imageview_phone"
@@ -68,12 +76,23 @@
                         android:textSize="15dp"
                         android:paddingLeft="10dp"
                         android:inputType="phone"/>
+                <TextView
+                        android:id="@+id/signup_tv_phone"
+                        android:layout_below="@id/phone_nummber"
+                        android:layout_alignLeft="@id/phone_nummber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="请输入正确的电话号码"
+                        android:textColor="@android:color/holo_red_dark"
+                        android:visibility="gone"/>
             </RelativeLayout>
+
             <RelativeLayout
                     android:id="@+id/relativelayout_three"
                     android:layout_below="@id/relativelayout_two"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
                     android:layout_margin="5dp">
                 <ImageView
                         android:id="@+id/imageview_email"
@@ -94,6 +113,16 @@
                         android:textSize="15dp"
                         android:paddingLeft="10dp"
                         android:inputType="textAutoCorrect"/>
+                <TextView
+                        android:id="@+id/signup_tv_email"
+                        android:layout_below="@id/email_address"
+                        android:layout_alignLeft="@id/email_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="请输入正确的邮箱"
+                        android:textColor="@android:color/holo_red_dark"
+                        android:visibility="gone">
+                </TextView>
             </RelativeLayout>
             <RelativeLayout
                     android:layout_below="@id/relativelayout_three"
@@ -135,8 +164,6 @@
                         android:layout_alignTop="@+id/signup_imageview_canzhan"/>
             </RelativeLayout>
 
-
-    </RelativeLayout>
     <Button
             android:id="@+id/submit_btn"
             android:layout_width="wrap_content"

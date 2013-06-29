@@ -63,6 +63,7 @@ public class HomePageEnrollListAdapter extends BaseAdapter {
             holder.mExhibitionAddress = (TextView) convertView.findViewById(R.id.exhibition_address);
             holder.mExhibitionSponser = (TextView) convertView.findViewById(R.id.exhibition_sponsor);
             holder.mExhibitionIcon = (ImageView) convertView.findViewById(R.id.imageview_icon);
+            holder.mEnrollMessage = (ImageView) convertView.findViewById(R.id.message_icon);
 
             holder.mExhibitionTheme.setTypeface(typeface_bold);
             holder.mExhibitionDate.setTypeface(typeface);
@@ -114,6 +115,11 @@ public class HomePageEnrollListAdapter extends BaseAdapter {
                 context.startActivity(intent);
             }
         });
+
+        int count = Integer.valueOf(data.get(position).get("count"));
+        if(count > 0){
+           holder.mEnrollMessage.setVisibility(View.VISIBLE);
+        }
         return convertView;
     }
 
@@ -124,5 +130,6 @@ public class HomePageEnrollListAdapter extends BaseAdapter {
         TextView mExhibitionAddress;
         TextView mExhibitionSponser;
         ImageView mEnrollSignup;
+        ImageView mEnrollMessage;
     }
 }

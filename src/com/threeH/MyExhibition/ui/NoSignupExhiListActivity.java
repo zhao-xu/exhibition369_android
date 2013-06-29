@@ -214,6 +214,7 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
                 map.put("exhibitionApplied",exhibition.getApplied());
                 map.put("exhibitionExkey",exhibition.getExKey());
                 map.put("status",exhibition.getStatus());
+                map.put("count",String.valueOf(exhibition.getCount()));
                 data.add(map);
             }
         }

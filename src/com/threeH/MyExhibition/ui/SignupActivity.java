@@ -6,6 +6,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,6 +17,7 @@ import android.widget.TextView;
 import com.threeH.MyExhibition.R;
 import com.threeH.MyExhibition.listener.TelephoneClickListener;
 import com.threeH.MyExhibition.tools.MSYH;
+import com.threeH.MyExhibition.tools.RegexUtils;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -39,6 +43,7 @@ public class SignupActivity extends  BaseActivity implements ActivityInterface{
     Typeface typeface;
     private TextView textViewTitle;
     private TextView textViewCanzhan,textViewCanhui;
+    private TextView textViewPhoneCheck,textViewEmailCheck,textViewNameCheck;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +65,9 @@ public class SignupActivity extends  BaseActivity implements ActivityInterface{
         imageviewTelephone = (ImageView) this.findViewById(R.id.exhibition_titlebar_button_telephone);
         textViewCanzhan = (TextView) this.findViewById(R.id.signup_textview_canzhan);
         textViewCanhui = (TextView) this.findViewById(R.id.signup_textview_canhui);
+        textViewPhoneCheck = (TextView) this.findViewById(R.id.signup_tv_phone);
+        textViewEmailCheck = (TextView) this.findViewById(R.id.signup_tv_email);
+        textViewNameCheck = (TextView) this.findViewById(R.id.signup_tv_name);
     }
 
     @Override
@@ -77,30 +85,19 @@ public class SignupActivity extends  BaseActivity implements ActivityInterface{
                    try{
                        name = editTextName.getText().toString();
                        telephone = editTextTelephone.getText().toString();
-                       String regEx="^[1][3-8]\\d{9}$";
-                       Pattern  p = Pattern.compile(regEx);
-                       Matcher matcher = p.matcher(telephone);
-                       if(!matcher.find()){
-                           editTextTelephone.setText("请输入正确的手机号码");
-                           return;
-                       }
                        email = editTextEmail.getText().toString();
-                       if(!("".equals(name)) && !("".equals(telephone)) && !("".equals(email))){
-                           mController.getService().ExEnroll(exKey,token,name,telephone,email,type);
-                           /*Dialog dialog = new AlertDialog.Builder(SignupActivity.this)
-                                   .setMessage("提交成功").create();
-                           dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                               @Override
-                               public void onDismiss(DialogInterface dialog) {
-                                   Intent intent = new Intent(SignupActivity.this, HomeOfTabActivity.class);
-                                   intent.putExtra("exKey", exKey);
-                                   intent.putExtra("currentTab",HomeOfTabActivity.TAB_SIGNUP);
-                                   startActivity(intent);
-                               }
-                           });
-                           dialog.show();*/
+                       if(name == null || name.equals("")){
+                           textViewNameCheck.setVisibility(View.VISIBLE);
+                       }else if(!RegexUtils.checkMobile(telephone)){
+                           textViewPhoneCheck.setVisibility(View.VISIBLE);
+                       }else if(!RegexUtils.verifyEmail(email)){
+                           textViewEmailCheck.setVisibility(View.VISIBLE);
                        }else{
-
+                           mController.getService().ExEnroll(exKey,token,name,telephone,email,type);
+                           Intent intent = new Intent(SignupActivity.this, HomeOfTabActivity.class);
+                           intent.putExtra("exKey", exKey);
+                           intent.putExtra("currentTab",HomeOfTabActivity.TAB_SIGNUP);
+                           startActivity(intent);
                        }
                    }catch (Exception e){
                    }
@@ -114,6 +111,56 @@ public class SignupActivity extends  BaseActivity implements ActivityInterface{
         imageviewTelephone.setOnClickListener(new TelephoneClickListener(context,tel_nummber));
         textViewTitle.setTypeface(typeface);
         textViewTitle.setText("申请报名");
+
+        editTextName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                textViewNameCheck.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        editTextTelephone.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                textViewPhoneCheck.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        editTextEmail.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                textViewEmailCheck.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
     }
 
     class  TypeClickListener implements View.OnClickListener{
