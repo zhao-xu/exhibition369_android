@@ -4,24 +4,23 @@
                 android:layout_width="fill_parent"
                 android:layout_height="40dp"
                 android:background="@drawable/sousuobeijing">
+    <Button
+            android:id="@+id/search_btn"
+            android:layout_height="50dp"
+            android:layout_width="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="6dp"
+            android:text="搜索"
+            style=""/>
     <RelativeLayout
+            android:id="@+id/relativeLayout"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
+            android:layout_toLeftOf="@id/search_btn"
             android:layout_centerVertical="true"
-            android:id="@+id/relativeLayout"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:background="@drawable/soushuokuang">
-        <Button
-                android:id="@+id/search_btn"
-                android:layout_width="49dp"
-                android:layout_height="35dp"
-                android:background="@android:color/transparent"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="8dp"
-                android:layout_alignBottom="@+id/relativeLayout"
-                android:layout_marginTop="6dp"
-                style=""/>
         <EditText
                 android:id="@+id/titlebar_et"
                 android:layout_width="200dp"
@@ -29,20 +28,20 @@
                 android:background="@android:color/transparent"
                 android:clickable="true"
                 android:hint="搜索"
-                android:layout_toRightOf="@id/search_btn"
                 android:layout_alignParentTop="true"
-                android:layout_marginLeft="2dp"
+                android:layout_marginLeft="50dp"
                 android:inputType="text"
                 android:imeOptions="actionSearch"/>
         <ImageView
             android:id="@+id/titlebar_imageview_cancel"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:layout_alignTop="@id/search_btn"
-            android:layout_alignParentRight="true"
             android:layout_marginRight="5dp"
+            android:layout_marginTop="3dp"
             android:background="@drawable/shanchu"
+            android:layout_alignParentRight="true"
             android:visibility="gone"/>
+
     </RelativeLayout>
 
 

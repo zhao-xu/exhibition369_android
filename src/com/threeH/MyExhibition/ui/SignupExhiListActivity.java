@@ -49,6 +49,7 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
     private EditText editText;
     private LoadDataTask loadDataTask;
     private String name;
+    private Button buttonSearch;
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -86,6 +87,7 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
         editText = (EditText) this.findViewById(R.id.titlebar_et);
         imageviewCancel = (ImageView) this.findViewById(R.id.titlebar_imageview_cancel);
         imageviewPrompt = (ImageView) this.findViewById(R.id.prompt_imageview);
+        buttonSearch = (Button) this.findViewById(R.id.search_btn);
     }
     @Override
     public void addAction() {
@@ -114,6 +116,12 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
                     handled = true;
                 }
                 return handled;
+            }
+        });
+        buttonSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchExhibition();
             }
         });
     }

@@ -56,6 +56,7 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
     private static final int SIZE = 5;
     private ImageView imageviewCancel,imageviewPrompt;
     List<HashMap<String,String>> data = new ArrayList<HashMap<String, String>>();
+    private Button buttonSearch;
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -88,6 +89,7 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
         linlLoad = (LinearLayout) viewFooter.findViewById(R.id.list_footer_new);
         imageviewCancel = (ImageView) this.findViewById(R.id.titlebar_imageview_cancel);
         imageviewPrompt = (ImageView) this.findViewById(R.id.prompt_imageview);
+        buttonSearch = (Button) this.findViewById(R.id.search_btn);
     }
 
     @Override
@@ -142,6 +144,12 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
                 return handled;
             }
         });
+        buttonSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchExhibition();
+            }
+        });
     }
 
     private void searchExhibition() {
@@ -170,7 +178,7 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
         intent.putExtra("exTheme",allExhibitionData.getList().get(position).getName());
         intent.putExtra("exSponser",allExhibitionData.getList().get(position).getOrganizer());
         intent.putExtra("token",token);
-        intent.putExtra("singupStatus",(allExhibitionData.getList().get(position).getStatus() + " ").charAt(0));
+        intent.putExtra("singupStatus", (allExhibitionData.getList().get(position).getStatus() + " ").charAt(0));
         startActivity(intent);
     }
 
