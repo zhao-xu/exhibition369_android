@@ -15,6 +15,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.*;
 import com.google.gson.Gson;
 import com.threeH.MyExhibition.R;
+import com.threeH.MyExhibition.adapters.HomePageEnrollListAdapter;
 import com.threeH.MyExhibition.adapters.SignExhiListAdapter;
 import com.threeH.MyExhibition.cache.XmlDB;
 import com.threeH.MyExhibition.common.StringPools;
@@ -44,7 +45,7 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
     private LayoutInflater mInflater;
     private View viewFooter;
     private LinearLayout linlLoad;
-    private ImageView imageviewCancel;
+    private ImageView imageviewCancel,imageviewPrompt;
     private EditText editText;
     private LoadDataTask loadDataTask;
     private String name;
@@ -52,8 +53,13 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
         @Override
         public void handleMessage(Message msg) {
             if(1 == msg.what){
-                mSignExhiListAdapter = new SignExhiListAdapter(context,mdataes);
-                mListView.setAdapter(mSignExhiListAdapter);
+                if(mdataes.size() == 0){
+                    imageviewPrompt.setVisibility(View.VISIBLE);
+                }else{
+                    imageviewPrompt.setVisibility(View.GONE);
+                    mSignExhiListAdapter = new SignExhiListAdapter(context,mdataes);
+                    mListView.setAdapter(mSignExhiListAdapter);
+                }
             }
         }
     };
@@ -79,14 +85,12 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
         linlLoad = (LinearLayout) viewFooter.findViewById(R.id.list_footer_new);
         editText = (EditText) this.findViewById(R.id.titlebar_et);
         imageviewCancel = (ImageView) this.findViewById(R.id.titlebar_imageview_cancel);
+        imageviewPrompt = (ImageView) this.findViewById(R.id.prompt_imageview);
     }
     @Override
     public void addAction() {
-        /*linlLoad.setVisibility(View.GONE);
-        mListView.addFooterView(viewFooter);*/
         mListView.setAdapter(mSignExhiListAdapter);
         mListView.setDividerHeight(0);
-        //mListView.setOnScrollListener(this);
         mListView.setOnItemClickListener(this);
         imageviewCancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -203,11 +207,12 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
                             map.put("count",String.valueOf(mEnrollStatus.getCount()));
                             mdataes.add(map);
                         }
-                        Message message = handler.obtainMessage();
-                        message.what = 1;
-                        handler.sendMessage(message);
+
                     } catch (Exception e) {
                     }
+                    Message message = handler.obtainMessage();
+                    message.what = 1;
+                    handler.sendMessage(message);
                 }
             }).start();
             return null;

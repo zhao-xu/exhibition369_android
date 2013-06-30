@@ -46,11 +46,21 @@ public class NewsPageActivity extends BaseActivity  implements ActivityInterface
     private TextView textViewTitle;
     private Typeface typeface;
     private char charSingupStatus;
+    List<HashMap<String,String>> data = new ArrayList<HashMap<String, String>>();
+    private ImageView imageviewPrompt;
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
             if(1 == msg.what){
-                listView.setAdapter(adapter);
+                if(data.size() == 0){
+                    listView.setVisibility(View.GONE);
+                    imageviewPrompt.setVisibility(View.VISIBLE);
+                }else{
+                    listView.setVisibility(View.VISIBLE);
+                    imageviewPrompt.setVisibility(View.GONE);
+                    adapter =  new NewslistAdapter(data,context);
+                    listView.setAdapter(adapter);
+                }
             }
         }
     };
@@ -69,6 +79,7 @@ public class NewsPageActivity extends BaseActivity  implements ActivityInterface
         imageviewTelephone = (ImageView) this.findViewById(R.id.exhibition_titlebar_button_telephone);
         textViewTitle = (TextView) this.findViewById(R.id.exhibition_titlebar_textview_title);
         imageViewSignup = (ImageView) this.findViewById(R.id.exhibition_titlebar_signup);
+        imageviewPrompt = (ImageView) this.findViewById(R.id.prompt_imageview);
     }
 
     @Override
@@ -117,7 +128,7 @@ public class NewsPageActivity extends BaseActivity  implements ActivityInterface
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    List<HashMap<String,String>> data = new ArrayList<HashMap<String, String>>();
+
                     try {
                         String str = mController.getService().ExNewsList(exKey);
                         newsData = new Gson().fromJson(str, ExhibitionNews.class);
@@ -128,13 +139,12 @@ public class NewsPageActivity extends BaseActivity  implements ActivityInterface
                             map.put("newsTitle",news.getTitle());
                             data.add(map);
                         }
-                        adapter =  new NewslistAdapter(data,context);
-                        Message message = handler.obtainMessage();
-                        message.what = 1;
-                        handler.sendMessage(message);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                    Message message = handler.obtainMessage();
+                    message.what = 1;
+                    handler.sendMessage(message);
                 }
             }).start();
             return null;

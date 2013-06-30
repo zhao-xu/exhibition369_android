@@ -54,14 +54,20 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
     private LinearLayout linlLoad;
     private long createdAt = -1;
     private static final int SIZE = 5;
-    private ImageView imageviewCancel;
+    private ImageView imageviewCancel,imageviewPrompt;
     List<HashMap<String,String>> data = new ArrayList<HashMap<String, String>>();
-
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
             if(1 == msg.what){
-                listView.setAdapter(adapter);
+                if(data.size() == 0){
+                      imageviewPrompt.setVisibility(View.VISIBLE);
+                }else{
+                    imageviewPrompt.setVisibility(View.GONE);
+                    adapter = new HomePageEnrollListAdapter(context,data);
+                    listView.setAdapter(adapter);
+                }
+
             }
         }
     };
@@ -82,6 +88,7 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
         viewFooter = mInflater.inflate(R.layout.list_footer_new,null);
         linlLoad = (LinearLayout) viewFooter.findViewById(R.id.list_footer_new);
         imageviewCancel = (ImageView) this.findViewById(R.id.titlebar_imageview_cancel);
+        imageviewPrompt = (ImageView) this.findViewById(R.id.prompt_imageview);
     }
 
     @Override
@@ -229,24 +236,18 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
                 public void run() {
                     try {
                         String str = mController.getService().UnErollExList(token,SIZE,-1,"");
-                        if(null != str && !"".equals(str)){
-                            XmlDB.getInstance(context).saveKey(StringPools.ALL_EXHIBITION_DATA,str);
-                        }else{
-                            str = XmlDB.getInstance(context).getKeyStringValue(StringPools.ALL_EXHIBITION_DATA,"");
-                        }
                         allExhibitionData = new Gson().fromJson(str,UnEnrollExhibition.class);
                         int last = allExhibitionData.getList().size() - 1;
                         if(last >= 0){
                             createdAt = allExhibitionData.getList().get(last).getCreatedAt();
                         }
                         makeAllExhibitionListAdapterData(allExhibitionData);
-                        adapter = new HomePageEnrollListAdapter(context,data);
-                        Message message = handler.obtainMessage();
-                        message.what = 1;
-                        handler.sendMessage(message);
                     } catch (Exception e) {
-                        Log.e("data", e.getMessage());
+
                     }
+                    Message message = handler.obtainMessage();
+                    message.what = 1;
+                    handler.sendMessage(message);
                 }
             }).start();
             return null;

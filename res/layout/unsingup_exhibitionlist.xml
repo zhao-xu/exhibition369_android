@@ -37,8 +37,8 @@
             android:id="@+id/unsingup_list_include"/>
     <ListView
         android:id="@+id/unsingup_exhibition_listview"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_width="fill_parent"
         android:cacheColorHint="#00000000"
         android:scrollbars="none"
         android:paddingLeft="6dp"
@@ -50,18 +50,8 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@id/unsingup_list_include"/>
 
-    <!--<com.threeH.MyExhibition.widget.PullToRefreshView
-            android:id="@+id/unsingup_exhibition_listview"
-            android:layout_height="match_parent"
-            android:layout_width="match_parent"
-            android:cacheColorHint="#00000000"
-            android:scrollbars="none"
-            android:paddingLeft="6dp"
-            android:paddingRight="6dp"
-            android:paddingTop="6dp"
-            android:paddingBottom="6dp"
-            android:divider="@null"
-            android:dividerHeight="12dp"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@id/unsingup_list_include"/>-->
+    <include
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            layout="@layout/prompt"/>
 </RelativeLayout>

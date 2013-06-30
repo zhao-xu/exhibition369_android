@@ -115,12 +115,13 @@ public class MessageActivity extends BaseActivity implements ActivityInterface,A
                             map.put("status",exMessage.getRead());
                             mdataes.add(map);
                         }
-                        Message message = handler.obtainMessage();
-                        message.what = 1;
-                        handler.sendMessage(message);
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                    Message message = handler.obtainMessage();
+                    message.what = 1;
+                    handler.sendMessage(message);
                 }
             }).start();
             return null;
