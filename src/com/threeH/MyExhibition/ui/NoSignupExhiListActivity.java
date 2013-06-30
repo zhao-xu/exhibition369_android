@@ -42,8 +42,8 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public class NoSignupExhiListActivity extends BaseActivity implements ActivityInterface,
-            AdapterView.OnItemClickListener,AbsListView.OnScrollListener {
-    public static ListView listView;
+        AdapterView.OnItemClickListener{
+    private PullToRefreshView listView;
     private HomePageEnrollListAdapter adapter;
     private UnEnrollExhibition allExhibitionData;
     private EditText editText;
@@ -53,21 +53,16 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
     private View viewFooter;
     private LinearLayout linlLoad;
     private long createdAt = -1;
-    private static final int SIZE = 5;
-    private ImageView imageviewCancel,imageviewPrompt;
+    private static final int SIZE = 6;
+    private ImageView imageviewCancel;
+    private PullupLoadAsyncTask mPullupLoadAsyncTask;
     List<HashMap<String,String>> data = new ArrayList<HashMap<String, String>>();
-    private Button buttonSearch;
+
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
             if(1 == msg.what){
-                if(data.size() == 0){
-                      imageviewPrompt.setVisibility(View.VISIBLE);
-                }else{
-                    imageviewPrompt.setVisibility(View.GONE);
-                    adapter = new HomePageEnrollListAdapter(context,data,token);
-                    listView.setAdapter(adapter);
-                }
+                listView.setAdapter(adapter);
             }
         }
     };
@@ -83,13 +78,9 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
 
     @Override
     public void findView() {
-        listView = (ListView) this.findViewById(R.id.unsingup_exhibition_listview);
+        listView = (PullToRefreshView) this.findViewById(R.id.unsingup_exhibition_listview);
         editText = (EditText) this.findViewById(R.id.titlebar_et);
-        viewFooter = mInflater.inflate(R.layout.list_footer_new,null);
-        linlLoad = (LinearLayout) viewFooter.findViewById(R.id.list_footer_new);
         imageviewCancel = (ImageView) this.findViewById(R.id.titlebar_imageview_cancel);
-        imageviewPrompt = (ImageView) this.findViewById(R.id.prompt_imageview);
-        buttonSearch = (Button) this.findViewById(R.id.search_btn);
     }
 
     @Override
@@ -107,11 +98,29 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
 
     @Override
     public void addAction() {
-        listView.setDividerHeight(0);
+//        listView.setDividerHeight(0);
         listView.setOnItemClickListener(this);
-        linlLoad.setVisibility(View.GONE);
-        listView.addFooterView(viewFooter);
-        listView.setOnScrollListener(this);
+//        linlLoad.setVisibility(View.GONE);
+//        listView.addFooterView(viewFooter);
+        //listView.setOnScrollListener(this);
+        listView.setOnRefreshListener(new PullToRefreshView.OnRefreshListener() {
+            @Override
+            public void onRefresh(int which) {
+                switch (which) {
+                    case PullToRefreshView.HEADER:
+                        data.clear();
+                        initdata();
+                        listView.onRefreshComplete(which);
+                        break;
+                    case PullToRefreshView.FOOTER:
+                        data.clear();
+                        mPullupLoadAsyncTask = new PullupLoadAsyncTask();
+                        mPullupLoadAsyncTask.execute();
+                        listView.onRefreshComplete(which);
+                        break;
+                }
+            }
+        });
         try{
             AndroidMessageClient client = new AndroidMessageClient();
             client.init(token,new MyMessageListener());
@@ -144,12 +153,6 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
                 return handled;
             }
         });
-        buttonSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                searchExhibition();
-            }
-        });
     }
 
     private void searchExhibition() {
@@ -172,31 +175,20 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(this,ExhibitionActivity.class);
-        intent.putExtra("exKey",allExhibitionData.getList().get(position).getExKey());
-        intent.putExtra("exAddress",allExhibitionData.getList().get(position).getAddress());
-        intent.putExtra("exTime",allExhibitionData.getList().get(position).getDate());
-        intent.putExtra("exTheme",allExhibitionData.getList().get(position).getName());
-        intent.putExtra("exSponser",allExhibitionData.getList().get(position).getOrganizer());
+        intent.putExtra("exKey",allExhibitionData.getList().get(position-1).getExKey());
+        intent.putExtra("exAddress",allExhibitionData.getList().get(position-1).getAddress());
+        intent.putExtra("exTime",allExhibitionData.getList().get(position-1).getDate());
+        intent.putExtra("exTheme",allExhibitionData.getList().get(position-1).getName());
+        intent.putExtra("exSponser",allExhibitionData.getList().get(position-1).getOrganizer());
         intent.putExtra("token",token);
+        intent.putExtra("count",allExhibitionData.getList().get(position-1).getCount());
         intent.putExtra("singupStatus", (allExhibitionData.getList().get(position).getStatus() + " ").charAt(0));
         startActivity(intent);
     }
 
-    @Override
-    public void onScrollStateChanged(AbsListView view, int scrollState) {
-        /*if(scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE){
-            if(view.getLastVisiblePosition() == view.getCount() - 1){
-                linlLoad.setVisibility(View.VISIBLE);
-                PullupLoadAsyncTask  pullupLoadAsyncTask = new PullupLoadAsyncTask();
-                pullupLoadAsyncTask.execute();
-            }
-        }*/
-    }
 
-    @Override
-    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 
-    }
+
 
     class MyMessageListener implements OnMessageListener {
 
@@ -228,7 +220,7 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
                 map.put("exhibitionSponser",exhibition.getOrganizer());
                 map.put("exhibitionApplied",exhibition.getApplied());
                 map.put("exhibitionExkey",exhibition.getExKey());
-                map.put("status",exhibition.getStatus() + "  ");
+                map.put("status",exhibition.getStatus());
                 map.put("count",String.valueOf(exhibition.getCount()));
                 data.add(map);
             }
@@ -243,19 +235,25 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
                 @Override
                 public void run() {
                     try {
-                        String str = mController.getService().UnErollExList(token,-1,-1,"");
+                        String str = mController.getService().UnErollExList(token,SIZE,-1,"");
+                        if(null != str && !"".equals(str)){
+                            XmlDB.getInstance(context).saveKey(StringPools.ALL_EXHIBITION_DATA,str);
+                        }else{
+                            str = XmlDB.getInstance(context).getKeyStringValue(StringPools.ALL_EXHIBITION_DATA,"");
+                        }
                         allExhibitionData = new Gson().fromJson(str,UnEnrollExhibition.class);
                         int last = allExhibitionData.getList().size() - 1;
                         if(last >= 0){
                             createdAt = allExhibitionData.getList().get(last).getCreatedAt();
                         }
                         makeAllExhibitionListAdapterData(allExhibitionData);
+                        adapter = new HomePageEnrollListAdapter(context,data,token);
+                        Message message = handler.obtainMessage();
+                        message.what = 1;
+                        handler.sendMessage(message);
                     } catch (Exception e) {
-
+                        Log.e("data", e.getMessage());
                     }
-                    Message message = handler.obtainMessage();
-                    message.what = 1;
-                    handler.sendMessage(message);
                 }
             }).start();
             return null;

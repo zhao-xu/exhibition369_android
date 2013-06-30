@@ -7,10 +7,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 import android.widget.*;
 import com.google.gson.Gson;
-import com.readystatesoftware.viewbadger.BadgeView;
 import com.threeH.MyExhibition.R;
 import com.threeH.MyExhibition.entities.AuditingStatus;
 import com.threeH.MyExhibition.service.ClientController;
@@ -41,6 +41,8 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
     private String token;
     private Gson mGson = new Gson();
     private int id = R.id.rb_show;
+    private int count;
+    private ImageView imageViewNewMessage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -61,6 +63,7 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
         radioButtonNews = (RadioButton) this.findViewById(R.id.rb_news);
         radioButtonQrcode = (RadioButton) this.findViewById(R.id.rb_more);
         radioButtonMessage = (RadioButton) this.findViewById(R.id.rb_member);
+        imageViewNewMessage = (ImageView) this.findViewById(R.id.imageview_newmessage);
     }
 
     @Override
@@ -73,8 +76,8 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
         strTheme  = getIntent().getStringExtra("exTheme");
         strSponser  = getIntent().getStringExtra("exSponser");
         token = getIntent().getStringExtra("token");
-        //singupStatus = getSignupStatus(exKey,token);
         singupStatus = getIntent().getCharExtra("singupStatus",' ');
+        count = getIntent().getIntExtra("count",0);
         TabHost.TabSpec newSpec = tabhost.newTabSpec(NEWS_TAB).setIndicator(NEWS_TAB)
                 .setContent(new Intent(this, NewsPageActivity.class)
                         .putExtra("exKey", exKey)
@@ -149,13 +152,11 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
                 }
             }
         });
-        TabWidget tabs = (TabWidget) this.findViewById(android.R.id.tabs);
-        BadgeView badgeView = new BadgeView(this,tabs,0);
-        badgeView.show();
-        /*BadgeView badgeView = new BadgeView(this,radioButtonMessage);
-        //badgeView.toggle(true);
-        badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);
-        badgeView.show();*/
+
+        if(count > 0){
+            imageViewNewMessage.setVisibility(View.VISIBLE);
+        }
+
     }
 
     private char getSignupStatus(String exKey, String token) {

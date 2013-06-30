@@ -22,52 +22,62 @@
                  android:layout_width="fill_parent"
                  android:layout_height="match_parent"
                  android:layout_marginBottom="60dp"/>
-
-    <!--<FrameLayout android:id="@android:id/tabcontent"
-                 android:layout_width="fill_parent"
-                 android:layout_height="0.0dip"
-                 android:layout_weight="1.0"/>-->
-    <RadioGroup android:id="@+id/rg_tabs_btns"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:orientation="horizontal"
-                android:gravity="center_horizontal"
-                android:background="@drawable/exhibition_tab_background"
-                android:focusable="true">
-        <RadioButton android:id="@+id/rb_show"
-                     android:layout_width="50dp"
-                     android:checked="true"
-                     android:layout_height="wrap_content"
-                     style="@style/main_btn_style"
-                     android:background="@drawable/brief_btn"
-                     android:layout_gravity="center_horizontal|bottom"/>
-        <RadioButton android:id="@+id/rb_store"
-                     android:layout_width="50dp"
-                     android:layout_height="wrap_content"
-                     style="@style/main_btn_style"
-                     android:background="@drawable/schedule_btn"
-                     android:layout_gravity="center_horizontal|bottom"/>
-        <RadioButton android:id="@+id/rb_news"
-                     android:layout_width="50dp"
-                     android:layout_height="wrap_content"
-                     style="@style/main_btn_style"
-                     android:background="@drawable/news_btn"
-                     android:layout_gravity="center_horizontal|bottom"/>
-
-        <RadioButton android:id="@+id/rb_member"
-                     android:layout_width="50dp"
-                     android:layout_height="wrap_content"
-                     style="@style/main_btn_style"
-                     android:background="@drawable/message_btn"
-                     android:layout_gravity="center_horizontal|bottom"/>
-        <RadioButton android:id="@+id/rb_more"
-                     android:layout_width="50dp"
-                     android:layout_height="wrap_content"
-                     style="@style/main_btn_style"
-                     android:background="@drawable/qrcode_btn"
-                     android:layout_gravity="center_horizontal|bottom"/>
-
-    </RadioGroup>
+    <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom">
+        <!--<FrameLayout android:id="@android:id/tabcontent"
+                     android:layout_width="fill_parent"
+                     android:layout_height="0.0dip"
+                     android:layout_weight="1.0"/>-->
+        <RadioGroup android:id="@+id/rg_tabs_btns"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_horizontal"
+                    android:background="@drawable/exhibition_tab_background"
+                    android:focusable="true">
+            <RadioButton android:id="@+id/rb_show"
+                         android:layout_width="50dp"
+                         android:checked="true"
+                         android:layout_height="wrap_content"
+                         style="@style/main_btn_style"
+                         android:background="@drawable/brief_btn"
+                         android:layout_gravity="center_horizontal|bottom"/>
+            <RadioButton android:id="@+id/rb_store"
+                         android:layout_width="50dp"
+                         android:layout_height="wrap_content"
+                         style="@style/main_btn_style"
+                         android:background="@drawable/schedule_btn"
+                         android:layout_gravity="center_horizontal|bottom"/>
+            <RadioButton android:id="@+id/rb_news"
+                         android:layout_width="50dp"
+                         android:layout_height="wrap_content"
+                         style="@style/main_btn_style"
+                         android:background="@drawable/news_btn"
+                         android:layout_gravity="center_horizontal|bottom"/>
+            <RadioButton android:id="@+id/rb_member"
+                         android:layout_width="50dp"
+                         android:layout_height="wrap_content"
+                         style="@style/main_btn_style"
+                         android:background="@drawable/message_btn"
+                         android:layout_gravity="center_horizontal|bottom"/>
+            <RadioButton android:id="@+id/rb_more"
+                         android:layout_width="50dp"
+                         android:layout_height="wrap_content"
+                         style="@style/main_btn_style"
+                         android:background="@drawable/qrcode_btn"
+                         android:layout_gravity="center_horizontal|bottom"/>
+        </RadioGroup>
+        <ImageView
+                android:id="@+id/imageview_newmessage"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:background="@drawable/new_message"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="80dp"
+                android:layout_marginTop="10dp"
+                android:visibility="gone"/>
+    </RelativeLayout>
 
 </TabHost>
