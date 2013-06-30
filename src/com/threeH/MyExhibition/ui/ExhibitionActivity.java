@@ -73,7 +73,8 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
         strTheme  = getIntent().getStringExtra("exTheme");
         strSponser  = getIntent().getStringExtra("exSponser");
         token = getIntent().getStringExtra("token");
-        singupStatus = getSignupStatus(exKey,token);
+        //singupStatus = getSignupStatus(exKey,token);
+        singupStatus = getIntent().getCharExtra("singupStatus",' ');
         TabHost.TabSpec newSpec = tabhost.newTabSpec(NEWS_TAB).setIndicator(NEWS_TAB)
                 .setContent(new Intent(this, NewsPageActivity.class)
                         .putExtra("exKey", exKey)

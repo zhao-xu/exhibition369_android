@@ -140,24 +140,13 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(this,ExhibitionActivity.class);
         intent.putExtra("exKey",enrollStatuses[position].getExKey());
-        Exhibition exhibition = getExhibitionData(enrollStatuses[position].getExKey());
-        intent.putExtra("exAddress",exhibition.getAddress());
-        intent.putExtra("exTime",exhibition.getDate());
-        intent.putExtra("exTheme",exhibition.getName());
-        intent.putExtra("exSponser",exhibition.getOrganizer());
+        intent.putExtra("exAddress",enrollStatuses[position].getAddress());
+        intent.putExtra("exTime",enrollStatuses[position].getDate());
+        intent.putExtra("exTheme",enrollStatuses[position].getName());
+        intent.putExtra("exSponser",enrollStatuses[position].getOrganizer());
         intent.putExtra("token",token);
+        intent.putExtra("singupStatus",enrollStatuses[position].getStatus().charAt(0));
         startActivity(intent);
-    }
-
-    private Exhibition getExhibitionData(String exKey) {
-        String strExhibitionData = XmlDB.getInstance(context).getKeyStringValue(StringPools.ALL_EXHIBITION_DATA,"");
-        UnEnrollExhibition allExhibitionData = new Gson().fromJson(strExhibitionData,UnEnrollExhibition.class);
-        for(Exhibition exhibition : allExhibitionData.getList()){
-            if(null != exKey && exhibition.getExKey().equals(exKey)){
-                return exhibition;
-            }
-        }
-        return null;
     }
 
     @Override

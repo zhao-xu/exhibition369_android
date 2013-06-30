@@ -1,8 +1,11 @@
 package com.threeH.MyExhibition.ui;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -10,9 +13,13 @@ import android.widget.TextView;
 import com.threeH.MyExhibition.R;
 import com.threeH.MyExhibition.listener.SignupClickListener;
 import com.threeH.MyExhibition.listener.TelephoneClickListener;
+import com.threeH.MyExhibition.service.FileService;
 import com.threeH.MyExhibition.tools.ImageURLUtil;
 import com.threeH.MyExhibition.tools.MSYH;
+import com.threeH.MyExhibition.tools.NetworkHelper;
 import com.threeH.MyExhibition.tools.Tool;
+
+import java.io.File;
 
 /**
  * Created with IntelliJ IDEA.
@@ -26,15 +33,13 @@ public class QrCodeActivity extends BaseActivity implements  ActivityInterface{
     private Bitmap bitmap;
     private ImageView imageviewTelephone;
     private char charSingupStatus;
-    private String strExhibitionKey;
     private TextView textViewTitle;
     private TextView textViewAddress,textViewTime;
     private TextView textViewTheme, textViewDate,textViewAddressUp,textViewSponsor;
     private TextView textView;
     private ImageView imageViewIcon, imageViewSingup,imageviewSignup2;
     Typeface typeface;
-    private String strExAddress,strExDate,strExTheme,strExSponser;
-
+    private String strExhibitionKey,strExAddress,strExDate,strExTheme,strExSponser;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentViewWithNoTitle(R.layout.qrcode);
@@ -81,6 +86,7 @@ public class QrCodeActivity extends BaseActivity implements  ActivityInterface{
         textViewTime.setText(strExDate);
         imageViewSingup.setVisibility(View.GONE);
         switch (charSingupStatus){
+            case ' ':
             case 'N':
                 textView.setText("对不起您还没有报名参加此展会，请报名！");
                 break;
@@ -89,7 +95,7 @@ public class QrCodeActivity extends BaseActivity implements  ActivityInterface{
                 imageviewSignup2.setVisibility(View.GONE);
                 break;
             case 'A':
-                ImageURLUtil.loadImage(Tool.makeQrcodeURL(strExhibitionKey,token), imageViewQrcode);
+                loadQrcode();
                 imageviewSignup2.setVisibility(View.GONE);
                 break;
             case 'D':
@@ -101,5 +107,22 @@ public class QrCodeActivity extends BaseActivity implements  ActivityInterface{
         textViewAddressUp.setText(strExAddress);
         textViewSponsor.setText(strExSponser);
         imageviewSignup2.setOnClickListener(new SignupClickListener(QrCodeActivity.this,strExhibitionKey));
+    }
+
+    private void loadQrcode() {
+         if(NetworkHelper.getInstance(context).isConnected()){
+           ImageURLUtil.loadImage(Tool.makeQrcodeURL(strExhibitionKey,token), imageViewQrcode);
+        }else{
+            FileService service = new FileService(context);
+            byte[] data;
+            try {
+                String filename = Environment.getExternalStorageDirectory() + "/" + strExhibitionKey + "qrcode.png";
+                data = service.read(filename);
+                Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+                imageViewQrcode.setImageBitmap(bitmap);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

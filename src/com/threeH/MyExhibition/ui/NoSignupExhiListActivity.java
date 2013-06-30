@@ -64,10 +64,9 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
                       imageviewPrompt.setVisibility(View.VISIBLE);
                 }else{
                     imageviewPrompt.setVisibility(View.GONE);
-                    adapter = new HomePageEnrollListAdapter(context,data);
+                    adapter = new HomePageEnrollListAdapter(context,data,token);
                     listView.setAdapter(adapter);
                 }
-
             }
         }
     };
@@ -155,7 +154,7 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
             str = mController.getService().UnErollExList(token,-1,-1,name);
             UnEnrollExhibition allExhibitionData = new Gson().fromJson(str,UnEnrollExhibition.class);
             List<HashMap<String,String>> searchData = Tool.makeAllExhibitionListAdapterData(allExhibitionData);
-            HomePageEnrollListAdapter adapter = new HomePageEnrollListAdapter(NoSignupExhiListActivity.this,searchData);
+            HomePageEnrollListAdapter adapter = new HomePageEnrollListAdapter(NoSignupExhiListActivity.this,searchData,token);
             listView.setAdapter(adapter);
         }catch (Exception e){
             e.printStackTrace();
@@ -171,6 +170,7 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
         intent.putExtra("exTheme",allExhibitionData.getList().get(position).getName());
         intent.putExtra("exSponser",allExhibitionData.getList().get(position).getOrganizer());
         intent.putExtra("token",token);
+        intent.putExtra("singupStatus",(allExhibitionData.getList().get(position).getStatus() + " ").charAt(0));
         startActivity(intent);
     }
 
@@ -220,7 +220,7 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
                 map.put("exhibitionSponser",exhibition.getOrganizer());
                 map.put("exhibitionApplied",exhibition.getApplied());
                 map.put("exhibitionExkey",exhibition.getExKey());
-                map.put("status",exhibition.getStatus());
+                map.put("status",exhibition.getStatus() + "  ");
                 map.put("count",String.valueOf(exhibition.getCount()));
                 data.add(map);
             }
@@ -235,7 +235,7 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
                 @Override
                 public void run() {
                     try {
-                        String str = mController.getService().UnErollExList(token,SIZE,-1,"");
+                        String str = mController.getService().UnErollExList(token,-1,-1,"");
                         allExhibitionData = new Gson().fromJson(str,UnEnrollExhibition.class);
                         int last = allExhibitionData.getList().size() - 1;
                         if(last >= 0){

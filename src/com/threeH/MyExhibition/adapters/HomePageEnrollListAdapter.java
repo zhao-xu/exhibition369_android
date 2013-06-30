@@ -3,6 +3,8 @@ package com.threeH.MyExhibition.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.threeH.MyExhibition.R;
+import com.threeH.MyExhibition.service.FileService;
+import com.threeH.MyExhibition.service.ImageService;
 import com.threeH.MyExhibition.tools.ImageURLUtil;
 import com.threeH.MyExhibition.tools.MSYH;
 import com.threeH.MyExhibition.tools.Tool;
@@ -25,15 +29,17 @@ public class HomePageEnrollListAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
     private Context context;
     private String status;
+    private String token;
     Typeface typeface;
     Typeface typeface_bold;
 
-    public HomePageEnrollListAdapter(Context context, List<HashMap<String, String>> data) {
+    public HomePageEnrollListAdapter(Context context, List<HashMap<String, String>> data,String token) {
         this.data = data;
         mInflater = LayoutInflater.from(context);
         this.context = context;
         typeface = MSYH.getInstance(context.getApplicationContext()).getNormal();
         typeface_bold = MSYH.getInstance(context.getApplicationContext()).getBold();
+        this.token = token;
     }
 
     @Override
@@ -69,6 +75,7 @@ public class HomePageEnrollListAdapter extends BaseAdapter {
             holder.mExhibitionDate.setTypeface(typeface);
             holder.mExhibitionAddress.setTypeface(typeface);
             holder.mExhibitionSponser.setTypeface(typeface);
+
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -76,11 +83,12 @@ public class HomePageEnrollListAdapter extends BaseAdapter {
             holder.mExhibitionIcon.setImageBitmap(null);
             holder.mEnrollSignup.setPadding(0,0,0,0);
         }
+        String exKey = data.get(position).get("exhibitionExkey");
         holder.mExhibitionTheme.setText(data.get(position).get("exhibitionName"));
         holder.mExhibitionDate.setText(data.get(position).get("exhibitionDate"));
         holder.mExhibitionAddress.setText(data.get(position).get("exhibitionAddress"));
         holder.mExhibitionSponser.setText(data.get(position).get("exhibitionSponser"));
-        ImageURLUtil.loadImage(Tool.makeExhibitionIconURL(data.get(position).get("exhibitionExkey")),
+        ImageURLUtil.loadImage(Tool.makeExhibitionIconURL(exKey),
                                holder.mExhibitionIcon);
         status = data.get(position).get("exhibitionApplied");
         if(null != status && "N".equals(status)){
@@ -96,6 +104,8 @@ public class HomePageEnrollListAdapter extends BaseAdapter {
                     break;
                 case 'A':
                     holder.mEnrollSignup.setImageResource(R.drawable.pass);
+                    SaveQrcodeTask saveQrcodeTask = new SaveQrcodeTask(exKey);
+                    saveQrcodeTask.execute();
                     break;
                 case 'D':
                     holder.mEnrollSignup.setImageResource(R.drawable.no_pass);
@@ -131,5 +141,34 @@ public class HomePageEnrollListAdapter extends BaseAdapter {
         TextView mExhibitionSponser;
         ImageView mEnrollSignup;
         ImageView mEnrollMessage;
+    }
+
+    class SaveQrcodeTask extends AsyncTask<Void,Integer,Integer>{
+        private String exKey;
+
+        SaveQrcodeTask(String exKey) {
+            this.exKey = exKey;
+        }
+
+        @Override
+        protected Integer doInBackground(Void... params) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    String path = Tool.makeQrcodeURL(exKey,token);
+                    try {
+                        byte[] data = ImageService.getImage(path);
+                        FileService service = new FileService(context);
+                        String filename = exKey + "qrcode.png";
+                        if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)){
+                            service.saveToSDCard(filename, data);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+            return null;
+        }
     }
 }

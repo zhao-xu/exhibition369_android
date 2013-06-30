@@ -97,7 +97,7 @@ public class HomeActivity extends BaseActivity implements ActivityInterface,
                 map.put("exhibitionName",exhibition.getName() + "\n" + exhibition.getDate());
                 data.add(map);
             }
-            adapter = new HomePageEnrollListAdapter(HomeActivity.this,data);
+            adapter = new HomePageEnrollListAdapter(HomeActivity.this,data,token);
         } catch (Exception e) {
             e.printStackTrace();
         }
