@@ -104,6 +104,7 @@ public class HomePageEnrollListAdapter extends BaseAdapter {
                     break;
                 case 'A':
                     holder.mEnrollSignup.setImageResource(R.drawable.pass);
+                    holder.mEnrollSignup.setPadding(0, 5, 0, 0);
                     SaveQrcodeTask saveQrcodeTask = new SaveQrcodeTask(exKey);
                     saveQrcodeTask.execute();
                     break;

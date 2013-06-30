@@ -39,6 +39,7 @@ public class QrCodeActivity extends BaseActivity implements  ActivityInterface{
     private TextView textView;
     private ImageView imageViewIcon, imageViewSingup,imageviewSignup2;
     Typeface typeface;
+
     private String strExhibitionKey,strExAddress,strExDate,strExTheme,strExSponser;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -9,14 +9,7 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_centerVertical="true">
-        <ImageView
-                android:id="@+id/imageview_icon"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_alignParentLeft="true"
-                android:layout_centerInParent="true"
-                android:layout_margin="10dp"
-                />
+
         <ImageView
                 android:id="@+id/message_icon"
                 android:layout_width="10dp"
@@ -26,17 +19,17 @@
                 android:layout_marginTop="5dp"
                 android:background="@drawable/new_message"
                 android:visibility="gone"/>
+        <ImageView
+                android:id="@+id/imageview_icon"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerInParent="true"
+                android:layout_margin="10dp"
+                />
     </RelativeLayout>
-    <!--<include
-            android:id="@+id/include"
-            android:layout_height="wrap_content"
-            android:contentDescription=""
-            android:src="@drawable/icon1"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="12dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="12dp"
-            />-->
+
+
     <RelativeLayout
             android:id="@+id/relativelayout"
             android:layout_width="wrap_content"
@@ -48,6 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="第八届上海国际石油石化天然气技术装备展览会"
+            android:ellipsize = "end"
             android:singleLine="true"
             android:textSize="15dp"
             android:textColor="@android:color/black"/>
@@ -79,7 +73,7 @@
             android:text="主办单位：中国石油学会、中国机电产品进出口商会、中国国际贸易促进委员会"
             android:singleLine="true"
             android:textColor="@color/light_gray"
-            android:ellipsize="marquee"
+
             android:layout_below="@id/exhibition_address"
             android:textSize="13sp"/>
     </RelativeLayout>

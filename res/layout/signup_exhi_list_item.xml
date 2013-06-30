@@ -54,7 +54,7 @@
                 android:text="主办单位：中国石油学会、中国机电产品进出口商会、中国国际贸易促进委员会"
                 android:singleLine="true"
                 android:textColor="@color/light_gray"
-                android:ellipsize="marquee"
+                android:ellipsize="end"
                 android:layout_below="@id/signup_list_exhibition_address"
                 android:textSize="13sp"/>
     </RelativeLayout>

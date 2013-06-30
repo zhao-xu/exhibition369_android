@@ -52,7 +52,7 @@ public class HomeActivity extends BaseActivity implements ActivityInterface,
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentViewWithNoTitle(R.layout.home);
+        //setContentViewWithNoTitle(R.layout.home);
         initdata();
         findView();
         addAction();
@@ -77,7 +77,7 @@ public class HomeActivity extends BaseActivity implements ActivityInterface,
 
     @Override
     public void findView() {
-        exhibitionListView = (ListView) this.findViewById(R.id.home_listview);
+        //exhibitionListView = (ListView) this.findViewById(R.id.home_listview);
         button = (Button) this.findViewById(R.id.search_btn);
         mEditText = (EditText) findViewById(R.id.titlebar_et);
         mEnrollStatusListView = (ListView) findViewById(R.id.enroll_status_listview);

@@ -1,6 +1,7 @@
 package com.threeH.MyExhibition.adapters;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import com.threeH.MyExhibition.common.StringPools;
 import com.threeH.MyExhibition.entities.Exhibition;
 import com.threeH.MyExhibition.entities.UnEnrollExhibition;
 import com.threeH.MyExhibition.tools.ImageURLUtil;
+import com.threeH.MyExhibition.tools.MSYH;
 import com.threeH.MyExhibition.tools.Tool;
 import java.util.HashMap;
 import java.util.List;
@@ -23,10 +25,14 @@ public class SignExhiListAdapter extends BaseAdapter {
     private List<HashMap<String, String>> data;
     private LayoutInflater mInflater;
     private Context context;
+    Typeface typeface;
+    Typeface typeface_bold;
     public SignExhiListAdapter(Context context, List<HashMap<String, String>> data) {
         this.data = data;
         mInflater = LayoutInflater.from(context);
         this.context = context;
+        typeface = MSYH.getInstance(context.getApplicationContext()).getNormal();
+        typeface_bold = MSYH.getInstance(context.getApplicationContext()).getBold();
     }
 
     @Override
@@ -57,12 +63,16 @@ public class SignExhiListAdapter extends BaseAdapter {
             holder.mExhibitionAddress = (TextView) convertView.findViewById(R.id.signup_list_exhibition_address);
             holder.mExhibitionSponsor = (TextView) convertView.findViewById(R.id.signup_list_exhibition_sponsor);
             holder.mSignupStatus = (ImageView) convertView.findViewById(R.id.signup_list_imageview_signup);
+
+            holder.mExhibitionTheme.setTypeface(typeface_bold);
+            holder.mExhibitionDate.setTypeface(typeface);
+            holder.mExhibitionAddress.setTypeface(typeface);
+            holder.mExhibitionSponsor.setTypeface(typeface);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
             holder.mSignupStatus.setImageBitmap(null);
         }
-        //Exhibition exhibition = getExhibitionData(exKey);
         char showStatus = ' ';
         if(null != data.get(position).get("status")){
             showStatus = data.get(position).get("status").charAt(0);
