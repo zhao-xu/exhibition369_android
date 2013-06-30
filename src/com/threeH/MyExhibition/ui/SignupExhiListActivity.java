@@ -22,6 +22,7 @@ import com.threeH.MyExhibition.common.StringPools;
 import com.threeH.MyExhibition.entities.EnrollExhibition;
 import com.threeH.MyExhibition.entities.Exhibition;
 import com.threeH.MyExhibition.entities.UnEnrollExhibition;
+import com.threeH.MyExhibition.widget.XListView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -36,8 +37,8 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public class SignupExhiListActivity extends BaseActivity implements ActivityInterface,
-            AdapterView.OnItemClickListener,AbsListView.OnScrollListener {
-    private ListView mListView;
+            AdapterView.OnItemClickListener,XListView.IXListViewListener {
+    private XListView mListView;
     private List<HashMap<String,String>> mdataes = new ArrayList<HashMap<String,String>>();
     private List<HashMap<String,String>> searchDataes = new ArrayList<HashMap<String,String>>();
     private SignExhiListAdapter mSignExhiListAdapter;
@@ -75,12 +76,11 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
     public void initdata() {
         loadDataTask = new LoadDataTask();
         loadDataTask.execute();
-
     }
 
     @Override
     public void findView() {
-        mListView = (ListView)findViewById(R.id.signup_exhi_listview);
+        mListView = (XListView)findViewById(R.id.signup_exhi_listview);
         mInflater = LayoutInflater.from(context);
         viewFooter = mInflater.inflate(R.layout.list_footer_new,null);
         linlLoad = (LinearLayout) viewFooter.findViewById(R.id.list_footer_new);
@@ -100,7 +100,8 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
                 editText.setText("");
             }
         });
-
+        mListView.setPullLoadEnable(true);
+        mListView.setXListViewListener(this);
         editText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -147,35 +148,50 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(this,ExhibitionActivity.class);
-        intent.putExtra("exKey",enrollStatuses[position].getExKey());
-        intent.putExtra("exAddress",enrollStatuses[position].getAddress());
-        intent.putExtra("exTime",enrollStatuses[position].getDate());
-        intent.putExtra("exTheme",enrollStatuses[position].getName());
-        intent.putExtra("exSponser",enrollStatuses[position].getOrganizer());
+        intent.putExtra("exKey",enrollStatuses[position-1].getExKey());
+        intent.putExtra("exAddress",enrollStatuses[position-1].getAddress());
+        intent.putExtra("exTime",enrollStatuses[position-1].getDate());
+        intent.putExtra("exTheme",enrollStatuses[position-1].getName());
+        intent.putExtra("exSponser",enrollStatuses[position-1].getOrganizer());
         intent.putExtra("token",token);
-        intent.putExtra("singupStatus",enrollStatuses[position].getStatus().charAt(0));
+        intent.putExtra("singupStatus",enrollStatuses[position-1].getStatus().charAt(0));
         startActivity(intent);
     }
 
-    @Override
-    public void onScrollStateChanged(AbsListView view, int scrollState) {
-        /*if(scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE){
-            if(view.getLastVisiblePosition() == view.getCount() - 1){
-                linlLoad.setVisibility(View.VISIBLE);
-                mSignExhiListAdapter.notifyDataSetChanged();
-            }
-        }*/
-    }
-
-    @Override
-    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-
-    }
 
     @Override
     protected void onResume() {
         imageviewCancel.setVisibility(View.GONE);
         super.onResume();
+    }
+
+    private void onLoad() {
+        mListView.stopRefresh();
+        mListView.stopLoadMore();
+        mListView.setRefreshTime("...");
+    }
+    @Override
+    public void onRefresh() {
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mdataes.clear();
+                initdata();
+                onLoad();
+            }
+        }, 2000);
+    }
+
+    @Override
+    public void onLoadMore() {
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                /*loadNextPageData();
+                mSignExhiListAdapter.notifyDataSetChanged();*/
+                onLoad();
+            }
+        }, 2000);
     }
 
     class LoadDataTask extends AsyncTask<Void,Integer,Integer>{

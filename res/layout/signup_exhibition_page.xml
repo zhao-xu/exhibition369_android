@@ -10,7 +10,7 @@
             android:layout_height="wrap_content"
             layout="@layout/headpage_titlebar"
             android:id="@+id/unsingup_list_include"/>
-   <ListView
+   <com.threeH.MyExhibition.widget.XListView
            android:id="@+id/signup_exhi_listview"
            android:layout_width="fill_parent"
            android:layout_height="fill_parent"

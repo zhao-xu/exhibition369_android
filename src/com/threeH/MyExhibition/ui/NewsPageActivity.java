@@ -24,6 +24,7 @@ import com.threeH.MyExhibition.listener.TelephoneClickListener;
 import com.threeH.MyExhibition.service.ClientController;
 import com.threeH.MyExhibition.tools.MSYH;
 import com.threeH.MyExhibition.tools.Tool;
+import com.threeH.MyExhibition.widget.XListView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,8 +38,9 @@ import java.util.Map;
  * Time: 上午11:38
  * To change this template use File | Settings | File Templates.
  */
-public class NewsPageActivity extends BaseActivity  implements ActivityInterface,AdapterView.OnItemClickListener{
-    private ListView listView;
+public class NewsPageActivity extends BaseActivity  implements
+        ActivityInterface,AdapterView.OnItemClickListener,XListView.IXListViewListener{
+    private XListView listView;
     private NewslistAdapter adapter;
     private String exKey;
     private ExhibitionNews newsData;
@@ -48,6 +50,7 @@ public class NewsPageActivity extends BaseActivity  implements ActivityInterface
     private char charSingupStatus;
     List<HashMap<String,String>> data = new ArrayList<HashMap<String, String>>();
     private ImageView imageviewPrompt;
+    private LoadDataAsyncTask loadDataAsyncTask;
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -68,6 +71,9 @@ public class NewsPageActivity extends BaseActivity  implements ActivityInterface
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentViewWithNoTitle(R.layout.newslist);
+        typeface = MSYH.getInstance(context.getApplicationContext()).getNormal();
+        exKey = getIntent().getStringExtra("exKey");
+        charSingupStatus = getIntent().getCharExtra("singupStatus", ' ');
         findView();
         initdata();
         addAction();
@@ -75,7 +81,7 @@ public class NewsPageActivity extends BaseActivity  implements ActivityInterface
 
     @Override
     public void findView() {
-        listView = (ListView) this.findViewById(R.id.newslist_listview);
+        listView = (XListView) this.findViewById(R.id.newslist_listview);
         imageviewTelephone = (ImageView) this.findViewById(R.id.exhibition_titlebar_button_telephone);
         textViewTitle = (TextView) this.findViewById(R.id.exhibition_titlebar_textview_title);
         imageViewSignup = (ImageView) this.findViewById(R.id.exhibition_titlebar_signup);
@@ -84,18 +90,15 @@ public class NewsPageActivity extends BaseActivity  implements ActivityInterface
 
     @Override
     public void initdata() {
-//        typeface = Typeface.createFromAsset(context.getAssets(),"fonts/msyh.ttf");
-        typeface = MSYH.getInstance(context.getApplicationContext()).getNormal();
-        exKey = getIntent().getStringExtra("exKey");
-        charSingupStatus = getIntent().getCharExtra("singupStatus", ' ');
-        LoadDataAsyncTask loadDataAsyncTask = new LoadDataAsyncTask();
+        loadDataAsyncTask = new LoadDataAsyncTask();
         loadDataAsyncTask.execute();
     }
 
     @Override
     public void addAction() {
-        //listView.setAdapter(adapter);
         listView.setOnItemClickListener(this);
+        listView.setPullLoadEnable(true);
+        listView.setXListViewListener(this);
         imageviewTelephone.setOnClickListener(new TelephoneClickListener(this,tel_nummber));
         textViewTitle.setTypeface(typeface);
         textViewTitle.setText("展会新闻");
@@ -109,16 +112,44 @@ public class NewsPageActivity extends BaseActivity  implements ActivityInterface
                 break;
         }
         imageViewSignup.setOnClickListener(new SignupClickListener(this,exKey));
+
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(this,ShowHtmlActivity.class);
-        intent.putExtra("url", Tool.makeNewsURL(exKey,newsData.getList().get(position).getNewsKey()));
+        intent.putExtra("url", Tool.makeNewsURL(exKey,newsData.getList().get(position-1).getNewsKey()));
         intent.putExtra("title","展会新闻");
         intent.putExtra("singupStatus", charSingupStatus);
         intent.putExtra("exKey",exKey);
         startActivity(intent);
+    }
+    private void onLoad() {
+        listView.stopRefresh();
+        listView.stopLoadMore();
+        listView.setRefreshTime("...");
+    }
+
+    @Override
+    public void onRefresh() {
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                data.clear();
+                initdata();
+                onLoad();
+            }
+        }, 2000);
+    }
+
+    @Override
+    public void onLoadMore() {
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                onLoad();
+            }
+        }, 2000);
     }
 
     class LoadDataAsyncTask extends AsyncTask<Void,Integer,Integer> {

@@ -13,6 +13,7 @@ import com.threeH.MyExhibition.entities.ExhibitionMessage;
 import com.threeH.MyExhibition.listener.SignupClickListener;
 import com.threeH.MyExhibition.listener.TelephoneClickListener;
 import com.threeH.MyExhibition.tools.MSYH;
+import com.threeH.MyExhibition.widget.XListView;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -26,9 +27,10 @@ import java.util.List;
  * Time: 上午11:38
  * To change this template use File | Settings | File Templates.
  */
-public class MessageActivity extends BaseActivity implements ActivityInterface,AdapterView.OnItemClickListener{
+public class MessageActivity extends BaseActivity implements
+        ActivityInterface,AdapterView.OnItemClickListener,XListView.IXListViewListener{
     private List<HashMap<String,String>> mdataes = new ArrayList<HashMap<String, String>>();
-    private ListView mMessageListView;
+    private XListView mMessageListView;
     private MessageListAdapter mMessageListAdapter;
     private ImageView imageviewTelephone,imageViewSignup;
     private TextView textViewTitle;
@@ -52,6 +54,9 @@ public class MessageActivity extends BaseActivity implements ActivityInterface,A
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentViewWithNoTitle(R.layout.message_page);
+        exKey = getIntent().getStringExtra("exhibitionKey");
+        typeface = MSYH.getInstance(context.getApplicationContext()).getNormal();
+        charSingupStatus = getIntent().getCharExtra("singupStatus", ' ');
         findView();
         initdata();
         addAction();
@@ -59,17 +64,13 @@ public class MessageActivity extends BaseActivity implements ActivityInterface,A
 
     @Override
     public void findView() {
-        mMessageListView = (ListView)findViewById(R.id.message_list_view);
+        mMessageListView = (XListView)findViewById(R.id.message_list_view);
         imageviewTelephone = (ImageView) this.findViewById(R.id.exhibition_titlebar_button_telephone);
         textViewTitle = (TextView) this.findViewById(R.id.exhibition_titlebar_textview_title);
         imageViewSignup = (ImageView) this.findViewById(R.id.exhibition_titlebar_signup);
     }
     @Override
     public void initdata() {
-        exKey = getIntent().getStringExtra("exhibitionKey");
-//        typeface = Typeface.createFromAsset(context.getAssets(),"fonts/msyh.ttf");
-        typeface = MSYH.getInstance(context.getApplicationContext()).getNormal();
-        charSingupStatus = getIntent().getCharExtra("singupStatus", ' ');
         loadMessageTask = new LoadMessageTask();
         loadMessageTask.execute();
     }
@@ -91,12 +92,42 @@ public class MessageActivity extends BaseActivity implements ActivityInterface,A
         }
         imageViewSignup.setOnClickListener(new SignupClickListener(MessageActivity.this,exKey));
         mMessageListView.setOnItemClickListener(this);
+        mMessageListView.setPullLoadEnable(true);
+        mMessageListView.setXListViewListener(this);
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        MessageListAdapter.selectedID = position;
+        MessageListAdapter.selectedID = position-1;
         mMessageListAdapter.notifyDataSetChanged();
+    }
+
+    private void onLoad() {
+        mMessageListView.stopRefresh();
+        mMessageListView.stopLoadMore();
+        mMessageListView.setRefreshTime("...");
+    }
+
+    @Override
+    public void onRefresh() {
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mdataes.clear();
+                initdata();
+                onLoad();
+            }
+        }, 2000);
+    }
+
+    @Override
+    public void onLoadMore() {
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                onLoad();
+            }
+        }, 2000);
     }
 
     class LoadMessageTask extends AsyncTask<Void,Integer,Integer>{

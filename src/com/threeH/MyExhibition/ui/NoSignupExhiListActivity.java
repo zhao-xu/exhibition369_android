@@ -29,6 +29,7 @@ import com.threeH.MyExhibition.service.ClientController;
 import com.threeH.MyExhibition.tools.MobileConfig;
 import com.threeH.MyExhibition.tools.Tool;
 import com.threeH.MyExhibition.widget.PullToRefreshView;
+import com.threeH.MyExhibition.widget.XListView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,18 +43,17 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public class NoSignupExhiListActivity extends BaseActivity implements ActivityInterface,
-        AdapterView.OnItemClickListener{
-    private PullToRefreshView listView;
+        AdapterView.OnItemClickListener,XListView.IXListViewListener {
+    private XListView listView;
     private HomePageEnrollListAdapter adapter;
     private UnEnrollExhibition allExhibitionData;
     private EditText editText;
     private String name;
     private MyAsyncTask myAsyncTask;
     private LayoutInflater mInflater;
-    private View viewFooter;
-    private LinearLayout linlLoad;
+    private Button buttonSearch;
     private long createdAt = -1;
-    private static final int SIZE = 6;
+    private static final int SIZE = 5;
     private ImageView imageviewCancel;
     private PullupLoadAsyncTask mPullupLoadAsyncTask;
     List<HashMap<String,String>> data = new ArrayList<HashMap<String, String>>();
@@ -78,9 +78,10 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
 
     @Override
     public void findView() {
-        listView = (PullToRefreshView) this.findViewById(R.id.unsingup_exhibition_listview);
+        listView = (XListView) this.findViewById(R.id.unsingup_exhibition_listview);
         editText = (EditText) this.findViewById(R.id.titlebar_et);
         imageviewCancel = (ImageView) this.findViewById(R.id.titlebar_imageview_cancel);
+        buttonSearch = (Button) this.findViewById(R.id.search_btn);
     }
 
     @Override
@@ -98,29 +99,9 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
 
     @Override
     public void addAction() {
-//        listView.setDividerHeight(0);
         listView.setOnItemClickListener(this);
-//        linlLoad.setVisibility(View.GONE);
-//        listView.addFooterView(viewFooter);
-        //listView.setOnScrollListener(this);
-        listView.setOnRefreshListener(new PullToRefreshView.OnRefreshListener() {
-            @Override
-            public void onRefresh(int which) {
-                switch (which) {
-                    case PullToRefreshView.HEADER:
-                        data.clear();
-                        initdata();
-                        listView.onRefreshComplete(which);
-                        break;
-                    case PullToRefreshView.FOOTER:
-                        data.clear();
-                        mPullupLoadAsyncTask = new PullupLoadAsyncTask();
-                        mPullupLoadAsyncTask.execute();
-                        listView.onRefreshComplete(which);
-                        break;
-                }
-            }
-        });
+        listView.setPullLoadEnable(true);
+        listView.setXListViewListener(this);
         try{
             AndroidMessageClient client = new AndroidMessageClient();
             client.init(token,new MyMessageListener());
@@ -151,6 +132,12 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
                     handled = true;
                 }
                 return handled;
+            }
+        });
+        buttonSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchExhibition();
             }
         });
     }
@@ -186,30 +173,36 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
         startActivity(intent);
     }
 
-
-
-
-
-    class MyMessageListener implements OnMessageListener {
-
-        @Override
-        public void onMessageReceived(String message) {
-            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-            Notification notification  = new Notification(R.drawable.appicon,message,System.currentTimeMillis());
-            Intent intent = new Intent(context,HomeOfTabActivity.class);
-            PendingIntent pendingIntent = PendingIntent.getActivity(context,0,intent,0);
-            notification.setLatestEventInfo(context,"展会消息通知",message,pendingIntent);
-            notification.defaults = Notification.DEFAULT_SOUND;
-            notificationManager.notify(202,notification);
-        }
+    private void onLoad() {
+        listView.stopRefresh();
+        listView.stopLoadMore();
+        listView.setRefreshTime("...");
     }
 
     @Override
-    protected void onDestroy() {
-        myAsyncTask = null;
-        super.onDestroy();
+    public void onRefresh() {
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                data.clear();
+                initdata();
+
+                onLoad();
+            }
+        }, 2000);
     }
 
+    @Override
+    public void onLoadMore() {
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                loadNextPageData();
+                adapter.notifyDataSetChanged();
+                onLoad();
+            }
+        }, 2000);
+    }
     public  void makeAllExhibitionListAdapterData(UnEnrollExhibition allExhibitionData){
         if(null != allExhibitionData){
             for(Exhibition exhibition : allExhibitionData.getList()){
@@ -224,6 +217,45 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
                 map.put("count",String.valueOf(exhibition.getCount()));
                 data.add(map);
             }
+        }
+    }
+    @Override
+    protected void onDestroy() {
+        myAsyncTask = null;
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onResume() {
+        imageviewCancel.setVisibility(View.GONE);
+        super.onResume();
+    }
+
+    private void loadNextPageData(){
+        try {
+            String str = mController.getService().UnErollExList(token,5,createdAt,"");
+            allExhibitionData = new Gson().fromJson(str,UnEnrollExhibition.class);
+            int last = allExhibitionData.getList().size() - 1;
+            if(last >= 0){
+                createdAt = allExhibitionData.getList().get(last).getCreatedAt();
+            }
+            makeAllExhibitionListAdapterData(allExhibitionData);
+        } catch (Exception e) {
+
+        }
+    }
+
+    class MyMessageListener implements OnMessageListener {
+
+        @Override
+        public void onMessageReceived(String message) {
+            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            Notification notification  = new Notification(R.drawable.appicon,message,System.currentTimeMillis());
+            Intent intent = new Intent(context,HomeOfTabActivity.class);
+            PendingIntent pendingIntent = PendingIntent.getActivity(context,0,intent,0);
+            notification.setLatestEventInfo(context,"展会消息通知",message,pendingIntent);
+            notification.defaults = Notification.DEFAULT_SOUND;
+            notificationManager.notify(202,notification);
         }
     }
 
@@ -269,7 +301,6 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
                 public void run() {
                     try {
                         Thread.sleep(2000);
-                        linlLoad.setVisibility(View.GONE);
                         String str = mController.getService().UnErollExList(token,5,createdAt,"");
                         allExhibitionData = new Gson().fromJson(str,UnEnrollExhibition.class);
                         int last = allExhibitionData.getList().size() - 1;
@@ -278,12 +309,12 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
                         }
                         makeAllExhibitionListAdapterData(allExhibitionData);
                         //adapter.notifyDataSetChanged();
-                        listView.setAdapter(adapter);
+                        //listView.setAdapter(adapter);
                         /*Message message = handler.obtainMessage();
                         message.what = 1;
                         handler.sendMessage(message);*/
                     } catch (Exception e) {
-                        Log.e("data", e.getMessage());
+
                     }
                 }
             }).start();
@@ -291,11 +322,8 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
         }
     }
 
-    @Override
-    protected void onResume() {
-        imageviewCancel.setVisibility(View.GONE);
-        super.onResume();
-    }
+
+
 
 
 }

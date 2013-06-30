@@ -47,7 +47,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="请输入姓名"
-                        android:textColor="@android:color/holo_red_dark"
+
                         android:visibility="gone"/>
             </RelativeLayout>
             <RelativeLayout
@@ -83,7 +83,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="请输入正确的电话号码"
-                        android:textColor="@android:color/holo_red_dark"
+
                         android:visibility="gone"/>
             </RelativeLayout>
 
@@ -120,7 +120,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="请输入正确的邮箱"
-                        android:textColor="@android:color/holo_red_dark"
+
                         android:visibility="gone">
                 </TextView>
             </RelativeLayout>

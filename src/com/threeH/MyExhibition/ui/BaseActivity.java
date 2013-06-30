@@ -3,6 +3,7 @@ package com.threeH.MyExhibition.ui;
 import android.app.Activity;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Window;
 import android.widget.ImageView;
@@ -33,12 +34,12 @@ public class BaseActivity extends Activity {
     public String tel_nummber;
     public String assetServer;
     public ClientController mController;
-
+    public Handler mHandler;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = (MyApplication) getApplication();
-
+        mHandler = new Handler();
         resources = getResources();
         xmlDB = XmlDB.getInstance(this);
         mProDialog = new MyDialog(this, false);
