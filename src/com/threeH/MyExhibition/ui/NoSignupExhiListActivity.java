@@ -14,7 +14,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.*;
 import android.view.inputmethod.EditorInfo;
 import android.widget.*;
@@ -27,10 +26,7 @@ import com.threeH.MyExhibition.cache.XmlDB;
 import com.threeH.MyExhibition.common.StringPools;
 import com.threeH.MyExhibition.entities.Exhibition;
 import com.threeH.MyExhibition.entities.UnEnrollExhibition;
-import com.threeH.MyExhibition.service.ClientController;
-import com.threeH.MyExhibition.tools.MobileConfig;
 import com.threeH.MyExhibition.tools.Tool;
-import com.threeH.MyExhibition.widget.PullToRefreshView;
 import com.threeH.MyExhibition.widget.XListView;
 
 import java.util.ArrayList;
@@ -251,7 +247,7 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
 
     private void loadNextPageData(){
         try {
-            String str = mController.getService().UnErollExList(token,5,createdAt,"");
+            String str = mController.getService().UnErollExList(token,SIZE,createdAt,name);
             allExhibitionData = new Gson().fromJson(str,UnEnrollExhibition.class);
             int last = allExhibitionData.getList().size() - 1;
             if(last >= 0){
@@ -301,7 +297,7 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
                         message.what = 1;
                         handler.sendMessage(message);
                     } catch (Exception e) {
-                        Log.e("data", e.getMessage());
+
                     }
                 }
             }).start();
@@ -317,8 +313,7 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
                 @Override
                 public void run() {
                     try {
-                        Thread.sleep(2000);
-                        String str = mController.getService().UnErollExList(token,5,createdAt,"");
+                        String str = mController.getService().UnErollExList(token,SIZE,createdAt,name);
                         allExhibitionData = new Gson().fromJson(str,UnEnrollExhibition.class);
                         int last = allExhibitionData.getList().size() - 1;
                         if(last >= 0){
