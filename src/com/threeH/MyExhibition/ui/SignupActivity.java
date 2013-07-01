@@ -8,6 +8,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -73,7 +74,6 @@ public class SignupActivity extends  BaseActivity implements ActivityInterface{
     @Override
     public void initdata() {
         exKey = getIntent().getStringExtra("exKey");
-//        typeface = Typeface.createFromAsset(context.getAssets(),"fonts/msyh.ttf");
         typeface = MSYH.getInstance(context.getApplicationContext()).getNormal();
     }
 

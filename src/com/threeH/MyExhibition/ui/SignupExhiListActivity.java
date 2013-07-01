@@ -153,7 +153,7 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
         //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromInputMethod(editText.getWindowToken(), 0);
-        //editText.setFocusable(false);
+
                 searchDataes.clear();
                 name = editText.getText().toString().trim();
                 if(name != null && "".equals(name)){

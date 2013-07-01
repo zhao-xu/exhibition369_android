@@ -140,7 +140,8 @@ public final class RegexUtils {
 	
 	/** 邮箱验证. */
 	public static boolean verifyEmail(String mEmail) {
-		String regex = "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$";
+		//String regex = "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$";
+        String regex = Constants.PATTERN;
 		return Pattern.matches(regex, mEmail);
 	}
 	
@@ -157,5 +158,16 @@ public final class RegexUtils {
 		return isMatches;
 	}
 
-	
+    interface Constants {
+        static final String ATOM = "[a-z0-9!#$%&'*+/=?^_`{|}~-]";
+        static final String DOMAIN = "(" + ATOM + "+(\\." + ATOM + "+)+";
+        static final String IP_DOMAIN = "\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\]";
+
+        static final String PATTERN =
+                "^" + ATOM + "+(\\." + ATOM + "+)*@"
+                        + DOMAIN
+                        + "|"
+                        + IP_DOMAIN
+                        + ")$";
+    }
 }

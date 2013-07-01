@@ -187,7 +187,7 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
         intent.putExtra("exTheme",data.get(position - 1).get("exhibitionName"));
         intent.putExtra("exSponser",data.get(position - 1).get("exhibitionSponser"));
         intent.putExtra("token",token);
-        intent.putExtra("count",data.get(position - 1).get("count"));
+        intent.putExtra("count",Integer.valueOf(data.get(position - 1).get("count")));
         intent.putExtra("singupStatus", (data.get(position - 1).get("status") + " ").charAt(0));
         startActivity(intent);
     }
