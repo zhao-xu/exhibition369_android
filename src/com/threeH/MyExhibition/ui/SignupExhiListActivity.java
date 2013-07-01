@@ -1,17 +1,22 @@
 package com.threeH.MyExhibition.ui;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 import com.google.gson.Gson;
 import com.threeH.MyExhibition.R;
@@ -98,6 +103,7 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
             @Override
             public void onClick(View v) {
                 editText.setText("");
+                imageviewCancel.setVisibility(View.GONE);
             }
         });
         mListView.setPullLoadEnable(true);
@@ -108,7 +114,7 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
                 imageviewCancel.setVisibility(View.VISIBLE);
             }
         });
-        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        /*editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 boolean  handled = false;
@@ -117,6 +123,22 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
                     handled = true;
                 }
                 return handled;
+            }
+        });*/
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                imageviewCancel.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
         buttonSearch.setOnClickListener(new View.OnClickListener() {
@@ -128,10 +150,14 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
     }
 
     private void searchExhibition() {
-        searchDataes.clear();
-        name = editText.getText().toString().trim();
-        if(name != null && "".equals(name)){
-            for(HashMap<String,String> hashMap :mdataes){
+        //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromInputMethod(editText.getWindowToken(), 0);
+        //editText.setFocusable(false);
+                searchDataes.clear();
+                name = editText.getText().toString().trim();
+                if(name != null && "".equals(name)){
+                    for(HashMap<String,String> hashMap :mdataes){
                     searchDataes.add(hashMap);
             }
         }else{
@@ -148,13 +174,13 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(this,ExhibitionActivity.class);
-        intent.putExtra("exKey",enrollStatuses[position-1].getExKey());
-        intent.putExtra("exAddress",enrollStatuses[position-1].getAddress());
-        intent.putExtra("exTime",enrollStatuses[position-1].getDate());
-        intent.putExtra("exTheme",enrollStatuses[position-1].getName());
-        intent.putExtra("exSponser",enrollStatuses[position-1].getOrganizer());
+        intent.putExtra("exKey",mdataes.get(position-1).get("exhibitionExkey"));
+        intent.putExtra("exAddress",mdataes.get(position-1).get("address"));
+        intent.putExtra("exTime",mdataes.get(position-1).get("date"));
+        intent.putExtra("exTheme",mdataes.get(position-1).get("name"));
+        intent.putExtra("exSponser",mdataes.get(position-1).get("organizer"));
         intent.putExtra("token",token);
-        intent.putExtra("singupStatus",enrollStatuses[position-1].getStatus().charAt(0));
+        intent.putExtra("singupStatus",mdataes.get(position-1).get("status").charAt(0));
         startActivity(intent);
     }
 

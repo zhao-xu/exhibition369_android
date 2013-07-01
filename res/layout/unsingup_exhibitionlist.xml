@@ -20,7 +20,6 @@
         android:paddingTop="6dp"
         android:paddingBottom="6dp"
         android:divider="@null"
-        android:dividerHeight="12dp"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/unsingup_list_include"/>
 

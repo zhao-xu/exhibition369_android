@@ -12,6 +12,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.*;
 import android.view.inputmethod.EditorInfo;
@@ -113,6 +115,7 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
             @Override
             public void onClick(View v) {
                 editText.setText("");
+                imageviewCancel.setVisibility(View.GONE);
             }
         });
 
@@ -132,6 +135,22 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
                     handled = true;
                 }
                 return handled;
+            }
+        });
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                imageviewCancel.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
         buttonSearch.setOnClickListener(new View.OnClickListener() {
@@ -162,21 +181,21 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(this,ExhibitionActivity.class);
-        intent.putExtra("exKey",allExhibitionData.getList().get(position-1).getExKey());
-        intent.putExtra("exAddress",allExhibitionData.getList().get(position-1).getAddress());
-        intent.putExtra("exTime",allExhibitionData.getList().get(position-1).getDate());
-        intent.putExtra("exTheme",allExhibitionData.getList().get(position-1).getName());
-        intent.putExtra("exSponser",allExhibitionData.getList().get(position-1).getOrganizer());
+        intent.putExtra("exKey",data.get(position-1).get("exhibitionExkey"));
+        intent.putExtra("exAddress",data.get(position - 1).get("exhibitionAddress"));
+        intent.putExtra("exTime",data.get(position - 1).get("exhibitionDate"));
+        intent.putExtra("exTheme",data.get(position - 1).get("exhibitionName"));
+        intent.putExtra("exSponser",data.get(position - 1).get("exhibitionSponser"));
         intent.putExtra("token",token);
-        intent.putExtra("count",allExhibitionData.getList().get(position-1).getCount());
-        intent.putExtra("singupStatus", (allExhibitionData.getList().get(position).getStatus() + " ").charAt(0));
+        intent.putExtra("count",data.get(position - 1).get("count"));
+        intent.putExtra("singupStatus", (data.get(position - 1).get("status") + " ").charAt(0));
         startActivity(intent);
     }
 
     private void onLoad() {
         listView.stopRefresh();
         listView.stopLoadMore();
-        listView.setRefreshTime("...");
+        listView.setRefreshTime("");
     }
 
     @Override
@@ -186,7 +205,6 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
             public void run() {
                 data.clear();
                 initdata();
-
                 onLoad();
             }
         }, 2000);
@@ -241,7 +259,6 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
             }
             makeAllExhibitionListAdapterData(allExhibitionData);
         } catch (Exception e) {
-
         }
     }
 
