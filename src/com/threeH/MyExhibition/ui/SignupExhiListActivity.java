@@ -54,7 +54,7 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
     private ImageView imageviewCancel,imageviewPrompt;
     private EditText editText;
     private LoadDataTask loadDataTask;
-    private String name;
+    private String name = "";
     private Button buttonSearch;
     private Handler handler = new Handler(){
         @Override
@@ -64,12 +64,18 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
                     imageviewPrompt.setVisibility(View.VISIBLE);
                 }else{
                     imageviewPrompt.setVisibility(View.GONE);
-                    mSignExhiListAdapter = new SignExhiListAdapter(context,mdataes);
-                    mListView.setAdapter(mSignExhiListAdapter);
+                    name = editText.getText().toString();
+                    if(!"".equals(name)){
+                        searchExhibition();
+                    }else{
+                        mSignExhiListAdapter = new SignExhiListAdapter(context,mdataes);
+                        mListView.setAdapter(mSignExhiListAdapter);
+                    }
                 }
             }
         }
     };
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentViewWithNoTitle(R.layout.signup_exhibition_page);
@@ -151,23 +157,23 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
 
     private void searchExhibition() {
         //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromInputMethod(editText.getWindowToken(), 0);
+        /*InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromInputMethod(editText.getWindowToken(), 0);*/
 
-                searchDataes.clear();
-                name = editText.getText().toString().trim();
-                if(name != null && "".equals(name)){
-                    for(HashMap<String,String> hashMap :mdataes){
-                    searchDataes.add(hashMap);
+        searchDataes.clear();
+        name = editText.getText().toString().trim();
+        if (name != null && "".equals(name)) {
+            for (HashMap<String, String> hashMap : mdataes) {
+                searchDataes.add(hashMap);
             }
-        }else{
-            for(HashMap<String,String> hashMap :mdataes){
-                 if(hashMap.get("name").contains(name)){
+        } else {
+            for (HashMap<String, String> hashMap : mdataes) {
+                if (hashMap.get("name").contains(name)) {
                     searchDataes.add(hashMap);
-                 }
+                }
             }
         }
-        SignExhiListAdapter adapter = new SignExhiListAdapter(context,searchDataes);
+        SignExhiListAdapter adapter = new SignExhiListAdapter(context, searchDataes);
         mListView.setAdapter(adapter);
     }
 
@@ -195,7 +201,7 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
     private void onLoad() {
         mListView.stopRefresh();
         mListView.stopLoadMore();
-        mListView.setRefreshTime("...");
+        mListView.setRefreshTime("");
     }
     @Override
     public void onRefresh() {

@@ -50,7 +50,7 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
     private HomePageEnrollListAdapter adapter;
     private UnEnrollExhibition allExhibitionData;
     private EditText editText;
-    private String name;
+    private String name = "";
     private MyAsyncTask myAsyncTask;
     private LayoutInflater mInflater;
     private Button buttonSearch;
@@ -284,7 +284,7 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
                 @Override
                 public void run() {
                     try {
-                        String str = mController.getService().UnErollExList(token,SIZE,-1,"");
+                        String str = mController.getService().UnErollExList(token,SIZE,-1,name);
                         if(null != str && !"".equals(str)){
                             XmlDB.getInstance(context).saveKey(StringPools.ALL_EXHIBITION_DATA,str);
                         }else{
@@ -325,11 +325,6 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
                             createdAt = allExhibitionData.getList().get(last).getCreatedAt();
                         }
                         makeAllExhibitionListAdapterData(allExhibitionData);
-                        //adapter.notifyDataSetChanged();
-                        //listView.setAdapter(adapter);
-                        /*Message message = handler.obtainMessage();
-                        message.what = 1;
-                        handler.sendMessage(message);*/
                     } catch (Exception e) {
 
                     }
