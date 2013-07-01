@@ -63,6 +63,7 @@ public class SignExhiListAdapter extends BaseAdapter {
             holder.mExhibitionAddress = (TextView) convertView.findViewById(R.id.signup_list_exhibition_address);
             holder.mExhibitionSponsor = (TextView) convertView.findViewById(R.id.signup_list_exhibition_sponsor);
             holder.mSignupStatus = (ImageView) convertView.findViewById(R.id.signup_list_imageview_signup);
+            holder.mEnrollMessage = (ImageView) convertView.findViewById(R.id.message_icon_signup);
 
             holder.mExhibitionTheme.setTypeface(typeface_bold);
             holder.mExhibitionDate.setTypeface(typeface);
@@ -72,6 +73,7 @@ public class SignExhiListAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
             holder.mSignupStatus.setImageBitmap(null);
+            holder.mEnrollMessage.setVisibility(View.GONE);
         }
         char showStatus = ' ';
         if(null != data.get(position).get("status")){
@@ -95,6 +97,10 @@ public class SignExhiListAdapter extends BaseAdapter {
 
         ImageURLUtil.loadImage(Tool.makeExhibitionIconURL(exKey),
                 holder.mExhibitionIcon);
+        int count = Integer.valueOf(data.get(position).get("count"));
+        if(count > 0){
+            holder.mEnrollMessage.setVisibility(View.VISIBLE);
+        }
         return convertView;
     }
 
@@ -112,5 +118,6 @@ public class SignExhiListAdapter extends BaseAdapter {
     public class ViewHolder {
         TextView mExhibitionTheme, mExhibitionDate, mExhibitionAddress, mExhibitionSponsor;
         ImageView mExhibitionIcon,mSignupStatus;
+        ImageView mEnrollMessage;
     }
 }

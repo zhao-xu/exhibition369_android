@@ -5,18 +5,34 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:background="@drawable/list_selector">
-    <ImageView
-            android:id="@+id/signup_list_imageview_icon"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_margin="10dp"/>
+
+    <RelativeLayout
+            android:id="@+id/iconview_signup"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerVertical="true">
+        <ImageView
+                android:id="@+id/signup_list_imageview_icon"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_margin="10dp"/>
+        <ImageView
+                android:id="@+id/message_icon_signup"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/new_message"
+                android:visibility="gone"/>
+    </RelativeLayout>
     <RelativeLayout
             android:id="@+id/signup_list_relativelayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/signup_list_imageview_icon"
+            android:layout_toRightOf="@id/iconview_signup"
             android:layout_marginTop="10dp">
         <TextView
                 android:id="@+id/signup_list_exhibition_theme"
@@ -25,6 +41,7 @@
                 android:text="第八届上海国际石油石化天然气技术装备展览会"
                 android:singleLine="true"
                 android:textSize="15dp"
+                android:ellipsize = "marquee"
                 android:textColor="@android:color/black"/>
         <TextView
                 android:id="@+id/signup_list_exhibition_date"
@@ -54,7 +71,7 @@
                 android:text="主办单位：中国石油学会、中国机电产品进出口商会、中国国际贸易促进委员会"
                 android:singleLine="true"
                 android:textColor="@color/light_gray"
-                android:ellipsize="end"
+                android:ellipsize = "marquee"
                 android:layout_below="@id/signup_list_exhibition_address"
                 android:textSize="13sp"/>
     </RelativeLayout>

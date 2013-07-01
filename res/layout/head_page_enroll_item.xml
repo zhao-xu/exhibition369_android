@@ -41,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="第八届上海国际石油石化天然气技术装备展览会"
-            android:ellipsize = "end"
+            android:ellipsize = "marquee"
             android:singleLine="true"
             android:textSize="15dp"
             android:textColor="@android:color/black"/>
@@ -72,6 +72,7 @@
             android:layout_height="wrap_content"
             android:text="主办单位：中国石油学会、中国机电产品进出口商会、中国国际贸易促进委员会"
             android:singleLine="true"
+            android:ellipsize = "marquee"
             android:textColor="@color/light_gray"
             android:layout_below="@id/exhibition_address"
             android:textSize="13sp"/>

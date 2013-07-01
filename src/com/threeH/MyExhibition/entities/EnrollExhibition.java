@@ -43,6 +43,7 @@ public class EnrollExhibition implements Serializable {
          * P 审核中(Processing)，A 审核通过(Approved)，D 审核未通过(Denied)
          */
         private String status;
+        private int count;
 
         public int getCount() {
             return count;
@@ -76,7 +77,7 @@ public class EnrollExhibition implements Serializable {
             this.date = date;
         }
 
-        private int count;
+
         public String getExKey() {
             return exKey;
         }

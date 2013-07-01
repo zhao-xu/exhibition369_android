@@ -141,7 +141,8 @@ public final class RegexUtils {
 	/** 邮箱验证. */
 	public static boolean verifyEmail(String mEmail) {
 		//String regex = "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$";
-        String regex = Constants.PATTERN;
+        //String regex = Constants.PATTERN;
+        String regex = "^[a-zA-Z0-9.-_]+@[a-zA-Z0-9.-_]+$";
 		return Pattern.matches(regex, mEmail);
 	}
 	

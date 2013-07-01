@@ -82,6 +82,7 @@ public class HomePageEnrollListAdapter extends BaseAdapter {
             holder.mEnrollSignup.setImageBitmap(null);
             holder.mExhibitionIcon.setImageBitmap(null);
             holder.mEnrollSignup.setPadding(0,0,0,0);
+            holder.mEnrollMessage.setVisibility(View.GONE);
         }
         String exKey = data.get(position).get("exhibitionExkey");
         holder.mExhibitionTheme.setText(data.get(position).get("exhibitionName"));

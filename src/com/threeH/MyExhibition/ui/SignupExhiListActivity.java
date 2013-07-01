@@ -181,6 +181,7 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
         intent.putExtra("exSponser",mdataes.get(position-1).get("organizer"));
         intent.putExtra("token",token);
         intent.putExtra("singupStatus",mdataes.get(position-1).get("status").charAt(0));
+        intent.putExtra("count",Integer.valueOf(mdataes.get(position - 1).get("count")));
         startActivity(intent);
     }
 
