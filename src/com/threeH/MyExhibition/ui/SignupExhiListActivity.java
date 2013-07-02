@@ -1,36 +1,23 @@
 package com.threeH.MyExhibition.ui;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
-import com.google.gson.Gson;
 import com.threeH.MyExhibition.R;
-import com.threeH.MyExhibition.adapters.HomePageEnrollListAdapter;
 import com.threeH.MyExhibition.adapters.SignExhiListAdapter;
 import com.threeH.MyExhibition.cache.XmlDB;
 import com.threeH.MyExhibition.common.StringPools;
 import com.threeH.MyExhibition.entities.EnrollExhibition;
-import com.threeH.MyExhibition.entities.Exhibition;
-import com.threeH.MyExhibition.entities.UnEnrollExhibition;
 import com.threeH.MyExhibition.widget.XListView;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -46,6 +33,7 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
     private XListView mListView;
     private List<HashMap<String,String>> mdataes = new ArrayList<HashMap<String,String>>();
     private List<HashMap<String,String>> searchDataes = new ArrayList<HashMap<String,String>>();
+    private List<HashMap<String,String>> mItemClickDataes = new ArrayList<HashMap<String,String>>();
     private SignExhiListAdapter mSignExhiListAdapter;
     private EnrollExhibition.EnrollStatus[] enrollStatuses;
     private LayoutInflater mInflater;
@@ -93,7 +81,7 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
     public void findView() {
         mListView = (XListView)findViewById(R.id.signup_exhi_listview);
         mInflater = LayoutInflater.from(context);
-        viewFooter = mInflater.inflate(R.layout.list_footer_new,null);
+        viewFooter = mInflater.inflate(R.layout.list_footer_new, null);
         linlLoad = (LinearLayout) viewFooter.findViewById(R.id.list_footer_new);
         editText = (EditText) this.findViewById(R.id.titlebar_et);
         imageviewCancel = (ImageView) this.findViewById(R.id.titlebar_imageview_cancel);
@@ -175,19 +163,27 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
         }
         SignExhiListAdapter adapter = new SignExhiListAdapter(context, searchDataes);
         mListView.setAdapter(adapter);
+        setItemClickdataes(searchDataes);
+    }
+
+    private void setItemClickdataes(List<HashMap<String,String>> dataes){
+        mItemClickDataes.clear();
+        for (HashMap<String, String> hashMap : dataes) {
+            mItemClickDataes.add(hashMap);
+        }
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(this,ExhibitionActivity.class);
-        intent.putExtra("exKey",mdataes.get(position-1).get("exhibitionExkey"));
-        intent.putExtra("exAddress",mdataes.get(position-1).get("address"));
-        intent.putExtra("exTime",mdataes.get(position-1).get("date"));
-        intent.putExtra("exTheme",mdataes.get(position-1).get("name"));
-        intent.putExtra("exSponser",mdataes.get(position-1).get("organizer"));
+        intent.putExtra("exKey",mItemClickDataes.get(position-1).get("exhibitionExkey"));
+        intent.putExtra("exAddress",mItemClickDataes.get(position-1).get("address"));
+        intent.putExtra("exTime",mItemClickDataes.get(position-1).get("date"));
+        intent.putExtra("exTheme",mItemClickDataes.get(position-1).get("name"));
+        intent.putExtra("exSponser",mItemClickDataes.get(position-1).get("organizer"));
         intent.putExtra("token",token);
-        intent.putExtra("singupStatus",mdataes.get(position-1).get("status").charAt(0));
-        intent.putExtra("count",Integer.valueOf(mdataes.get(position - 1).get("count")));
+        intent.putExtra("singupStatus",mItemClickDataes.get(position-1).get("status").charAt(0));
+        intent.putExtra("count",Integer.valueOf(mItemClickDataes.get(position - 1).get("count")));
         startActivity(intent);
     }
 
@@ -253,7 +249,7 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
                             map.put("count",String.valueOf(mEnrollStatus.getCount()));
                             mdataes.add(map);
                         }
-
+                        setItemClickdataes(mdataes);
                     } catch (Exception e) {
                     }
                     Message message = handler.obtainMessage();
@@ -264,4 +260,6 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
             return null;
         }
     }
+
+
 }

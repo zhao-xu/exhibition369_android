@@ -92,8 +92,18 @@ public class HomePageEnrollListAdapter extends BaseAdapter {
         ImageURLUtil.loadImage(Tool.makeExhibitionIconURL(exKey),
                                holder.mExhibitionIcon);
         status = data.get(position).get("exhibitionApplied");
+        final int i = position;
         if(null != status && "N".equals(status)){
-             holder.mEnrollSignup.setImageResource(R.drawable.signup);
+            holder.mEnrollSignup.setImageResource(R.drawable.signup);
+            holder.mEnrollSignup.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, SignupActivity.class);
+                    intent.putExtra("exKey", data.get(i).get("exhibitionExkey"));
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
+                }
+            });
         }
         char  showStatus = ' ';
         if(null != data.get(position).get("status") && !"".equals(data.get(position).get("status"))){
@@ -117,16 +127,8 @@ public class HomePageEnrollListAdapter extends BaseAdapter {
 
         }
 
-        final int i = position;
-        holder.mEnrollSignup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, SignupActivity.class);
-                intent.putExtra("exKey",data.get(i).get("exhibitionExkey"));
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(intent);
-            }
-        });
+
+
 
         int count = Integer.valueOf(data.get(position).get("count"));
         if(count > 0){
