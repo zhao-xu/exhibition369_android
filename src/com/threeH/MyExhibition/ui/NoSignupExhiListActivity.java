@@ -55,7 +55,7 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
     private ImageView imageviewCancel;
     private PullupLoadAsyncTask mPullupLoadAsyncTask;
     List<HashMap<String,String>> data = new ArrayList<HashMap<String, String>>();
-
+    private List<HashMap<String,String>> mItemClickDataes = new ArrayList<HashMap<String,String>>();
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -164,27 +164,39 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
             if(null != name && "".equals(name)){
                 str = mController.getService().UnErollExList(token,SIZE,-1,name);
             }
-            str = mController.getService().UnErollExList(token,-1,-1,name);
+            str = mController.getService().UnErollExList(token,SIZE,-1,name);
             UnEnrollExhibition allExhibitionData = new Gson().fromJson(str,UnEnrollExhibition.class);
             List<HashMap<String,String>> searchData = Tool.makeAllExhibitionListAdapterData(allExhibitionData);
             HomePageEnrollListAdapter adapter = new HomePageEnrollListAdapter(NoSignupExhiListActivity.this,searchData,token);
             listView.setAdapter(adapter);
+            setItemClickdataes(searchData);
         }catch (Exception e){
             e.printStackTrace();
+        }
+    }
+
+    private void setItemClickdataes(List<HashMap<String,String>> dataes){
+        mItemClickDataes.clear();
+        for (HashMap<String, String> hashMap : dataes) {
+            mItemClickDataes.add(hashMap);
+        }
+        data.clear();
+        for (HashMap<String, String> hashMap : mItemClickDataes) {
+            data.add(hashMap);
         }
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(this,ExhibitionActivity.class);
-        intent.putExtra("exKey",data.get(position-1).get("exhibitionExkey"));
-        intent.putExtra("exAddress",data.get(position - 1).get("exhibitionAddress"));
-        intent.putExtra("exTime",data.get(position - 1).get("exhibitionDate"));
-        intent.putExtra("exTheme",data.get(position - 1).get("exhibitionName"));
-        intent.putExtra("exSponser",data.get(position - 1).get("exhibitionSponser"));
+        intent.putExtra("exKey",mItemClickDataes.get(position-1).get("exhibitionExkey"));
+        intent.putExtra("exAddress",mItemClickDataes.get(position - 1).get("exhibitionAddress"));
+        intent.putExtra("exTime",mItemClickDataes.get(position - 1).get("exhibitionDate"));
+        intent.putExtra("exTheme",mItemClickDataes.get(position - 1).get("exhibitionName"));
+        intent.putExtra("exSponser",mItemClickDataes.get(position - 1).get("exhibitionSponser"));
         intent.putExtra("token",token);
-        intent.putExtra("count",Integer.valueOf(data.get(position - 1).get("count")));
-        intent.putExtra("singupStatus", (data.get(position - 1).get("status") + " ").charAt(0));
+        intent.putExtra("count",Integer.valueOf(mItemClickDataes.get(position - 1).get("count")));
+        intent.putExtra("singupStatus", (mItemClickDataes.get(position - 1).get("status") + " ").charAt(0));
         startActivity(intent);
     }
 
@@ -254,6 +266,8 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
                 createdAt = allExhibitionData.getList().get(last).getCreatedAt();
             }
             makeAllExhibitionListAdapterData(allExhibitionData);
+            setItemClickdataes(data);
+
         } catch (Exception e) {
         }
     }
@@ -292,6 +306,7 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
                             createdAt = allExhibitionData.getList().get(last).getCreatedAt();
                         }
                         makeAllExhibitionListAdapterData(allExhibitionData);
+                        setItemClickdataes(data);
                         adapter = new HomePageEnrollListAdapter(context,data,token);
                         Message message = handler.obtainMessage();
                         message.what = 1;
