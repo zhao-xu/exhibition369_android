@@ -161,17 +161,22 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
         try{
             name = editText.getText().toString().trim();
             String str;
-            if(null != name && "".equals(name)){
-                str = mController.getService().UnErollExList(token,SIZE,-1,name);
-            }
             str = mController.getService().UnErollExList(token,SIZE,-1,name);
             UnEnrollExhibition allExhibitionData = new Gson().fromJson(str,UnEnrollExhibition.class);
-            List<HashMap<String,String>> searchData = Tool.makeAllExhibitionListAdapterData(allExhibitionData);
-            HomePageEnrollListAdapter adapter = new HomePageEnrollListAdapter(NoSignupExhiListActivity.this,searchData,token);
+            setCreateAt(allExhibitionData);
+            data = Tool.makeAllExhibitionListAdapterData(allExhibitionData);
+            adapter = new HomePageEnrollListAdapter(context,data,token);
             listView.setAdapter(adapter);
-            setItemClickdataes(searchData);
+            setItemClickdataes(data);
         }catch (Exception e){
             e.printStackTrace();
+        }
+    }
+
+    private void setCreateAt(UnEnrollExhibition allExhibitionData) {
+        int last = allExhibitionData.getList().size() - 1;
+        if(last >= 0){
+            createdAt = allExhibitionData.getList().get(last).getCreatedAt();
         }
     }
 
@@ -261,10 +266,7 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
         try {
             String str = mController.getService().UnErollExList(token,SIZE,createdAt,name);
             allExhibitionData = new Gson().fromJson(str,UnEnrollExhibition.class);
-            int last = allExhibitionData.getList().size() - 1;
-            if(last >= 0){
-                createdAt = allExhibitionData.getList().get(last).getCreatedAt();
-            }
+            setCreateAt(allExhibitionData);
             makeAllExhibitionListAdapterData(allExhibitionData);
             setItemClickdataes(data);
 
@@ -301,10 +303,7 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
                             str = XmlDB.getInstance(context).getKeyStringValue(StringPools.ALL_EXHIBITION_DATA,"");
                         }
                         allExhibitionData = new Gson().fromJson(str,UnEnrollExhibition.class);
-                        int last = allExhibitionData.getList().size() - 1;
-                        if(last >= 0){
-                            createdAt = allExhibitionData.getList().get(last).getCreatedAt();
-                        }
+                        setCreateAt(allExhibitionData);
                         makeAllExhibitionListAdapterData(allExhibitionData);
                         setItemClickdataes(data);
                         adapter = new HomePageEnrollListAdapter(context,data,token);
@@ -330,10 +329,7 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
                     try {
                         String str = mController.getService().UnErollExList(token,SIZE,createdAt,name);
                         allExhibitionData = new Gson().fromJson(str,UnEnrollExhibition.class);
-                        int last = allExhibitionData.getList().size() - 1;
-                        if(last >= 0){
-                            createdAt = allExhibitionData.getList().get(last).getCreatedAt();
-                        }
+                        setCreateAt(allExhibitionData);
                         makeAllExhibitionListAdapterData(allExhibitionData);
                     } catch (Exception e) {
 
