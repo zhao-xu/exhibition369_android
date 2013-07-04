@@ -14,6 +14,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.*;
 import android.view.inputmethod.EditorInfo;
 import android.widget.*;
@@ -56,6 +57,7 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
     private PullupLoadAsyncTask mPullupLoadAsyncTask;
     List<HashMap<String,String>> data = new ArrayList<HashMap<String, String>>();
     private List<HashMap<String,String>> mItemClickDataes = new ArrayList<HashMap<String,String>>();
+    public static String mStrExKey = "";
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -73,6 +75,28 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
         initdata();
         addAction();
     }
+    @Override
+    protected void onResume() {
+        imageviewCancel.setVisibility(View.GONE);
+        if(!mStrExKey.equals("")){
+            data.clear();
+            try {
+                String str = mController.getService().UnErollExListByExKey(token,SIZE,-1,mStrExKey);
+                allExhibitionData = new Gson().fromJson(str,UnEnrollExhibition.class);
+                makeAllExhibitionListAdapterData(allExhibitionData);
+                setItemClickdataes(data);
+                adapter = new HomePageEnrollListAdapter(context,data,token);
+                Message message = handler.obtainMessage();
+                message.what = 1;
+                handler.sendMessage(message);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }else {
+        }
+        super.onResume();
+    }
+
 
     @Override
     public void findView() {
@@ -256,12 +280,6 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
         super.onDestroy();
     }
 
-    @Override
-    protected void onResume() {
-        imageviewCancel.setVisibility(View.GONE);
-        super.onResume();
-    }
-
     private void loadNextPageData(){
         try {
             String str = mController.getService().UnErollExList(token,SIZE,createdAt,name);
@@ -269,7 +287,6 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
             setCreateAt(allExhibitionData);
             makeAllExhibitionListAdapterData(allExhibitionData);
             setItemClickdataes(data);
-
         } catch (Exception e) {
         }
     }
@@ -297,11 +314,11 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
                 public void run() {
                     try {
                         String str = mController.getService().UnErollExList(token,SIZE,-1,name);
-                        if(null != str && !"".equals(str)){
+                        /*if(null != str && !"".equals(str)){
                             XmlDB.getInstance(context).saveKey(StringPools.ALL_EXHIBITION_DATA,str);
                         }else{
                             str = XmlDB.getInstance(context).getKeyStringValue(StringPools.ALL_EXHIBITION_DATA,"");
-                        }
+                        }*/
                         allExhibitionData = new Gson().fromJson(str,UnEnrollExhibition.class);
                         setCreateAt(allExhibitionData);
                         makeAllExhibitionListAdapterData(allExhibitionData);

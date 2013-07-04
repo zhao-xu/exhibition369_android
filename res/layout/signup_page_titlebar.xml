@@ -6,14 +6,14 @@
                 android:background="@drawable/signup_titlebar_background">
     <ImageView
             android:id="@+id/signup_page_titltbar_iv_telephone"
-            android:background="@drawable/new_telephone_unfocus"
+            android:background="@drawable/new_telephone_focus"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     <ImageView
             android:id="@+id/signup_page_titltbar_iv_information"
-            android:background="@drawable/information_focus"
+            android:background="@drawable/information_unfocus"
             android:layout_toLeftOf="@id/signup_page_titltbar_iv_telephone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

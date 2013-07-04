@@ -3,13 +3,18 @@ package com.threeH.MyExhibition.ui;
 import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.view.Window;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.RadioGroup;
-import android.widget.TabHost;
+import android.widget.*;
 import com.threeH.MyExhibition.R;
 import com.threeH.MyExhibition.service.ClientController;
+import com.threeH.MyExhibition.tools.ByteUtil;
+import com.threeH.MyExhibition.tools.IntentIntegrator;
+import com.threeH.MyExhibition.tools.IntentResult;
+
+import java.io.UnsupportedEncodingException;
+import java.nio.ByteBuffer;
 
 /**
  * Created with IntelliJ IDEA.
@@ -28,6 +33,7 @@ public class HomeOfTabActivity extends TabActivity implements ActivityInterface{
     private EditText editText;
     private String name;
     private String strCurrentTab;
+    private ImageView mImgViewScanner;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +49,7 @@ public class HomeOfTabActivity extends TabActivity implements ActivityInterface{
         radioGroup = (RadioGroup) this.findViewById(R.id.homeoftab_radiogroup);
         buttonSearch = (Button) this.findViewById(R.id.search_btn);
         editText = (EditText) this.findViewById(R.id.titlebar_et);
+        mImgViewScanner = (ImageView) this.findViewById(R.id.exhibitionlist_page_iv_scanner);
     }
 
     @Override
@@ -79,6 +86,13 @@ public class HomeOfTabActivity extends TabActivity implements ActivityInterface{
                 }
             }
         });
+        mImgViewScanner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                IntentIntegrator integrator = new IntentIntegrator(HomeOfTabActivity.this);
+                integrator.initiateScan(IntentIntegrator.QR_CODE_TYPES);
+            }
+        });
          /*buttonSearch.setOnClickListener(new View.OnClickListener() {
          @Override
             public void onClick(View v) {
@@ -95,5 +109,36 @@ public class HomeOfTabActivity extends TabActivity implements ActivityInterface{
                         }
                     }
                 });*/
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
+        if(result != null){
+            String contents = result.getContents();
+            if(contents != null){
+                if(contents.startsWith("MEK://")){
+                    NoSignupExhiListActivity.mStrExKey = decodeExhibitionKey(contents.substring(6));
+Log.i("data",NoSignupExhiListActivity.mStrExKey);
+                    tabhost.setCurrentTabByTag(TAB_NO_SIGNUP);
+                }
+            }
+        }
+    }
+
+    private String decodeExhibitionKey(String qrcode){
+        String exKey = "";
+        ByteBuffer buffer = ByteBuffer.allocate(200);
+        buffer.put(ByteUtil.ascii2byte(qrcode));
+        buffer.flip();
+        short size = buffer.getShort();
+        byte[] bs = new byte[size];
+        buffer.get(bs);
+        try {
+            exKey = new String(bs,"UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return exKey;
     }
 }

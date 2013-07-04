@@ -35,7 +35,13 @@
                                 android:button="@null"
                                 android:layout_marginTop="2.0dip"
                                 android:tag="exhibitionlsit_radiobutton_singup"/>
-                        </RadioGroup>
+                        <ImageView
+                                android:id="@+id/exhibitionlist_page_iv_scanner"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/scanner_btn"/>
+                    </RadioGroup>
+
            </LinearLayout>
         <TabWidget
                 android:id="@android:id/tabs"

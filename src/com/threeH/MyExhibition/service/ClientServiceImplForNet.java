@@ -74,7 +74,6 @@ public class ClientServiceImplForNet implements ClientService {
      */
     @Override
     public String UnErollExList(String token, int size, long last, String name) throws Exception {
-
         final String url = UrlPools.APP_SERVER + "/rest/exhibitions/find";
         Map<String, String> map = new HashMap<String, String>();
         map.put("token", token);
@@ -82,6 +81,25 @@ public class ClientServiceImplForNet implements ClientService {
         map.put("last", last+"");
         map.put("name", name);
 
+        try {
+            String response = CustomerHttpClient.getRequest(url,map);
+            return response;
+        } catch (RuntimeException e) {
+            // 请求失败或者连接失败
+            e.getMessage();
+        } catch (Exception e) {
+        }
+        return "";
+    }
+
+    @Override
+    public String UnErollExListByExKey(String token, int size, long last, String exKey) throws Exception {
+        final String url = UrlPools.APP_SERVER + "/rest/exhibitions/find";
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("token", token);
+        map.put("size", size+"");
+        map.put("last", last+"");
+        map.put("exKey", exKey);
         try {
             String response = CustomerHttpClient.getRequest(url,map);
             return response;
