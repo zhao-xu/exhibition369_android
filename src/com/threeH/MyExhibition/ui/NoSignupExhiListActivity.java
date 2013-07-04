@@ -81,10 +81,13 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
         if(!mStrExKey.equals("")){
             data.clear();
             try {
-                String str = mController.getService().UnErollExListByExKey(token,SIZE,-1,mStrExKey);
+                String str = mController.getService().UnErollExListByExKey(token, SIZE, -1, mStrExKey);
                 allExhibitionData = new Gson().fromJson(str,UnEnrollExhibition.class);
                 makeAllExhibitionListAdapterData(allExhibitionData);
                 setItemClickdataes(data);
+                if(allExhibitionData.getList() != null){
+                     editText.setText(allExhibitionData.getList().get(0).getName());
+                }
                 adapter = new HomePageEnrollListAdapter(context,data,token);
                 Message message = handler.obtainMessage();
                 message.what = 1;
@@ -92,11 +95,15 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }else {
         }
         super.onResume();
     }
 
+    @Override
+    protected void onPause() {
+        mStrExKey = "";
+        super.onPause();
+    }
 
     @Override
     public void findView() {
@@ -105,7 +112,6 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
         imageviewCancel = (ImageView) this.findViewById(R.id.titlebar_imageview_cancel);
         buttonSearch = (Button) this.findViewById(R.id.search_btn);
     }
-
     @Override
     public void initdata() {
         myAsyncTask = new MyAsyncTask();
@@ -237,6 +243,7 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
 
     @Override
     public void onRefresh() {
+        name = editText.getText().toString().trim();
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -314,11 +321,6 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
                 public void run() {
                     try {
                         String str = mController.getService().UnErollExList(token,SIZE,-1,name);
-                        /*if(null != str && !"".equals(str)){
-                            XmlDB.getInstance(context).saveKey(StringPools.ALL_EXHIBITION_DATA,str);
-                        }else{
-                            str = XmlDB.getInstance(context).getKeyStringValue(StringPools.ALL_EXHIBITION_DATA,"");
-                        }*/
                         allExhibitionData = new Gson().fromJson(str,UnEnrollExhibition.class);
                         setCreateAt(allExhibitionData);
                         makeAllExhibitionListAdapterData(allExhibitionData);

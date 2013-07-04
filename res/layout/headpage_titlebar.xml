@@ -23,14 +23,15 @@
             android:background="@drawable/soushuokuang">
         <EditText
                 android:id="@+id/titlebar_et"
-                android:layout_width="200dp"
+                android:layout_width="170dp"
                 android:layout_height="50dp"
                 android:background="@android:color/transparent"
                 android:clickable="true"
                 android:hint="搜索"
                 android:layout_alignParentTop="true"
                 android:layout_marginLeft="50dp"
-                android:inputType="text"/>
+                android:inputType="text"
+                android:ellipsize="end"/>
         <ImageView
             android:id="@+id/titlebar_imageview_cancel"
             android:layout_height="wrap_content"
