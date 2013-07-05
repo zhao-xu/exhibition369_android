@@ -89,8 +89,11 @@ public class HomeOfTabActivity extends TabActivity implements ActivityInterface{
         mImgViewScanner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                IntentIntegrator integrator = new IntentIntegrator(HomeOfTabActivity.this);
-                integrator.initiateScan(IntentIntegrator.QR_CODE_TYPES);
+                /*IntentIntegrator integrator = new IntentIntegrator(HomeOfTabActivity.this);
+                integrator.initiateScan(IntentIntegrator.QR_CODE_TYPES);*/
+                Intent intent = new Intent(HomeOfTabActivity.this,
+                                           com.google.zxing.client.android.CaptureActivity.class);
+                startActivityForResult(intent,1);
             }
         });
          /*buttonSearch.setOnClickListener(new View.OnClickListener() {
@@ -113,15 +116,11 @@ public class HomeOfTabActivity extends TabActivity implements ActivityInterface{
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        IntentResult result = IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
-        if(result != null){
-            String contents = result.getContents();
-            if(contents != null){
-                if(contents.startsWith("MEK://")){
-                    NoSignupExhiListActivity.mStrExKey = decodeExhibitionKey(contents.substring(6));
-Log.i("data",NoSignupExhiListActivity.mStrExKey);
-                    tabhost.setCurrentTabByTag(TAB_NO_SIGNUP);
-                }
+        if(resultCode == RESULT_OK){
+            String result = data.getStringExtra("result");
+            if(result != null && result.startsWith("MEK://")){
+                NoSignupExhiListActivity.mStrExKey = decodeExhibitionKey(result.substring(6));
+                tabhost.setCurrentTabByTag(TAB_NO_SIGNUP);
             }
         }
     }

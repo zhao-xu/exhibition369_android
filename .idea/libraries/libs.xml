@@ -4,6 +4,7 @@
       <root url="jar://$PROJECT_DIR$/libs/pinyin4j-2.5.0.jar!/" />
       <root url="jar://$PROJECT_DIR$/libs/gson-2.2.2.jar!/" />
       <root url="jar://$PROJECT_DIR$/libs/netty-3.6.6.Final.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/zxing-core-2.2.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
