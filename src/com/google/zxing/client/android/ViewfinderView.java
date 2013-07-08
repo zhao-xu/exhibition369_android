@@ -108,7 +108,19 @@ public final class ViewfinderView extends View {
       scannerAlpha = (scannerAlpha + 1) % SCANNER_ALPHA.length;
       int middle = frame.height() / 2 + frame.top;
       canvas.drawRect(frame.left + 2, middle - 1, frame.right - 1, middle + 2, paint);
-      
+
+      // Draw four red corner
+      int cornerWidth = frame.width()/8;
+      int cornerHeight = frame.height()/8;
+      canvas.drawRect(frame.left - 4,frame.top - 4,frame.left + cornerWidth,frame.top,paint);
+      canvas.drawRect(frame.left - 4,frame.top - 4,frame.left,frame.top + cornerHeight,paint);
+      canvas.drawRect(frame.left - 4,frame.bottom + 4,frame.left,frame.bottom - cornerHeight,paint);
+      canvas.drawRect(frame.left - 4,frame.bottom + 4,frame.left + cornerWidth,frame.bottom,paint);
+      canvas.drawRect(frame.right + 4,frame.top - 4,frame.right - cornerWidth,frame.top,paint);
+      canvas.drawRect(frame.right + 4,frame.top - 4,frame.right,frame.top + cornerHeight,paint);
+      canvas.drawRect(frame.right + 4,frame.bottom + 4,frame.right,frame.bottom - cornerHeight,paint);
+      canvas.drawRect(frame.right + 4,frame.bottom + 4,frame.right  - cornerWidth,frame.bottom,paint);
+
       Rect previewFrame = cameraManager.getFramingRectInPreview();
       float scaleX = frame.width() / (float) previewFrame.width();
       float scaleY = frame.height() / (float) previewFrame.height();
