@@ -74,19 +74,23 @@ public class SignExhiListAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
             holder.mSignupStatus.setImageBitmap(null);
             holder.mEnrollMessage.setVisibility(View.GONE);
+            holder.mSignupStatus.setPadding(0,0,0,0);
+            holder.mExhibitionIcon.setImageBitmap(null);
         }
         char showStatus = ' ';
         if(null != data.get(position).get("status")){
             showStatus = data.get(position).get("status").charAt(0);
             switch (showStatus){
                 case 'P':
-                    holder.mSignupStatus.setBackgroundResource(R.drawable.examine);
+                    holder.mSignupStatus.setImageResource(R.drawable.examine);
                     break;
                 case 'A':
-                    holder.mSignupStatus.setBackgroundResource(R.drawable.pass);
+                    holder.mSignupStatus.setImageResource(R.drawable.pass);
+                    holder.mSignupStatus.setPadding(0, 5, 0, 0);
                     break;
                 case 'D':
-                    holder.mSignupStatus.setBackgroundResource(R.drawable.no_pass);
+                    holder.mSignupStatus.setImageResource(R.drawable.no_pass);
+                    holder.mSignupStatus.setPadding(0, 60, 0, 0);
                     break;
             }
         }

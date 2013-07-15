@@ -112,7 +112,7 @@ public class HomePageEnrollListAdapter extends BaseAdapter {
             switch (showStatus){
                 case 'P':
                     holder.mEnrollSignup.setImageResource(R.drawable.examine);
-                    holder.mEnrollSignup.setPadding(0, 60, 0, 0);
+                    //holder.mEnrollSignup.setPadding(0, 60, 0, 0);
                     break;
                 case 'A':
                     holder.mEnrollSignup.setImageResource(R.drawable.pass);
