@@ -10,15 +10,20 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.*;
+import com.google.gson.Gson;
 import com.threeH.MyExhibition.R;
+import com.threeH.MyExhibition.adapters.HomePageEnrollListAdapter;
 import com.threeH.MyExhibition.adapters.SignExhiListAdapter;
 import com.threeH.MyExhibition.cache.XmlDB;
 import com.threeH.MyExhibition.common.StringPools;
 import com.threeH.MyExhibition.entities.EnrollExhibition;
+import com.threeH.MyExhibition.entities.Exhibition;
+import com.threeH.MyExhibition.entities.UnEnrollExhibition;
 import com.threeH.MyExhibition.widget.XListView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -31,7 +36,7 @@ import java.util.List;
 public class SignupExhiListActivity extends BaseActivity implements ActivityInterface,
             AdapterView.OnItemClickListener,XListView.IXListViewListener {
     private XListView mListView;
-    private List<HashMap<String,String>> mdataes = new ArrayList<HashMap<String,String>>();
+    private List<HashMap<String,String>> mdataes = new LinkedList<HashMap<String, String>>();
     private List<HashMap<String,String>> searchDataes = new ArrayList<HashMap<String,String>>();
     private List<HashMap<String,String>> mItemClickDataes = new ArrayList<HashMap<String,String>>();
     private SignExhiListAdapter mSignExhiListAdapter;
@@ -44,10 +49,13 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
     private LoadDataTask loadDataTask;
     private String name = "";
     private Button buttonSearch;
+    public static String mStrExKey = "";
+    private UnEnrollExhibition mExhibitionDataByQrcode;
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
-            if(1 == msg.what){
+            switch (msg.what){
+                case 1:
                 if(mdataes.size() == 0){
                     imageviewPrompt.setVisibility(View.VISIBLE);
                 }else{
@@ -60,6 +68,11 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
                         mListView.setAdapter(mSignExhiListAdapter);
                     }
                 }
+                    break;
+                case 2:
+                    mSignExhiListAdapter = new SignExhiListAdapter(context,mdataes);
+                    mListView.setAdapter(mSignExhiListAdapter);
+                    break;
             }
         }
     };
@@ -71,6 +84,50 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
         initdata();
         addAction();
     }
+
+    @Override
+    protected void onResume() {
+        imageviewCancel.setVisibility(View.GONE);
+        if(!mStrExKey.equals("")){
+            try {
+                String str = mController.getService().UnErollExListByExKey(token, 1, -1, mStrExKey);
+                mExhibitionDataByQrcode = new Gson().fromJson(str,UnEnrollExhibition.class);
+                ArrayList<Exhibition> list = mExhibitionDataByQrcode.getList();
+                if(list != null ){
+                    if(isExist(list.get(0).getExKey())){
+                        editText.setText(name);
+                    }else{
+                        HashMap<String,String> map = new HashMap<String, String>();
+                        for(Exhibition exhibition : list){
+                            map.put("exhibitionExkey",exhibition.getExKey());
+                            map.put("name",exhibition.getName());
+                            map.put("date",exhibition.getDate());
+                            map.put("address",exhibition.getAddress());
+                            map.put("organizer",exhibition.getOrganizer());
+                            map.put("status",exhibition.getStatus());
+                            map.put("count",String.valueOf(exhibition.getCount()));
+                        }
+                        ((LinkedList)mdataes).addFirst(map);
+                        setItemClickdataes(mdataes);
+                        editText.setText(list.get(0).getName());
+                        Message message = handler.obtainMessage();
+                        message.what = 2;
+                        handler.sendMessage(message);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        mStrExKey = "";
+        super.onPause();
+    }
+
     @Override
     public void initdata() {
         loadDataTask = new LoadDataTask();
@@ -188,11 +245,7 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
     }
 
 
-    @Override
-    protected void onResume() {
-        imageviewCancel.setVisibility(View.GONE);
-        super.onResume();
-    }
+
 
     private void onLoad() {
         mListView.stopRefresh();
@@ -221,6 +274,17 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
                 onLoad();
             }
         }, 2000);
+    }
+
+    private boolean isExist(String exkey){
+        for (HashMap<String, String> hashMap : mdataes) {
+            if (hashMap.get("exhibitionExkey").contains(exkey)) {
+                name = hashMap.get("name");
+                return true;
+            }
+        }
+
+        return false;
     }
 
     class LoadDataTask extends AsyncTask<Void,Integer,Integer>{

@@ -272,7 +272,6 @@ public class CustomerHttpClient {
                     }
                 }
             }
-Log.i("data",urlBuilder.toString());
             // 创建HttpClient对象
             HttpClient client = new DefaultHttpClient();
             // 发送get请求创建HttpGet对象

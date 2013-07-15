@@ -7,15 +7,15 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.LabeledIntent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
-import android.view.*;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.*;
 import cn.mobiledaily.module.android.module.mobilepush.service.helper.AndroidMessageClient;
@@ -23,7 +23,6 @@ import cn.mobiledaily.module.android.module.mobilepush.service.helper.OnMessageL
 import com.google.gson.Gson;
 import com.threeH.MyExhibition.R;
 import com.threeH.MyExhibition.adapters.HomePageEnrollListAdapter;
-import com.threeH.MyExhibition.cache.XmlDB;
 import com.threeH.MyExhibition.common.StringPools;
 import com.threeH.MyExhibition.entities.Exhibition;
 import com.threeH.MyExhibition.entities.UnEnrollExhibition;
@@ -57,7 +56,6 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
     private PullupLoadAsyncTask mPullupLoadAsyncTask;
     List<HashMap<String,String>> data = new ArrayList<HashMap<String, String>>();
     private List<HashMap<String,String>> mItemClickDataes = new ArrayList<HashMap<String,String>>();
-    public static String mStrExKey = "";
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -78,32 +76,9 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
     @Override
     protected void onResume() {
         imageviewCancel.setVisibility(View.GONE);
-        if(!mStrExKey.equals("")){
-            data.clear();
-            try {
-                String str = mController.getService().UnErollExListByExKey(token, SIZE, -1, mStrExKey);
-                allExhibitionData = new Gson().fromJson(str,UnEnrollExhibition.class);
-                makeAllExhibitionListAdapterData(allExhibitionData);
-                setItemClickdataes(data);
-                if(allExhibitionData.getList() != null){
-                     editText.setText(allExhibitionData.getList().get(0).getName());
-                }
-                adapter = new HomePageEnrollListAdapter(context,data,token);
-                Message message = handler.obtainMessage();
-                message.what = 1;
-                handler.sendMessage(message);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
         super.onResume();
     }
 
-    @Override
-    protected void onPause() {
-        mStrExKey = "";
-        super.onPause();
-    }
 
     @Override
     public void findView() {
@@ -358,9 +333,5 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
             return null;
         }
     }
-
-
-
-
 
 }

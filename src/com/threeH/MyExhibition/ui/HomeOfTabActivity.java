@@ -76,8 +76,7 @@ public class HomeOfTabActivity extends TabActivity implements ActivityInterface{
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
                     case R.id.exhibitionlsit_radiobutton_singup:
-                        tabhost.setCurrentTabByTag(TAB_SIGNUP);
-                        radioGroup.setBackgroundResource(R.drawable.homepage_titlebar_background_signup);
+                        setTabSignup();
                         break;
                     case R.id.exhibitionlsit_radiobutton_no_singup:
                         tabhost.setCurrentTabByTag(TAB_NO_SIGNUP);
@@ -89,29 +88,19 @@ public class HomeOfTabActivity extends TabActivity implements ActivityInterface{
         mImgViewScanner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*IntentIntegrator integrator = new IntentIntegrator(HomeOfTabActivity.this);
-                integrator.initiateScan(IntentIntegrator.QR_CODE_TYPES);*/
                 Intent intent = new Intent(HomeOfTabActivity.this,
                                            com.google.zxing.client.android.CaptureActivity.class);
                 startActivityForResult(intent,1);
             }
         });
-         /*buttonSearch.setOnClickListener(new View.OnClickListener() {
-         @Override
-            public void onClick(View v) {
-                        //v.setBackgroundResource(R.drawable.search_focus);
-                        try {
-                            name = editText.getText().toString();
-                            String str = mController.getService().UnErollExList("pjqAndroid",-1,-1,name);
-                           UnEnrollExhibition allExhibitionData = new Gson().fromJson(str,UnEnrollExhibition.class);
-                            List<HashMap<String,String>> data = Tool.makeAllExhibitionListAdapterData(allExhibitionData);
-                            HomePageEnrollListAdapter adapter = new HomePageEnrollListAdapter(HomeOfTabActivity.this,data);
-                            NoSignupExhiListActivity.listView.setAdapter(adapter);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });*/
+    }
+
+    /**
+     *将tab切换到报名列表，并切换标题栏背景图片
+     */
+    private void setTabSignup(){
+        tabhost.setCurrentTabByTag(TAB_SIGNUP);
+        radioGroup.setBackgroundResource(R.drawable.homepage_titlebar_background_signup);
     }
 
     @Override
@@ -119,8 +108,8 @@ public class HomeOfTabActivity extends TabActivity implements ActivityInterface{
         if(resultCode == RESULT_OK){
             String result = data.getStringExtra("result");
             if(result != null && result.startsWith("MEK://")){
-                NoSignupExhiListActivity.mStrExKey = decodeExhibitionKey(result.substring(6));
-                tabhost.setCurrentTabByTag(TAB_NO_SIGNUP);
+                SignupExhiListActivity.mStrExKey = decodeExhibitionKey(result.substring(6));
+                setTabSignup();
             }
         }
     }
