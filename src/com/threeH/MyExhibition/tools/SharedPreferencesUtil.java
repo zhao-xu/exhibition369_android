@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Base64;
+import com.threeH.MyExhibition.entities.Exhibition;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -94,4 +95,45 @@ public class SharedPreferencesUtil {
         }
         return null;
     }
+
+    /**
+     * 删除列表中的对象
+     * @param exKey 要删除的对象的exkey
+     * @param context
+     * @param shaPreName 保存数据文件的文件名
+     */
+    public static void removeObject(String exKey,Context context,String shaPreName){
+        SharedPreferences sharedPreferences =
+                context.getSharedPreferences(shaPreName, Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        List<Object> list = getObject(context,shaPreName);
+        if(null == list){
+            list = new ArrayList<Object>();
+        }else{
+            for(Object object : list){
+                if(((Exhibition)object).getExKey().equals(exKey)){
+                    list.remove(object);
+                }
+            }
+        }
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(baos);
+            oos.writeObject(list);
+            String strList = new String(Base64.encode(baos.toByteArray(), Base64.DEFAULT));
+            editor.putString(SAVETAG, strList);
+            editor.commit();
+            oos.close();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }finally{
+            try {
+                baos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }

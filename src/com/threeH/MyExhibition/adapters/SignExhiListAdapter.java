@@ -1,6 +1,8 @@
 package com.threeH.MyExhibition.adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,7 @@ import com.threeH.MyExhibition.entities.Exhibition;
 import com.threeH.MyExhibition.entities.UnEnrollExhibition;
 import com.threeH.MyExhibition.tools.ImageURLUtil;
 import com.threeH.MyExhibition.tools.MSYH;
+import com.threeH.MyExhibition.tools.SharedPreferencesUtil;
 import com.threeH.MyExhibition.tools.Tool;
 import java.util.HashMap;
 import java.util.List;
@@ -74,34 +77,19 @@ public class SignExhiListAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
             holder.mSignupStatus.setImageBitmap(null);
             holder.mEnrollMessage.setVisibility(View.GONE);
-            holder.mSignupStatus.setPadding(0,0,0,0);
+            holder.mSignupStatus.setPadding(0, 0, 0, 0);
+            holder.mSignupStatus.setOnClickListener(null);
             holder.mExhibitionIcon.setImageBitmap(null);
         }
         char showStatus = ' ';
         if(null != data.get(position).get("status")){
             showStatus = data.get(position).get("status").charAt(0);
-            switch (showStatus){
-                case 'P':
-                    holder.mSignupStatus.setImageResource(R.drawable.examine);
-                    break;
-                case 'A':
-                    holder.mSignupStatus.setImageResource(R.drawable.pass);
-                    holder.mSignupStatus.setPadding(0, 5, 0, 0);
-                    break;
-                case 'D':
-                    holder.mSignupStatus.setImageResource(R.drawable.no_pass);
-                    holder.mSignupStatus.setPadding(0, 60, 0, 0);
-                    break;
-                case ' ':
-                    holder.mSignupStatus.setImageResource(R.drawable.signup);
-                    break;
-            }
+            showStatusIcon(showStatus,holder.mSignupStatus,exKey,position);
         }
         holder.mExhibitionTheme.setText(data.get(position).get("name"));
         holder.mExhibitionSponsor.setText(data.get(position).get("organizer"));
         holder.mExhibitionAddress.setText(data.get(position).get("address"));
         holder.mExhibitionDate.setText(data.get(position).get("date"));
-
         ImageURLUtil.loadImage(Tool.makeExhibitionIconURL(exKey),
                 holder.mExhibitionIcon);
         int count = Integer.valueOf(data.get(position).get("count"));
@@ -111,15 +99,53 @@ public class SignExhiListAdapter extends BaseAdapter {
         return convertView;
     }
 
-    private Exhibition getExhibitionData(String exKey) {
-        String strExhibitionData = XmlDB.getInstance(context).getKeyStringValue(StringPools.ALL_EXHIBITION_DATA, "");
-        UnEnrollExhibition allExhibitionData = new Gson().fromJson(strExhibitionData,UnEnrollExhibition.class);
-        for(Exhibition exhibition : allExhibitionData.getList()){
-            if(null != exKey && exhibition.getExKey().equals(exKey)){
-                return exhibition;
-            }
+    /**
+     * 根据审核的状态显示各个展会的状态图片
+     * 状态为 P: 表示正在审核中
+     * 状态为 A: 表示正在审核通过
+     * 状态为 D: 表示正在审核未通过
+     * 状态为 ' ': 表示正在未报名该展会
+     * @param showStatus 审核状态
+     * @param imageView 显示状态图片的控件
+     * @param exKey     展会的key
+     * @param position  该展会在数据列表中的索引位置
+     */
+    private void showStatusIcon(char showStatus,ImageView imageView,
+                                final String exKey,final int position){
+        switch (showStatus){
+            case 'P':
+                imageView.setImageResource(R.drawable.examine);
+                break;
+            case 'A':
+                imageView.setImageResource(R.drawable.pass);
+                imageView.setPadding(0, 5, 0, 0);
+                break;
+            case 'D':
+                imageView.setImageResource(R.drawable.no_pass);
+                imageView.setPadding(0, 60, 0, 0);
+                break;
+            case ' ':
+                imageView.setImageResource(R.drawable.delete);
+                imageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        new AlertDialog.Builder(context)
+                                .setTitle("注意")
+                                .setMessage("您确认要删除该展会吗？")
+                                .setPositiveButton("确定",new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        SharedPreferencesUtil.removeObject(exKey,context,StringPools.SCAN_EXHIBITION_DATA);
+                                        data.remove(position);
+                                        notifyDataSetChanged();
+                                    }
+                                })
+                                .setNegativeButton("取消",null)
+                                .show();
+                    }
+                });
+                break;
         }
-        return null;
     }
 
     public class ViewHolder {

@@ -3,15 +3,12 @@ package com.threeH.MyExhibition.ui;
 import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.*;
 import com.threeH.MyExhibition.R;
 import com.threeH.MyExhibition.service.ClientController;
 import com.threeH.MyExhibition.tools.ByteUtil;
-import com.threeH.MyExhibition.tools.IntentIntegrator;
-import com.threeH.MyExhibition.tools.IntentResult;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
@@ -56,7 +53,7 @@ public class HomeOfTabActivity extends TabActivity implements ActivityInterface{
     public void initdata() {
         tabhost = this.getTabHost();
         mController = ClientController.getController(this);
-        strCurrentTab = getIntent().getStringExtra("currentTab");
+        //strCurrentTab = getIntent().getStringExtra("currentTab");
     }
 
     @Override
@@ -65,12 +62,13 @@ public class HomeOfTabActivity extends TabActivity implements ActivityInterface{
                 .setContent(new Intent(this,SignupExhiListActivity.class)));
         tabhost.addTab(tabhost.newTabSpec(TAB_NO_SIGNUP).setIndicator(TAB_NO_SIGNUP)
                 .setContent(new Intent(this,NoSignupExhiListActivity.class)));
-        if(null != strCurrentTab && !"".equals(strCurrentTab)){
+        /*if(null != strCurrentTab && !"".equals(strCurrentTab)){
             tabhost.setCurrentTabByTag(TAB_SIGNUP);
-            radioGroup.setBackgroundResource(R.drawable.homepage_titlebar_background_signup);
+            radioGroup.setBackgroundResource(R.drawable.homepage_titlebar_background_myexhibition);
         }else{
             tabhost.setCurrentTabByTag(TAB_NO_SIGNUP);
-        }
+        }*/
+        tabhost.setCurrentTabByTag(TAB_SIGNUP);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -100,7 +98,7 @@ public class HomeOfTabActivity extends TabActivity implements ActivityInterface{
      */
     private void setTabSignup(){
         tabhost.setCurrentTabByTag(TAB_SIGNUP);
-        radioGroup.setBackgroundResource(R.drawable.homepage_titlebar_background_signup);
+        radioGroup.setBackgroundResource(R.drawable.homepage_titlebar_background_myexhibition);
     }
 
     @Override
@@ -108,7 +106,7 @@ public class HomeOfTabActivity extends TabActivity implements ActivityInterface{
         if(resultCode == RESULT_OK){
             String result = data.getStringExtra("result");
             if(result != null && result.startsWith("MEK://")){
-                SignupExhiListActivity.mStrExKey = decodeExhibitionKey(result.substring(6));
+                SignupExhiListActivity.mStrScanExKey = decodeExhibitionKey(result.substring(6));
                 setTabSignup();
             }
         }

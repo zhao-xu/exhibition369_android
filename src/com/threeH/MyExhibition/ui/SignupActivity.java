@@ -16,9 +16,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.threeH.MyExhibition.R;
+import com.threeH.MyExhibition.common.StringPools;
 import com.threeH.MyExhibition.listener.TelephoneClickListener;
 import com.threeH.MyExhibition.tools.MSYH;
 import com.threeH.MyExhibition.tools.RegexUtils;
+import com.threeH.MyExhibition.tools.SharedPreferencesUtil;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -95,6 +97,7 @@ public class SignupActivity extends  BaseActivity implements ActivityInterface{
                        }else{
                            mController.getService().ExEnroll(exKey,token,name,telephone,email,type);
                            Intent intent = new Intent(SignupActivity.this, HomeOfTabActivity.class);
+                           SharedPreferencesUtil.removeObject(exKey,context, StringPools.SCAN_EXHIBITION_DATA);
                            intent.putExtra("exKey", exKey);
                            intent.putExtra("currentTab",HomeOfTabActivity.TAB_SIGNUP);
                            startActivity(intent);

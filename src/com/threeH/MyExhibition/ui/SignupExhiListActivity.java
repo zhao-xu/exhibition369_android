@@ -49,7 +49,8 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
     private LoadDataTask loadDataTask;
     private String name = "";
     private Button buttonSearch;
-    public static String mStrExKey = "";
+    public static String mStrScanExKey = "";
+    private String mStrExKey;
     private UnEnrollExhibition mExhibitionDataByQrcode;
     private Handler handler = new Handler(){
         @Override
@@ -64,24 +65,30 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
                     if(!"".equals(name)){
                         searchExhibition();
                     }else{
-                        mSignExhiListAdapter = new SignExhiListAdapter(context,mdataes);
-                        mListView.setAdapter(mSignExhiListAdapter);
+                        setAdapter();
                     }
                 }
                     break;
                 case 2:
-                    mSignExhiListAdapter = new SignExhiListAdapter(context,mdataes);
-                    mListView.setAdapter(mSignExhiListAdapter);
+                    setAdapter();
                     break;
             }
         }
     };
 
+    /**
+     * 设置我的展会列表的数据
+     */
+    private void setAdapter(){
+        mSignExhiListAdapter = new SignExhiListAdapter(SignupExhiListActivity.this,mdataes);
+        mListView.setAdapter(mSignExhiListAdapter);
+    }
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentViewWithNoTitle(R.layout.signup_exhibition_page);
         findView();
-        deleteRepeat();
+        //deleteRepeat();
         initdata();
         addAction();
     }
@@ -91,9 +98,9 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
     @Override
     protected void onResume() {
         imageviewCancel.setVisibility(View.GONE);
-        if(!mStrExKey.equals("")){
+        if(!mStrScanExKey.equals("")){
             try {
-                String str = mController.getService().UnErollExListByExKey(token, 1, -1, mStrExKey);
+                String str = mController.getService().UnErollExListByExKey(token, 1, -1, mStrScanExKey);
                 mExhibitionDataByQrcode = new Gson().fromJson(str,UnEnrollExhibition.class);
                 ArrayList<Exhibition> list = mExhibitionDataByQrcode.getList();
                 if(list != null ){
@@ -122,7 +129,7 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
 
     @Override
     protected void onPause() {
-        mStrExKey = "";
+        mStrScanExKey = "";
         super.onPause();
     }
 
@@ -216,7 +223,7 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
                 }
             }
         }
-        SignExhiListAdapter adapter = new SignExhiListAdapter(context, searchDataes);
+        SignExhiListAdapter adapter = new SignExhiListAdapter(SignupExhiListActivity.this, searchDataes);
         mListView.setAdapter(adapter);
         setItemClickdataes(searchDataes);
     }
@@ -229,11 +236,11 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
     private void setMapData(HashMap<String, String> map, Exhibition exhibition) {
         map.put("exhibitionExkey",exhibition.getExKey());
         map.put("name",exhibition.getName());
-        map.put("date",exhibition.getDate());
+        map.put("date", exhibition.getDate());
         map.put("address",exhibition.getAddress());
         map.put("organizer",exhibition.getOrganizer());
-        map.put("status",exhibition.getStatus() + " ");
-        map.put("count",String.valueOf(exhibition.getCount()));
+        map.put("status", exhibition.getStatus() + " ");
+        map.put("count", String.valueOf(exhibition.getCount()));
     }
 
     private void setItemClickdataes(List<HashMap<String,String>> dataes){
@@ -256,9 +263,6 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
         intent.putExtra("count",Integer.valueOf(mItemClickDataes.get(position - 1).get("count")));
         startActivity(intent);
     }
-
-
-
 
     private void onLoad() {
         mListView.stopRefresh();
@@ -302,12 +306,10 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
     /**
      *当报名完后，判断该展会是否已经存在本地列表，是则将其删除
      */
-    private void deleteRepeat() {
-        String exKey = getIntent().getStringExtra("exKey");
-        for (HashMap<String, String> hashMap : mdataes) {
-            if (hashMap.get("exhibitionExkey").contains(exKey)) {
-                mdataes.remove(hashMap);
-            }
+    private void deleteRepeat(String exKey) {
+        //String exKey = getIntent().getStringExtra("exKey");
+        if(null != exKey && !"".equals(exKey)){
+
         }
     }
 
