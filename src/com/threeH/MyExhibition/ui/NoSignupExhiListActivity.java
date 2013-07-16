@@ -48,7 +48,6 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
     private EditText editText;
     private String name = "";
     private MyAsyncTask myAsyncTask;
-    private LayoutInflater mInflater;
     private Button buttonSearch;
     private long createdAt = -1;
     private static final int SIZE = 5;
@@ -68,7 +67,6 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentViewWithNoTitle(R.layout.unsingup_exhibitionlist);
-        mInflater = LayoutInflater.from(context);
         findView();
         initdata();
         addAction();

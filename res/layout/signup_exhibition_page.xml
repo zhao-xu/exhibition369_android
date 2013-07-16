@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-   android:orientation="vertical"
-   android:layout_width="match_parent"
-   android:layout_height="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+   android:layout_width="fill_parent"
+   android:layout_height="fill_parent"
    android:background="@drawable/homepage_background">
     <include
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             layout="@layout/headpage_titlebar"
-            android:id="@+id/unsingup_list_include"/>
+            android:id="@+id/singup_list_include"/>
    <com.threeH.MyExhibition.widget.XListView
            android:id="@+id/signup_exhi_listview"
            android:layout_width="fill_parent"
@@ -18,9 +17,12 @@
            android:paddingRight="6dp"
            android:paddingTop="6dp"
            android:paddingBottom="6dp"
-           android:cacheColorHint="#00000000"/>
+           android:cacheColorHint="#00000000"
+           android:layout_alignParentLeft="true"
+           android:divider="@null"
+           android:layout_below="@id/singup_list_include"/>
     <include
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             layout="@layout/prompt"/>
-</LinearLayout>
+</RelativeLayout>

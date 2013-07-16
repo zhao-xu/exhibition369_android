@@ -62,12 +62,6 @@ public class HomeOfTabActivity extends TabActivity implements ActivityInterface{
                 .setContent(new Intent(this,SignupExhiListActivity.class)));
         tabhost.addTab(tabhost.newTabSpec(TAB_NO_SIGNUP).setIndicator(TAB_NO_SIGNUP)
                 .setContent(new Intent(this,NoSignupExhiListActivity.class)));
-        /*if(null != strCurrentTab && !"".equals(strCurrentTab)){
-            tabhost.setCurrentTabByTag(TAB_SIGNUP);
-            radioGroup.setBackgroundResource(R.drawable.homepage_titlebar_background_myexhibition);
-        }else{
-            tabhost.setCurrentTabByTag(TAB_NO_SIGNUP);
-        }*/
         tabhost.setCurrentTabByTag(TAB_SIGNUP);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override

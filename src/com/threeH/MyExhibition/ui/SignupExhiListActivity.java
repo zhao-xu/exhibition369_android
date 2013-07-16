@@ -41,9 +41,6 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
     private List<HashMap<String,String>> mItemClickDataes = new ArrayList<HashMap<String,String>>();
     private SignExhiListAdapter mSignExhiListAdapter;
     private EnrollExhibition.EnrollStatus[] enrollStatuses;
-    private LayoutInflater mInflater;
-    private View viewFooter;
-    private LinearLayout linlLoad;
     private ImageView imageviewCancel,imageviewPrompt;
     private EditText editText;
     private LoadDataTask loadDataTask;
@@ -60,7 +57,7 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
                 if(mdataes.size() == 0){
                     imageviewPrompt.setVisibility(View.VISIBLE);
                 }else{
-                    imageviewPrompt.setVisibility(View.GONE);
+                    //imageviewPrompt.setVisibility(View.GONE);
                     name = editText.getText().toString();
                     if(!"".equals(name)){
                         searchExhibition();
@@ -88,7 +85,6 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
         super.onCreate(savedInstanceState);
         setContentViewWithNoTitle(R.layout.signup_exhibition_page);
         findView();
-        //deleteRepeat();
         initdata();
         addAction();
     }
@@ -142,19 +138,14 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
     @Override
     public void findView() {
         mListView = (XListView)findViewById(R.id.signup_exhi_listview);
-        mInflater = LayoutInflater.from(context);
-        viewFooter = mInflater.inflate(R.layout.list_footer_new, null);
-        linlLoad = (LinearLayout) viewFooter.findViewById(R.id.list_footer_new);
         editText = (EditText) this.findViewById(R.id.titlebar_et);
         imageviewCancel = (ImageView) this.findViewById(R.id.titlebar_imageview_cancel);
-        imageviewPrompt = (ImageView) this.findViewById(R.id.prompt_imageview);
+        //imageviewPrompt = (ImageView) this.findViewById(R.id.prompt_imageview);
         buttonSearch = (Button) this.findViewById(R.id.search_btn);
     }
     @Override
     public void addAction() {
-        mListView.setAdapter(mSignExhiListAdapter);
-        mListView.setDividerHeight(0);
-        mListView.setOnItemClickListener(this);
+        //mListView.setDividerHeight(0);
         imageviewCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -162,6 +153,7 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
                 imageviewCancel.setVisibility(View.GONE);
             }
         });
+        mListView.setOnItemClickListener(this);
         mListView.setPullLoadEnable(true);
         mListView.setXListViewListener(this);
         editText.setOnClickListener(new View.OnClickListener() {
@@ -170,17 +162,6 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
                 imageviewCancel.setVisibility(View.VISIBLE);
             }
         });
-        /*editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                boolean  handled = false;
-                if(actionId == EditorInfo.IME_ACTION_SEARCH || actionId == 0){
-                    searchExhibition();
-                    handled = true;
-                }
-                return handled;
-            }
-        });*/
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -206,10 +187,6 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
     }
 
     private void searchExhibition() {
-        //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-        /*InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromInputMethod(editText.getWindowToken(), 0);*/
-
         searchDataes.clear();
         name = editText.getText().toString().trim();
         if (name != null && "".equals(name)) {
@@ -303,15 +280,6 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
         return false;
     }
 
-    /**
-     *当报名完后，判断该展会是否已经存在本地列表，是则将其删除
-     */
-    private void deleteRepeat(String exKey) {
-        //String exKey = getIntent().getStringExtra("exKey");
-        if(null != exKey && !"".equals(exKey)){
-
-        }
-    }
 
     /**
      * 用于加载已报名列表的异步任务栈。

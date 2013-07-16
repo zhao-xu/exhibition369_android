@@ -22,19 +22,6 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@id/unsingup_list_include"/>
 
-    <!--<com.threeH.MyExhibition.widget.XListView
-            android:id="@+id/unsingup_exhibition_listview"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_marginTop="2dp"
-            android:dividerHeight="1dp"
-            android:fadingEdge="none"
-            android:fastScrollEnabled="true"
-            android:persistentDrawingCache="all"
-            android:scrollbarStyle="insideOverlay"
-            android:layout_alignParentLeft="true"
-            android:divider="@null"
-            android:layout_below="@id/unsingup_list_include"/>-->
     <include
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
