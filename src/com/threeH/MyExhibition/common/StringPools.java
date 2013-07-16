@@ -32,4 +32,6 @@ public class StringPools {
     public static final String ALL_EXHIBITION_DATA = "allExhibitionData";
 
     public static final String SIGNUP_EXHIBITION_DATA = "signupExhibitionData";
+
+    public static final String SCAN_EXHIBITION_DATA = "scanExhibitionData";
 }

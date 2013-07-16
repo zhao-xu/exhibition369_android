@@ -92,6 +92,9 @@ public class SignExhiListAdapter extends BaseAdapter {
                     holder.mSignupStatus.setImageResource(R.drawable.no_pass);
                     holder.mSignupStatus.setPadding(0, 60, 0, 0);
                     break;
+                case ' ':
+                    holder.mSignupStatus.setImageResource(R.drawable.signup);
+                    break;
             }
         }
         holder.mExhibitionTheme.setText(data.get(position).get("name"));

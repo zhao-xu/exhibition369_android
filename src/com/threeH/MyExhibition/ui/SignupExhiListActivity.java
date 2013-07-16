@@ -12,13 +12,13 @@ import android.view.View;
 import android.widget.*;
 import com.google.gson.Gson;
 import com.threeH.MyExhibition.R;
-import com.threeH.MyExhibition.adapters.HomePageEnrollListAdapter;
 import com.threeH.MyExhibition.adapters.SignExhiListAdapter;
 import com.threeH.MyExhibition.cache.XmlDB;
 import com.threeH.MyExhibition.common.StringPools;
 import com.threeH.MyExhibition.entities.EnrollExhibition;
 import com.threeH.MyExhibition.entities.Exhibition;
 import com.threeH.MyExhibition.entities.UnEnrollExhibition;
+import com.threeH.MyExhibition.tools.SharedPreferencesUtil;
 import com.threeH.MyExhibition.widget.XListView;
 
 import java.util.ArrayList;
@@ -81,9 +81,12 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
         super.onCreate(savedInstanceState);
         setContentViewWithNoTitle(R.layout.signup_exhibition_page);
         findView();
+        deleteRepeat();
         initdata();
         addAction();
     }
+
+
 
     @Override
     protected void onResume() {
@@ -99,13 +102,8 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
                     }else{
                         HashMap<String,String> map = new HashMap<String, String>();
                         for(Exhibition exhibition : list){
-                            map.put("exhibitionExkey",exhibition.getExKey());
-                            map.put("name",exhibition.getName());
-                            map.put("date",exhibition.getDate());
-                            map.put("address",exhibition.getAddress());
-                            map.put("organizer",exhibition.getOrganizer());
-                            map.put("status",exhibition.getStatus());
-                            map.put("count",String.valueOf(exhibition.getCount()));
+                            setMapData(map, exhibition);
+                            SharedPreferencesUtil.saveObject(exhibition,context,StringPools.SCAN_EXHIBITION_DATA);
                         }
                         ((LinkedList)mdataes).addFirst(map);
                         setItemClickdataes(mdataes);
@@ -223,6 +221,21 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
         setItemClickdataes(searchDataes);
     }
 
+    /**
+     * 将展会对象的属性存入map中
+     * @param map
+     * @param exhibition
+     */
+    private void setMapData(HashMap<String, String> map, Exhibition exhibition) {
+        map.put("exhibitionExkey",exhibition.getExKey());
+        map.put("name",exhibition.getName());
+        map.put("date",exhibition.getDate());
+        map.put("address",exhibition.getAddress());
+        map.put("organizer",exhibition.getOrganizer());
+        map.put("status",exhibition.getStatus() + " ");
+        map.put("count",String.valueOf(exhibition.getCount()));
+    }
+
     private void setItemClickdataes(List<HashMap<String,String>> dataes){
         mItemClickDataes.clear();
         for (HashMap<String, String> hashMap : dataes) {
@@ -283,10 +296,26 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
                 return true;
             }
         }
-
         return false;
     }
 
+    /**
+     *当报名完后，判断该展会是否已经存在本地列表，是则将其删除
+     */
+    private void deleteRepeat() {
+        String exKey = getIntent().getStringExtra("exKey");
+        for (HashMap<String, String> hashMap : mdataes) {
+            if (hashMap.get("exhibitionExkey").contains(exKey)) {
+                mdataes.remove(hashMap);
+            }
+        }
+    }
+
+    /**
+     * 用于加载已报名列表的异步任务栈。
+     * 有网络时从网络上拉数据并做存储，无网络时从本地取数据。
+     * 获得数据后发送消息到消息队列。
+     */
     class LoadDataTask extends AsyncTask<Void,Integer,Integer>{
 
         @Override
@@ -300,6 +329,15 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
                             XmlDB.getInstance(context).saveKey(StringPools.SIGNUP_EXHIBITION_DATA, jsonData);
                         } else {
                             jsonData = XmlDB.getInstance(context).getKeyStringValue(StringPools.SIGNUP_EXHIBITION_DATA, "");
+                        }
+                        List<Object> list  =
+                                SharedPreferencesUtil.getObject(context, StringPools.SCAN_EXHIBITION_DATA);
+                        if(list != null){
+                            for(Object object : list){
+                                HashMap<String,String> map =new HashMap<String,String>();
+                                setMapData(map,((Exhibition)object));
+                                ((LinkedList)mdataes).addFirst(map);
+                            }
                         }
                         enrollStatuses =  mGson.fromJson(jsonData, EnrollExhibition.EnrollStatus[].class);
                         for(EnrollExhibition.EnrollStatus mEnrollStatus : enrollStatuses){
