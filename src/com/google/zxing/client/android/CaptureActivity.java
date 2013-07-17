@@ -317,14 +317,14 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
-    MenuInflater menuInflater = getMenuInflater();
-    menuInflater.inflate(R.menu.capture, menu);
+   /* MenuInflater menuInflater = getMenuInflater();
+    menuInflater.inflate(R.menu.capture, menu);*/
     return super.onCreateOptionsMenu(menu);
   }
 
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
-    Intent intent = new Intent(Intent.ACTION_VIEW);
+    /*Intent intent = new Intent(Intent.ACTION_VIEW);
     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
     switch (item.getItemId()) {
       case R.id.menu_share:
@@ -345,7 +345,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
         break;
       default:
         return super.onOptionsItemSelected(item);
-    }
+    }*/
     return true;
   }
 
