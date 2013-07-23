@@ -85,7 +85,7 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
         TabHost.TabSpec showSpec = tabhost.newTabSpec(SUMMARY_TAB).setIndicator(SUMMARY_TAB)
                 .setContent(new Intent (this, ShowHtmlActivity.class)
                         .putExtra("url","http://180.168.35.37:8080/e369_asset/"+ exKey + "/brief.html")
-                        .putExtra("title", "会展介绍")
+                        .putExtra("title", "展会介绍")
                         .putExtra("exKey", exKey)
                         .putExtra("singupStatus", singupStatus));
         TabHost.TabSpec homeSpec = tabhost.newTabSpec(SCHEDULE_TAB)
