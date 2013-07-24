@@ -14,6 +14,8 @@ import com.google.gson.Gson;
 import com.threeH.MyExhibition.R;
 import com.threeH.MyExhibition.entities.AuditingStatus;
 import com.threeH.MyExhibition.service.ClientController;
+import com.threeH.MyExhibition.tools.MobileConfig;
+import com.threeH.MyExhibition.tools.PixelDpHelper;
 
 /**
  * Created with IntelliJ IDEA.
@@ -155,35 +157,20 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
 
         if(count > 0){
             imageViewNewMessage.setVisibility(View.VISIBLE);
+            setPointPosition(imageViewNewMessage,4);
         }
 
     }
 
-    private char getSignupStatus(String exKey, String token) {
-        try {
-            String strSignupStatusData = clientController.getService().getSignupStatus(exKey, token);
-            AuditingStatus jsonSignupStatusData = new Gson().fromJson(strSignupStatusData,AuditingStatus.class);
-            if(null != jsonSignupStatusData){
-                 return jsonSignupStatusData.getStatus().charAt(0);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return ' ';
-    }
 
-    private void showRemindSignDialog(){
 
-            Dialog dialog = new AlertDialog.Builder(ExhibitionActivity.this)
-                    .setMessage("您还未报名，请先报名").create();
-            dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                @Override
-                public void onDismiss(DialogInterface dialog) {
-                    Intent intent = new Intent(ExhibitionActivity.this, SignupActivity.class);
-                    intent.putExtra("exKey", exKey);
-                    startActivity(intent);
-                }
-            });
-            dialog.show();
+    /** 导航栏显示红点的位置设置. */
+    public void setPointPosition(ImageView imageView, int mIndex) {
+        int mWidth = MobileConfig.getMobileConfig(getApplicationContext()).getWidth();
+        RelativeLayout.LayoutParams mParam = (RelativeLayout.LayoutParams) imageView.getLayoutParams();
+        mParam.setMargins(
+                mWidth / 5 * mIndex - PixelDpHelper.dip2px(getApplicationContext(),25),
+                PixelDpHelper.dip2px(getApplicationContext(), 10), 0, 0);
+        imageView.setLayoutParams(mParam);
     }
 }

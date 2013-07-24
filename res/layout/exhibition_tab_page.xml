@@ -74,9 +74,6 @@
                 android:layout_width="10dp"
                 android:layout_height="10dp"
                 android:background="@drawable/new_message"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="80dp"
-                android:layout_marginTop="10dp"
                 android:visibility="gone"/>
     </RelativeLayout>
 

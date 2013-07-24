@@ -47,7 +47,7 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
     private List<HashMap<String,String>> mItemClickDataes = new ArrayList<HashMap<String,String>>();
     private SignExhiListAdapter mSignExhiListAdapter;
     private EnrollExhibition.EnrollStatus[] enrollStatuses;
-    private ImageView imageviewCancel,imageviewPrompt;
+    private ImageView imageviewCancel;
     private EditText editText;
     private LoadDataTask loadDataTask;
     private String name = "";
@@ -59,9 +59,7 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
             switch (msg.what){
                 case 1:
                 if(mdataes.size() == 0){
-                    imageviewPrompt.setVisibility(View.VISIBLE);
                 }else{
-                    //imageviewPrompt.setVisibility(View.GONE);
                     name = editText.getText().toString();
                     if(!"".equals(name)){
                         searchExhibition();
@@ -96,7 +94,6 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
     @Override
     protected void onResume(){
         imageviewCancel.setVisibility(View.GONE);
-
         super.onResume();
     }
 
@@ -116,7 +113,6 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
         mListView = (XListView)findViewById(R.id.signup_exhi_listview);
         editText = (EditText) this.findViewById(R.id.titlebar_et);
         imageviewCancel = (ImageView) this.findViewById(R.id.titlebar_imageview_cancel);
-        //imageviewPrompt = (ImageView) this.findViewById(R.id.prompt_imageview);
         buttonSearch = (Button) this.findViewById(R.id.search_btn);
     }
     @Override
