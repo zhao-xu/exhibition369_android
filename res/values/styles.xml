@@ -9,52 +9,8 @@
 		<item name="android:drawablePadding">4dp</item>
 		<item name="android:scaleType">center</item>
 		<item name="android:layout_weight">0.6</item>
-
 	</style>
 
-	<style name="brief_btn_style">
-		<item name="android:button">@null</item>
-		<item name="android:gravity">center_horizontal</item>
-		<item name="android:layout_width">fill_parent</item>
-		<item name="android:layout_height">wrap_content</item>
-		<item name="android:drawablePadding">4dp</item>
-		<item name="android:scaleType">center</item>
-		<item name="android:layout_weight">0.6</item>
-		<item name="android:background">@drawable/brief_btn_selector</item>
-	</style>
-
-	<style name="schedule_btn_style">
-		<item name="android:button">@null</item>
-		<item name="android:gravity">center_horizontal</item>
-		<item name="android:layout_width">fill_parent</item>
-		<item name="android:layout_height">wrap_content</item>
-		<item name="android:drawablePadding">4dp</item>
-		<item name="android:scaleType">center</item>
-		<item name="android:layout_weight">0.6</item>
-		<item name="android:background">@drawable/schedule_btn_selector</item>
-	</style>
-
-	<style name="message_btn_style">
-		<item name="android:button">@null</item>
-		<item name="android:gravity">center_horizontal</item>
-		<item name="android:layout_width">fill_parent</item>
-		<item name="android:layout_height">wrap_content</item>
-		<item name="android:drawablePadding">4dp</item>
-		<item name="android:scaleType">center</item>
-		<item name="android:layout_weight">0.6</item>
-		<item name="android:background">@drawable/message_btn_selector</item>
-	</style>
-
-	<style name="qrcode_btn_style">
-		<item name="android:button">@null</item>
-		<item name="android:gravity">center_horizontal</item>
-		<item name="android:layout_width">fill_parent</item>
-		<item name="android:layout_height">wrap_content</item>
-		<item name="android:drawablePadding">4dp</item>
-		<item name="android:scaleType">center</item>
-		<item name="android:layout_weight">0.6</item>
-		<item name="android:background">@drawable/qrcode_btn_selector</item>
-	</style>
 
 	<style name="show_btn_style">
 		<item name="android:button">@null</item>
