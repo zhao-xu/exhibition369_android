@@ -8,6 +8,7 @@ import com.threeH.MyExhibition.entities.Exhibition;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -110,9 +111,10 @@ public class SharedPreferencesUtil {
         if(null == list){
             list = new ArrayList<Object>();
         }else{
-            for(Object object : list){
+            for(Iterator<Object> iterator = list.iterator();iterator.hasNext();){
+                Object object = iterator.next();
                 if(((Exhibition)object).getExKey().equals(exKey)){
-                    list.remove(object);
+                    iterator.remove();
                 }
             }
         }

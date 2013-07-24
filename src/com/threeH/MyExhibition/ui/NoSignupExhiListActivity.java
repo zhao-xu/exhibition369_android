@@ -1,10 +1,6 @@
 package com.threeH.MyExhibition.ui;
 
 import android.app.Activity;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -14,12 +10,9 @@ import android.os.Message;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.*;
-import cn.mobiledaily.module.android.module.mobilepush.service.helper.AndroidMessageClient;
-import cn.mobiledaily.module.android.module.mobilepush.service.helper.OnMessageListener;
 import com.google.gson.Gson;
 import com.threeH.MyExhibition.R;
 import com.threeH.MyExhibition.adapters.HomePageEnrollListAdapter;
@@ -30,7 +23,6 @@ import com.threeH.MyExhibition.tools.Tool;
 import com.threeH.MyExhibition.widget.XListView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -47,18 +39,22 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
     private UnEnrollExhibition allExhibitionData;
     private EditText editText;
     private String name = "";
+    public static String mStrScanExKey = "";
     private MyAsyncTask myAsyncTask;
     private Button buttonSearch;
     private long createdAt = -1;
     private static final int SIZE = 5;
     private ImageView imageviewCancel;
     private PullupLoadAsyncTask mPullupLoadAsyncTask;
-    List<HashMap<String,String>> data = new ArrayList<HashMap<String, String>>();
-    private List<HashMap<String,String>> mItemClickDataes = new ArrayList<HashMap<String,String>>();
+    List<Exhibition> data = new ArrayList<Exhibition>();
+    private List<Exhibition> mItemClickDataes = new ArrayList<Exhibition>();
+    private UnEnrollExhibition mExhibitionDataByQrcode;
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
             if(1 == msg.what){
+                setItemClickdataes(data);
+                adapter = new HomePageEnrollListAdapter(context,data,token);
                 listView.setAdapter(adapter);
             }
         }
@@ -68,14 +64,39 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
         super.onCreate(savedInstanceState);
         setContentViewWithNoTitle(R.layout.unsingup_exhibitionlist);
         findView();
-        //initdata();
         addAction();
     }
     @Override
     protected void onResume() {
         imageviewCancel.setVisibility(View.GONE);
-
+        if(!mStrScanExKey.equals("")){
+            try {
+                String str = mController.getService().UnErollExListByExKey(token, 1, -1, mStrScanExKey);
+                mExhibitionDataByQrcode = new Gson().fromJson(str,UnEnrollExhibition.class);
+                ArrayList<Exhibition> list = mExhibitionDataByQrcode.getList();
+                if(list != null){
+                    data.clear();
+                    makeAllExhibitionListAdapterData(mExhibitionDataByQrcode);
+                    editText.setText(list.get(0).getName());
+                    sendHandlerMessage(1);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        mStrScanExKey = "";
+        super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        myAsyncTask = null;
+        super.onDestroy();
     }
 
     @Override
@@ -177,28 +198,28 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
         }
     }
 
-    private void setItemClickdataes(List<HashMap<String,String>> dataes){
+    private void setItemClickdataes(List<Exhibition> dataes){
         mItemClickDataes.clear();
-        for (HashMap<String, String> hashMap : dataes) {
-            mItemClickDataes.add(hashMap);
+        for (Exhibition exhibition : dataes) {
+            mItemClickDataes.add(exhibition);
         }
         data.clear();
-        for (HashMap<String, String> hashMap : mItemClickDataes) {
-            data.add(hashMap);
+        for (Exhibition exhibition : mItemClickDataes) {
+            data.add(exhibition);
         }
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(this,ExhibitionActivity.class);
-        intent.putExtra("exKey",mItemClickDataes.get(position-1).get("exhibitionExkey"));
-        intent.putExtra("exAddress",mItemClickDataes.get(position - 1).get("exhibitionAddress"));
-        intent.putExtra("exTime",mItemClickDataes.get(position - 1).get("exhibitionDate"));
-        intent.putExtra("exTheme",mItemClickDataes.get(position - 1).get("exhibitionName"));
-        intent.putExtra("exSponser",mItemClickDataes.get(position - 1).get("exhibitionSponser"));
+        intent.putExtra("exKey",mItemClickDataes.get(position-1).getExKey());
+        intent.putExtra("exAddress",mItemClickDataes.get(position - 1).getAddress());
+        intent.putExtra("exTime",mItemClickDataes.get(position - 1).getDate());
+        intent.putExtra("exTheme",mItemClickDataes.get(position - 1).getName());
+        intent.putExtra("exSponser",mItemClickDataes.get(position - 1).getOrganizer());
         intent.putExtra("token",token);
-        intent.putExtra("count",Integer.valueOf(mItemClickDataes.get(position - 1).get("count")));
-        intent.putExtra("singupStatus", (mItemClickDataes.get(position - 1).get("status") + " ").charAt(0));
+        intent.putExtra("count",Integer.valueOf(mItemClickDataes.get(position - 1).getCount()));
+        intent.putExtra("singupStatus", (mItemClickDataes.get(position - 1).getStatus() + " ").charAt(0));
         startActivity(intent);
     }
 
@@ -235,24 +256,11 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
     public  void makeAllExhibitionListAdapterData(UnEnrollExhibition allExhibitionData){
         if(null != allExhibitionData){
             for(Exhibition exhibition : allExhibitionData.getList()){
-                HashMap<String,String> map = new HashMap<String, String>();
-                map.put("exhibitionName",exhibition.getName());
-                map.put("exhibitionDate",exhibition.getDate());
-                map.put("exhibitionAddress",exhibition.getAddress());
-                map.put("exhibitionSponser",exhibition.getOrganizer());
-                map.put("exhibitionApplied",exhibition.getApplied());
-                map.put("exhibitionExkey",exhibition.getExKey());
-                map.put("status",exhibition.getStatus());
-                map.put("count",String.valueOf(exhibition.getCount()));
-                data.add(map);
+                data.add(exhibition);
             }
         }
     }
-    @Override
-    protected void onDestroy() {
-        myAsyncTask = null;
-        super.onDestroy();
-    }
+
 
     private void loadNextPageData(){
         try {
@@ -265,7 +273,15 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
         }
     }
 
-
+    /**
+     * 发送handler消息
+     * @param what 消息标志
+     */
+    private void sendHandlerMessage(int what){
+        Message message = handler.obtainMessage();
+        message.what = what;
+        handler.sendMessage(message);
+    }
 
     class MyAsyncTask extends AsyncTask<Void,Integer,Integer>{
 
@@ -279,11 +295,7 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
                         allExhibitionData = new Gson().fromJson(str,UnEnrollExhibition.class);
                         setCreateAt(allExhibitionData);
                         makeAllExhibitionListAdapterData(allExhibitionData);
-                        setItemClickdataes(data);
-                        adapter = new HomePageEnrollListAdapter(context,data,token);
-                        Message message = handler.obtainMessage();
-                        message.what = 1;
-                        handler.sendMessage(message);
+                        sendHandlerMessage(1);
                     } catch (Exception e) {
 
                     }

@@ -11,35 +11,48 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+import com.google.gson.Gson;
 import com.threeH.MyExhibition.R;
+import com.threeH.MyExhibition.cache.XmlDB;
+import com.threeH.MyExhibition.common.StringPools;
+import com.threeH.MyExhibition.entities.EnrollExhibition;
+import com.threeH.MyExhibition.entities.Exhibition;
 import com.threeH.MyExhibition.service.FileService;
 import com.threeH.MyExhibition.service.ImageService;
 import com.threeH.MyExhibition.tools.ImageURLUtil;
 import com.threeH.MyExhibition.tools.MSYH;
+import com.threeH.MyExhibition.tools.SharedPreferencesUtil;
 import com.threeH.MyExhibition.tools.Tool;
+import com.threeH.MyExhibition.ui.HomeOfTabActivity;
 import com.threeH.MyExhibition.ui.SignupActivity;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 
 public class HomePageEnrollListAdapter extends BaseAdapter {
 
-    private List<HashMap<String, String>> data;
+    private List<Exhibition> data;
     private LayoutInflater mInflater;
     private Context context;
     private String status;
     private String token;
+    private List<HashMap<String,String>> mListMyexhibiton =
+                new ArrayList<HashMap<String, String>>();
     Typeface typeface;
     Typeface typeface_bold;
 
-    public HomePageEnrollListAdapter(Context context, List<HashMap<String, String>> data,String token) {
+    public HomePageEnrollListAdapter(Context context, List<Exhibition> data,String token) {
         this.data = data;
         mInflater = LayoutInflater.from(context);
         this.context = context;
         typeface = MSYH.getInstance(context.getApplicationContext()).getNormal();
         typeface_bold = MSYH.getInstance(context.getApplicationContext()).getBold();
         this.token = token;
+        initMyexhibitonList();
     }
 
     @Override
@@ -85,54 +98,78 @@ public class HomePageEnrollListAdapter extends BaseAdapter {
             holder.mEnrollMessage.setVisibility(View.GONE);
             holder.mEnrollAttention.setOnClickListener(null);
         }
-        String exKey = data.get(position).get("exhibitionExkey");
-        holder.mExhibitionTheme.setText(data.get(position).get("exhibitionName"));
-        holder.mExhibitionDate.setText(data.get(position).get("exhibitionDate"));
-        holder.mExhibitionAddress.setText(data.get(position).get("exhibitionAddress"));
-        holder.mExhibitionSponser.setText(data.get(position).get("exhibitionSponser"));
+        String exKey = data.get(position).getExKey();
+        holder.mExhibitionTheme.setText(data.get(position).getName());
+        holder.mExhibitionDate.setText(data.get(position).getDate());
+        holder.mExhibitionAddress.setText(data.get(position).getAddress());
+        holder.mExhibitionSponser.setText(data.get(position).getOrganizer());
         ImageURLUtil.loadImage(Tool.makeExhibitionIconURL(exKey),
                                holder.mExhibitionIcon);
-        status = data.get(position).get("exhibitionApplied");
-        /*final int i = position;
-        if(null != status && "N".equals(status)){
-            holder.mEnrollAttention.setImageResource(R.drawable.signup);
+        status = data.get(position).getApplied();
+
+        final int i = position;
+        if(!isMyExhibiton(data.get(position).getExKey())){
+            holder.mEnrollAttention.setImageResource(R.drawable.attention);
             holder.mEnrollAttention.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context, SignupActivity.class);
-                    intent.putExtra("exKey", data.get(i).get("exhibitionExkey"));
+                    SharedPreferencesUtil.saveObject(data.get(i),context, StringPools.SCAN_EXHIBITION_DATA);
+                    Intent intent = new Intent(context, HomeOfTabActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent);
                 }
             });
-        }*/
-        holder.mEnrollAttention.setImageResource(R.drawable.attention);
-        /*char  showStatus = ' ';
-        if(null != data.get(position).get("status") && !"".equals(data.get(position).get("status"))){
-            showStatus = data.get(position).get("status").charAt(0);
-            switch (showStatus){
-                case 'P':
-                    holder.mEnrollAttention.setImageResource(R.drawable.examine);
-                    break;
-                case 'A':
-                    holder.mEnrollAttention.setImageResource(R.drawable.pass);
-                    holder.mEnrollAttention.setPadding(0, 5, 0, 0);
-                    SaveQrcodeTask saveQrcodeTask = new SaveQrcodeTask(exKey);
-                    saveQrcodeTask.execute();
-                    break;
-                case 'D':
-                    holder.mEnrollAttention.setImageResource(R.drawable.no_pass);
-                    holder.mEnrollAttention.setPadding(0, 60, 0, 0);
-                    break;
-            }
-
-        }*/
-
-        int count = Integer.valueOf(data.get(position).get("count"));
+        }
+        int count = Integer.valueOf(data.get(position).getCount());
         if(count > 0){
            holder.mEnrollMessage.setVisibility(View.VISIBLE);
         }
         return convertView;
+    }
+
+    /**
+     * 获取本地存储展会数据，总共两部分
+     * 1.关注的展会  2.已报名的展会
+     */
+    private void  initMyexhibitonList(){
+        String jsonData = XmlDB.getInstance(context).
+                          getKeyStringValue(StringPools.SIGNUP_EXHIBITION_DATA, "");
+        EnrollExhibition.EnrollStatus[] myExhibitons =
+                new Gson().fromJson(jsonData, EnrollExhibition.EnrollStatus[].class);
+        List<Object> list  =
+                SharedPreferencesUtil.getObject(context, StringPools.SCAN_EXHIBITION_DATA);
+        if(list != null){
+            for(Object object : list){
+                addToList(((Exhibition)object).getExKey());
+            }
+        }
+        for(EnrollExhibition.EnrollStatus mEnrollStatus : myExhibitons){
+            addToList(mEnrollStatus.getExKey());
+        }
+    }
+
+    /**
+     * 添加到我的展会列表
+     * @param exKey
+     */
+    private void addToList(String exKey){
+        HashMap<String,String> map =new HashMap<String,String>();
+        map.put("exhibitionExkey",exKey);
+        mListMyexhibiton.add(map);
+    }
+
+    /**
+     * 判断该展会是否已经存在在我的展会列表中
+     * @param exkey 展会标识
+     * @return 存在返回true 不存在返回false
+     */
+    private boolean isMyExhibiton(String exkey){
+        for (HashMap<String, String> hashMap : mListMyexhibiton) {
+            if (hashMap.get("exhibitionExkey").contains(exkey)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public class ViewHolder {
@@ -143,34 +180,5 @@ public class HomePageEnrollListAdapter extends BaseAdapter {
         TextView mExhibitionSponser;
         ImageView mEnrollAttention;
         ImageView mEnrollMessage;
-    }
-
-    class SaveQrcodeTask extends AsyncTask<Void,Integer,Integer>{
-        private String exKey;
-
-        SaveQrcodeTask(String exKey) {
-            this.exKey = exKey;
-        }
-
-        @Override
-        protected Integer doInBackground(Void... params) {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    String path = Tool.makeQrcodeURL(exKey,token);
-                    try {
-                        byte[] data = ImageService.getImage(path);
-                        FileService service = new FileService(context);
-                        String filename = exKey + "qrcode.png";
-                        if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)){
-                            service.saveToSDCard(filename, data);
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }).start();
-            return null;
-        }
     }
 }

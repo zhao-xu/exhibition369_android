@@ -81,6 +81,7 @@ public class HomeOfTabActivity extends TabActivity implements ActivityInterface{
             public void onClick(View v) {
                 Intent intent = new Intent(HomeOfTabActivity.this,
                                            com.google.zxing.client.android.CaptureActivity.class);
+                radioGroup.clearCheck();
                 startActivityForResult(intent,1);
             }
         });
@@ -107,7 +108,7 @@ public class HomeOfTabActivity extends TabActivity implements ActivityInterface{
         if(resultCode == RESULT_OK){
             String result = data.getStringExtra("result");
             if(result != null && result.startsWith("MEK://")){
-                SignupExhiListActivity.mStrScanExKey = decodeExhibitionKey(result.substring(6));
+                NoSignupExhiListActivity.mStrScanExKey = decodeExhibitionKey(result.substring(6));
                 setTabExhibition();
             }
         }

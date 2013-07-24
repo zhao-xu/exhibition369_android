@@ -52,9 +52,7 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
     private LoadDataTask loadDataTask;
     private String name = "";
     private Button buttonSearch;
-    public static String mStrScanExKey = "";
     private String mStrExKey;
-    private UnEnrollExhibition mExhibitionDataByQrcode;
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -98,38 +96,12 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
     @Override
     protected void onResume(){
         imageviewCancel.setVisibility(View.GONE);
-        if(!mStrScanExKey.equals("")){
-            try {
-                String str = mController.getService().UnErollExListByExKey(token, 1, -1, mStrScanExKey);
-                mExhibitionDataByQrcode = new Gson().fromJson(str,UnEnrollExhibition.class);
-                ArrayList<Exhibition> list = mExhibitionDataByQrcode.getList();
-                if(list != null){
-                    if(isExist(list.get(0).getExKey())){
-                        editText.setText(name);
-                    }else{
-                        HashMap<String,String> map = new HashMap<String, String>();
-                        for(Exhibition exhibition : list){
-                            setMapData(map, exhibition);
-                            SharedPreferencesUtil.saveObject(exhibition,context,StringPools.SCAN_EXHIBITION_DATA);
-                        }
-                        ((LinkedList)mdataes).addFirst(map);
-                        setItemClickdataes(mdataes);
-                        editText.setText(list.get(0).getName());
-                        Message message = handler.obtainMessage();
-                        message.what = 2;
-                        handler.sendMessage(message);
-                    }
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+
         super.onResume();
     }
 
     @Override
     protected void onPause() {
-        mStrScanExKey = "";
         super.onPause();
     }
 

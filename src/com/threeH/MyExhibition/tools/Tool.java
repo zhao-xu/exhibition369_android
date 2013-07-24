@@ -51,20 +51,11 @@ public class Tool {
         return builder.toString();
     }
 
-    public static List<HashMap<String,String>> makeAllExhibitionListAdapterData(UnEnrollExhibition allExhibitionData){
-        List<HashMap<String,String>> data = new ArrayList<HashMap<String, String>>();
+    public static List<Exhibition> makeAllExhibitionListAdapterData(UnEnrollExhibition allExhibitionData){
+        List<Exhibition> data = new ArrayList<Exhibition>();
         if(null != allExhibitionData){
             for(Exhibition exhibition : allExhibitionData.getList()){
-                HashMap<String,String> map = new HashMap<String, String>();
-                map.put("exhibitionName",exhibition.getName());
-                map.put("exhibitionDate",exhibition.getDate());
-                map.put("exhibitionAddress",exhibition.getAddress());
-                map.put("exhibitionSponser",exhibition.getOrganizer());
-                map.put("exhibitionApplied",exhibition.getApplied());
-                map.put("exhibitionExkey",exhibition.getExKey());
-                map.put("count",String.valueOf(exhibition.getCount()));
-                map.put("status",exhibition.getStatus());
-                data.add(map);
+                data.add(exhibition);
             }
         }
         return data;
