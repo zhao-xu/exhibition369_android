@@ -1,5 +1,9 @@
 package com.threeH.MyExhibition.ui;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -10,6 +14,8 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.*;
+import cn.mobiledaily.module.android.module.mobilepush.service.helper.AndroidMessageClient;
+import cn.mobiledaily.module.android.module.mobilepush.service.helper.OnMessageListener;
 import com.google.gson.Gson;
 import com.threeH.MyExhibition.R;
 import com.threeH.MyExhibition.adapters.SignExhiListAdapter;
@@ -77,7 +83,7 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
      * 设置我的展会列表的数据
      */
     private void setAdapter(){
-        mSignExhiListAdapter = new SignExhiListAdapter(SignupExhiListActivity.this,mdataes);
+        mSignExhiListAdapter = new SignExhiListAdapter(SignupExhiListActivity.this,mdataes,token);
         mListView.setAdapter(mSignExhiListAdapter);
     }
 
@@ -89,17 +95,15 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
         addAction();
     }
 
-
-
     @Override
-    protected void onResume() {
+    protected void onResume(){
         imageviewCancel.setVisibility(View.GONE);
         if(!mStrScanExKey.equals("")){
             try {
                 String str = mController.getService().UnErollExListByExKey(token, 1, -1, mStrScanExKey);
                 mExhibitionDataByQrcode = new Gson().fromJson(str,UnEnrollExhibition.class);
                 ArrayList<Exhibition> list = mExhibitionDataByQrcode.getList();
-                if(list != null ){
+                if(list != null){
                     if(isExist(list.get(0).getExKey())){
                         editText.setText(name);
                     }else{
@@ -145,7 +149,12 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
     }
     @Override
     public void addAction() {
-        //mListView.setDividerHeight(0);
+        try{
+            AndroidMessageClient client = new AndroidMessageClient();
+            client.init(token,new MyMessageListener());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         imageviewCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -280,7 +289,6 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
         return false;
     }
 
-
     /**
      * 用于加载已报名列表的异步任务栈。
      * 有网络时从网络上拉数据并做存储，无网络时从本地取数据。
@@ -333,5 +341,17 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
         }
     }
 
+    class MyMessageListener implements OnMessageListener {
 
+        @Override
+        public void onMessageReceived(String message) {
+            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            Notification notification  = new Notification(R.drawable.appicon,message,System.currentTimeMillis());
+            Intent intent = new Intent(context,HomeOfTabActivity.class);
+            PendingIntent pendingIntent = PendingIntent.getActivity(context,0,intent,0);
+            notification.setLatestEventInfo(context,"展会消息通知",message,pendingIntent);
+            notification.defaults = Notification.DEFAULT_SOUND;
+            notificationManager.notify(202,notification);
+        }
+    }
 }

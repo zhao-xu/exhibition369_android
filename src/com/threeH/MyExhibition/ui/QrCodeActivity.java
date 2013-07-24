@@ -5,7 +5,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -18,8 +17,6 @@ import com.threeH.MyExhibition.tools.ImageURLUtil;
 import com.threeH.MyExhibition.tools.MSYH;
 import com.threeH.MyExhibition.tools.NetworkHelper;
 import com.threeH.MyExhibition.tools.Tool;
-
-import java.io.File;
 
 /**
  * Created with IntelliJ IDEA.
@@ -52,7 +49,7 @@ public class QrCodeActivity extends BaseActivity implements  ActivityInterface{
     public void findView(){
         imageViewQrcode = (ImageView) this.findViewById(R.id.qrcode_imageview);
         imageviewTelephone = (ImageView) this.findViewById(R.id.exhibition_titlebar_button_telephone);
-        imageViewSingup = (ImageView) this.findViewById(R.id.imageview_signup);
+        imageViewSingup = (ImageView) this.findViewById(R.id.imageview_attention);
         imageviewSignup2 = (ImageView) this.findViewById(R.id.exhibition_titlebar_signup);
         textView = (TextView) this.findViewById(R.id.qrcode_textview_prompt);
         textViewTitle = (TextView) this.findViewById(R.id.exhibition_titlebar_textview_title);

@@ -71,8 +71,7 @@ public class HomeOfTabActivity extends TabActivity implements ActivityInterface{
                         setTabSignup();
                         break;
                     case R.id.exhibitionlsit_radiobutton_no_singup:
-                        tabhost.setCurrentTabByTag(TAB_NO_SIGNUP);
-                        radioGroup.setBackgroundResource(R.drawable.homepage_titlebar_background_exhibition);
+                        setTabExhibition();
                         break;
                 }
             }
@@ -95,13 +94,21 @@ public class HomeOfTabActivity extends TabActivity implements ActivityInterface{
         radioGroup.setBackgroundResource(R.drawable.homepage_titlebar_background_myexhibition);
     }
 
+    /**
+     *将tab切换到展会列表，并切换标题栏背景图片
+     */
+    private void setTabExhibition(){
+        tabhost.setCurrentTabByTag(TAB_NO_SIGNUP);
+        radioGroup.setBackgroundResource(R.drawable.homepage_titlebar_background_exhibition);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(resultCode == RESULT_OK){
             String result = data.getStringExtra("result");
             if(result != null && result.startsWith("MEK://")){
                 SignupExhiListActivity.mStrScanExKey = decodeExhibitionKey(result.substring(6));
-                setTabSignup();
+                setTabExhibition();
             }
         }
     }

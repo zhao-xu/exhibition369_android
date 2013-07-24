@@ -68,15 +68,15 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
         super.onCreate(savedInstanceState);
         setContentViewWithNoTitle(R.layout.unsingup_exhibitionlist);
         findView();
-        initdata();
+        //initdata();
         addAction();
     }
     @Override
     protected void onResume() {
         imageviewCancel.setVisibility(View.GONE);
+
         super.onResume();
     }
-
 
     @Override
     public void findView() {
@@ -103,12 +103,6 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
         listView.setOnItemClickListener(this);
         listView.setPullLoadEnable(true);
         listView.setXListViewListener(this);
-        try{
-            AndroidMessageClient client = new AndroidMessageClient();
-            client.init(token,new MyMessageListener());
-        }catch (Exception e){
-            e.printStackTrace();
-        }
 
         imageviewCancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -271,19 +265,7 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
         }
     }
 
-    class MyMessageListener implements OnMessageListener {
 
-        @Override
-        public void onMessageReceived(String message) {
-            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-            Notification notification  = new Notification(R.drawable.appicon,message,System.currentTimeMillis());
-            Intent intent = new Intent(context,HomeOfTabActivity.class);
-            PendingIntent pendingIntent = PendingIntent.getActivity(context,0,intent,0);
-            notification.setLatestEventInfo(context,"展会消息通知",message,pendingIntent);
-            notification.defaults = Notification.DEFAULT_SOUND;
-            notificationManager.notify(202,notification);
-        }
-    }
 
     class MyAsyncTask extends AsyncTask<Void,Integer,Integer>{
 

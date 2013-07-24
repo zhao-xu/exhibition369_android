@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +18,8 @@ import com.threeH.MyExhibition.cache.XmlDB;
 import com.threeH.MyExhibition.common.StringPools;
 import com.threeH.MyExhibition.entities.Exhibition;
 import com.threeH.MyExhibition.entities.UnEnrollExhibition;
+import com.threeH.MyExhibition.service.FileService;
+import com.threeH.MyExhibition.service.ImageService;
 import com.threeH.MyExhibition.tools.ImageURLUtil;
 import com.threeH.MyExhibition.tools.MSYH;
 import com.threeH.MyExhibition.tools.SharedPreferencesUtil;
@@ -28,6 +32,7 @@ public class SignExhiListAdapter extends BaseAdapter {
     private List<HashMap<String, String>> data;
     private LayoutInflater mInflater;
     private Context context;
+    private String mStrToken;
     Typeface typeface;
     Typeface typeface_bold;
     public SignExhiListAdapter(Context context, List<HashMap<String, String>> data) {
@@ -36,6 +41,11 @@ public class SignExhiListAdapter extends BaseAdapter {
         this.context = context;
         typeface = MSYH.getInstance(context.getApplicationContext()).getNormal();
         typeface_bold = MSYH.getInstance(context.getApplicationContext()).getBold();
+    }
+
+    public SignExhiListAdapter(Context context, List<HashMap<String, String>> data,String token) {
+        this(context,data);
+        this.mStrToken = token;
     }
 
     @Override
@@ -118,6 +128,8 @@ public class SignExhiListAdapter extends BaseAdapter {
                 break;
             case 'A':
                 imageView.setImageResource(R.drawable.pass);
+                SaveQrcodeTask saveQrcodeTask = new SaveQrcodeTask(exKey);
+                saveQrcodeTask.execute();
                 imageView.setPadding(0, 5, 0, 0);
                 break;
             case 'D':
@@ -152,5 +164,34 @@ public class SignExhiListAdapter extends BaseAdapter {
         TextView mExhibitionTheme, mExhibitionDate, mExhibitionAddress, mExhibitionSponsor;
         ImageView mExhibitionIcon,mSignupStatus;
         ImageView mEnrollMessage;
+    }
+
+    class SaveQrcodeTask extends AsyncTask<Void,Integer,Integer> {
+        private String exKey;
+
+        SaveQrcodeTask(String exKey) {
+            this.exKey = exKey;
+        }
+
+        @Override
+        protected Integer doInBackground(Void... params) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    String path = Tool.makeQrcodeURL(exKey,mStrToken);
+                    try {
+                        byte[] data = ImageService.getImage(path);
+                        FileService service = new FileService(context);
+                        String filename = exKey + "qrcode.png";
+                        if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)){
+                            service.saveToSDCard(filename, data);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+            return null;
+        }
     }
 }

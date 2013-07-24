@@ -63,7 +63,7 @@ public class HomePageEnrollListAdapter extends BaseAdapter {
         if (convertView == null) {
             holder = new ViewHolder();
             convertView = this.mInflater.inflate(R.layout.head_page_enroll_item, null);
-            holder.mEnrollSignup = (ImageView) convertView.findViewById(R.id.imageview_signup);
+            holder.mEnrollAttention = (ImageView) convertView.findViewById(R.id.imageview_attention);
             holder.mExhibitionTheme = (TextView) convertView.findViewById(R.id.exhibition_theme);
             holder.mExhibitionDate = (TextView) convertView.findViewById(R.id.exhibition_date);
             holder.mExhibitionAddress = (TextView) convertView.findViewById(R.id.exhibition_address);
@@ -79,11 +79,11 @@ public class HomePageEnrollListAdapter extends BaseAdapter {
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
-            holder.mEnrollSignup.setImageBitmap(null);
+            holder.mEnrollAttention.setImageBitmap(null);
             holder.mExhibitionIcon.setImageBitmap(null);
-            holder.mEnrollSignup.setPadding(0,0,0,0);
+            holder.mEnrollAttention.setPadding(0, 0, 0, 0);
             holder.mEnrollMessage.setVisibility(View.GONE);
-            holder.mEnrollSignup.setOnClickListener(null);
+            holder.mEnrollAttention.setOnClickListener(null);
         }
         String exKey = data.get(position).get("exhibitionExkey");
         holder.mExhibitionTheme.setText(data.get(position).get("exhibitionName"));
@@ -93,10 +93,10 @@ public class HomePageEnrollListAdapter extends BaseAdapter {
         ImageURLUtil.loadImage(Tool.makeExhibitionIconURL(exKey),
                                holder.mExhibitionIcon);
         status = data.get(position).get("exhibitionApplied");
-        final int i = position;
+        /*final int i = position;
         if(null != status && "N".equals(status)){
-            holder.mEnrollSignup.setImageResource(R.drawable.signup);
-            holder.mEnrollSignup.setOnClickListener(new View.OnClickListener() {
+            holder.mEnrollAttention.setImageResource(R.drawable.signup);
+            holder.mEnrollAttention.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context, SignupActivity.class);
@@ -105,28 +105,28 @@ public class HomePageEnrollListAdapter extends BaseAdapter {
                     context.startActivity(intent);
                 }
             });
-        }
-        char  showStatus = ' ';
+        }*/
+        holder.mEnrollAttention.setImageResource(R.drawable.attention);
+        /*char  showStatus = ' ';
         if(null != data.get(position).get("status") && !"".equals(data.get(position).get("status"))){
             showStatus = data.get(position).get("status").charAt(0);
             switch (showStatus){
                 case 'P':
-                    holder.mEnrollSignup.setImageResource(R.drawable.examine);
-                    //holder.mEnrollSignup.setPadding(0, 60, 0, 0);
+                    holder.mEnrollAttention.setImageResource(R.drawable.examine);
                     break;
                 case 'A':
-                    holder.mEnrollSignup.setImageResource(R.drawable.pass);
-                    holder.mEnrollSignup.setPadding(0, 5, 0, 0);
+                    holder.mEnrollAttention.setImageResource(R.drawable.pass);
+                    holder.mEnrollAttention.setPadding(0, 5, 0, 0);
                     SaveQrcodeTask saveQrcodeTask = new SaveQrcodeTask(exKey);
                     saveQrcodeTask.execute();
                     break;
                 case 'D':
-                    holder.mEnrollSignup.setImageResource(R.drawable.no_pass);
-                    holder.mEnrollSignup.setPadding(0, 60, 0, 0);
+                    holder.mEnrollAttention.setImageResource(R.drawable.no_pass);
+                    holder.mEnrollAttention.setPadding(0, 60, 0, 0);
                     break;
             }
 
-        }
+        }*/
 
         int count = Integer.valueOf(data.get(position).get("count"));
         if(count > 0){
@@ -141,7 +141,7 @@ public class HomePageEnrollListAdapter extends BaseAdapter {
         TextView mExhibitionDate;
         TextView mExhibitionAddress;
         TextView mExhibitionSponser;
-        ImageView mEnrollSignup;
+        ImageView mEnrollAttention;
         ImageView mEnrollMessage;
     }
 
