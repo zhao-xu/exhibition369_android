@@ -47,11 +47,7 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
     private List<HashMap<String,String>> mItemClickDataes = new ArrayList<HashMap<String,String>>();
     private SignExhiListAdapter mSignExhiListAdapter;
     private EnrollExhibition.EnrollStatus[] enrollStatuses;
-    private ImageView imageviewCancel;
-    private EditText editText;
     private LoadDataTask loadDataTask;
-    private String name = "";
-    private Button buttonSearch;
     private String mStrExKey;
     private Handler handler = new Handler(){
         @Override
@@ -60,12 +56,7 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
                 case 1:
                 if(mdataes.size() == 0){
                 }else{
-                    name = editText.getText().toString();
-                    if(!"".equals(name)){
-                        searchExhibition();
-                    }else{
                         setAdapter();
-                    }
                 }
                     break;
                 case 2:
@@ -91,11 +82,7 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
         addAction();
     }
 
-    @Override
-    protected void onResume(){
-        imageviewCancel.setVisibility(View.GONE);
-        super.onResume();
-    }
+
 
     @Override
     protected void onPause() {
@@ -111,9 +98,6 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
     @Override
     public void findView() {
         mListView = (XListView)findViewById(R.id.signup_exhi_listview);
-        editText = (EditText) this.findViewById(R.id.titlebar_et);
-        imageviewCancel = (ImageView) this.findViewById(R.id.titlebar_imageview_cancel);
-        buttonSearch = (Button) this.findViewById(R.id.search_btn);
     }
     @Override
     public void addAction() {
@@ -123,63 +107,9 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
         }catch (Exception e){
             e.printStackTrace();
         }
-        imageviewCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                editText.setText("");
-                imageviewCancel.setVisibility(View.GONE);
-            }
-        });
         mListView.setOnItemClickListener(this);
         mListView.setPullLoadEnable(true);
         mListView.setXListViewListener(this);
-        editText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                imageviewCancel.setVisibility(View.VISIBLE);
-            }
-        });
-        editText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                imageviewCancel.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-        buttonSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                searchExhibition();
-            }
-        });
-    }
-
-    private void searchExhibition() {
-        searchDataes.clear();
-        name = editText.getText().toString().trim();
-        if (name != null && "".equals(name)) {
-            for (HashMap<String, String> hashMap : mdataes) {
-                searchDataes.add(hashMap);
-            }
-        } else {
-            for (HashMap<String, String> hashMap : mdataes) {
-                if (hashMap.get("name").contains(name)) {
-                    searchDataes.add(hashMap);
-                }
-            }
-        }
-        SignExhiListAdapter adapter = new SignExhiListAdapter(SignupExhiListActivity.this, searchDataes);
-        mListView.setAdapter(adapter);
-        setItemClickdataes(searchDataes);
     }
 
     /**
@@ -247,7 +177,7 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
         }, 2000);
     }
 
-    private boolean isExist(String exkey){
+    /*private boolean isExist(String exkey){
         for (HashMap<String, String> hashMap : mdataes) {
             if (hashMap.get("exhibitionExkey").contains(exkey)) {
                 name = hashMap.get("name");
@@ -255,7 +185,7 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
             }
         }
         return false;
-    }
+    }*/
 
     /**
      * 用于加载已报名列表的异步任务栈。

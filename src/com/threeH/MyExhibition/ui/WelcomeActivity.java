@@ -72,7 +72,7 @@ public class WelcomeActivity extends BaseActivity implements ActivityInterface{
 	}
 
 	private void goToNextPage() {   
-		Intent intent = new Intent(WelcomeActivity.this, HomeOfTabActivity.class);
+		Intent intent = new Intent(WelcomeActivity.this, HomeActivity.class);
 		startActivity(intent);
         mProDialog.dismiss();
 		finish();

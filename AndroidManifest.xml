@@ -14,6 +14,8 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name=".ui.HomeActivity"
+                  android:screenOrientation="portrait"/>
         <activity
                 android:name="com.google.zxing.client.android.CaptureActivity"
                 android:configChanges="orientation|keyboardHidden"
@@ -37,6 +39,8 @@
                   android:screenOrientation="portrait">
         </activity>
         <activity android:name=".ui.BaseActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".ui.RecommondActivity"
                   android:screenOrientation="portrait"/>
         <activity android:name=".ui.NoSignupExhiListActivity"
                   android:screenOrientation="portrait"/>

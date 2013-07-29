@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:id="@android:id/tabhost"
+         android:background="@drawable/homepage_background">
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+        <include
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                layout="@layout/exhibition_titlebar"/>
+
+        <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="match_parent"
+                android:layout_height="0.0dip"
+                android:layout_weight="1.0"/>
+        <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.0"
+                android:visibility="gone"/>
+        <RadioGroup android:id="@+id/home_radiogroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="bottom"
+                    android:background="@drawable/exhibition_tab_background">
+            <RadioButton android:id="@+id/home_rdobtn_myexhibition"
+                         android:checked="true"
+                         style="@style/home_radiobutton_style"
+                         android:background="@drawable/myexhibition_btn"/>
+            <RadioButton android:id="@+id/home_rdobtn_search"
+                         style="@style/home_radiobutton_style"
+                         android:background="@drawable/search_btn"/>
+            <RadioButton android:id="@+id/home_rdobtn_scan"
+                         style="@style/home_radiobutton_style"
+                         android:background="@drawable/scan_btn"/>
+            <RadioButton android:id="@+id/home_rdobtn_recommond"
+                         style="@style/home_radiobutton_style"
+                         android:background="@drawable/recommond_btn"/>
+            <RadioButton android:id="@+id/home_rdobtn_config"
+                         style="@style/home_radiobutton_style"
+                         android:background="@drawable/about_btn"/>
+        </RadioGroup>
+    </LinearLayout>
+</TabHost>

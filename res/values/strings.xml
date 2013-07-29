@@ -13,6 +13,7 @@
     <string name="xlistview_header_last_time"></string>
     <string name="xlistview_footer_hint_normal"></string>
     <string name="xlistview_footer_hint_ready">松开载入更多</string>
+    <string name="myexhibition">我的展会</string>
     <string name="app_picker_name">Applications</string>
     <string name="bookmark_picker_name">Bookmarks</string>
     <string name="button_add_calendar">Add to calendar</string>

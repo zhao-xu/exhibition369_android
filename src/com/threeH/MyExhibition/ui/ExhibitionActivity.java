@@ -162,8 +162,6 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
 
     }
 
-
-
     /** 导航栏显示红点的位置设置. */
     public void setPointPosition(ImageView imageView, int mIndex) {
         int mWidth = MobileConfig.getMobileConfig(getApplicationContext()).getWidth();
