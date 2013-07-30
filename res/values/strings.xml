@@ -14,6 +14,10 @@
     <string name="xlistview_footer_hint_normal"></string>
     <string name="xlistview_footer_hint_ready">松开载入更多</string>
     <string name="myexhibition">我的展会</string>
+    <string name="search">搜一搜</string>
+    <string name="scan">扫一扫</string>
+    <string name="recommond">推荐</string>
+    <string name="about">关于</string>
     <string name="app_picker_name">Applications</string>
     <string name="bookmark_picker_name">Bookmarks</string>
     <string name="button_add_calendar">Add to calendar</string>

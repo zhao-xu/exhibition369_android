@@ -61,6 +61,9 @@
                   android:screenOrientation="portrait"/>
         <activity android:name=".ui.SignupActivity"
                   android:screenOrientation="portrait"/>
+        <activity android:name=".ui.ExhibitionBriefActivity"
+                  android:screenOrientation="portrait"/>
+
     </application>
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"></uses-permission>

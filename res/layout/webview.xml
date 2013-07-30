@@ -9,10 +9,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             layout="@layout/exhibition_titlebar"/>
-    <!--<WebView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:id="@+id/webview"/>-->
+
     <FrameLayout
             android:id="@+id/webContainer"
             android:layout_width="match_parent"

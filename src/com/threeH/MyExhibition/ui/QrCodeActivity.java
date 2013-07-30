@@ -48,11 +48,11 @@ public class QrCodeActivity extends BaseActivity implements  ActivityInterface{
     @Override
     public void findView(){
         imageViewQrcode = (ImageView) this.findViewById(R.id.qrcode_imageview);
-        imageviewTelephone = (ImageView) this.findViewById(R.id.exhibition_titlebar_button_telephone);
+        imageviewTelephone = (ImageView) this.findViewById(R.id.exhibition_titlebar_btn_telephone);
         imageViewSingup = (ImageView) this.findViewById(R.id.imageview_attention);
         imageviewSignup2 = (ImageView) this.findViewById(R.id.exhibition_titlebar_signup);
         textView = (TextView) this.findViewById(R.id.qrcode_textview_prompt);
-        textViewTitle = (TextView) this.findViewById(R.id.exhibition_titlebar_textview_title);
+        textViewTitle = (TextView) this.findViewById(R.id.exhibition_titlebar_txt_title);
         imageViewIcon = (ImageView) this.findViewById(R.id.imageview_icon);
         textViewAddress = (TextView) this.findViewById(R.id.qrcode_textview_exaddress);
         textViewTime = (TextView) this.findViewById(R.id.qrcode_textview_extime);

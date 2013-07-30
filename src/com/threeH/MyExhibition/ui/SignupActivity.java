@@ -1,15 +1,11 @@
 package com.threeH.MyExhibition.ui;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Display;
-import android.view.MotionEvent;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,9 +17,6 @@ import com.threeH.MyExhibition.listener.TelephoneClickListener;
 import com.threeH.MyExhibition.tools.MSYH;
 import com.threeH.MyExhibition.tools.RegexUtils;
 import com.threeH.MyExhibition.tools.SharedPreferencesUtil;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created with IntelliJ IDEA.
@@ -64,8 +57,8 @@ public class SignupActivity extends  BaseActivity implements ActivityInterface{
         buttonSingUp = (Button) this.findViewById(R.id.submit_btn);
         imageViewAttendee = (ImageView) this.findViewById(R.id.signup_imageview_canhui);
         imageviewExhibitor = (ImageView) this.findViewById(R.id.signup_imageview_canzhan);
-        textViewTitle = (TextView) this.findViewById(R.id.exhibition_titlebar_textview_title);
-        imageviewTelephone = (ImageView) this.findViewById(R.id.exhibition_titlebar_button_telephone);
+        textViewTitle = (TextView) this.findViewById(R.id.exhibition_titlebar_txt_title);
+        imageviewTelephone = (ImageView) this.findViewById(R.id.exhibition_titlebar_btn_telephone);
         textViewCanzhan = (TextView) this.findViewById(R.id.signup_textview_canzhan);
         textViewCanhui = (TextView) this.findViewById(R.id.signup_textview_canhui);
         textViewPhoneCheck = (TextView) this.findViewById(R.id.signup_tv_phone);
@@ -76,6 +69,7 @@ public class SignupActivity extends  BaseActivity implements ActivityInterface{
     @Override
     public void initdata() {
         exKey = getIntent().getStringExtra("exKey");
+Log.i("data",exKey);
         typeface = MSYH.getInstance(context.getApplicationContext()).getNormal();
     }
 
@@ -96,10 +90,9 @@ public class SignupActivity extends  BaseActivity implements ActivityInterface{
                            textViewEmailCheck.setVisibility(View.VISIBLE);
                        }else{
                            mController.getService().ExEnroll(exKey,token,name,telephone,email,type);
-                           Intent intent = new Intent(SignupActivity.this, HomeOfTabActivity.class);
+                           Intent intent = new Intent(SignupActivity.this, HomeActivity.class);
                            SharedPreferencesUtil.removeObject(exKey,context, StringPools.SCAN_EXHIBITION_DATA);
                            intent.putExtra("exKey", exKey);
-                           intent.putExtra("currentTab",HomeOfTabActivity.TAB_SIGNUP);
                            startActivity(intent);
                        }
                    }catch (Exception e){
@@ -163,7 +156,6 @@ public class SignupActivity extends  BaseActivity implements ActivityInterface{
 
             }
         });
-
     }
 
     class  TypeClickListener implements View.OnClickListener{

@@ -4,8 +4,8 @@ import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,23 +21,23 @@ import com.threeH.MyExhibition.tools.MSYH;
  * Time: 上午10:40
  * To change this template use File | Settings | File Templates.
  */
-public class ShowHtmlActivity extends BaseActivity implements ActivityInterface  {
+public class ExhibitionBriefActivity extends BaseActivity implements ActivityInterface  {
     private WebView webView;
     private String url;
     private ImageView imageviewTelephone,imageViewSignup;
-    private TextView textViewTitle;
-    private String strTitle;
+    private TextView mTxtTitle,mTxtTheme;
+    private String mStrTitle,mStrTheme;
     private char charSingupStatus;
     private String exKey;
+    private Button mBtnSignup;
     Typeface typeface;
     FrameLayout webContainer;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.webview);
+        setContentViewWithNoTitle(R.layout.exhibition_brief);
 
-        webContainer = (FrameLayout) findViewById(R.id.webContainer);
+        webContainer = (FrameLayout) findViewById(R.id.exhibition_brief_webContainer);
         webView = new WebView(getApplicationContext());
         webContainer.addView(webView);
 
@@ -56,37 +56,42 @@ public class ShowHtmlActivity extends BaseActivity implements ActivityInterface 
     @Override
     public void findView() {
         imageviewTelephone = (ImageView) this.findViewById(R.id.exhibition_titlebar_btn_telephone);
-        textViewTitle = (TextView) this.findViewById(R.id.exhibition_titlebar_txt_title);
+        mTxtTitle = (TextView) this.findViewById(R.id.exhibition_titlebar_txt_title);
         imageViewSignup = (ImageView) this.findViewById(R.id.exhibition_titlebar_signup);
+        mTxtTheme = (TextView) this.findViewById(R.id.exhibition_brief_txt_theme);
+        mBtnSignup = (Button) this.findViewById(R.id.exhibition_brief_btn_signup);
     }
 
     @Override
     public void initdata() {
         url = getIntent().getStringExtra("url");
-        strTitle = getIntent().getStringExtra("title");
+        mStrTitle = getIntent().getStringExtra("title");
         typeface = MSYH.getInstance(context.getApplicationContext()).getNormal();
         charSingupStatus = getIntent().getCharExtra("singupStatus", ' ');
         exKey = getIntent().getStringExtra("exKey");
+        mStrTheme = getIntent().getStringExtra("theme");
     }
 
     @Override
     public void addAction() {
         imageviewTelephone.setOnClickListener(new TelephoneClickListener(this,tel_nummber));
-        textViewTitle.setTypeface(typeface);
-        textViewTitle.setText(strTitle);
+        mTxtTitle.setTypeface(typeface);
+        mTxtTitle.setText(mStrTitle);
+        imageViewSignup.setVisibility(View.GONE);
         switch (charSingupStatus){
+            case ' ':
             case 'D':
             case 'N':
+                mBtnSignup.setOnClickListener(new SignupClickListener(this,exKey));
                 break;
             case 'P':
             case 'A':
-                imageViewSignup.setVisibility(View.GONE);
+                mBtnSignup.setVisibility(View.GONE);
                 break;
         }
-        imageViewSignup.setOnClickListener(new SignupClickListener(this,exKey));
+        mTxtTheme.setText(mStrTheme);
         LoadHtmlTask loadHtmlTask = new LoadHtmlTask();
         loadHtmlTask.execute();
-
     }
     class LoadHtmlTask extends AsyncTask<Void,Integer,Integer>{
         @Override

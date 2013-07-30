@@ -16,7 +16,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public class Tool {
-    private static final String ASSET_SERVER = "http://180.168.35.37:8080/e369_asset/";
+    public static final String ASSET_SERVER = "http://180.168.35.37:8080/e369_asset/";
     public static String makeNewsURL(String exKey,String newsKey){
         StringBuilder builder = new StringBuilder(ASSET_SERVER);
         builder.append(exKey);

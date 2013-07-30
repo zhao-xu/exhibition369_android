@@ -12,10 +12,14 @@ import android.view.Window;
 import android.widget.*;
 import com.google.gson.Gson;
 import com.threeH.MyExhibition.R;
+import com.threeH.MyExhibition.cache.XmlDB;
+import com.threeH.MyExhibition.common.StringPools;
 import com.threeH.MyExhibition.entities.AuditingStatus;
+import com.threeH.MyExhibition.entities.OverAllConfig;
 import com.threeH.MyExhibition.service.ClientController;
 import com.threeH.MyExhibition.tools.MobileConfig;
 import com.threeH.MyExhibition.tools.PixelDpHelper;
+import com.threeH.MyExhibition.tools.Tool;
 
 /**
  * Created with IntelliJ IDEA.
@@ -85,15 +89,16 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
                         .putExtra("exKey", exKey)
                         .putExtra("singupStatus", singupStatus));
         TabHost.TabSpec showSpec = tabhost.newTabSpec(SUMMARY_TAB).setIndicator(SUMMARY_TAB)
-                .setContent(new Intent (this, ShowHtmlActivity.class)
-                        .putExtra("url","http://180.168.35.37:8080/e369_asset/"+ exKey + "/brief.html")
+                .setContent(new Intent (this, ExhibitionBriefActivity.class)
+                        .putExtra("url", Tool.ASSET_SERVER + exKey + "/brief.html")
                         .putExtra("title", "展会介绍")
                         .putExtra("exKey", exKey)
-                        .putExtra("singupStatus", singupStatus));
+                        .putExtra("singupStatus", singupStatus)
+                        .putExtra("theme",strTheme));
         TabHost.TabSpec homeSpec = tabhost.newTabSpec(SCHEDULE_TAB)
                 .setIndicator(SCHEDULE_TAB)
                 .setContent(new Intent(this, ShowHtmlActivity.class)
-                        .putExtra("url","http://180.168.35.37:8080/e369_asset/"+ exKey + "/schedule.html")
+                        .putExtra("url",Tool.ASSET_SERVER + exKey + "/schedule.html")
                         .putExtra("title", "日程")
                         .putExtra("exKey", exKey)
                         .putExtra("singupStatus", singupStatus));
@@ -159,7 +164,6 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
             imageViewNewMessage.setVisibility(View.VISIBLE);
             setPointPosition(imageViewNewMessage,4);
         }
-
     }
 
     /** 导航栏显示红点的位置设置. */
@@ -170,5 +174,19 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
                 mWidth / 5 * mIndex - PixelDpHelper.dip2px(getApplicationContext(),25),
                 PixelDpHelper.dip2px(getApplicationContext(), 10), 0, 0);
         imageView.setLayoutParams(mParam);
+    }
+
+    /**
+     * 获取后台资源服务器的URL地址
+     * @return
+     */
+    private String getAssetServer(){
+        Gson gson = new Gson();
+        OverAllConfig mOverAllConfig = gson.fromJson(XmlDB.getInstance(this).
+                getKeyStringValue(StringPools.OVERALL_CONFIG, ""),OverAllConfig.class);
+        if(null != mOverAllConfig){
+            return mOverAllConfig.getAssetServer();
+        }
+        return null;
     }
 }

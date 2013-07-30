@@ -24,6 +24,7 @@ import com.threeH.MyExhibition.tools.ImageURLUtil;
 import com.threeH.MyExhibition.tools.MSYH;
 import com.threeH.MyExhibition.tools.SharedPreferencesUtil;
 import com.threeH.MyExhibition.tools.Tool;
+import com.threeH.MyExhibition.ui.HomeActivity;
 import com.threeH.MyExhibition.ui.HomeOfTabActivity;
 import com.threeH.MyExhibition.ui.SignupActivity;
 
@@ -114,7 +115,7 @@ public class HomePageEnrollListAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View v) {
                     SharedPreferencesUtil.saveObject(data.get(i),context, StringPools.SCAN_EXHIBITION_DATA);
-                    Intent intent = new Intent(context, HomeOfTabActivity.class);
+                    Intent intent = new Intent(context, HomeActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent);
                 }

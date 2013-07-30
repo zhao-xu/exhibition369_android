@@ -65,8 +65,8 @@ public class MessageActivity extends BaseActivity implements
     @Override
     public void findView() {
         mMessageListView = (XListView)findViewById(R.id.message_list_view);
-        imageviewTelephone = (ImageView) this.findViewById(R.id.exhibition_titlebar_button_telephone);
-        textViewTitle = (TextView) this.findViewById(R.id.exhibition_titlebar_textview_title);
+        imageviewTelephone = (ImageView) this.findViewById(R.id.exhibition_titlebar_btn_telephone);
+        textViewTitle = (TextView) this.findViewById(R.id.exhibition_titlebar_txt_title);
         imageViewSignup = (ImageView) this.findViewById(R.id.exhibition_titlebar_signup);
     }
     @Override

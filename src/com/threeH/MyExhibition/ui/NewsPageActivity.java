@@ -1,27 +1,19 @@
 package com.threeH.MyExhibition.ui;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.*;
 import com.google.gson.Gson;
 import com.threeH.MyExhibition.R;
-import com.threeH.MyExhibition.adapters.HomePageEnrollListAdapter;
 import com.threeH.MyExhibition.adapters.NewslistAdapter;
-import com.threeH.MyExhibition.entities.Exhibition;
 import com.threeH.MyExhibition.entities.ExhibitionNews;
-import com.threeH.MyExhibition.entities.UnEnrollExhibition;
 import com.threeH.MyExhibition.listener.SignupClickListener;
 import com.threeH.MyExhibition.listener.TelephoneClickListener;
-import com.threeH.MyExhibition.service.ClientController;
 import com.threeH.MyExhibition.tools.MSYH;
 import com.threeH.MyExhibition.tools.Tool;
 import com.threeH.MyExhibition.widget.XListView;
@@ -29,7 +21,6 @@ import com.threeH.MyExhibition.widget.XListView;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -82,8 +73,8 @@ public class NewsPageActivity extends BaseActivity  implements
     @Override
     public void findView() {
         listView = (XListView) this.findViewById(R.id.newslist_listview);
-        imageviewTelephone = (ImageView) this.findViewById(R.id.exhibition_titlebar_button_telephone);
-        textViewTitle = (TextView) this.findViewById(R.id.exhibition_titlebar_textview_title);
+        imageviewTelephone = (ImageView) this.findViewById(R.id.exhibition_titlebar_btn_telephone);
+        textViewTitle = (TextView) this.findViewById(R.id.exhibition_titlebar_txt_title);
         imageViewSignup = (ImageView) this.findViewById(R.id.exhibition_titlebar_signup);
         imageviewPrompt = (ImageView) this.findViewById(R.id.prompt_imageview);
     }

@@ -5,12 +5,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
-import android.widget.ImageView;
-import android.widget.RadioGroup;
-import android.widget.TabHost;
-import android.widget.TextView;
+import android.widget.*;
+import com.google.gson.Gson;
 import com.google.zxing.client.android.CaptureActivity;
 import com.threeH.MyExhibition.R;
+import com.threeH.MyExhibition.cache.XmlDB;
+import com.threeH.MyExhibition.common.StringPools;
+import com.threeH.MyExhibition.entities.OverAllConfig;
+import com.threeH.MyExhibition.listener.TelephoneClickListener;
 
 /**
  * Created with IntelliJ IDEA.
@@ -27,8 +29,9 @@ public class HomeActivity extends TabActivity implements ActivityInterface {
     private static final String SCAN_TAB = "scan";
     private static final String RECOMMOND_TAB = "recommond";
     private static final String CONFIG_TAB = "config";
-    private ImageView  mImgviewSignup;
+    private ImageView  mImgviewSignup,mImgviewTelephone;
     private TextView mTxvTitle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,9 +45,9 @@ public class HomeActivity extends TabActivity implements ActivityInterface {
     @Override
     public void findView() {
         mImgviewSignup = (ImageView) this.findViewById(R.id.exhibition_titlebar_signup);
-        mTxvTitle = (TextView) this.findViewById(R.id.exhibition_titlebar_textview_title);
+        mTxvTitle = (TextView) this.findViewById(R.id.exhibition_titlebar_txt_title);
         mRadiogroup = (RadioGroup) this.findViewById(R.id.home_radiogroup);
-
+        mImgviewTelephone = (ImageView) this.findViewById(R.id.exhibition_titlebar_btn_telephone);
     }
 
     @Override
@@ -52,36 +55,50 @@ public class HomeActivity extends TabActivity implements ActivityInterface {
         initTabhost();
     }
 
-
     @Override
     public void addAction() {
         mImgviewSignup.setVisibility(View.GONE);
+        mImgviewTelephone.setOnClickListener(new TelephoneClickListener(this,getTelephone()));
         mTxvTitle.setText(R.string.myexhibition);
         mTabhost.setCurrentTabByTag(MYEXHIBITION_TAB);
         mRadiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId){
+                switch (checkedId) {
                     case R.id.home_rdobtn_myexhibition:
-                        mTabhost.setCurrentTabByTag(MYEXHIBITION_TAB);
+                        changeTab(MYEXHIBITION_TAB, R.string.myexhibition);
                         break;
                     case R.id.home_rdobtn_search:
-                        mTabhost.setCurrentTabByTag(SEARCH_TAB);
+                        changeTab(SEARCH_TAB, R.string.search);
                         break;
                     case R.id.home_rdobtn_scan:
-                        mTabhost.setCurrentTabByTag(SCAN_TAB);
-                        Intent intent = new Intent(HomeActivity.this,CaptureActivity.class);
+                        //mTabhost.setCurrentTabByTag(SCAN_TAB);
+                        Intent intent = new Intent(HomeActivity.this, CaptureActivity.class);
                         startActivity(intent);
                         break;
                     case R.id.home_rdobtn_recommond:
-                        mTabhost.setCurrentTabByTag(RECOMMOND_TAB);
+                        changeTab(RECOMMOND_TAB, R.string.recommond);
                         break;
                     case R.id.home_rdobtn_config:
-                        mTabhost.setCurrentTabByTag(CONFIG_TAB);
+                        changeTab(CONFIG_TAB, R.string.about);
                         break;
                 }
             }
         });
+    }
+
+    /**
+     * 获取保存在全局配置中的电话号码
+     * @return
+     */
+    private String getTelephone(){
+        Gson gson = new Gson();
+        OverAllConfig mOverAllConfig = gson.fromJson(XmlDB.getInstance(this).
+                getKeyStringValue(StringPools.OVERALL_CONFIG, ""),OverAllConfig.class);
+        if(null != mOverAllConfig){
+             return mOverAllConfig.getTel();
+        }
+        return null;
     }
 
     /**
@@ -99,5 +116,15 @@ public class HomeActivity extends TabActivity implements ActivityInterface {
                 .setContent(new Intent(this, RecommondActivity.class)));
         mTabhost.addTab(mTabhost.newTabSpec(CONFIG_TAB).setIndicator(CONFIG_TAB)
                 .setContent(new Intent(this, RecommondActivity.class)));
+    }
+
+    /**
+     * tab切换时需要做的动作
+     * 设置当前的tab
+     * 设置标题
+     */
+    private void changeTab(String tab, int title){
+        mTabhost.setCurrentTabByTag(tab);
+        mTxvTitle.setText(title);
     }
 }
