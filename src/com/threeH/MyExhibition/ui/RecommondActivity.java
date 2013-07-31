@@ -9,9 +9,9 @@ import android.view.View;
 import android.widget.*;
 import com.google.gson.Gson;
 import com.threeH.MyExhibition.R;
-import com.threeH.MyExhibition.adapters.HomePageEnrollListAdapter;
+import com.threeH.MyExhibition.adapters.ExhibitionListAdapter;
 import com.threeH.MyExhibition.entities.Exhibition;
-import com.threeH.MyExhibition.entities.UnEnrollExhibition;
+import com.threeH.MyExhibition.entities.ExhibitionList;
 import com.threeH.MyExhibition.widget.XListView;
 
 import java.util.ArrayList;
@@ -27,9 +27,9 @@ import java.util.List;
 public class RecommondActivity extends BaseActivity implements ActivityInterface,
         AdapterView.OnItemClickListener,XListView.IXListViewListener {
     private XListView mLvi;
-    private HomePageEnrollListAdapter mAdapter;
-    private UnEnrollExhibition mJsonData;
-    private GetDataAsyncTask getDataAsyncTask;
+    private ExhibitionListAdapter mAdapter;
+    private ExhibitionList mJsonData;
+    private LoadAsyncTask mLoadAsyncTask;
     private long mOrderNo = -1;
     private static final int SIZE = 5;
     private List<Exhibition> mData = new ArrayList<Exhibition>();
@@ -37,7 +37,7 @@ public class RecommondActivity extends BaseActivity implements ActivityInterface
         @Override
         public void handleMessage(Message msg) {
             if(1 == msg.what){
-                mAdapter = new HomePageEnrollListAdapter(context,mData,token);
+                mAdapter = new ExhibitionListAdapter(context,mData,token);
                 mLvi.setAdapter(mAdapter);
             }
         }
@@ -54,7 +54,7 @@ public class RecommondActivity extends BaseActivity implements ActivityInterface
 
     @Override
     protected void onDestroy() {
-        getDataAsyncTask = null;
+        mLoadAsyncTask = null;
         super.onDestroy();
     }
 
@@ -64,8 +64,8 @@ public class RecommondActivity extends BaseActivity implements ActivityInterface
     }
     @Override
     public void initdata() {
-        getDataAsyncTask = new GetDataAsyncTask();
-        getDataAsyncTask.execute();
+        mLoadAsyncTask = new LoadAsyncTask();
+        mLoadAsyncTask.execute();
     }
 
     @Override
@@ -79,7 +79,7 @@ public class RecommondActivity extends BaseActivity implements ActivityInterface
      * 读取最后一条展会在后台的排序顺序
      * @param jsonData
      */
-    private void setOrderNo(UnEnrollExhibition jsonData) {
+    private void setOrderNo(ExhibitionList jsonData) {
         int last = jsonData.getList().size() - 1;
         if(last >= 0){
             mOrderNo = jsonData.getList().get(last).getOrderNo();
@@ -88,14 +88,8 @@ public class RecommondActivity extends BaseActivity implements ActivityInterface
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(this,ExhibitionActivity.class);
-        intent.putExtra("exKey",mData.get(position-1).getExKey());
-        intent.putExtra("exAddress",mData.get(position - 1).getAddress());
-        intent.putExtra("exTime",mData.get(position - 1).getDate());
-        intent.putExtra("exTheme",mData.get(position - 1).getName());
-        intent.putExtra("exSponser",mData.get(position - 1).getOrganizer());
         intent.putExtra("token",token);
-        intent.putExtra("count",Integer.valueOf(mData.get(position - 1).getCount()));
-        intent.putExtra("singupStatus", (mData.get(position - 1).getStatus() + " ").charAt(0));
+        intent.putExtra("exhibition",mData.get(position-1));
         startActivity(intent);
     }
 
@@ -123,7 +117,7 @@ public class RecommondActivity extends BaseActivity implements ActivityInterface
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                loadNextPageData();
+                makeListAdapterData();
                 mAdapter.notifyDataSetChanged();
                 onLoad();
             }
@@ -136,18 +130,13 @@ public class RecommondActivity extends BaseActivity implements ActivityInterface
         } catch (Exception e) {
             e.printStackTrace();
         }
-        mJsonData = new Gson().fromJson(str,UnEnrollExhibition.class);
+        mJsonData = new Gson().fromJson(str,ExhibitionList.class);
         setOrderNo(mJsonData);
         if(null != mJsonData){
             for(Exhibition exhibition :mJsonData.getList()){
                 mData.add(exhibition);
             }
         }
-    }
-
-
-    private void loadNextPageData(){
-        makeListAdapterData();
     }
 
     /**
@@ -160,7 +149,7 @@ public class RecommondActivity extends BaseActivity implements ActivityInterface
         handler.sendMessage(message);
     }
 
-    class GetDataAsyncTask extends AsyncTask<Void,Integer,Integer> {
+    class LoadAsyncTask extends AsyncTask<Void,Integer,Integer> {
         @Override
         protected Integer doInBackground(Void... voids) {
             new Thread(new Runnable() {

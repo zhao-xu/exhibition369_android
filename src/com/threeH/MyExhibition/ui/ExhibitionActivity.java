@@ -1,22 +1,13 @@
 package com.threeH.MyExhibition.ui;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.TabActivity;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.*;
-import com.google.gson.Gson;
 import com.threeH.MyExhibition.R;
-import com.threeH.MyExhibition.cache.XmlDB;
-import com.threeH.MyExhibition.common.StringPools;
-import com.threeH.MyExhibition.entities.AuditingStatus;
-import com.threeH.MyExhibition.entities.OverAllConfig;
-import com.threeH.MyExhibition.service.ClientController;
+import com.threeH.MyExhibition.entities.Exhibition;
 import com.threeH.MyExhibition.tools.MobileConfig;
 import com.threeH.MyExhibition.tools.PixelDpHelper;
 import com.threeH.MyExhibition.tools.Tool;
@@ -29,18 +20,15 @@ import com.threeH.MyExhibition.tools.Tool;
  * To change this template use File | Settings | File Templates.
  */
 public class ExhibitionActivity extends TabActivity implements ActivityInterface{
-    private static final String NEWS_TAB = "news";
-    private static final String SCHEDULE_TAB = "schedule";
-    private static final String SUMMARY_TAB = "summary";
-    private static final String MESSAGE_TAB = "message";
-    private static final String TWODCODE_TAB = "2dcode";
-    private TabHost tabhost;
-    private String exKey;
-    private RadioGroup radiogroup;
-    private char singupStatus;
-    private String strExAddress,strExDate,strTheme,strSponser,strSing;
-    private int count;
-    private ImageView imageViewNewMessage;
+    private static final String NEWS = "news";
+    private static final String SCHEDULE = "schedule";
+    private static final String BRIEF = "brief";
+    private static final String MESSAGE = "message";
+    private static final String QRCODE = "qrcode";
+    private TabHost mTabhost;
+    private RadioGroup mRadiogroup;
+    private ImageView mImgviewNewMessage;
+    private Exhibition mExhibiton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -51,83 +39,40 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
         findView();
         addAction();
     }
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-    }
 
     @Override
     public void findView() {
-        radiogroup = (RadioGroup) this.findViewById(R.id.rg_tabs_btns);
-        imageViewNewMessage = (ImageView) this.findViewById(R.id.imageview_newmessage);
+        mRadiogroup = (RadioGroup) this.findViewById(R.id.rg_tabs_btns);
+        mImgviewNewMessage = (ImageView) this.findViewById(R.id.imageview_newmessage);
     }
 
     @Override
     public void initdata() {
-        tabhost  = this.getTabHost();
-        exKey = getIntent().getStringExtra("exKey");
-        strExAddress = getIntent().getStringExtra("exAddress");
-        strExDate = getIntent().getStringExtra("exTime");
-        strTheme  = getIntent().getStringExtra("exTheme");
-        strSponser  = getIntent().getStringExtra("exSponser");
-        singupStatus = getIntent().getCharExtra("singupStatus",' ');
-        count = getIntent().getIntExtra("count",0);
-        TabHost.TabSpec newSpec = tabhost.newTabSpec(NEWS_TAB).setIndicator(NEWS_TAB)
-                .setContent(new Intent(this, NewsPageActivity.class)
-                        .putExtra("exKey", exKey)
-                        .putExtra("singupStatus", singupStatus));
-        TabHost.TabSpec showSpec = tabhost.newTabSpec(SUMMARY_TAB).setIndicator(SUMMARY_TAB)
-                .setContent(new Intent (this, ExhibitionBriefActivity.class)
-                        .putExtra("url", Tool.ASSET_SERVER + exKey + "/brief.html")
-                        .putExtra("title", "展会介绍")
-                        .putExtra("exKey", exKey)
-                        .putExtra("singupStatus", singupStatus)
-                        .putExtra("theme",strTheme));
-        TabHost.TabSpec homeSpec = tabhost.newTabSpec(SCHEDULE_TAB)
-                .setIndicator(SCHEDULE_TAB)
-                .setContent(new Intent(this, ShowHtmlActivity.class)
-                        .putExtra("url",Tool.ASSET_SERVER + exKey + "/schedule.html")
-                        .putExtra("title", "日程")
-                        .putExtra("exKey", exKey)
-                        .putExtra("singupStatus", singupStatus));
-        TabHost.TabSpec memberSpec = tabhost.newTabSpec(MESSAGE_TAB)
-                .setIndicator(MESSAGE_TAB)
-                .setContent(new Intent(this, MessageActivity.class)
-                        .putExtra("exhibitionKey",exKey)
-                        .putExtra("singupStatus", singupStatus));
-        TabHost.TabSpec moreSpec = tabhost.newTabSpec(TWODCODE_TAB).setIndicator(TWODCODE_TAB)
-                .setContent(new Intent(this, QrCodeActivity.class)
-                        .putExtra("exhibitionKey",exKey)
-                        .putExtra("singupStatus", singupStatus)
-                        .putExtra("exAddress",strExAddress)
-                        .putExtra("exTime",strExDate)
-                        .putExtra("exTheme",strTheme)
-                        .putExtra("exSponser",strSponser));
-        tabhost.addTab(showSpec);
-        tabhost.addTab(newSpec);
-        tabhost.addTab(homeSpec);
-        tabhost.addTab(memberSpec);
-        tabhost.addTab(moreSpec);
+        mTabhost = this.getTabHost();
+        mExhibiton = (Exhibition) getIntent().getExtras().get("exhibition");
+        initTabhost();
     }
 
     @Override
     public void addAction() {
-        radiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            public void onCheckedChanged(RadioGroup group, int checkedId){
+        mTabhost.setCurrentTabByTag(BRIEF);
+        mRadiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
                     case R.id.rb_news:
-                        tabhost.setCurrentTabByTag(NEWS_TAB);
+                        mTabhost.setCurrentTabByTag(NEWS);
                         break;
                     case R.id.rb_show:
-                        tabhost.setCurrentTabByTag(SUMMARY_TAB);
+                        mTabhost.setCurrentTabByTag(BRIEF);
                         break;
                     case R.id.rb_store:
-                        tabhost.setCurrentTabByTag(SCHEDULE_TAB);
+                        mTabhost.setCurrentTabByTag(SCHEDULE);
                         break;
                     case R.id.rb_member:
-                        tabhost.setCurrentTabByTag(MESSAGE_TAB);
+                        mTabhost.setCurrentTabByTag(MESSAGE);
                         break;
                     case R.id.rb_more:
-                        tabhost.setCurrentTabByTag(TWODCODE_TAB);
+                        mTabhost.setCurrentTabByTag(QRCODE);
                         break;
                     default:
                         break;
@@ -135,10 +80,33 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
             }
         });
 
-        if(count > 0){
-            imageViewNewMessage.setVisibility(View.VISIBLE);
-            setPointPosition(imageViewNewMessage,4);
+        if(mExhibiton.getCount() > 0){
+            mImgviewNewMessage.setVisibility(View.VISIBLE);
+            setPointPosition(mImgviewNewMessage,4);
         }
+    }
+
+    /**
+     * 初始化tabhost中的tab
+     */
+    private void initTabhost(){
+        mTabhost.addTab(mTabhost.newTabSpec(BRIEF).setIndicator(BRIEF)
+                .setContent(new Intent (this, ExhibitionBriefActivity.class)
+                        .putExtra("url", Tool.ASSET_SERVER + mExhibiton.getExKey() + "/brief.html")
+                        .putExtra("exhibition", mExhibiton)));
+        mTabhost.addTab(mTabhost.newTabSpec(SCHEDULE).setIndicator(SCHEDULE)
+                .setContent(new Intent(this, ShowHtmlActivity.class)
+                        .putExtra("url",Tool.ASSET_SERVER + mExhibiton.getExKey() + "/schedule.html")
+                        .putExtra("exhibition", mExhibiton)));
+        mTabhost.addTab(mTabhost.newTabSpec(NEWS).setIndicator(NEWS)
+                .setContent(new Intent(this, NewsPageActivity.class)
+                        .putExtra("exhibition",mExhibiton)));
+        mTabhost.addTab(mTabhost.newTabSpec(MESSAGE).setIndicator(MESSAGE)
+                .setContent(new Intent(this, MessageActivity.class)
+                        .putExtra("exhibition",mExhibiton)));
+        mTabhost.addTab(mTabhost.newTabSpec(QRCODE).setIndicator(QRCODE)
+                .setContent(new Intent(this, QrCodeActivity.class)
+                        .putExtra("exhibition",mExhibiton)));
     }
 
     /** 导航栏显示红点的位置设置. */
@@ -151,17 +119,5 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
         imageView.setLayoutParams(mParam);
     }
 
-    /**
-     * 获取后台资源服务器的URL地址
-     * @return
-     */
-    private String getAssetServer(){
-        Gson gson = new Gson();
-        OverAllConfig mOverAllConfig = gson.fromJson(XmlDB.getInstance(this).
-                getKeyStringValue(StringPools.OVERALL_CONFIG, ""),OverAllConfig.class);
-        if(null != mOverAllConfig){
-            return mOverAllConfig.getAssetServer();
-        }
-        return null;
-    }
+
 }

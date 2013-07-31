@@ -6,7 +6,7 @@ import java.util.ArrayList;
 /**
  * 新闻列表
  */
-public class ExhibitionNews implements Serializable {
+public class NewList implements Serializable {
     /**
      * 展会标识
      */

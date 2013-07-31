@@ -6,7 +6,7 @@ import java.util.ArrayList;
 /**
  * 未报名展会列表
  */
-public class UnEnrollExhibition implements Serializable {
+public class ExhibitionList implements Serializable {
     /**
      * 返回搜索的关键字匹配
      */

@@ -10,9 +10,9 @@ import java.util.ArrayList;
  * Time: 下午3:01
  * To change this template use File | Settings | File Templates.
  */
-public class ExhibitionMessage implements Serializable {
+public class MessageList implements Serializable {
     private String exKey;
-    private ArrayList<ExMessage> list = new ArrayList<ExMessage>();
+    private ArrayList<Message> list = new ArrayList<Message>();
 
     public String getExKey() {
         return exKey;
@@ -22,15 +22,15 @@ public class ExhibitionMessage implements Serializable {
         this.exKey = exKey;
     }
 
-    public ArrayList<ExMessage> getList() {
+    public ArrayList<Message> getList() {
         return list;
     }
 
-    public void setList(ArrayList<ExMessage> list) {
+    public void setList(ArrayList<Message> list) {
         this.list = list;
     }
 
-    public class ExMessage implements Serializable {
+    public class Message implements Serializable {
         /**
          * 消息标识
          */

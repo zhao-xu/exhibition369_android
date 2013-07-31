@@ -34,8 +34,6 @@ public class NewslistAdapter extends BaseAdapter {
         this.data = data;
         mInflater = LayoutInflater.from(context);
         this.context = context;
-//        typeface = Typeface.createFromAsset(context.getAssets(), "fonts/msyh.ttf");
-//        typeface_bold = Typeface.createFromAsset(context.getAssets(), "fonts/msyhbd.ttf");
         typeface = MSYH.getInstance(context.getApplicationContext()).getNormal();
         typeface_bold = MSYH.getInstance(context.getApplicationContext()).getBold();
     }

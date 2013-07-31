@@ -15,10 +15,10 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.*;
 import com.google.gson.Gson;
 import com.threeH.MyExhibition.R;
-import com.threeH.MyExhibition.adapters.HomePageEnrollListAdapter;
+import com.threeH.MyExhibition.adapters.ExhibitionListAdapter;
 import com.threeH.MyExhibition.common.StringPools;
 import com.threeH.MyExhibition.entities.Exhibition;
-import com.threeH.MyExhibition.entities.UnEnrollExhibition;
+import com.threeH.MyExhibition.entities.ExhibitionList;
 import com.threeH.MyExhibition.tools.Tool;
 import com.threeH.MyExhibition.widget.XListView;
 
@@ -32,30 +32,30 @@ import java.util.List;
  * Time: 下午2:29
  * To change this template use File | Settings | File Templates.
  */
-public class NoSignupExhiListActivity extends BaseActivity implements ActivityInterface,
+public class ExhibitionListActivity extends BaseActivity implements ActivityInterface,
         AdapterView.OnItemClickListener,XListView.IXListViewListener {
-    private XListView listView;
-    private HomePageEnrollListAdapter adapter;
-    private UnEnrollExhibition allExhibitionData;
-    private EditText editText;
-    private String name = "";
+    private XListView mLvi;
+    private ExhibitionListAdapter mAdapter;
+    private ExhibitionList mJsonData;
+    private EditText mEdttxtTheme;
+    private String mStrTheme = "";
     public static String mStrScanExKey = "";
-    private MyAsyncTask myAsyncTask;
-    private Button buttonSearch;
-    private long createdAt = -1;
+    private LoadAsyncTask mLoadAsyncTask;
+    private Button mBtnSearch;
+    private long mLngCreatedAt = -1;
     private static final int SIZE = 5;
-    private ImageView imageviewCancel;
+    private ImageView mImgviewCancel;
     private PullupLoadAsyncTask mPullupLoadAsyncTask;
-    List<Exhibition> data = new ArrayList<Exhibition>();
+    private List<Exhibition> mData = new ArrayList<Exhibition>();
     private List<Exhibition> mItemClickDataes = new ArrayList<Exhibition>();
-    private UnEnrollExhibition mExhibitionDataByQrcode;
+    private ExhibitionList mDataByQrcode;
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
             if(1 == msg.what){
-                setItemClickdataes(data);
-                adapter = new HomePageEnrollListAdapter(context,data,token);
-                listView.setAdapter(adapter);
+                setItemClickdataes(mData);
+                mAdapter = new ExhibitionListAdapter(context, mData,token);
+                mLvi.setAdapter(mAdapter);
             }
         }
     };
@@ -68,16 +68,16 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
     }
     @Override
     protected void onResume() {
-        imageviewCancel.setVisibility(View.GONE);
+        mImgviewCancel.setVisibility(View.GONE);
         if(!mStrScanExKey.equals("")){
             try {
                 String str = mController.getService().UnErollExListByExKey(token, 1, -1, mStrScanExKey);
-                mExhibitionDataByQrcode = new Gson().fromJson(str,UnEnrollExhibition.class);
-                ArrayList<Exhibition> list = mExhibitionDataByQrcode.getList();
+                mDataByQrcode = new Gson().fromJson(str,ExhibitionList.class);
+                ArrayList<Exhibition> list = mDataByQrcode.getList();
                 if(list != null){
-                    data.clear();
-                    makeAllExhibitionListAdapterData(mExhibitionDataByQrcode);
-                    editText.setText(list.get(0).getName());
+                    mData.clear();
+                    makeAllExhibitionListAdapterData(mDataByQrcode);
+                    mEdttxtTheme.setText(list.get(0).getName());
                     sendHandlerMessage(1);
                 }
             } catch (Exception e) {
@@ -95,63 +95,57 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
 
     @Override
     protected void onDestroy() {
-        myAsyncTask = null;
+        mLoadAsyncTask = null;
         super.onDestroy();
     }
 
     @Override
     public void findView() {
-        listView = (XListView) this.findViewById(R.id.unsingup_exhibition_listview);
-        editText = (EditText) this.findViewById(R.id.titlebar_et);
-        imageviewCancel = (ImageView) this.findViewById(R.id.titlebar_imageview_cancel);
-        buttonSearch = (Button) this.findViewById(R.id.search_btn);
-    }
-    @Override
-    public void initdata() {
-        myAsyncTask = new MyAsyncTask();
-        myAsyncTask.execute();
+        mLvi = (XListView) this.findViewById(R.id.unsingup_exhibition_listview);
+        mEdttxtTheme = (EditText) this.findViewById(R.id.titlebar_et);
+        mImgviewCancel = (ImageView) this.findViewById(R.id.titlebar_imageview_cancel);
+        mBtnSearch = (Button) this.findViewById(R.id.search_btn);
     }
 
-    private void saveExhibitionData(String str) {
-        SharedPreferences sharedPreferences =   getSharedPreferences(StringPools.ALL_EXHIBITION_DATA, Activity.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("exhibitionData",str);
-        editor.commit();
+    @Override
+    public void initdata() {
+        mLoadAsyncTask = new LoadAsyncTask();
+        mLoadAsyncTask.execute();
     }
 
     @Override
     public void addAction() {
-        listView.setOnItemClickListener(this);
-        listView.setPullLoadEnable(true);
-        listView.setXListViewListener(this);
+        mLvi.setOnItemClickListener(this);
+        mLvi.setPullLoadEnable(true);
+        mLvi.setXListViewListener(this);
 
-        imageviewCancel.setOnClickListener(new View.OnClickListener() {
+        mImgviewCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editText.setText("");
-                imageviewCancel.setVisibility(View.GONE);
+                mEdttxtTheme.setText("");
+                mImgviewCancel.setVisibility(View.GONE);
             }
         });
 
-        editText.setOnClickListener(new View.OnClickListener() {
+        mEdttxtTheme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                imageviewCancel.setVisibility(View.VISIBLE);
+                mImgviewCancel.setVisibility(View.VISIBLE);
             }
         });
 
-        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        mEdttxtTheme.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                boolean  handled = false;
-                if(actionId == EditorInfo.IME_ACTION_SEARCH || actionId == 0){
+                boolean handled = false;
+                if (actionId == EditorInfo.IME_ACTION_SEARCH || actionId == 0) {
                     searchExhibition();
                     handled = true;
                 }
                 return handled;
             }
         });
-        editText.addTextChangedListener(new TextWatcher() {
+        mEdttxtTheme.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -159,7 +153,7 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                imageviewCancel.setVisibility(View.VISIBLE);
+                mImgviewCancel.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -167,7 +161,7 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
 
             }
         });
-        buttonSearch.setOnClickListener(new View.OnClickListener() {
+        mBtnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 searchExhibition();
@@ -177,24 +171,24 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
 
     private void searchExhibition() {
         try{
-            name = editText.getText().toString().trim();
+            mStrTheme = mEdttxtTheme.getText().toString().trim();
             String str;
-            str = mController.getService().UnErollExList(token,SIZE,-1,name);
-            UnEnrollExhibition allExhibitionData = new Gson().fromJson(str,UnEnrollExhibition.class);
+            str = mController.getService().UnErollExList(token,SIZE,-1, mStrTheme);
+            ExhibitionList allExhibitionData = new Gson().fromJson(str,ExhibitionList.class);
             setCreateAt(allExhibitionData);
-            data = Tool.makeAllExhibitionListAdapterData(allExhibitionData);
-            adapter = new HomePageEnrollListAdapter(context,data,token);
-            listView.setAdapter(adapter);
-            setItemClickdataes(data);
+            mData = Tool.makeAllExhibitionListAdapterData(allExhibitionData);
+            mAdapter = new ExhibitionListAdapter(context, mData,token);
+            mLvi.setAdapter(mAdapter);
+            setItemClickdataes(mData);
         }catch (Exception e){
             e.printStackTrace();
         }
     }
 
-    private void setCreateAt(UnEnrollExhibition allExhibitionData) {
+    private void setCreateAt(ExhibitionList allExhibitionData) {
         int last = allExhibitionData.getList().size() - 1;
         if(last >= 0){
-            createdAt = allExhibitionData.getList().get(last).getCreatedAt();
+            mLngCreatedAt = allExhibitionData.getList().get(last).getCreatedAt();
         }
     }
 
@@ -203,39 +197,33 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
         for (Exhibition exhibition : dataes) {
             mItemClickDataes.add(exhibition);
         }
-        data.clear();
+        mData.clear();
         for (Exhibition exhibition : mItemClickDataes) {
-            data.add(exhibition);
+            mData.add(exhibition);
         }
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(this,ExhibitionActivity.class);
-        intent.putExtra("exKey",mItemClickDataes.get(position-1).getExKey());
-        intent.putExtra("exAddress",mItemClickDataes.get(position - 1).getAddress());
-        intent.putExtra("exTime",mItemClickDataes.get(position - 1).getDate());
-        intent.putExtra("exTheme",mItemClickDataes.get(position - 1).getName());
-        intent.putExtra("exSponser",mItemClickDataes.get(position - 1).getOrganizer());
+        intent.putExtra("exhibition",mItemClickDataes.get(position -1));
         intent.putExtra("token",token);
-        intent.putExtra("count",Integer.valueOf(mItemClickDataes.get(position - 1).getCount()));
-        intent.putExtra("singupStatus", (mItemClickDataes.get(position - 1).getStatus() + " ").charAt(0));
         startActivity(intent);
     }
 
     private void onLoad() {
-        listView.stopRefresh();
-        listView.stopLoadMore();
-        listView.setRefreshTime("");
+        mLvi.stopRefresh();
+        mLvi.stopLoadMore();
+        mLvi.setRefreshTime("");
     }
 
     @Override
     public void onRefresh() {
-        name = editText.getText().toString().trim();
+        mStrTheme = mEdttxtTheme.getText().toString().trim();
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                data.clear();
+                mData.clear();
                 initdata();
                 onLoad();
             }
@@ -248,15 +236,15 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
             @Override
             public void run() {
                 loadNextPageData();
-                adapter.notifyDataSetChanged();
+                mAdapter.notifyDataSetChanged();
                 onLoad();
             }
         }, 2000);
     }
-    public  void makeAllExhibitionListAdapterData(UnEnrollExhibition allExhibitionData){
+    public  void makeAllExhibitionListAdapterData(ExhibitionList allExhibitionData){
         if(null != allExhibitionData){
             for(Exhibition exhibition : allExhibitionData.getList()){
-                data.add(exhibition);
+                mData.add(exhibition);
             }
         }
     }
@@ -264,11 +252,11 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
 
     private void loadNextPageData(){
         try {
-            String str = mController.getService().UnErollExList(token,SIZE,createdAt,name);
-            allExhibitionData = new Gson().fromJson(str,UnEnrollExhibition.class);
-            setCreateAt(allExhibitionData);
-            makeAllExhibitionListAdapterData(allExhibitionData);
-            setItemClickdataes(data);
+            String str = mController.getService().UnErollExList(token,SIZE, mLngCreatedAt, mStrTheme);
+            mJsonData = new Gson().fromJson(str,ExhibitionList.class);
+            setCreateAt(mJsonData);
+            makeAllExhibitionListAdapterData(mJsonData);
+            setItemClickdataes(mData);
         } catch (Exception e) {
         }
     }
@@ -283,7 +271,7 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
         handler.sendMessage(message);
     }
 
-    class MyAsyncTask extends AsyncTask<Void,Integer,Integer>{
+    class LoadAsyncTask extends AsyncTask<Void,Integer,Integer>{
 
         @Override
         protected Integer doInBackground(Void... voids) {
@@ -291,10 +279,10 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
                 @Override
                 public void run() {
                     try {
-                        String str = mController.getService().UnErollExList(token,SIZE,-1,name);
-                        allExhibitionData = new Gson().fromJson(str,UnEnrollExhibition.class);
-                        setCreateAt(allExhibitionData);
-                        makeAllExhibitionListAdapterData(allExhibitionData);
+                        String str = mController.getService().UnErollExList(token,SIZE,-1, mStrTheme);
+                        mJsonData = new Gson().fromJson(str,ExhibitionList.class);
+                        setCreateAt(mJsonData);
+                        makeAllExhibitionListAdapterData(mJsonData);
                         sendHandlerMessage(1);
                     } catch (Exception e) {
 
@@ -313,10 +301,10 @@ public class NoSignupExhiListActivity extends BaseActivity implements ActivityIn
                 @Override
                 public void run() {
                     try {
-                        String str = mController.getService().UnErollExList(token,SIZE,createdAt,name);
-                        allExhibitionData = new Gson().fromJson(str,UnEnrollExhibition.class);
-                        setCreateAt(allExhibitionData);
-                        makeAllExhibitionListAdapterData(allExhibitionData);
+                        String str = mController.getService().UnErollExList(token,SIZE, mLngCreatedAt, mStrTheme);
+                        mJsonData = new Gson().fromJson(str,ExhibitionList.class);
+                        setCreateAt(mJsonData);
+                        makeAllExhibitionListAdapterData(mJsonData);
                     } catch (Exception e) {
 
                     }

@@ -97,7 +97,7 @@ public class HomeActivity extends TabActivity implements ActivityInterface {
         if(resultCode == RESULT_OK){
             String result = data.getStringExtra("result");
             if(result != null && result.startsWith("MEK://")){
-                NoSignupExhiListActivity.mStrScanExKey = decodeExhibitionKey(result.substring(6));
+                ExhibitionListActivity.mStrScanExKey = decodeExhibitionKey(result.substring(6));
                 changeTab(SEARCH_TAB, R.string.search,R.id.home_rdobtn_search);
                 mRadiogroup.check(R.id.home_rdobtn_search);
             }
@@ -126,7 +126,7 @@ public class HomeActivity extends TabActivity implements ActivityInterface {
         mTabhost.addTab(mTabhost.newTabSpec(MYEXHIBITION_TAB).setIndicator(MYEXHIBITION_TAB)
                 .setContent(new Intent(this, SignupExhiListActivity.class)));
         mTabhost.addTab(mTabhost.newTabSpec(SEARCH_TAB).setIndicator(SEARCH_TAB)
-                .setContent(new Intent(this, NoSignupExhiListActivity.class)));
+                .setContent(new Intent(this, ExhibitionListActivity.class)));
         mTabhost.addTab(mTabhost.newTabSpec(SCAN_TAB).setIndicator(SCAN_TAB)
                 .setContent(new Intent(this,AboutActivity.class)));
         mTabhost.addTab(mTabhost.newTabSpec(RECOMMOND_TAB).setIndicator(RECOMMOND_TAB)

@@ -11,8 +11,8 @@ import android.widget.*;
 import com.google.gson.Gson;
 import com.threeH.MyExhibition.R;
 import com.threeH.MyExhibition.adapters.NewslistAdapter;
-import com.threeH.MyExhibition.entities.ExhibitionNews;
-import com.threeH.MyExhibition.listener.SignupClickListener;
+import com.threeH.MyExhibition.entities.Exhibition;
+import com.threeH.MyExhibition.entities.NewList;
 import com.threeH.MyExhibition.listener.TelephoneClickListener;
 import com.threeH.MyExhibition.tools.MSYH;
 import com.threeH.MyExhibition.tools.Tool;
@@ -33,15 +33,14 @@ public class NewsPageActivity extends BaseActivity  implements
         ActivityInterface,AdapterView.OnItemClickListener,XListView.IXListViewListener{
     private XListView listView;
     private NewslistAdapter adapter;
-    private String exKey;
-    private ExhibitionNews newsData;
-    private ImageView imageviewTelephone,imageViewSignup;
+    private NewList newsData;
+    private ImageView imageviewTelephone;
     private TextView textViewTitle;
     private Typeface typeface;
-    private char charSingupStatus;
     List<HashMap<String,String>> data = new ArrayList<HashMap<String, String>>();
     private ImageView imageviewPrompt;
     private LoadDataAsyncTask loadDataAsyncTask;
+    private Exhibition mExhibition;
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -63,8 +62,7 @@ public class NewsPageActivity extends BaseActivity  implements
         super.onCreate(savedInstanceState);
         setContentViewWithNoTitle(R.layout.newslist);
         typeface = MSYH.getInstance(context.getApplicationContext()).getNormal();
-        exKey = getIntent().getStringExtra("exKey");
-        charSingupStatus = getIntent().getCharExtra("singupStatus", ' ');
+        mExhibition = (Exhibition) getIntent().getExtras().get("exhibition");
         findView();
         initdata();
         addAction();
@@ -75,7 +73,6 @@ public class NewsPageActivity extends BaseActivity  implements
         listView = (XListView) this.findViewById(R.id.newslist_listview);
         imageviewTelephone = (ImageView) this.findViewById(R.id.exhibition_titlebar_btn_telephone);
         textViewTitle = (TextView) this.findViewById(R.id.exhibition_titlebar_txt_title);
-        imageViewSignup = (ImageView) this.findViewById(R.id.exhibition_titlebar_signup);
         imageviewPrompt = (ImageView) this.findViewById(R.id.prompt_imageview);
     }
 
@@ -93,26 +90,14 @@ public class NewsPageActivity extends BaseActivity  implements
         imageviewTelephone.setOnClickListener(new TelephoneClickListener(this,tel_nummber));
         textViewTitle.setTypeface(typeface);
         textViewTitle.setText("展会新闻");
-        switch (charSingupStatus){
-            case 'D':
-            case 'N':
-                break;
-            case 'P':
-            case 'A':
-                imageViewSignup.setVisibility(View.GONE);
-                break;
-        }
-        imageViewSignup.setOnClickListener(new SignupClickListener(this,exKey));
-
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(this,ShowHtmlActivity.class);
-        intent.putExtra("url", Tool.makeNewsURL(exKey,newsData.getList().get(position-1).getNewsKey()));
+        intent.putExtra("url", Tool.makeNewsURL(mExhibition.getExKey(),newsData.getList().get(position-1).getNewsKey()));
         intent.putExtra("title","展会新闻");
-        intent.putExtra("singupStatus", charSingupStatus);
-        intent.putExtra("exKey",exKey);
+        intent.putExtra("exKey",mExhibition.getExKey());
         startActivity(intent);
     }
     private void onLoad() {
@@ -152,11 +137,11 @@ public class NewsPageActivity extends BaseActivity  implements
                 public void run() {
 
                     try {
-                        String str = mController.getService().ExNewsList(exKey);
-                        newsData = new Gson().fromJson(str, ExhibitionNews.class);
-                        for(ExhibitionNews.News news : newsData.getList()){
+                        String str = mController.getService().ExNewsList(mExhibition.getExKey());
+                        newsData = new Gson().fromJson(str, NewList.class);
+                        for(NewList.News news : newsData.getList()){
                             HashMap<String,String> map = new HashMap<String, String>();
-                            map.put("exKey",exKey);
+                            map.put("exKey",mExhibition.getExKey());
                             map.put("newsKey",news.getNewsKey());
                             map.put("newsTitle",news.getTitle());
                             data.add(map);

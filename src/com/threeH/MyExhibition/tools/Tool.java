@@ -1,11 +1,9 @@
 package com.threeH.MyExhibition.tools;
 
-import android.util.Log;
 import com.threeH.MyExhibition.entities.Exhibition;
-import com.threeH.MyExhibition.entities.UnEnrollExhibition;
+import com.threeH.MyExhibition.entities.ExhibitionList;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -51,7 +49,7 @@ public class Tool {
         return builder.toString();
     }
 
-    public static List<Exhibition> makeAllExhibitionListAdapterData(UnEnrollExhibition allExhibitionData){
+    public static List<Exhibition> makeAllExhibitionListAdapterData(ExhibitionList allExhibitionData){
         List<Exhibition> data = new ArrayList<Exhibition>();
         if(null != allExhibitionData){
             for(Exhibition exhibition : allExhibitionData.getList()){

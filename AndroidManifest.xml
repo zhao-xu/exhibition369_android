@@ -41,7 +41,7 @@
                   android:screenOrientation="portrait"/>
         <activity android:name=".ui.RecommondActivity"
                   android:screenOrientation="portrait"/>
-        <activity android:name=".ui.NoSignupExhiListActivity"
+        <activity android:name=".ui.ExhibitionListActivity"
                   android:screenOrientation="portrait"/>
         <activity android:name=".ui.SignupExhiListActivity"
                   android:screenOrientation="portrait"/>

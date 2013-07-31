@@ -9,14 +9,12 @@ import android.widget.*;
 import com.google.gson.Gson;
 import com.threeH.MyExhibition.R;
 import com.threeH.MyExhibition.entities.Exhibition;
-import com.threeH.MyExhibition.entities.UnEnrollExhibition;
+import com.threeH.MyExhibition.entities.ExhibitionList;
 import com.threeH.MyExhibition.listener.AttentionClickListener;
 import com.threeH.MyExhibition.listener.SignupClickListener;
 import com.threeH.MyExhibition.listener.TelephoneClickListener;
 import com.threeH.MyExhibition.tools.MSYH;
 import com.threeH.MyExhibition.tools.MyExhibitionListUtil;
-
-import java.util.ArrayList;
 
 /**
  * Created with IntelliJ IDEA.
@@ -30,10 +28,8 @@ public class ExhibitionBriefActivity extends BaseActivity implements ActivityInt
     private String mUrl;
     private ImageView mImgviewTelephone, mImgviewSignup;
     private TextView mTxtTitle,mTxtTheme;
-    private String mStrTitle,mStrTheme;
-    private char mChrStatus;
-    private String mStrExKey;
     private Button mBtnSignup;
+    private Exhibition mExhibition;
     Typeface typeface;
     FrameLayout webContainer;
     @Override
@@ -69,10 +65,7 @@ public class ExhibitionBriefActivity extends BaseActivity implements ActivityInt
     @Override
     public void initdata() {
         mUrl = getIntent().getStringExtra("url");
-        mStrTitle = getIntent().getStringExtra("title");
-        mChrStatus = getIntent().getCharExtra("singupStatus", ' ');
-        mStrExKey = getIntent().getStringExtra("exKey");
-        mStrTheme = getIntent().getStringExtra("theme");
+        mExhibition = (Exhibition) getIntent().getExtras().get("exhibition");
         typeface = MSYH.getInstance(context.getApplicationContext()).getNormal();
         MyExhibitionListUtil.getInstance(context).initMyExhiibitonList();
     }
@@ -81,14 +74,16 @@ public class ExhibitionBriefActivity extends BaseActivity implements ActivityInt
     public void addAction() {
         mImgviewTelephone.setOnClickListener(new TelephoneClickListener(this, tel_nummber));
         mTxtTitle.setTypeface(typeface);
-        mTxtTitle.setText(mStrTitle);
+        mTxtTitle.setText("展会简介");
         mImgviewSignup.setVisibility(View.GONE);
-        if(MyExhibitionListUtil.getInstance(context).isMyExhibiton(mStrExKey)){
-            switch (mChrStatus){
+        String status = mExhibition.getStatus() + " ";
+        char c = status.charAt(0);
+        if(MyExhibitionListUtil.getInstance(context).isMyExhibiton(mExhibition.getExKey())){
+            switch (c){
                 case ' ':
                 case 'D':
                 case 'N':
-                    mBtnSignup.setOnClickListener(new SignupClickListener(this, mStrExKey));
+                    mBtnSignup.setOnClickListener(new SignupClickListener(this, mExhibition.getExKey()));
                     break;
                 case 'P':
                 case 'A':
@@ -97,19 +92,10 @@ public class ExhibitionBriefActivity extends BaseActivity implements ActivityInt
             }
         }else{
             mBtnSignup.setBackgroundResource(R.drawable.attention_font_btn);
-            String str = null;
-            try {
-                str = mController.getService().UnErollExListByExKey(token, 1, -1, mStrExKey);
-                UnEnrollExhibition exhibitions = new Gson().fromJson(str,UnEnrollExhibition.class);
-                if(exhibitions.getList() != null){
-                    mBtnSignup.setOnClickListener(
-                            new AttentionClickListener(context,exhibitions.getList().get(0)));
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            mExhibition.setAttention(true);
+            mBtnSignup.setOnClickListener(new AttentionClickListener(context,mExhibition));
         }
-        mTxtTheme.setText(mStrTheme);
+        mTxtTheme.setText(mExhibition.getName());
         LoadHtmlTask loadHtmlTask = new LoadHtmlTask();
         loadHtmlTask.execute();
     }
@@ -125,5 +111,4 @@ public class ExhibitionBriefActivity extends BaseActivity implements ActivityInt
             return null;
         }
     }
-
 }

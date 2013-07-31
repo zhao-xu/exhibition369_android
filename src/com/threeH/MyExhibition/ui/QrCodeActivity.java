@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 import android.widget.TextView;
 import com.threeH.MyExhibition.R;
+import com.threeH.MyExhibition.entities.Exhibition;
 import com.threeH.MyExhibition.listener.SignupClickListener;
 import com.threeH.MyExhibition.listener.TelephoneClickListener;
 import com.threeH.MyExhibition.service.FileService;
@@ -26,18 +27,14 @@ import com.threeH.MyExhibition.tools.Tool;
  * To change this template use File | Settings | File Templates.
  */
 public class QrCodeActivity extends BaseActivity implements  ActivityInterface{
-    private ImageView imageViewQrcode;
-    private Bitmap bitmap;
-    private ImageView imageviewTelephone;
-    private char charSingupStatus;
-    private TextView textViewTitle;
-    private TextView textViewAddress,textViewTime;
-    private TextView textViewTheme, textViewDate,textViewAddressUp,textViewSponsor;
-    private TextView textView;
-    private ImageView imageViewIcon, imageViewSingup,imageviewSignup2;
-    Typeface typeface;
-
-    private String strExhibitionKey,strExAddress,strExDate,strExTheme,strExSponser;
+    private ImageView mImgviewQrcode, mImgviewTelephone;
+    private TextView mTxtTitle;
+    private TextView mTxtAddress, mTxtTime;
+    private TextView mTxtTheme, mTxtDate, mTxtAddressUp, mTxtSponsor;
+    private TextView mTxtPrompt;
+    private ImageView mImgviewIcon, mImgviewSingup, mImgviewSignup2;
+    private Typeface mTypeface;
+    private Exhibition mExhibition;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentViewWithNoTitle(R.layout.qrcode);
@@ -47,77 +44,74 @@ public class QrCodeActivity extends BaseActivity implements  ActivityInterface{
     }
     @Override
     public void findView(){
-        imageViewQrcode = (ImageView) this.findViewById(R.id.qrcode_imageview);
-        imageviewTelephone = (ImageView) this.findViewById(R.id.exhibition_titlebar_btn_telephone);
-        imageViewSingup = (ImageView) this.findViewById(R.id.imageview_attention);
-        imageviewSignup2 = (ImageView) this.findViewById(R.id.exhibition_titlebar_signup);
-        textView = (TextView) this.findViewById(R.id.qrcode_textview_prompt);
-        textViewTitle = (TextView) this.findViewById(R.id.exhibition_titlebar_txt_title);
-        imageViewIcon = (ImageView) this.findViewById(R.id.imageview_icon);
-        textViewAddress = (TextView) this.findViewById(R.id.qrcode_textview_exaddress);
-        textViewTime = (TextView) this.findViewById(R.id.qrcode_textview_extime);
-        textViewTheme = (TextView) this.findViewById(R.id.exhibition_theme);
-        textViewDate = (TextView) this.findViewById(R.id.exhibition_date);
-        textViewAddressUp = (TextView) this.findViewById(R.id.exhibition_address);
-        textViewSponsor = (TextView) this.findViewById(R.id.exhibition_sponsor);
+        mImgviewQrcode = (ImageView) this.findViewById(R.id.qrcode_imageview);
+        mImgviewTelephone = (ImageView) this.findViewById(R.id.exhibition_titlebar_btn_telephone);
+        mImgviewSingup = (ImageView) this.findViewById(R.id.imageview_attention);
+        mImgviewSignup2 = (ImageView) this.findViewById(R.id.exhibition_titlebar_signup);
+        mTxtPrompt = (TextView) this.findViewById(R.id.qrcode_textview_prompt);
+        mTxtTitle = (TextView) this.findViewById(R.id.exhibition_titlebar_txt_title);
+        mImgviewIcon = (ImageView) this.findViewById(R.id.imageview_icon);
+        mTxtAddress = (TextView) this.findViewById(R.id.qrcode_textview_exaddress);
+        mTxtTime = (TextView) this.findViewById(R.id.qrcode_textview_extime);
+        mTxtTheme = (TextView) this.findViewById(R.id.exhibition_theme);
+        mTxtDate = (TextView) this.findViewById(R.id.exhibition_date);
+        mTxtAddressUp = (TextView) this.findViewById(R.id.exhibition_address);
+        mTxtSponsor = (TextView) this.findViewById(R.id.exhibition_sponsor);
     }
 
     @Override
     public void initdata(){
-//        typeface = Typeface.createFromAsset(context.getAssets(), "fonts/msyh.ttf");
-        typeface = MSYH.getInstance(context.getApplicationContext()).getNormal();
-        charSingupStatus = getIntent().getCharExtra("singupStatus", ' ');
-        strExhibitionKey = getIntent().getStringExtra("exhibitionKey");
-        strExAddress = getIntent().getStringExtra("exAddress");
-        strExDate = getIntent().getStringExtra("exTime");
-        strExTheme = getIntent().getStringExtra("exTheme");
-        strExSponser = getIntent().getStringExtra("exSponser");
+        mTypeface = MSYH.getInstance(context.getApplicationContext()).getNormal();
+        mExhibition = (Exhibition) getIntent().getExtras().get("exhibition");
     }
 
     @Override
     public void addAction() {
-        textViewTitle.setTypeface(typeface);
-        textViewTitle.setText("二维码");
-        imageviewTelephone.setOnClickListener(new TelephoneClickListener(this,tel_nummber));
-        ImageURLUtil.loadImage(Tool.makeExhibitionIconURL(strExhibitionKey),imageViewIcon);
-        textViewAddress.setText(strExAddress);
-        textViewTime.setText(strExDate);
-        imageViewSingup.setVisibility(View.GONE);
-        switch (charSingupStatus){
+        mTxtTitle.setTypeface(mTypeface);
+        mTxtTitle.setText("二维码");
+        mImgviewTelephone.setOnClickListener(new TelephoneClickListener(this, tel_nummber));
+        ImageURLUtil.loadImage(Tool.makeExhibitionIconURL(mExhibition.getExKey()), mImgviewIcon);
+        mTxtAddress.setText(mExhibition.getAddress());
+        mTxtTime.setText(mExhibition.getDate());
+        mImgviewSingup.setVisibility(View.GONE);
+        String status = mExhibition.getStatus() + " ";
+        char c = status.charAt(0);
+        switch (c){
             case ' ':
             case 'N':
-                textView.setText("对不起您还没有报名参加此展会，请报名！");
+                mTxtPrompt.setText("对不起您还没有报名参加此展会，请报名！");
                 break;
             case 'P':
-                textView.setText("您的个人信息还在审核中，请耐心等待。。。");
-                imageviewSignup2.setVisibility(View.GONE);
+                mTxtPrompt.setText("您的个人信息还在审核中，请耐心等待。。。");
+                mImgviewSignup2.setVisibility(View.GONE);
                 break;
             case 'A':
                 loadQrcode();
-                imageviewSignup2.setVisibility(View.GONE);
+                mImgviewSignup2.setVisibility(View.GONE);
                 break;
             case 'D':
-                textView.setText("对不起，您的个人信息未能通过审核，您可以拨打客服热线进行咨询。");
+                mTxtPrompt.setText("对不起，您的个人信息未能通过审核，您可以拨打客服热线进行咨询。");
                 break;
         }
-        textViewTheme.setText(strExTheme);
-        textViewDate.setText(strExDate);
-        textViewAddressUp.setText(strExAddress);
-        textViewSponsor.setText(strExSponser);
-        imageviewSignup2.setOnClickListener(new SignupClickListener(QrCodeActivity.this,strExhibitionKey));
+        mTxtTheme.setText(mExhibition.getName());
+        mTxtDate.setText(mExhibition.getDate());
+        mTxtAddressUp.setText(mExhibition.getAddress());
+        mTxtSponsor.setText(mExhibition.getOrganizer());
+        mImgviewSignup2.setOnClickListener(new SignupClickListener(QrCodeActivity.this, mExhibition.getExKey()));
     }
 
     private void loadQrcode() {
          if(NetworkHelper.getInstance(context).isConnected()){
-           ImageURLUtil.loadImage(Tool.makeQrcodeURL(strExhibitionKey,token), imageViewQrcode);
+           ImageURLUtil.loadImage(Tool.makeQrcodeURL(mExhibition.getExKey(),token), mImgviewQrcode);
         }else{
             FileService service = new FileService(context);
             byte[] data;
             try {
-                String filename = Environment.getExternalStorageDirectory() + "/" + strExhibitionKey + "qrcode.png";
+                String filename = Environment.getExternalStorageDirectory() +
+                        "/" + mExhibition.getExKey() + "qrcode.png";
                 data = service.read(filename);
                 Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
-                imageViewQrcode.setImageBitmap(bitmap);
+                mImgviewQrcode.setImageBitmap(bitmap);
             } catch (Exception e) {
                 e.printStackTrace();
             }

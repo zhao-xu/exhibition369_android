@@ -6,38 +6,36 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.threeH.MyExhibition.R;
+import com.threeH.MyExhibition.entities.MessageList;
 import com.threeH.MyExhibition.tools.MSYH;
 
-import java.util.HashMap;
+import java.util.Date;
 import java.util.List;
 
 
 public class MessageListAdapter extends BaseAdapter {
 
-    private List<HashMap<String, String>> data;
+    private List<MessageList.Message> mData;
     private LayoutInflater mInflater;
     public static int selectedID;
     Typeface typeface_bold;
 
-    public MessageListAdapter(Context context, List<HashMap<String, String>> data) {
-        this.data = data;
+    public MessageListAdapter(Context context, List<MessageList.Message> data) {
+        this.mData = data;
         mInflater = LayoutInflater.from(context);
-//        typeface_bold = Typeface.createFromAsset(context.getAssets(), "fonts/msyhbd.ttf");
         typeface_bold = MSYH.getInstance(context.getApplicationContext()).getBold();
     }
 
     @Override
     public int getCount() {
-        return data.size();
+        return mData.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return data.get(position);
+        return mData.get(position);
     }
 
     @Override
@@ -58,8 +56,8 @@ public class MessageListAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        holder.mMessageDate.setText(data.get(position).get("date"));
-        holder.mMessageContent.setText(data.get(position).get("content"));
+        holder.mMessageDate.setText(new Date(mData.get(position).getCreatedAt()).toLocaleString());
+        holder.mMessageContent.setText(mData.get(position).getContent());
         if(position == selectedID){
             holder.mMessageContent.setSingleLine(false);
         }else {
@@ -70,7 +68,5 @@ public class MessageListAdapter extends BaseAdapter {
 
     public class ViewHolder {
         TextView mMessageDate, mMessageContent;
-        ImageView mMessageIcon,mItemBtn;
-        LinearLayout mLinearLayout;
     }
 }

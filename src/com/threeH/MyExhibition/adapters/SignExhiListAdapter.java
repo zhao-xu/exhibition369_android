@@ -12,30 +12,27 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.google.gson.Gson;
 import com.threeH.MyExhibition.R;
-import com.threeH.MyExhibition.cache.XmlDB;
 import com.threeH.MyExhibition.common.StringPools;
 import com.threeH.MyExhibition.entities.Exhibition;
-import com.threeH.MyExhibition.entities.UnEnrollExhibition;
 import com.threeH.MyExhibition.service.FileService;
 import com.threeH.MyExhibition.service.ImageService;
 import com.threeH.MyExhibition.tools.ImageURLUtil;
 import com.threeH.MyExhibition.tools.MSYH;
 import com.threeH.MyExhibition.tools.SharedPreferencesUtil;
 import com.threeH.MyExhibition.tools.Tool;
-import java.util.HashMap;
+
 import java.util.List;
 
 
 public class SignExhiListAdapter extends BaseAdapter {
-    private List<HashMap<String, String>> data;
+    private List<Exhibition> data;
     private LayoutInflater mInflater;
     private Context context;
     private String mStrToken;
     Typeface typeface;
     Typeface typeface_bold;
-    public SignExhiListAdapter(Context context, List<HashMap<String, String>> data) {
+    public SignExhiListAdapter(Context context, List<Exhibition> data) {
         this.data = data;
         mInflater = LayoutInflater.from(context);
         this.context = context;
@@ -43,7 +40,7 @@ public class SignExhiListAdapter extends BaseAdapter {
         typeface_bold = MSYH.getInstance(context.getApplicationContext()).getBold();
     }
 
-    public SignExhiListAdapter(Context context, List<HashMap<String, String>> data,String token) {
+    public SignExhiListAdapter(Context context, List<Exhibition> data,String token) {
         this(context,data);
         this.mStrToken = token;
     }
@@ -66,7 +63,7 @@ public class SignExhiListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
-        String exKey = data.get(position).get("exhibitionExkey");
+        String exKey = data.get(position).getExKey();
         if (convertView == null) {
             holder = new ViewHolder();
             convertView = this.mInflater.inflate(R.layout.signup_exhi_list_item, null);
@@ -92,17 +89,17 @@ public class SignExhiListAdapter extends BaseAdapter {
             holder.mExhibitionIcon.setImageBitmap(null);
         }
         char showStatus = ' ';
-        if(null != data.get(position).get("status")){
-            showStatus = data.get(position).get("status").charAt(0);
+        if(null != data.get(position).getStatus()){
+            showStatus = (data.get(position).getStatus() + " ").charAt(0);
             showStatusIcon(showStatus,holder.mSignupStatus,exKey,position);
         }
-        holder.mExhibitionTheme.setText(data.get(position).get("name"));
-        holder.mExhibitionSponsor.setText(data.get(position).get("organizer"));
-        holder.mExhibitionAddress.setText(data.get(position).get("address"));
-        holder.mExhibitionDate.setText(data.get(position).get("date"));
+        holder.mExhibitionTheme.setText(data.get(position).getName());
+        holder.mExhibitionSponsor.setText(data.get(position).getOrganizer());
+        holder.mExhibitionAddress.setText(data.get(position).getAddress());
+        holder.mExhibitionDate.setText(data.get(position).getDate());
         ImageURLUtil.loadImage(Tool.makeExhibitionIconURL(exKey),
                 holder.mExhibitionIcon);
-        int count = Integer.valueOf(data.get(position).get("count"));
+        int count = Integer.valueOf(data.get(position).getCount());
         if(count > 0){
             holder.mEnrollMessage.setVisibility(View.VISIBLE);
         }

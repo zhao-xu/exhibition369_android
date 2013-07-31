@@ -4,9 +4,7 @@ import android.content.Context;
 import com.google.gson.Gson;
 import com.threeH.MyExhibition.cache.XmlDB;
 import com.threeH.MyExhibition.common.StringPools;
-import com.threeH.MyExhibition.entities.EnrollExhibition;
 import com.threeH.MyExhibition.entities.Exhibition;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,7 +18,7 @@ import java.util.List;
  */
 public class MyExhibitionListUtil {
     private String mJsonData;
-    private EnrollExhibition.EnrollStatus[] mMyExhibitons;
+    private Exhibition[] mMyExhibitons;
     private List<Object> mList;
     private List<HashMap<String,String>> mListMyexhibiton =
             new ArrayList<HashMap<String, String>>();
@@ -47,7 +45,7 @@ public class MyExhibitionListUtil {
         mJsonData =  XmlDB.getInstance(mContext).
                 getKeyStringValue(StringPools.SIGNUP_EXHIBITION_DATA, "");
         mMyExhibitons =
-                new Gson().fromJson(mJsonData, EnrollExhibition.EnrollStatus[].class);
+                new Gson().fromJson(mJsonData, Exhibition[].class);
         mList  =
                 SharedPreferencesUtil.getObject(mContext, StringPools.SCAN_EXHIBITION_DATA);
         if(mList != null){
@@ -55,8 +53,8 @@ public class MyExhibitionListUtil {
                 addToList(((Exhibition)object).getExKey());
             }
         }
-        for(EnrollExhibition.EnrollStatus mEnrollStatus : mMyExhibitons){
-            addToList(mEnrollStatus.getExKey());
+        for(Exhibition exhibition : mMyExhibitons){
+            addToList(exhibition.getExKey());
         }
     }
 

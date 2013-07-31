@@ -4,20 +4,17 @@ import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.view.View;
 import android.widget.*;
 import com.threeH.MyExhibition.R;
 import com.threeH.MyExhibition.adapters.MessageListAdapter;
-import com.threeH.MyExhibition.entities.ExhibitionMessage;
-import com.threeH.MyExhibition.listener.SignupClickListener;
+import com.threeH.MyExhibition.entities.Exhibition;
+import com.threeH.MyExhibition.entities.MessageList;
 import com.threeH.MyExhibition.listener.TelephoneClickListener;
 import com.threeH.MyExhibition.tools.MSYH;
 import com.threeH.MyExhibition.widget.XListView;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -29,24 +26,23 @@ import java.util.List;
  */
 public class MessageActivity extends BaseActivity implements
         ActivityInterface,AdapterView.OnItemClickListener,XListView.IXListViewListener{
-    private List<HashMap<String,String>> mdataes = new ArrayList<HashMap<String, String>>();
-    private XListView mMessageListView;
-    private MessageListAdapter mMessageListAdapter;
-    private ImageView imageviewTelephone,imageViewSignup;
-    private TextView textViewTitle;
-    private String exKey;
-    private Typeface typeface;
-    private LoadMessageTask loadMessageTask;
-    private char charSingupStatus;
+    private List<MessageList.Message> mDataes = new ArrayList<MessageList.Message>();
+    private XListView mXLvi;
+    private MessageListAdapter mListAdapter;
+    private ImageView mImgviewTelephone;
+    private TextView mTxtTitle;
+    private Typeface mTypeface;
+    private LoadTask mLoadTask;
+    private Exhibition mExhibition;
     private Handler handler = new Handler(){
         @Override
-        public void handleMessage(Message msg) {
+        public void handleMessage(android.os.Message msg) {
             if(1 == msg.what){
-                if(mdataes.size() == 0){
-                    mMessageListView.setVisibility(View.GONE);
+                if(mDataes.size() == 0){
+                    mXLvi.setVisibility(View.GONE);
                 }else{
-                    mMessageListAdapter = new MessageListAdapter(context,mdataes);
-                    mMessageListView.setAdapter(mMessageListAdapter);
+                    mListAdapter = new MessageListAdapter(context, mDataes);
+                    mXLvi.setAdapter(mListAdapter);
                 }
             }
         }
@@ -54,9 +50,8 @@ public class MessageActivity extends BaseActivity implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentViewWithNoTitle(R.layout.message_page);
-        exKey = getIntent().getStringExtra("exhibitionKey");
-        typeface = MSYH.getInstance(context.getApplicationContext()).getNormal();
-        charSingupStatus = getIntent().getCharExtra("singupStatus", ' ');
+        mExhibition = (Exhibition) getIntent().getExtras().get("exhibition");
+        mTypeface = MSYH.getInstance(context.getApplicationContext()).getNormal();
         findView();
         initdata();
         addAction();
@@ -64,48 +59,37 @@ public class MessageActivity extends BaseActivity implements
 
     @Override
     public void findView() {
-        mMessageListView = (XListView)findViewById(R.id.message_list_view);
-        imageviewTelephone = (ImageView) this.findViewById(R.id.exhibition_titlebar_btn_telephone);
-        textViewTitle = (TextView) this.findViewById(R.id.exhibition_titlebar_txt_title);
-        imageViewSignup = (ImageView) this.findViewById(R.id.exhibition_titlebar_signup);
+        mXLvi = (XListView)findViewById(R.id.message_list_view);
+        mImgviewTelephone = (ImageView) this.findViewById(R.id.exhibition_titlebar_btn_telephone);
+        mTxtTitle = (TextView) this.findViewById(R.id.exhibition_titlebar_txt_title);
     }
     @Override
     public void initdata() {
-        loadMessageTask = new LoadMessageTask();
-        loadMessageTask.execute();
+        mLoadTask = new LoadTask();
+        mLoadTask.execute();
     }
 
     @Override
     public void addAction() {
-        imageviewTelephone.setOnClickListener(new TelephoneClickListener(this,tel_nummber));
-        textViewTitle.setTypeface(typeface);
-        textViewTitle.setText("消息");
-        mMessageListView.setDividerHeight(0);
-        switch (charSingupStatus){
-            case 'D':
-            case 'N':
-                break;
-            case 'P':
-            case 'A':
-                imageViewSignup.setVisibility(View.GONE);
-                break;
-        }
-        imageViewSignup.setOnClickListener(new SignupClickListener(MessageActivity.this,exKey));
-        mMessageListView.setOnItemClickListener(this);
-        mMessageListView.setPullLoadEnable(true);
-        mMessageListView.setXListViewListener(this);
+        mImgviewTelephone.setOnClickListener(new TelephoneClickListener(this, tel_nummber));
+        mTxtTitle.setTypeface(mTypeface);
+        mTxtTitle.setText("消息");
+        mXLvi.setDividerHeight(0);
+        mXLvi.setOnItemClickListener(this);
+        mXLvi.setPullLoadEnable(true);
+        mXLvi.setXListViewListener(this);
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         MessageListAdapter.selectedID = position-1;
-        mMessageListAdapter.notifyDataSetChanged();
+        mListAdapter.notifyDataSetChanged();
     }
 
     private void onLoad() {
-        mMessageListView.stopRefresh();
-        mMessageListView.stopLoadMore();
-        mMessageListView.setRefreshTime("...");
+        mXLvi.stopRefresh();
+        mXLvi.stopLoadMore();
+        mXLvi.setRefreshTime("...");
     }
 
     @Override
@@ -113,7 +97,7 @@ public class MessageActivity extends BaseActivity implements
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                mdataes.clear();
+                mDataes.clear();
                 initdata();
                 onLoad();
             }
@@ -130,27 +114,23 @@ public class MessageActivity extends BaseActivity implements
         }, 2000);
     }
 
-    class LoadMessageTask extends AsyncTask<Void,Integer,Integer>{
+    class LoadTask extends AsyncTask<Void,Integer,Integer>{
         @Override
         protected Integer doInBackground(Void... params) {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
                     try {
-                        String mJsonData = mController.getService().ExMessage(exKey,token);
-                        ExhibitionMessage mMessage = mGson.fromJson(mJsonData,ExhibitionMessage.class);
-                        for (ExhibitionMessage.ExMessage exMessage : mMessage.getList()){
-                            HashMap<String,String> map = new HashMap<String, String>();
-                            map.put("date",new Date(exMessage.getCreatedAt()).toLocaleString());
-                            map.put("content",exMessage.getContent());
-                            map.put("status",exMessage.getRead());
-                            mdataes.add(map);
+                        String mJsonData = mController.getService().ExMessage(mExhibition.getExKey(),token);
+                        MessageList mMessage = mGson.fromJson(mJsonData,MessageList.class);
+                        for (MessageList.Message message : mMessage.getList()){
+                            mDataes.add(message);
                         }
 
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    Message message = handler.obtainMessage();
+                    android.os.Message message = handler.obtainMessage();
                     message.what = 1;
                     handler.sendMessage(message);
                 }
@@ -161,7 +141,7 @@ public class MessageActivity extends BaseActivity implements
 
     @Override
     protected void onDestroy() {
-        loadMessageTask = null;
+        mLoadTask = null;
         super.onDestroy();
     }
 }

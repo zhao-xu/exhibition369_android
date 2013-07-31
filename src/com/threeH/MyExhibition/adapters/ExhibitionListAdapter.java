@@ -1,7 +1,6 @@
 package com.threeH.MyExhibition.adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,22 +8,15 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.google.gson.Gson;
 import com.threeH.MyExhibition.R;
-import com.threeH.MyExhibition.cache.XmlDB;
-import com.threeH.MyExhibition.common.StringPools;
-import com.threeH.MyExhibition.entities.EnrollExhibition;
 import com.threeH.MyExhibition.entities.Exhibition;
 import com.threeH.MyExhibition.listener.AttentionClickListener;
 import com.threeH.MyExhibition.tools.*;
-import com.threeH.MyExhibition.ui.HomeActivity;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 
-public class HomePageEnrollListAdapter extends BaseAdapter {
+public class ExhibitionListAdapter extends BaseAdapter {
 
     private List<Exhibition> data;
     private LayoutInflater mInflater;
@@ -34,7 +26,7 @@ public class HomePageEnrollListAdapter extends BaseAdapter {
     Typeface typeface;
     Typeface typeface_bold;
 
-    public HomePageEnrollListAdapter(Context context, List<Exhibition> data,String token) {
+    public ExhibitionListAdapter(Context context, List<Exhibition> data, String token) {
         this.data = data;
         mInflater = LayoutInflater.from(context);
         this.context = context;
