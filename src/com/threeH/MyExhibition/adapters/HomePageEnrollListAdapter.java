@@ -15,10 +15,8 @@ import com.threeH.MyExhibition.cache.XmlDB;
 import com.threeH.MyExhibition.common.StringPools;
 import com.threeH.MyExhibition.entities.EnrollExhibition;
 import com.threeH.MyExhibition.entities.Exhibition;
-import com.threeH.MyExhibition.tools.ImageURLUtil;
-import com.threeH.MyExhibition.tools.MSYH;
-import com.threeH.MyExhibition.tools.SharedPreferencesUtil;
-import com.threeH.MyExhibition.tools.Tool;
+import com.threeH.MyExhibition.listener.AttentionClickListener;
+import com.threeH.MyExhibition.tools.*;
 import com.threeH.MyExhibition.ui.HomeActivity;
 
 import java.util.ArrayList;
@@ -33,8 +31,6 @@ public class HomePageEnrollListAdapter extends BaseAdapter {
     private Context context;
     private String status;
     private String token;
-    private List<HashMap<String,String>> mListMyexhibiton =
-                new ArrayList<HashMap<String, String>>();
     Typeface typeface;
     Typeface typeface_bold;
 
@@ -45,7 +41,7 @@ public class HomePageEnrollListAdapter extends BaseAdapter {
         typeface = MSYH.getInstance(context.getApplicationContext()).getNormal();
         typeface_bold = MSYH.getInstance(context.getApplicationContext()).getBold();
         this.token = token;
-        initMyexhibitonList();
+        MyExhibitionListUtil.getInstance(context).initMyExhiibitonList();
     }
 
     @Override
@@ -101,68 +97,16 @@ public class HomePageEnrollListAdapter extends BaseAdapter {
         status = data.get(position).getApplied();
 
         final int i = position;
-        if(!isMyExhibiton(data.get(position).getExKey())){
+        if(!MyExhibitionListUtil.getInstance(context).isMyExhibiton(data.get(position).getExKey())){
             holder.mEnrollAttention.setImageResource(R.drawable.attention);
-            holder.mEnrollAttention.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    SharedPreferencesUtil.saveObject(data.get(i),context, StringPools.SCAN_EXHIBITION_DATA);
-                    Intent intent = new Intent(context, HomeActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    context.startActivity(intent);
-                }
-            });
+            holder.mEnrollAttention.setOnClickListener(
+                    new AttentionClickListener(context,data.get(i)));
         }
         int count = Integer.valueOf(data.get(position).getCount());
         if(count > 0){
            holder.mEnrollMessage.setVisibility(View.VISIBLE);
         }
         return convertView;
-    }
-
-    /**
-     * 获取本地存储展会数据，总共两部分
-     * 1.关注的展会  2.已报名的展会
-     */
-    private void  initMyexhibitonList(){
-        String jsonData = XmlDB.getInstance(context).
-                          getKeyStringValue(StringPools.SIGNUP_EXHIBITION_DATA, "");
-        EnrollExhibition.EnrollStatus[] myExhibitons =
-                new Gson().fromJson(jsonData, EnrollExhibition.EnrollStatus[].class);
-        List<Object> list  =
-                SharedPreferencesUtil.getObject(context, StringPools.SCAN_EXHIBITION_DATA);
-        if(list != null){
-            for(Object object : list){
-                addToList(((Exhibition)object).getExKey());
-            }
-        }
-        for(EnrollExhibition.EnrollStatus mEnrollStatus : myExhibitons){
-            addToList(mEnrollStatus.getExKey());
-        }
-    }
-
-    /**
-     * 添加到我的展会列表
-     * @param exKey
-     */
-    private void addToList(String exKey){
-        HashMap<String,String> map =new HashMap<String,String>();
-        map.put("exhibitionExkey",exKey);
-        mListMyexhibiton.add(map);
-    }
-
-    /**
-     * 判断该展会是否已经存在在我的展会列表中
-     * @param exkey 展会标识
-     * @return 存在返回true 不存在返回false
-     */
-    private boolean isMyExhibiton(String exkey){
-        for (HashMap<String, String> hashMap : mListMyexhibiton) {
-            if (hashMap.get("exhibitionExkey").contains(exkey)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     public class ViewHolder {

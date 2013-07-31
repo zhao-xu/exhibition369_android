@@ -23,7 +23,6 @@ import java.nio.ByteBuffer;
  * User: pjq
  * Date: 13-7-29
  * Time: 下午3:11
- * To change this template use File | Settings | File Templates.
  */
 public class HomeActivity extends TabActivity implements ActivityInterface {
     private TabHost mTabhost;

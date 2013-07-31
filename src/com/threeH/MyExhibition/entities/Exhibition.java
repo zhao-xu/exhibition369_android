@@ -1,5 +1,4 @@
 package com.threeH.MyExhibition.entities;
-
 import java.io.Serializable;
 
 /**
@@ -36,6 +35,15 @@ public class Exhibition implements Serializable {
     private int count;
     private String status;
     private int orderNo;
+    private boolean isAttention;
+
+    public boolean isAttention() {
+        return isAttention;
+    }
+
+    public void setAttention(boolean attention) {
+        isAttention = attention;
+    }
 
     public int getOrderNo() {
         return orderNo;

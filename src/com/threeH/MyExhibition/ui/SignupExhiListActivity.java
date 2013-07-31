@@ -43,12 +43,10 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
             AdapterView.OnItemClickListener,XListView.IXListViewListener {
     private XListView mListView;
     private List<HashMap<String,String>> mdataes = new LinkedList<HashMap<String, String>>();
-    private List<HashMap<String,String>> searchDataes = new ArrayList<HashMap<String,String>>();
     private List<HashMap<String,String>> mItemClickDataes = new ArrayList<HashMap<String,String>>();
     private SignExhiListAdapter mSignExhiListAdapter;
     private EnrollExhibition.EnrollStatus[] enrollStatuses;
     private LoadDataTask loadDataTask;
-    private String mStrExKey;
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -168,22 +166,10 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                /*loadNextPageData();
-                mSignExhiListAdapter.notifyDataSetChanged();*/
                 onLoad();
             }
         }, 2000);
     }
-
-    /*private boolean isExist(String exkey){
-        for (HashMap<String, String> hashMap : mdataes) {
-            if (hashMap.get("exhibitionExkey").contains(exkey)) {
-                name = hashMap.get("name");
-                return true;
-            }
-        }
-        return false;
-    }*/
 
     /**
      * 用于加载已报名列表的异步任务栈。

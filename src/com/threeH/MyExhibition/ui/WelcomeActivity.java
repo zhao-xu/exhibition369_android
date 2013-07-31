@@ -29,19 +29,13 @@ public class WelcomeActivity extends BaseActivity implements ActivityInterface{
 
 		new Thread() {
 				public void run() {
-//                    mProDialog.show();
 				    try {
-						/*mJsonData = controller.getService().OverAllData(StringPools.PHONE_TYPE,mOsVer,mVer,mMacAddress);
-
-						XmlDB.getInstance(WelcomeActivity.this).saveKey(
-                                StringPools.OVERALL_CONFIG, mJsonData);*/
                         MobileConfig mobileConfig = MobileConfig.getMobileConfig(context);
                         XmlDB.getInstance(WelcomeActivity.this).saveKey(StringPools.OVERALL_CONFIG,
                                 mController.getService().OverAllData(StringPools.PHONE_TYPE,
                                         Build.VERSION.RELEASE, "1.0", mobileConfig.getLocalMacAddress()));
-                        sleep(3000);
+                        sleep(1000);
                         goToNextPage();
-
 				} catch (InterruptedException e) {
 					    e.printStackTrace();
                         mProDialog.dismiss();

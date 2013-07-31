@@ -7,9 +7,11 @@ import android.view.View;
 import android.webkit.WebView;
 import android.widget.*;
 import com.threeH.MyExhibition.R;
+import com.threeH.MyExhibition.listener.AttentionClickListener;
 import com.threeH.MyExhibition.listener.SignupClickListener;
 import com.threeH.MyExhibition.listener.TelephoneClickListener;
 import com.threeH.MyExhibition.tools.MSYH;
+import com.threeH.MyExhibition.tools.MyExhibitionListUtil;
 
 /**
  * Created with IntelliJ IDEA.
@@ -19,13 +21,13 @@ import com.threeH.MyExhibition.tools.MSYH;
  * To change this template use File | Settings | File Templates.
  */
 public class ExhibitionBriefActivity extends BaseActivity implements ActivityInterface  {
-    private WebView webView;
-    private String url;
-    private ImageView imageviewTelephone,imageViewSignup;
+    private WebView mWebVi;
+    private String mUrl;
+    private ImageView mImgviewTelephone, mImgviewSignup;
     private TextView mTxtTitle,mTxtTheme;
     private String mStrTitle,mStrTheme;
-    private char charSingupStatus;
-    private String exKey;
+    private char mChrStatus;
+    private String mStrExKey;
     private Button mBtnSignup;
     Typeface typeface;
     FrameLayout webContainer;
@@ -35,8 +37,8 @@ public class ExhibitionBriefActivity extends BaseActivity implements ActivityInt
         setContentViewWithNoTitle(R.layout.exhibition_brief);
 
         webContainer = (FrameLayout) findViewById(R.id.exhibition_brief_webContainer);
-        webView = new WebView(getApplicationContext());
-        webContainer.addView(webView);
+        mWebVi = new WebView(getApplicationContext());
+        webContainer.addView(mWebVi);
 
         initdata();
         findView();
@@ -46,46 +48,53 @@ public class ExhibitionBriefActivity extends BaseActivity implements ActivityInt
     @Override
     protected void onDestroy() {
         webContainer.removeAllViews();
-        webView.destroy();
+        mWebVi.destroy();
         super.onDestroy();
     }
 
     @Override
     public void findView() {
-        imageviewTelephone = (ImageView) this.findViewById(R.id.exhibition_titlebar_btn_telephone);
+        mImgviewTelephone = (ImageView) this.findViewById(R.id.exhibition_titlebar_btn_telephone);
         mTxtTitle = (TextView) this.findViewById(R.id.exhibition_titlebar_txt_title);
-        imageViewSignup = (ImageView) this.findViewById(R.id.exhibition_titlebar_signup);
+        mImgviewSignup = (ImageView) this.findViewById(R.id.exhibition_titlebar_signup);
         mTxtTheme = (TextView) this.findViewById(R.id.exhibition_brief_txt_theme);
         mBtnSignup = (Button) this.findViewById(R.id.exhibition_brief_btn_signup);
     }
 
     @Override
     public void initdata() {
-        url = getIntent().getStringExtra("url");
+        mUrl = getIntent().getStringExtra("url");
         mStrTitle = getIntent().getStringExtra("title");
-        typeface = MSYH.getInstance(context.getApplicationContext()).getNormal();
-        charSingupStatus = getIntent().getCharExtra("singupStatus", ' ');
-        exKey = getIntent().getStringExtra("exKey");
+        mChrStatus = getIntent().getCharExtra("singupStatus", ' ');
+        mStrExKey = getIntent().getStringExtra("exKey");
         mStrTheme = getIntent().getStringExtra("theme");
+        typeface = MSYH.getInstance(context.getApplicationContext()).getNormal();
+        MyExhibitionListUtil.getInstance(context).initMyExhiibitonList();
     }
 
     @Override
     public void addAction() {
-        imageviewTelephone.setOnClickListener(new TelephoneClickListener(this,tel_nummber));
+        mImgviewTelephone.setOnClickListener(new TelephoneClickListener(this, tel_nummber));
         mTxtTitle.setTypeface(typeface);
         mTxtTitle.setText(mStrTitle);
-        imageViewSignup.setVisibility(View.GONE);
-        switch (charSingupStatus){
-            case ' ':
-            case 'D':
-            case 'N':
-                mBtnSignup.setOnClickListener(new SignupClickListener(this,exKey));
-                break;
-            case 'P':
-            case 'A':
-                mBtnSignup.setVisibility(View.GONE);
-                break;
+        mImgviewSignup.setVisibility(View.GONE);
+        if(MyExhibitionListUtil.getInstance(context).isMyExhibiton(mStrExKey)){
+            switch (mChrStatus){
+                case ' ':
+                case 'D':
+                case 'N':
+                    mBtnSignup.setOnClickListener(new SignupClickListener(this, mStrExKey));
+                    break;
+                case 'P':
+                case 'A':
+                    mBtnSignup.setVisibility(View.GONE);
+                    break;
+            }
+        }else{
+            mBtnSignup.setBackgroundResource(R.drawable.attention_font_btn);
+            //mBtnSignup.setOnClickListener(new AttentionClickListener());
         }
+
         mTxtTheme.setText(mStrTheme);
         LoadHtmlTask loadHtmlTask = new LoadHtmlTask();
         loadHtmlTask.execute();
@@ -96,7 +105,7 @@ public class ExhibitionBriefActivity extends BaseActivity implements ActivityInt
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    webView.loadUrl(url);
+                    mWebVi.loadUrl(mUrl);
                 }
             }).start();
             return null;

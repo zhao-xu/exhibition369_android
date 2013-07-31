@@ -35,18 +35,10 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
     private static final String MESSAGE_TAB = "message";
     private static final String TWODCODE_TAB = "2dcode";
     private TabHost tabhost;
-    private TextView titleTV;
-    private SharedPreferences pres;
-    private final static int RESULT_CODE = 1;
     private String exKey;
     private RadioGroup radiogroup;
-    private ClientController clientController;
     private char singupStatus;
     private String strExAddress,strExDate,strTheme,strSponser,strSing;
-    private RadioButton radioButtonNews,radioButtonQrcode,radioButtonMessage;
-    private String token;
-    private Gson mGson = new Gson();
-    private int id = R.id.rb_show;
     private int count;
     private ImageView imageViewNewMessage;
     @Override
@@ -66,22 +58,17 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
     @Override
     public void findView() {
         radiogroup = (RadioGroup) this.findViewById(R.id.rg_tabs_btns);
-        radioButtonNews = (RadioButton) this.findViewById(R.id.rb_news);
-        radioButtonQrcode = (RadioButton) this.findViewById(R.id.rb_more);
-        radioButtonMessage = (RadioButton) this.findViewById(R.id.rb_member);
         imageViewNewMessage = (ImageView) this.findViewById(R.id.imageview_newmessage);
     }
 
     @Override
     public void initdata() {
         tabhost  = this.getTabHost();
-        clientController = ClientController.getController(this);
         exKey = getIntent().getStringExtra("exKey");
         strExAddress = getIntent().getStringExtra("exAddress");
         strExDate = getIntent().getStringExtra("exTime");
         strTheme  = getIntent().getStringExtra("exTheme");
         strSponser  = getIntent().getStringExtra("exSponser");
-        token = getIntent().getStringExtra("token");
         singupStatus = getIntent().getCharExtra("singupStatus",' ');
         count = getIntent().getIntExtra("count",0);
         TabHost.TabSpec newSpec = tabhost.newTabSpec(NEWS_TAB).setIndicator(NEWS_TAB)
@@ -129,29 +116,17 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
                 switch (checkedId) {
                     case R.id.rb_news:
                         tabhost.setCurrentTabByTag(NEWS_TAB);
-                        id = R.id.rb_news;
                         break;
                     case R.id.rb_show:
                         tabhost.setCurrentTabByTag(SUMMARY_TAB);
-                        id = R.id.rb_show;
                         break;
                     case R.id.rb_store:
                         tabhost.setCurrentTabByTag(SCHEDULE_TAB);
-                        id = R.id.rb_store;
                         break;
                     case R.id.rb_member:
-                        if( 'N' == singupStatus){
-                            //radioButtonMessage.setChecked(false);
-                           // radiogroup.check(id);
-                        }
                         tabhost.setCurrentTabByTag(MESSAGE_TAB);
                         break;
                     case R.id.rb_more:
-                        if ('N' == singupStatus) {
-                            //radioButtonQrcode.setChecked(false);
-                            //radiogroup.check(id);
-                            //tabhost.setCurrentTabByTag(tabhost.getCurrentTabTag());
-                        }
                         tabhost.setCurrentTabByTag(TWODCODE_TAB);
                         break;
                     default:
