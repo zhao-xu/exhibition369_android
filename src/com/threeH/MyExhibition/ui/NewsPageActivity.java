@@ -34,8 +34,6 @@ public class NewsPageActivity extends BaseActivity  implements
     private XListView listView;
     private NewslistAdapter adapter;
     private NewList newsData;
-    private ImageView imageviewTelephone;
-    private TextView textViewTitle;
     private Typeface typeface;
     List<HashMap<String,String>> data = new ArrayList<HashMap<String, String>>();
     private ImageView imageviewPrompt;
@@ -71,8 +69,6 @@ public class NewsPageActivity extends BaseActivity  implements
     @Override
     public void findView() {
         listView = (XListView) this.findViewById(R.id.newslist_listview);
-        imageviewTelephone = (ImageView) this.findViewById(R.id.exhibition_titlebar_btn_telephone);
-        textViewTitle = (TextView) this.findViewById(R.id.exhibition_titlebar_txt_title);
         imageviewPrompt = (ImageView) this.findViewById(R.id.prompt_imageview);
     }
 
@@ -87,9 +83,6 @@ public class NewsPageActivity extends BaseActivity  implements
         listView.setOnItemClickListener(this);
         listView.setPullLoadEnable(true);
         listView.setXListViewListener(this);
-        imageviewTelephone.setOnClickListener(new TelephoneClickListener(this,tel_nummber));
-        textViewTitle.setTypeface(typeface);
-        textViewTitle.setText("展会新闻");
     }
 
     @Override

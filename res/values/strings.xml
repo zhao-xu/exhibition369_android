@@ -18,6 +18,11 @@
     <string name="scan">扫一扫</string>
     <string name="recommond">推荐</string>
     <string name="about">关于</string>
+    <string name="exhibition_brief">会展介绍</string>
+    <string name="schedule">日程</string>
+    <string name="news">新闻</string>
+    <string name="message">消息</string>
+    <string name="qrcode">二维码</string>
     <string name="app_picker_name">Applications</string>
     <string name="bookmark_picker_name">Bookmarks</string>
     <string name="button_add_calendar">Add to calendar</string>

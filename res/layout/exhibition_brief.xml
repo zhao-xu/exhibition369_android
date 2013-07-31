@@ -5,10 +5,6 @@
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
               android:background="@drawable/homepage_background">
-    <include
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            layout="@layout/exhibition_titlebar"/>
     <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

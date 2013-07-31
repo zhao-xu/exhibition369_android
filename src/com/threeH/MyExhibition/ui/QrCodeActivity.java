@@ -27,13 +27,11 @@ import com.threeH.MyExhibition.tools.Tool;
  * To change this template use File | Settings | File Templates.
  */
 public class QrCodeActivity extends BaseActivity implements  ActivityInterface{
-    private ImageView mImgviewQrcode, mImgviewTelephone;
-    private TextView mTxtTitle;
+    private ImageView mImgviewQrcode;
     private TextView mTxtAddress, mTxtTime;
     private TextView mTxtTheme, mTxtDate, mTxtAddressUp, mTxtSponsor;
     private TextView mTxtPrompt;
-    private ImageView mImgviewIcon, mImgviewSingup, mImgviewSignup2;
-    private Typeface mTypeface;
+    private ImageView mImgviewIcon;
     private Exhibition mExhibition;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,11 +43,7 @@ public class QrCodeActivity extends BaseActivity implements  ActivityInterface{
     @Override
     public void findView(){
         mImgviewQrcode = (ImageView) this.findViewById(R.id.qrcode_imageview);
-        mImgviewTelephone = (ImageView) this.findViewById(R.id.exhibition_titlebar_btn_telephone);
-        mImgviewSingup = (ImageView) this.findViewById(R.id.imageview_attention);
-        mImgviewSignup2 = (ImageView) this.findViewById(R.id.exhibition_titlebar_signup);
         mTxtPrompt = (TextView) this.findViewById(R.id.qrcode_textview_prompt);
-        mTxtTitle = (TextView) this.findViewById(R.id.exhibition_titlebar_txt_title);
         mImgviewIcon = (ImageView) this.findViewById(R.id.imageview_icon);
         mTxtAddress = (TextView) this.findViewById(R.id.qrcode_textview_exaddress);
         mTxtTime = (TextView) this.findViewById(R.id.qrcode_textview_extime);
@@ -61,19 +55,14 @@ public class QrCodeActivity extends BaseActivity implements  ActivityInterface{
 
     @Override
     public void initdata(){
-        mTypeface = MSYH.getInstance(context.getApplicationContext()).getNormal();
         mExhibition = (Exhibition) getIntent().getExtras().get("exhibition");
     }
 
     @Override
     public void addAction() {
-        mTxtTitle.setTypeface(mTypeface);
-        mTxtTitle.setText("二维码");
-        mImgviewTelephone.setOnClickListener(new TelephoneClickListener(this, tel_nummber));
         ImageURLUtil.loadImage(Tool.makeExhibitionIconURL(mExhibition.getExKey()), mImgviewIcon);
         mTxtAddress.setText(mExhibition.getAddress());
         mTxtTime.setText(mExhibition.getDate());
-        mImgviewSingup.setVisibility(View.GONE);
         String status = mExhibition.getStatus() + " ";
         char c = status.charAt(0);
         switch (c){
@@ -83,11 +72,9 @@ public class QrCodeActivity extends BaseActivity implements  ActivityInterface{
                 break;
             case 'P':
                 mTxtPrompt.setText("您的个人信息还在审核中，请耐心等待。。。");
-                mImgviewSignup2.setVisibility(View.GONE);
                 break;
             case 'A':
                 loadQrcode();
-                mImgviewSignup2.setVisibility(View.GONE);
                 break;
             case 'D':
                 mTxtPrompt.setText("对不起，您的个人信息未能通过审核，您可以拨打客服热线进行咨询。");
@@ -97,7 +84,6 @@ public class QrCodeActivity extends BaseActivity implements  ActivityInterface{
         mTxtDate.setText(mExhibition.getDate());
         mTxtAddressUp.setText(mExhibition.getAddress());
         mTxtSponsor.setText(mExhibition.getOrganizer());
-        mImgviewSignup2.setOnClickListener(new SignupClickListener(QrCodeActivity.this, mExhibition.getExKey()));
     }
 
     private void loadQrcode() {

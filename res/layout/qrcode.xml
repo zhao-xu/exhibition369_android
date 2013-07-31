@@ -1,73 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
-              android:background="@drawable/qrcode_background">
-<include
-        android:id="@+id/qrcode_include"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        layout="@layout/exhibition_titlebar"/>
-<RelativeLayout
-        android:id="@+id/qrcode_rl_one"
-        android:layout_below="@id/qrcode_include"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:background="@drawable/qrcode_body_background">
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/qrcode_background">
     <RelativeLayout
-            android:id="@+id/qrcode_rl_two"
-            android:layout_width="match_parent"
+            android:id="@+id/qrcode_rl_one"
             android:layout_height="wrap_content"
-            android:layout_margin="30dp">
-        <include
+            android:layout_width="match_parent"
+            android:background="@drawable/qrcode_body_background">
+        <RelativeLayout
+                android:id="@+id/qrcode_rl_two"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                layout="@layout/head_page_enroll_item"
-                android:id="@+id/qrcode_exhibition_detail"/>
-        <LinearLayout
-                android:id="@+id/qrcode_linearlayout_address"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/qrcode_exhibition_detail">
+                android:layout_margin="30dp">
+            <include
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    layout="@layout/head_page_enroll_item"
+                    android:id="@+id/qrcode_exhibition_detail"/>
+            <LinearLayout
+                    android:id="@+id/qrcode_linearlayout_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/qrcode_exhibition_detail">
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/address"/>
+                <TextView
+                        android:id="@+id/qrcode_textview_exaddress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="kljadjflak"
+                        android:textColor="#344e78"/>
+            </LinearLayout>
+            <LinearLayout
+                    android:id="@+id/qrcode_linearlayout_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/qrcode_linearlayout_address">
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/time"/>
+                <TextView
+                        android:id="@+id/qrcode_textview_extime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="kljadjflak"
+                        android:textColor="#344e78"/>
+            </LinearLayout>
             <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/address"/>
-            <TextView
-                    android:id="@+id/qrcode_textview_exaddress"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="kljadjflak"
-                    android:textColor="#344e78"/>
-        </LinearLayout>
-        <LinearLayout
-                android:id="@+id/qrcode_linearlayout_time"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/qrcode_linearlayout_address">
-            <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/time"/>
-            <TextView
-                    android:id="@+id/qrcode_textview_extime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="kljadjflak"
-                    android:textColor="#344e78"/>
-        </LinearLayout>
-        <ImageView
-                android:id="@+id/qrcode_imageview"
-                android:layout_below="@id/qrcode_linearlayout_time"
-                android:layout_width="250dp"
-                android:layout_height="250dp"
-                android:layout_centerHorizontal="true"
-                android:scaleType="fitXY"/>
+                    android:id="@+id/qrcode_imageview"
+                    android:layout_below="@id/qrcode_linearlayout_time"
+                    android:layout_width="250dp"
+                    android:layout_height="250dp"
+                    android:layout_centerHorizontal="true"
+                    android:scaleType="fitXY"/>
 
+        </RelativeLayout>
     </RelativeLayout>
-</RelativeLayout>
     <TextView
             android:id="@+id/qrcode_textview_prompt"
             android:layout_height="wrap_content"

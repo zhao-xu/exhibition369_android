@@ -1,7 +1,12 @@
 package com.threeH.MyExhibition.tools;
 
+import android.content.Context;
+import com.google.gson.Gson;
+import com.threeH.MyExhibition.cache.XmlDB;
+import com.threeH.MyExhibition.common.StringPools;
 import com.threeH.MyExhibition.entities.Exhibition;
 import com.threeH.MyExhibition.entities.ExhibitionList;
+import com.threeH.MyExhibition.entities.OverAllConfig;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,4 +64,17 @@ public class Tool {
         return data;
     }
 
+    /**
+     * 获取保存在全局配置中的电话号码
+     * @return
+     */
+    public static String getTelephone(Context context){
+        Gson gson = new Gson();
+        OverAllConfig mOverAllConfig = gson.fromJson(XmlDB.getInstance(context).
+                getKeyStringValue(StringPools.OVERALL_CONFIG, ""),OverAllConfig.class);
+        if(null != mOverAllConfig){
+            return mOverAllConfig.getTel();
+        }
+        return null;
+    }
 }

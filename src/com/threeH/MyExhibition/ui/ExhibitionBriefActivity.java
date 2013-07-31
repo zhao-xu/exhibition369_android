@@ -26,11 +26,9 @@ import com.threeH.MyExhibition.tools.MyExhibitionListUtil;
 public class ExhibitionBriefActivity extends BaseActivity implements ActivityInterface  {
     private WebView mWebVi;
     private String mUrl;
-    private ImageView mImgviewTelephone, mImgviewSignup;
-    private TextView mTxtTitle,mTxtTheme;
+    private TextView mTxtTheme;
     private Button mBtnSignup;
     private Exhibition mExhibition;
-    Typeface typeface;
     FrameLayout webContainer;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,9 +53,6 @@ public class ExhibitionBriefActivity extends BaseActivity implements ActivityInt
 
     @Override
     public void findView() {
-        mImgviewTelephone = (ImageView) this.findViewById(R.id.exhibition_titlebar_btn_telephone);
-        mTxtTitle = (TextView) this.findViewById(R.id.exhibition_titlebar_txt_title);
-        mImgviewSignup = (ImageView) this.findViewById(R.id.exhibition_titlebar_signup);
         mTxtTheme = (TextView) this.findViewById(R.id.exhibition_brief_txt_theme);
         mBtnSignup = (Button) this.findViewById(R.id.exhibition_brief_btn_signup);
     }
@@ -66,16 +61,11 @@ public class ExhibitionBriefActivity extends BaseActivity implements ActivityInt
     public void initdata() {
         mUrl = getIntent().getStringExtra("url");
         mExhibition = (Exhibition) getIntent().getExtras().get("exhibition");
-        typeface = MSYH.getInstance(context.getApplicationContext()).getNormal();
         MyExhibitionListUtil.getInstance(context).initMyExhiibitonList();
     }
 
     @Override
     public void addAction() {
-        mImgviewTelephone.setOnClickListener(new TelephoneClickListener(this, tel_nummber));
-        mTxtTitle.setTypeface(typeface);
-        mTxtTitle.setText("展会简介");
-        mImgviewSignup.setVisibility(View.GONE);
         String status = mExhibition.getStatus() + " ";
         char c = status.charAt(0);
         if(MyExhibitionListUtil.getInstance(context).isMyExhibiton(mExhibition.getExKey())){

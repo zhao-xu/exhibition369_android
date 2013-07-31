@@ -6,6 +6,7 @@
               android:layout_height="fill_parent"
               android:background="@drawable/homepage_background">
     <include
+            android:id="@+id/webview_include"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             layout="@layout/exhibition_titlebar"/>
@@ -14,6 +15,5 @@
             android:id="@+id/webContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             />
 </LinearLayout>

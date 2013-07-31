@@ -14,6 +14,7 @@ import com.threeH.MyExhibition.common.StringPools;
 import com.threeH.MyExhibition.entities.OverAllConfig;
 import com.threeH.MyExhibition.listener.TelephoneClickListener;
 import com.threeH.MyExhibition.tools.ByteUtil;
+import com.threeH.MyExhibition.tools.Tool;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
@@ -63,7 +64,8 @@ public class HomeActivity extends TabActivity implements ActivityInterface {
     @Override
     public void addAction() {
         mImgviewSignup.setVisibility(View.GONE);
-        mImgviewTelephone.setOnClickListener(new TelephoneClickListener(this,getTelephone()));
+        mImgviewTelephone.setOnClickListener(
+                new TelephoneClickListener(this, Tool.getTelephone(getApplicationContext())));
         mTxvTitle.setText(R.string.myexhibition);
         mTabhost.setCurrentTabByTag(MYEXHIBITION_TAB);
         mRadiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -104,19 +106,7 @@ public class HomeActivity extends TabActivity implements ActivityInterface {
         }
     }
 
-    /**
-     * 获取保存在全局配置中的电话号码
-     * @return
-     */
-    private String getTelephone(){
-        Gson gson = new Gson();
-        OverAllConfig mOverAllConfig = gson.fromJson(XmlDB.getInstance(this).
-                getKeyStringValue(StringPools.OVERALL_CONFIG, ""),OverAllConfig.class);
-        if(null != mOverAllConfig){
-             return mOverAllConfig.getTel();
-        }
-        return null;
-    }
+
 
     /**
      * 初始化tabhost中的tab

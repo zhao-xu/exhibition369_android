@@ -29,9 +29,6 @@ public class MessageActivity extends BaseActivity implements
     private List<MessageList.Message> mDataes = new ArrayList<MessageList.Message>();
     private XListView mXLvi;
     private MessageListAdapter mListAdapter;
-    private ImageView mImgviewTelephone;
-    private TextView mTxtTitle;
-    private Typeface mTypeface;
     private LoadTask mLoadTask;
     private Exhibition mExhibition;
     private Handler handler = new Handler(){
@@ -51,7 +48,6 @@ public class MessageActivity extends BaseActivity implements
         super.onCreate(savedInstanceState);
         setContentViewWithNoTitle(R.layout.message_page);
         mExhibition = (Exhibition) getIntent().getExtras().get("exhibition");
-        mTypeface = MSYH.getInstance(context.getApplicationContext()).getNormal();
         findView();
         initdata();
         addAction();
@@ -60,8 +56,6 @@ public class MessageActivity extends BaseActivity implements
     @Override
     public void findView() {
         mXLvi = (XListView)findViewById(R.id.message_list_view);
-        mImgviewTelephone = (ImageView) this.findViewById(R.id.exhibition_titlebar_btn_telephone);
-        mTxtTitle = (TextView) this.findViewById(R.id.exhibition_titlebar_txt_title);
     }
     @Override
     public void initdata() {
@@ -71,9 +65,6 @@ public class MessageActivity extends BaseActivity implements
 
     @Override
     public void addAction() {
-        mImgviewTelephone.setOnClickListener(new TelephoneClickListener(this, tel_nummber));
-        mTxtTitle.setTypeface(mTypeface);
-        mTxtTitle.setText("消息");
         mXLvi.setDividerHeight(0);
         mXLvi.setOnItemClickListener(this);
         mXLvi.setPullLoadEnable(true);

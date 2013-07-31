@@ -2,12 +2,15 @@ package com.threeH.MyExhibition.ui;
 
 import android.app.TabActivity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.*;
 import com.threeH.MyExhibition.R;
 import com.threeH.MyExhibition.entities.Exhibition;
+import com.threeH.MyExhibition.listener.TelephoneClickListener;
+import com.threeH.MyExhibition.tools.MSYH;
 import com.threeH.MyExhibition.tools.MobileConfig;
 import com.threeH.MyExhibition.tools.PixelDpHelper;
 import com.threeH.MyExhibition.tools.Tool;
@@ -29,6 +32,9 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
     private RadioGroup mRadiogroup;
     private ImageView mImgviewNewMessage;
     private Exhibition mExhibiton;
+    private Typeface mTypeface;
+    private ImageView mImgviewTelephone;
+    private TextView mTxtTitle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -44,11 +50,14 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
     public void findView() {
         mRadiogroup = (RadioGroup) this.findViewById(R.id.rg_tabs_btns);
         mImgviewNewMessage = (ImageView) this.findViewById(R.id.imageview_newmessage);
+        mImgviewTelephone = (ImageView) this.findViewById(R.id.exhibition_titlebar_btn_telephone);
+        mTxtTitle = (TextView) this.findViewById(R.id.exhibition_titlebar_txt_title);
     }
 
     @Override
     public void initdata() {
         mTabhost = this.getTabHost();
+        mTypeface = MSYH.getInstance(this).getNormal();
         mExhibiton = (Exhibition) getIntent().getExtras().get("exhibition");
         initTabhost();
     }
@@ -60,19 +69,19 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
                     case R.id.rb_news:
-                        mTabhost.setCurrentTabByTag(NEWS);
+                        changeTab(NEWS,R.string.news);
                         break;
                     case R.id.rb_show:
-                        mTabhost.setCurrentTabByTag(BRIEF);
+                        changeTab(BRIEF,R.string.exhibition_brief);
                         break;
                     case R.id.rb_store:
-                        mTabhost.setCurrentTabByTag(SCHEDULE);
+                        changeTab(SCHEDULE,R.string.schedule);
                         break;
                     case R.id.rb_member:
-                        mTabhost.setCurrentTabByTag(MESSAGE);
+                        changeTab(MESSAGE,R.string.message);
                         break;
                     case R.id.rb_more:
-                        mTabhost.setCurrentTabByTag(QRCODE);
+                        changeTab(QRCODE,R.string.qrcode);
                         break;
                     default:
                         break;
@@ -84,6 +93,10 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
             mImgviewNewMessage.setVisibility(View.VISIBLE);
             setPointPosition(mImgviewNewMessage,4);
         }
+        mTxtTitle.setText(R.string.exhibition_brief);
+        mTxtTitle.setTypeface(mTypeface);
+        mImgviewTelephone.setOnClickListener(
+                new TelephoneClickListener(this,Tool.getTelephone(getApplicationContext())));
     }
 
     /**
@@ -97,7 +110,8 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
         mTabhost.addTab(mTabhost.newTabSpec(SCHEDULE).setIndicator(SCHEDULE)
                 .setContent(new Intent(this, ShowHtmlActivity.class)
                         .putExtra("url",Tool.ASSET_SERVER + mExhibiton.getExKey() + "/schedule.html")
-                        .putExtra("exhibition", mExhibiton)));
+                        .putExtra("exhibition", mExhibiton)
+                        .putExtra("isHiddenTitleBar",true)));
         mTabhost.addTab(mTabhost.newTabSpec(NEWS).setIndicator(NEWS)
                 .setContent(new Intent(this, NewsPageActivity.class)
                         .putExtra("exhibition",mExhibiton)));
@@ -107,6 +121,15 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
         mTabhost.addTab(mTabhost.newTabSpec(QRCODE).setIndicator(QRCODE)
                 .setContent(new Intent(this, QrCodeActivity.class)
                         .putExtra("exhibition",mExhibiton)));
+    }
+    /**
+     * tab切换时需要做的动作
+     * 设置当前的tab
+     * 设置标题
+     */
+    private void changeTab(String tab, int title){
+        mTabhost.setCurrentTabByTag(tab);
+        mTxtTitle.setText(title);
     }
 
     /** 导航栏显示红点的位置设置. */
