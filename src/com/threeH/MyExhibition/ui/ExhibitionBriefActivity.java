@@ -6,12 +6,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.*;
+import com.google.gson.Gson;
 import com.threeH.MyExhibition.R;
+import com.threeH.MyExhibition.entities.Exhibition;
+import com.threeH.MyExhibition.entities.UnEnrollExhibition;
 import com.threeH.MyExhibition.listener.AttentionClickListener;
 import com.threeH.MyExhibition.listener.SignupClickListener;
 import com.threeH.MyExhibition.listener.TelephoneClickListener;
 import com.threeH.MyExhibition.tools.MSYH;
 import com.threeH.MyExhibition.tools.MyExhibitionListUtil;
+
+import java.util.ArrayList;
 
 /**
  * Created with IntelliJ IDEA.
@@ -92,9 +97,18 @@ public class ExhibitionBriefActivity extends BaseActivity implements ActivityInt
             }
         }else{
             mBtnSignup.setBackgroundResource(R.drawable.attention_font_btn);
-            //mBtnSignup.setOnClickListener(new AttentionClickListener());
+            String str = null;
+            try {
+                str = mController.getService().UnErollExListByExKey(token, 1, -1, mStrExKey);
+                UnEnrollExhibition exhibitions = new Gson().fromJson(str,UnEnrollExhibition.class);
+                if(exhibitions.getList() != null){
+                    mBtnSignup.setOnClickListener(
+                            new AttentionClickListener(context,exhibitions.getList().get(0)));
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-
         mTxtTheme.setText(mStrTheme);
         LoadHtmlTask loadHtmlTask = new LoadHtmlTask();
         loadHtmlTask.execute();
