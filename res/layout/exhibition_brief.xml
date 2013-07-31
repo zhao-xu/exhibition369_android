@@ -21,8 +21,7 @@
                 android:textSize="15dp"
                 android:gravity="center"
                 android:layout_centerHorizontal="true"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="130dp"/>
+                android:layout_marginLeft="10dp"/>
         <Button
                 android:id="@+id/exhibition_brief_btn_signup"
                 android:layout_width="wrap_content"
@@ -34,6 +33,5 @@
     <FrameLayout
             android:id="@+id/exhibition_brief_webContainer"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
+            android:layout_height="wrap_content"/>
 </LinearLayout>

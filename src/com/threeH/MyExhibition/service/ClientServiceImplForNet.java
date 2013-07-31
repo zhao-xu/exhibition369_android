@@ -93,6 +93,25 @@ public class ClientServiceImplForNet implements ClientService {
     }
 
     @Override
+    public String reommondExhibitionList(String token, int size, long last) throws Exception {
+        final String url = UrlPools.APP_SERVER + "/rest/exhibitions/pop";
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("token", token);
+        map.put("size", size+"");
+        map.put("last", last+"");
+
+        try {
+            String response = CustomerHttpClient.getRequest(url,map);
+            return response;
+        } catch (RuntimeException e) {
+            // 请求失败或者连接失败
+            e.getMessage();
+        } catch (Exception e) {
+        }
+        return "";
+    }
+
+    @Override
     public String UnErollExListByExKey(String token, int size, long last, String exKey) throws Exception {
         final String url = UrlPools.APP_SERVER + "/rest/exhibitions/find";
         Map<String, String> map = new HashMap<String, String>();

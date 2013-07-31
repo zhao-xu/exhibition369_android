@@ -26,6 +26,14 @@ public interface ClientService {
     public String UnErollExList(String token, int size, long last, String name) throws Exception;
 
     /**
+     * 未报名展会列表
+     *
+     * @return
+     * @throws Exception
+     */
+    public String reommondExhibitionList(String token, int size, long last) throws Exception;
+
+    /**
      * 用展会标识搜索展会列表
      *
      * @return

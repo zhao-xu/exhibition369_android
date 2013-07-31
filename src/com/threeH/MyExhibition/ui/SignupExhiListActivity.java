@@ -82,8 +82,6 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
         addAction();
     }
 
-
-
     @Override
     protected void onPause() {
         super.onPause();
@@ -96,7 +94,7 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
     }
 
     @Override
-    public void findView() {
+    public void findView(){
         mListView = (XListView)findViewById(R.id.signup_exhi_listview);
     }
     @Override
@@ -245,7 +243,7 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
         public void onMessageReceived(String message) {
             NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
             Notification notification  = new Notification(R.drawable.appicon,message,System.currentTimeMillis());
-            Intent intent = new Intent(context,HomeOfTabActivity.class);
+            Intent intent = new Intent(context,HomeActivity.class);
             PendingIntent pendingIntent = PendingIntent.getActivity(context,0,intent,0);
             notification.setLatestEventInfo(context,"展会消息通知",message,pendingIntent);
             notification.defaults = Notification.DEFAULT_SOUND;

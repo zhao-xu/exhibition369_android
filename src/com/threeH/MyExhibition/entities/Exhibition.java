@@ -35,6 +35,15 @@ public class Exhibition implements Serializable {
 
     private int count;
     private String status;
+    private int orderNo;
+
+    public int getOrderNo() {
+        return orderNo;
+    }
+
+    public void setOrderNo(int orderNo) {
+        this.orderNo = orderNo;
+    }
 
     public String getExKey() {
         return exKey;

@@ -22,14 +22,11 @@ import com.google.zxing.Result;
 import com.google.zxing.ResultMetadataType;
 import com.google.zxing.ResultPoint;
 import com.google.zxing.client.android.camera.CameraManager;
-import com.google.zxing.client.android.history.HistoryActivity;
 import com.google.zxing.client.android.history.HistoryItem;
 import com.google.zxing.client.android.history.HistoryManager;
 import com.google.zxing.client.android.result.ResultButtonListener;
 import com.google.zxing.client.android.result.ResultHandler;
-import com.google.zxing.client.android.result.ResultHandlerFactory;
 import com.google.zxing.client.android.result.supplement.SupplementalInfoRetriever;
-import com.google.zxing.client.android.share.ShareActivity;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -50,7 +47,6 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -60,9 +56,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 import com.threeH.MyExhibition.R;
-import com.threeH.MyExhibition.ui.HomeOfTabActivity;
+import com.threeH.MyExhibition.ui.HomeActivity;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -411,7 +406,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     lastResult = rawResult;
     String result = lastResult.getText();
     if(result != null && result.startsWith("MEK://")){
-        Intent intent = new Intent(CaptureActivity.this, HomeOfTabActivity.class);
+        Intent intent = new Intent(CaptureActivity.this, HomeActivity.class);
         intent.putExtra("result",result);
         setResult(RESULT_OK,intent);
     }

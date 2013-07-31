@@ -136,7 +136,7 @@ public class SignExhiListAdapter extends BaseAdapter {
                 imageView.setImageResource(R.drawable.no_pass);
                 imageView.setPadding(0, 60, 0, 0);
                 break;
-            case ' ':
+            default:
                 imageView.setImageResource(R.drawable.delete);
                 imageView.setOnClickListener(new View.OnClickListener() {
                     @Override

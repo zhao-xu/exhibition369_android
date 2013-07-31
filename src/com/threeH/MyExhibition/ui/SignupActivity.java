@@ -69,7 +69,6 @@ public class SignupActivity extends  BaseActivity implements ActivityInterface{
     @Override
     public void initdata() {
         exKey = getIntent().getStringExtra("exKey");
-Log.i("data",exKey);
         typeface = MSYH.getInstance(context.getApplicationContext()).getNormal();
     }
 
