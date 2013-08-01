@@ -10,7 +10,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             layout="@layout/exhibition_titlebar"/>
-
             <RelativeLayout
                     android:id="@+id/relativelayout_one"
                     android:layout_width="wrap_content"
@@ -47,7 +46,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="请输入姓名"
-                        android:visibility="gone"/>
+                        android:visibility="gone"
+                        android:textColor="@android:color/holo_red_dark"/>
             </RelativeLayout>
             <RelativeLayout
                     android:id="@+id/relativelayout_two"
@@ -82,7 +82,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="请输入正确的电话号码"
-                        android:visibility="gone"/>
+                        android:visibility="gone"
+                        android:textColor="@android:color/holo_red_dark"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -118,8 +119,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="请输入正确的邮箱"
-                        android:visibility="gone">
-                </TextView>
+                        android:visibility="gone"
+                        android:textColor="@android:color/holo_red_dark"/>
             </RelativeLayout>
             <RelativeLayout
                     android:layout_below="@id/relativelayout_three"
@@ -160,7 +161,6 @@
                         android:layout_toRightOf="@+id/signup_imageview_canhui"
                         android:layout_alignTop="@+id/signup_imageview_canzhan"/>
             </RelativeLayout>
-
     <Button
             android:id="@+id/submit_btn"
             android:layout_width="wrap_content"
