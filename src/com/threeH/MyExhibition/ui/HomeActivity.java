@@ -79,9 +79,10 @@ public class HomeActivity extends TabActivity implements ActivityInterface {
                         changeTab(SEARCH_TAB, R.string.search,R.id.home_rdobtn_search);
                         break;
                     case R.id.home_rdobtn_scan:
-                        Intent intent = new Intent(HomeActivity.this, CaptureActivity.class);
+                        /*Intent intent = new Intent(HomeActivity.this, CaptureActivity.class);
                         startActivityForResult(intent,1);
-                        mRadiogroup.check(mIDRdobtn);
+                        mRadiogroup.check(mIDRdobtn);*/
+                        changeTab(SCAN_TAB, R.string.scan,R.id.home_rdobtn_scan);
                         break;
                     case R.id.home_rdobtn_recommond:
                         changeTab(RECOMMOND_TAB, R.string.recommond,R.id.home_rdobtn_recommond);
@@ -118,7 +119,7 @@ public class HomeActivity extends TabActivity implements ActivityInterface {
         mTabhost.addTab(mTabhost.newTabSpec(SEARCH_TAB).setIndicator(SEARCH_TAB)
                 .setContent(new Intent(this, ExhibitionListActivity.class)));
         mTabhost.addTab(mTabhost.newTabSpec(SCAN_TAB).setIndicator(SCAN_TAB)
-                .setContent(new Intent(this,AboutActivity.class)));
+                .setContent(new Intent(this,CaptureActivity.class)));
         mTabhost.addTab(mTabhost.newTabSpec(RECOMMOND_TAB).setIndicator(RECOMMOND_TAB)
                 .setContent(new Intent(this, RecommondActivity.class)));
         mTabhost.addTab(mTabhost.newTabSpec(ABOUT_TAB).setIndicator(ABOUT_TAB)

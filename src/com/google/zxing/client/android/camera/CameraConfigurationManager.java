@@ -27,6 +27,8 @@ import android.view.WindowManager;
 
 import com.google.zxing.client.android.PreferencesActivity;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -74,7 +76,14 @@ final class CameraConfigurationManager {
     }
     screenResolution = new Point(width, height);
     Log.i(TAG, "Screen resolution: " + screenResolution);
-    cameraResolution = findBestPreviewSizeValue(parameters, screenResolution);
+    Point screenResolutionForCamera = new Point();
+    screenResolutionForCamera.x = screenResolution.x;
+    screenResolutionForCamera.y = screenResolution.y;
+    if (screenResolution.x < screenResolution.y) {
+        screenResolutionForCamera.x = screenResolution.y;
+        screenResolutionForCamera.y = screenResolution.x;
+    }
+    cameraResolution = findBestPreviewSizeValue(parameters, screenResolutionForCamera);
     Log.i(TAG, "Camera resolution: " + cameraResolution);
   }
 
@@ -128,6 +137,7 @@ final class CameraConfigurationManager {
 
     parameters.setPreviewSize(cameraResolution.x, cameraResolution.y);
     camera.setParameters(parameters);
+    setDisplayOrientation(camera, 90);
   }
 
   Point getCameraResolution() {
@@ -275,4 +285,22 @@ final class CameraConfigurationManager {
     return result;
   }
 
+    /**
+     * 改变照相机成像的方向的方法
+     * */
+    protected void setDisplayOrientation(Camera camera, int angle) {
+        Method downPolymorphic = null;
+        try {
+            downPolymorphic = camera.getClass().getMethod("setDisplayOrientation", new Class[] { int.class });
+            if (downPolymorphic != null)
+                downPolymorphic.invoke(camera, new Object[]{angle});
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace(); }
+    }
 }
