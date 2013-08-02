@@ -69,20 +69,16 @@ public class ExhibitionBriefActivity extends BaseActivity implements ActivityInt
         String status = mExhibition.getStatus() + " ";
         char c = status.charAt(0);
         if(MyExhibitionListUtil.getInstance(context).isMyExhibiton(mExhibition.getExKey())){
-            if(null != mExhibition.getApplied() && "N".equals(mExhibition.getApplied().trim())){
-                mBtnSignup.setOnClickListener(new SignupClickListener(this, mExhibition.getExKey()));
-            }else {
-                switch (c){
-                    case ' ':
-                    case 'D':
-                    case 'N':
-                        mBtnSignup.setOnClickListener(new SignupClickListener(this, mExhibition.getExKey()));
-                        break;
-                    case 'P':
-                    case 'A':
-                        mBtnSignup.setVisibility(View.GONE);
-                        break;
-                }
+            switch (c){
+                case ' ':
+                case 'D':
+                case 'N':
+                    mBtnSignup.setOnClickListener(new SignupClickListener(this, mExhibition.getExKey()));
+                    break;
+                case 'P':
+                case 'A':
+                    mBtnSignup.setVisibility(View.GONE);
+                    break;
             }
         }else{
             mBtnSignup.setBackgroundResource(R.drawable.attention_font_btn);

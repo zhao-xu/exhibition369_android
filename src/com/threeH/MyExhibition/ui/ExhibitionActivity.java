@@ -37,6 +37,7 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
     private TextView mTxtTitle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.exhibition_tab_page);
@@ -131,7 +132,7 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
         mTxtTitle.setText(title);
     }
 
-    /** 导航栏显示红点的位置设置.*/
+    /** 导航栏显示红点的位置设置. */
     public void setPointPosition(ImageView imageView, int mIndex) {
         int mWidth = MobileConfig.getMobileConfig(getApplicationContext()).getWidth();
         RelativeLayout.LayoutParams mParam = (RelativeLayout.LayoutParams) imageView.getLayoutParams();

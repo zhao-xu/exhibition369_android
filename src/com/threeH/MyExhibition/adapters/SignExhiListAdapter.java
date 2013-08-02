@@ -91,8 +91,8 @@ public class SignExhiListAdapter extends BaseAdapter {
         char showStatus = ' ';
         if(null != data.get(position).getStatus()){
             showStatus = (data.get(position).getStatus() + " ").charAt(0);
+            showStatusIcon(showStatus,holder.mSignupStatus,exKey,position);
         }
-        showStatusIcon(showStatus,holder.mSignupStatus,exKey,position);
         holder.mExhibitionTheme.setText(data.get(position).getName());
         holder.mExhibitionSponsor.setText(data.get(position).getOrganizer());
         holder.mExhibitionAddress.setText(data.get(position).getAddress());
