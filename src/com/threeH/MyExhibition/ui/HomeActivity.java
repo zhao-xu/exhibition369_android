@@ -35,8 +35,7 @@ public class HomeActivity extends TabActivity implements ActivityInterface {
     private static final String ABOUT_TAB = "about";
     private ImageView  mImgviewSignup,mImgviewTelephone;
     private TextView mTxvTitle;
-    private RadioButton mRdobtnScan;
-    private int mIDRdobtn = R.id.home_rdobtn_myexhibition;
+    private String mStrScan;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,12 +52,12 @@ public class HomeActivity extends TabActivity implements ActivityInterface {
         mTxvTitle = (TextView) this.findViewById(R.id.exhibition_titlebar_txt_title);
         mRadiogroup = (RadioGroup) this.findViewById(R.id.home_radiogroup);
         mImgviewTelephone = (ImageView) this.findViewById(R.id.exhibition_titlebar_btn_telephone);
-        mRdobtnScan = (RadioButton) this.findViewById(R.id.home_rdobtn_scan);
     }
 
     @Override
     public void initdata() {
         initTabhost();
+        mStrScan = getIntent().getStringExtra("result");
     }
 
     @Override
@@ -67,7 +66,6 @@ public class HomeActivity extends TabActivity implements ActivityInterface {
         mImgviewTelephone.setOnClickListener(
                 new TelephoneClickListener(this, Tool.getTelephone(getApplicationContext())));
         mTxvTitle.setText(R.string.myexhibition);
-        mTabhost.setCurrentTabByTag(MYEXHIBITION_TAB);
         mRadiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -79,10 +77,7 @@ public class HomeActivity extends TabActivity implements ActivityInterface {
                         changeTab(SEARCH_TAB, R.string.search,R.id.home_rdobtn_search);
                         break;
                     case R.id.home_rdobtn_scan:
-                        /*Intent intent = new Intent(HomeActivity.this, CaptureActivity.class);
-                        startActivityForResult(intent,1);
-                        mRadiogroup.check(mIDRdobtn);*/
-                        changeTab(SCAN_TAB, R.string.scan,R.id.home_rdobtn_scan);
+                        changeTab(SCAN_TAB,R.string.scan,R.id.home_rdobtn_scan);
                         break;
                     case R.id.home_rdobtn_recommond:
                         changeTab(RECOMMOND_TAB, R.string.recommond,R.id.home_rdobtn_recommond);
@@ -93,21 +88,20 @@ public class HomeActivity extends TabActivity implements ActivityInterface {
                 }
             }
         });
+        setTabAfterScan();
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode == RESULT_OK){
-            String result = data.getStringExtra("result");
-            if(result != null && result.startsWith("MEK://")){
-                ExhibitionListActivity.mStrScanExKey = decodeExhibitionKey(result.substring(6));
-                changeTab(SEARCH_TAB, R.string.search,R.id.home_rdobtn_search);
-                mRadiogroup.check(R.id.home_rdobtn_search);
-            }
+    /**
+     * 扫描后切换到搜一搜页面
+     */
+    private void setTabAfterScan(){
+        if(mStrScan != null && mStrScan.startsWith("MEK://")){
+            ExhibitionListActivity.mStrScanExKey = decodeExhibitionKey(mStrScan.substring(6));
+            changeTab(SEARCH_TAB, R.string.search,R.id.home_rdobtn_search);
+        }else{
+            mTabhost.setCurrentTabByTag(MYEXHIBITION_TAB);
         }
     }
-
-
 
     /**
      * 初始化tabhost中的tab
@@ -134,7 +128,6 @@ public class HomeActivity extends TabActivity implements ActivityInterface {
     private void changeTab(String tab, int title,int id){
         mTabhost.setCurrentTabByTag(tab);
         mTxvTitle.setText(title);
-        mIDRdobtn = id;
     }
 
     /**

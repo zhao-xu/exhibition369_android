@@ -57,6 +57,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.threeH.MyExhibition.R;
+import com.threeH.MyExhibition.ui.ExhibitionListActivity;
 import com.threeH.MyExhibition.ui.HomeActivity;
 
 import java.io.IOException;
@@ -408,7 +409,8 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     if(result != null && result.startsWith("MEK://")){
         Intent intent = new Intent(CaptureActivity.this, HomeActivity.class);
         intent.putExtra("result",result);
-        setResult(RESULT_OK,intent);
+        //setResult(RESULT_OK,intent);
+        startActivity(intent);
     }
     finish();
     /*ResultHandler resultHandler = ResultHandlerFactory.makeResultHandler(this, rawResult);

@@ -76,14 +76,7 @@ final class CameraConfigurationManager {
     }
     screenResolution = new Point(width, height);
     Log.i(TAG, "Screen resolution: " + screenResolution);
-    Point screenResolutionForCamera = new Point();
-    screenResolutionForCamera.x = screenResolution.x;
-    screenResolutionForCamera.y = screenResolution.y;
-    if (screenResolution.x < screenResolution.y) {
-        screenResolutionForCamera.x = screenResolution.y;
-        screenResolutionForCamera.y = screenResolution.x;
-    }
-    cameraResolution = findBestPreviewSizeValue(parameters, screenResolutionForCamera);
+    cameraResolution = findBestPreviewSizeValue(parameters, screenResolution);
     Log.i(TAG, "Camera resolution: " + cameraResolution);
   }
 
@@ -94,7 +87,7 @@ final class CameraConfigurationManager {
       Log.w(TAG, "Device error: no camera parameters are available. Proceeding without configuration.");
       return;
     }
-
+    setDisplayOrientation(camera, 90);
     Log.i(TAG, "Initial camera parameters: " + parameters.flatten());
 
     if (safeMode) {
@@ -137,7 +130,6 @@ final class CameraConfigurationManager {
 
     parameters.setPreviewSize(cameraResolution.x, cameraResolution.y);
     camera.setParameters(parameters);
-    setDisplayOrientation(camera, 90);
   }
 
   Point getCameraResolution() {
@@ -285,9 +277,6 @@ final class CameraConfigurationManager {
     return result;
   }
 
-    /**
-     * 改变照相机成像的方向的方法
-     * */
     protected void setDisplayOrientation(Camera camera, int angle) {
         Method downPolymorphic = null;
         try {
@@ -301,6 +290,7 @@ final class CameraConfigurationManager {
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         } catch (InvocationTargetException e) {
-            e.printStackTrace(); }
+            e.printStackTrace();
+        }
     }
 }
