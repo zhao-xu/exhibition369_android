@@ -111,7 +111,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
   private Collection<BarcodeFormat> decodeFormats;
   private Map<DecodeHintType,?> decodeHints;
   private String characterSet;
-  private HistoryManager historyManager;
+
   private InactivityTimer inactivityTimer;
   private BeepManager beepManager;
   private AmbientLightManager ambientLightManager;
@@ -137,8 +137,6 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     setContentView(R.layout.capture);
 
     hasSurface = false;
-    historyManager = new HistoryManager(this);
-    historyManager.trimHistory();
     inactivityTimer = new InactivityTimer(this);
     beepManager = new BeepManager(this);
     ambientLightManager = new AmbientLightManager(this);
@@ -312,47 +310,13 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
   }
 
   @Override
-  public boolean onCreateOptionsMenu(Menu menu) {
-   /* MenuInflater menuInflater = getMenuInflater();
-    menuInflater.inflate(R.menu.capture, menu);*/
-    return super.onCreateOptionsMenu(menu);
-  }
-
-  @Override
-  public boolean onOptionsItemSelected(MenuItem item) {
-    /*Intent intent = new Intent(Intent.ACTION_VIEW);
-    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-    switch (item.getItemId()) {
-      case R.id.menu_share:
-        intent.setClassName(this, ShareActivity.class.getName());
-        startActivity(intent);
-        break;
-      case R.id.menu_history:
-        intent.setClassName(this, HistoryActivity.class.getName());
-        startActivityForResult(intent, HISTORY_REQUEST_CODE);
-        break;
-      case R.id.menu_settings:
-        intent.setClassName(this, PreferencesActivity.class.getName());
-        startActivity(intent);
-        break;
-      case R.id.menu_help:
-        intent.setClassName(this, HelpActivity.class.getName());
-        startActivity(intent);
-        break;
-      default:
-        return super.onOptionsItemSelected(item);
-    }*/
-    return true;
-  }
-
-  @Override
   public void onActivityResult(int requestCode, int resultCode, Intent intent) {
     if (resultCode == RESULT_OK) {
       if (requestCode == HISTORY_REQUEST_CODE) {
         int itemNumber = intent.getIntExtra(Intents.History.ITEM_NUMBER, -1);
         if (itemNumber >= 0) {
-          HistoryItem historyItem = historyManager.buildHistoryItem(itemNumber);
-          decodeOrStoreSavedBitmap(null, historyItem.getResult());
+          /*HistoryItem historyItem = historyManager.buildHistoryItem(itemNumber);
+          decodeOrStoreSavedBitmap(null, historyItem.getResult());*/
         }
       }
     }
@@ -413,41 +377,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
         startActivity(intent);
     }
     finish();
-    /*ResultHandler resultHandler = ResultHandlerFactory.makeResultHandler(this, rawResult);
 
-    boolean fromLiveScan = barcode != null;
-    if (fromLiveScan) {
-      historyManager.addHistoryItem(rawResult, resultHandler);
-      // Then not from history, so beep/vibrate and we have an image to draw on
-      beepManager.playBeepSoundAndVibrate();
-      drawResultPoints(barcode, scaleFactor, rawResult);
-    }
-
-    switch (source) {
-      case NATIVE_APP_INTENT:
-      case PRODUCT_SEARCH_LINK:
-        handleDecodeExternally(rawResult, resultHandler, barcode);
-        break;
-      case ZXING_LINK:
-        if (scanFromWebPageManager == null || !scanFromWebPageManager.isScanFromWebPage()) {
-          handleDecodeInternally(rawResult, resultHandler, barcode);
-        } else {
-          handleDecodeExternally(rawResult, resultHandler, barcode);
-        }
-        break;
-      case NONE:
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        if (fromLiveScan && prefs.getBoolean(PreferencesActivity.KEY_BULK_MODE, false)) {
-          String message = getResources().getString(R.string.msg_bulk_mode_scanned)
-              + " (" + rawResult.getText() + ')';
-          Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
-          // Wait a moment or else it will scan the same barcode continuously about 3 times
-          restartPreviewAfterDelay(BULK_MODE_SCAN_DELAY_MS);
-        } else {
-          handleDecodeInternally(rawResult, resultHandler, barcode);
-        }
-        break;
-    }*/
   }
 
   /**
@@ -549,10 +479,10 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     supplementTextView.setOnClickListener(null);
     if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean(
         PreferencesActivity.KEY_SUPPLEMENTAL, true)) {
-      SupplementalInfoRetriever.maybeInvokeRetrieval(supplementTextView,
+      /*SupplementalInfoRetriever.maybeInvokeRetrieval(supplementTextView,
                                                      resultHandler.getResult(),
                                                      historyManager,
-                                                     this);
+                                                     this);*/
     }
 
     int buttonCount = resultHandler.getButtonCount();

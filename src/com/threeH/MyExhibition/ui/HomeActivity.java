@@ -128,6 +128,7 @@ public class HomeActivity extends TabActivity implements ActivityInterface {
     private void changeTab(String tab, int title,int id){
         mTabhost.setCurrentTabByTag(tab);
         mTxvTitle.setText(title);
+        mRadiogroup.check(id);
     }
 
     /**

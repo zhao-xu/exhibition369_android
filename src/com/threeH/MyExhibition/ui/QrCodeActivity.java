@@ -74,6 +74,7 @@ public class QrCodeActivity extends BaseActivity implements  ActivityInterface{
                 mTxtPrompt.setText("您的个人信息还在审核中，请耐心等待。。。");
                 break;
             case 'A':
+                mTxtPrompt.setText("入会场时，凭此二维码进入，请妥善保存，谢谢！");
                 loadQrcode();
                 break;
             case 'D':

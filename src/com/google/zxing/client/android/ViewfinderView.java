@@ -16,15 +16,12 @@
 
 package com.google.zxing.client.android;
 
+import android.graphics.*;
 import com.google.zxing.ResultPoint;
 import com.google.zxing.client.android.camera.CameraManager;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.View;
 import com.threeH.MyExhibition.R;
@@ -90,11 +87,14 @@ public final class ViewfinderView extends View {
     int height = canvas.getHeight();
 
     // Draw the exterior (i.e. outside the framing rect) darkened
-    paint.setColor(resultBitmap != null ? resultColor : maskColor);
+    int color = paint.getColor();
+    //paint.setColor(resultBitmap != null ? resultColor : maskColor);
+    paint.setColor(0x7f816405);
     canvas.drawRect(0, 0, width, frame.top, paint);
     canvas.drawRect(0, frame.top, frame.left, frame.bottom + 1, paint);
     canvas.drawRect(frame.right + 1, frame.top, width, frame.bottom + 1, paint);
     canvas.drawRect(0, frame.bottom + 1, width, height, paint);
+    paint.setColor(color);
 
     if (resultBitmap != null) {
       // Draw the opaque result bitmap over the scanning rectangle
@@ -103,13 +103,15 @@ public final class ViewfinderView extends View {
     } else {
 
       // Draw a red "laser scanner" line through the middle to show decoding is active
-      paint.setColor(laserColor);
+     /* paint.setColor(laserColor);
       paint.setAlpha(SCANNER_ALPHA[scannerAlpha]);
       scannerAlpha = (scannerAlpha + 1) % SCANNER_ALPHA.length;
       int middle = frame.height() / 2 + frame.top;
-      canvas.drawRect(frame.left + 2, middle - 1, frame.right - 1, middle + 2, paint);
+      canvas.drawRect(frame.left + 2, middle - 1, frame.right - 1, middle + 2, paint);*/
 
       // Draw four red corner
+      color = paint.getColor();
+      paint.setColor(0xfed4a519);
       int cornerWidth = frame.width()/8;
       int cornerHeight = frame.height()/8;
       canvas.drawRect(frame.left - 4,frame.top - 4,frame.left + cornerWidth,frame.top,paint);
@@ -120,6 +122,7 @@ public final class ViewfinderView extends View {
       canvas.drawRect(frame.right + 4,frame.top - 4,frame.right,frame.top + cornerHeight,paint);
       canvas.drawRect(frame.right + 4,frame.bottom + 4,frame.right,frame.bottom - cornerHeight,paint);
       canvas.drawRect(frame.right + 4,frame.bottom + 4,frame.right  - cornerWidth,frame.bottom,paint);
+      paint.setColor(color);
 
       Rect previewFrame = cameraManager.getFramingRectInPreview();
       float scaleX = frame.width() / (float) previewFrame.width();
