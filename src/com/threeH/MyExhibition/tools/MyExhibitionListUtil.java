@@ -53,9 +53,12 @@ public class MyExhibitionListUtil {
                 addToList(((Exhibition)object).getExKey());
             }
         }
-        for(Exhibition exhibition : mMyExhibitons){
-            addToList(exhibition.getExKey());
+        if(mMyExhibitons != null){
+            for(Exhibition exhibition : mMyExhibitons){
+                addToList(exhibition.getExKey());
+            }
         }
+
     }
 
     /**
