@@ -23,6 +23,7 @@ public class SignupClickListener implements View.OnClickListener {
     public void onClick(View v) {
         Intent intent = new Intent(context, SignupActivity.class);
         intent.putExtra("exKey",exKey);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
 }

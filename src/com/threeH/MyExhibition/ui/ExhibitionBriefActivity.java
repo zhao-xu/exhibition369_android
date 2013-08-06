@@ -8,6 +8,7 @@ import android.webkit.WebView;
 import android.widget.*;
 import com.google.gson.Gson;
 import com.threeH.MyExhibition.R;
+import com.threeH.MyExhibition.common.StringPools;
 import com.threeH.MyExhibition.entities.Exhibition;
 import com.threeH.MyExhibition.entities.ExhibitionList;
 import com.threeH.MyExhibition.listener.AttentionClickListener;
@@ -15,6 +16,7 @@ import com.threeH.MyExhibition.listener.SignupClickListener;
 import com.threeH.MyExhibition.listener.TelephoneClickListener;
 import com.threeH.MyExhibition.tools.MSYH;
 import com.threeH.MyExhibition.tools.MyExhibitionListUtil;
+import com.threeH.MyExhibition.tools.SharedPreferencesUtil;
 
 /**
  * Created with IntelliJ IDEA.
@@ -86,8 +88,15 @@ public class ExhibitionBriefActivity extends BaseActivity implements ActivityInt
             }
         }else{
             mBtnSignup.setBackgroundResource(R.drawable.attention_font_btn);
-            mExhibition.setAttention(true);
-            mBtnSignup.setOnClickListener(new AttentionClickListener(context,mExhibition));
+            mBtnSignup.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(context,"关注成功，您可以报名了！",1).show();
+                    SharedPreferencesUtil.saveObject(mExhibition, context, StringPools.SCAN_EXHIBITION_DATA);
+                    mBtnSignup.setBackgroundResource(R.drawable.signup_font_btn);
+                    mBtnSignup.setOnClickListener(new SignupClickListener(context,mExhibition.getExKey()));
+                }
+            });
         }
         mTxtTheme.setText(mExhibition.getName());
         LoadHtmlTask loadHtmlTask = new LoadHtmlTask();

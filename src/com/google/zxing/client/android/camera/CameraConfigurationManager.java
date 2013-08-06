@@ -87,7 +87,7 @@ final class CameraConfigurationManager {
       Log.w(TAG, "Device error: no camera parameters are available. Proceeding without configuration.");
       return;
     }
-    setDisplayOrientation(camera, 90);
+    camera.setDisplayOrientation(90);
     Log.i(TAG, "Initial camera parameters: " + parameters.flatten());
 
     if (safeMode) {
@@ -276,21 +276,4 @@ final class CameraConfigurationManager {
     Log.i(TAG, "Settable value: " + result);
     return result;
   }
-
-    protected void setDisplayOrientation(Camera camera, int angle) {
-        Method downPolymorphic = null;
-        try {
-            downPolymorphic = camera.getClass().getMethod("setDisplayOrientation", new Class[] { int.class });
-            if (downPolymorphic != null)
-                downPolymorphic.invoke(camera, new Object[]{angle});
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        }
-    }
 }
