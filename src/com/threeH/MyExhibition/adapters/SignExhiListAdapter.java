@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.threeH.MyExhibition.R;
 import com.threeH.MyExhibition.common.StringPools;
 import com.threeH.MyExhibition.entities.Exhibition;
+import com.threeH.MyExhibition.listener.SignupClickListener;
 import com.threeH.MyExhibition.service.FileService;
 import com.threeH.MyExhibition.service.ImageService;
 import com.threeH.MyExhibition.tools.ImageURLUtil;
@@ -105,7 +106,6 @@ public class SignExhiListAdapter extends BaseAdapter {
         }
         return convertView;
     }
-
     /**
      * 根据审核的状态显示各个展会的状态图片
      * 状态为 P: 表示正在审核中
@@ -127,15 +127,16 @@ public class SignExhiListAdapter extends BaseAdapter {
                 imageView.setImageResource(R.drawable.pass);
                 SaveQrcodeTask saveQrcodeTask = new SaveQrcodeTask(exKey);
                 saveQrcodeTask.execute();
-                imageView.setPadding(0, 5, 0, 0);
+
                 break;
             case 'D':
                 imageView.setImageResource(R.drawable.no_pass);
-                imageView.setPadding(0, 60, 0, 0);
+
                 break;
             default:
-                imageView.setImageResource(R.drawable.delete);
-                imageView.setOnClickListener(new View.OnClickListener() {
+                imageView.setImageResource(R.drawable.signup_font_btn);
+                imageView.setOnClickListener(new SignupClickListener(context,exKey));
+                /*imageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         new AlertDialog.Builder(context)
@@ -152,7 +153,7 @@ public class SignExhiListAdapter extends BaseAdapter {
                                 .setNegativeButton("取消",null)
                                 .show();
                     }
-                });
+                });*/
                 break;
         }
     }

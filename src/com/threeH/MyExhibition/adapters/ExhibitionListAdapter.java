@@ -90,9 +90,11 @@ public class ExhibitionListAdapter extends BaseAdapter {
 
         final int i = position;
         if(!MyExhibitionListUtil.getInstance(context).isMyExhibiton(data.get(position).getExKey())){
-            holder.mEnrollAttention.setImageResource(R.drawable.attention);
+            holder.mEnrollAttention.setImageResource(R.drawable.attention_font_btn);
             holder.mEnrollAttention.setOnClickListener(
                     new AttentionClickListener(context,data.get(i)));
+        }else{
+            holder.mEnrollAttention.setImageResource(R.drawable.attentioned);
         }
         int count = Integer.valueOf(data.get(position).getCount());
         if(count > 0){

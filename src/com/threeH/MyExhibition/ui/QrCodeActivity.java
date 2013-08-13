@@ -5,9 +5,11 @@ import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Environment;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import com.threeH.MyExhibition.R;
 import com.threeH.MyExhibition.entities.Exhibition;
@@ -85,6 +87,18 @@ public class QrCodeActivity extends BaseActivity implements  ActivityInterface{
         mTxtDate.setText(mExhibition.getDate());
         mTxtAddressUp.setText(mExhibition.getAddress());
         mTxtSponsor.setText(mExhibition.getOrganizer());
+        mImgviewQrcode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        mImgviewQrcode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                initPopWindow();
+            }
+        });
     }
 
     private void loadQrcode() {
@@ -103,5 +117,15 @@ public class QrCodeActivity extends BaseActivity implements  ActivityInterface{
                 e.printStackTrace();
             }
         }
+    }
+
+    private void initPopWindow() {
+        View contentView = getLayoutInflater().inflate(R.layout.popwindow, null);
+        PopupWindow popupWindow = new PopupWindow(contentView,
+                                                  getWindowManager().getDefaultDisplay().getWidth(),
+                                                  getWindowManager().getDefaultDisplay().getWidth());
+        ImageView imageView = (ImageView) contentView.findViewById(R.id.popwindow_imgview_qrcode);
+        ImageURLUtil.loadImage(Tool.makeQrcodeURL(mExhibition.getExKey(),token), imageView);
+        popupWindow.showAtLocation(contentView, Gravity.CENTER,0,0);
     }
 }
