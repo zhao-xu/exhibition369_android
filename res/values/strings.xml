@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">369展会资讯</string>
+    <string name="app_name">369会网</string>
     <string name="singup">已报名</string>
     <string name="no_singup">未报名</string>
     <string name="name"> 姓名</string>

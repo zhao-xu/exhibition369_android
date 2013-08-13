@@ -4,6 +4,7 @@ import android.app.TabActivity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.*;
@@ -30,7 +31,7 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
     private static final String QRCODE = "qrcode";
     private TabHost mTabhost;
     private RadioGroup mRadiogroup;
-    private ImageView mImgviewNewMessage;
+    private ImageView mImgviewNewMessage,mImgviewReturn;
     private Exhibition mExhibiton;
     private Typeface mTypeface;
     private ImageView mImgviewTelephone;
@@ -51,6 +52,7 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
         mImgviewNewMessage = (ImageView) this.findViewById(R.id.imageview_newmessage);
         mImgviewTelephone = (ImageView) this.findViewById(R.id.exhibition_titlebar_btn_telephone);
         mTxtTitle = (TextView) this.findViewById(R.id.exhibition_titlebar_txt_title);
+        mImgviewReturn = (ImageView) this.findViewById(R.id.exhibition_titlebar_return);
     }
 
     @Override
@@ -96,6 +98,12 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
         mTxtTitle.setTypeface(mTypeface);
         mImgviewTelephone.setOnClickListener(
                 new TelephoneClickListener(this,Tool.getTelephone(getApplicationContext())));
+        mImgviewReturn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     /**
@@ -140,6 +148,5 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
                 PixelDpHelper.dip2px(getApplicationContext(), 10), 0, 0);
         imageView.setLayoutParams(mParam);
     }
-
 
 }

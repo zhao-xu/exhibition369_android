@@ -40,6 +40,7 @@ public class SignupActivity extends  BaseActivity implements ActivityInterface{
     private TextView textViewTitle;
     private TextView textViewCanzhan,textViewCanhui;
     private TextView textViewPhoneCheck,textViewEmailCheck,textViewNameCheck;
+    private ImageView mImgviewReturn;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +65,7 @@ public class SignupActivity extends  BaseActivity implements ActivityInterface{
         textViewPhoneCheck = (TextView) this.findViewById(R.id.signup_tv_phone);
         textViewEmailCheck = (TextView) this.findViewById(R.id.signup_tv_email);
         textViewNameCheck = (TextView) this.findViewById(R.id.signup_tv_name);
+        mImgviewReturn = (ImageView) this.findViewById(R.id.exhibition_titlebar_return);
     }
 
     @Override
@@ -153,6 +155,12 @@ public class SignupActivity extends  BaseActivity implements ActivityInterface{
             @Override
             public void afterTextChanged(Editable s) {
 
+            }
+        });
+        mImgviewReturn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }

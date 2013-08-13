@@ -25,7 +25,7 @@ import com.threeH.MyExhibition.tools.MSYH;
 public class ShowHtmlActivity extends BaseActivity implements ActivityInterface  {
     private WebView mWebVi;
     private String mUrl;
-    private ImageView mImgviewTelephone, mImgviewSignup;
+    private ImageView mImgviewTelephone, mImgviewSignup,mImgviewReturn;
     private TextView mTxtitle;
     private String mStrTitle;
     private char mChrSingupStatus;
@@ -62,6 +62,7 @@ public class ShowHtmlActivity extends BaseActivity implements ActivityInterface 
         mImgviewTelephone = (ImageView) this.findViewById(R.id.exhibition_titlebar_btn_telephone);
         mTxtitle = (TextView) this.findViewById(R.id.exhibition_titlebar_txt_title);
         mImgviewSignup = (ImageView) this.findViewById(R.id.exhibition_titlebar_signup);
+        mImgviewReturn = (ImageView) this.findViewById(R.id.exhibition_titlebar_return);
     }
 
     @Override
@@ -89,6 +90,12 @@ public class ShowHtmlActivity extends BaseActivity implements ActivityInterface 
                 break;
         }
         mImgviewSignup.setOnClickListener(new SignupClickListener(this, mExKey));
+        mImgviewReturn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         if(mIsHiddenTitleBar){
             mRelativeLayout.setVisibility(View.GONE);
         }

@@ -33,7 +33,7 @@ public class HomeActivity extends TabActivity implements ActivityInterface {
     private static final String SCAN_TAB = "scan";
     private static final String RECOMMOND_TAB = "recommond";
     private static final String ABOUT_TAB = "about";
-    private ImageView  mImgviewSignup,mImgviewTelephone;
+    private ImageView mImgviewTelephone,mImgviewReturn;
     private TextView mTxvTitle;
     private String mStrScan;
     @Override
@@ -48,10 +48,10 @@ public class HomeActivity extends TabActivity implements ActivityInterface {
 
     @Override
     public void findView() {
-        mImgviewSignup = (ImageView) this.findViewById(R.id.exhibition_titlebar_signup);
         mTxvTitle = (TextView) this.findViewById(R.id.exhibition_titlebar_txt_title);
         mRadiogroup = (RadioGroup) this.findViewById(R.id.home_radiogroup);
         mImgviewTelephone = (ImageView) this.findViewById(R.id.exhibition_titlebar_btn_telephone);
+        mImgviewReturn = (ImageView) this.findViewById(R.id.exhibition_titlebar_return);
     }
 
     @Override
@@ -62,7 +62,7 @@ public class HomeActivity extends TabActivity implements ActivityInterface {
 
     @Override
     public void addAction() {
-        mImgviewSignup.setVisibility(View.GONE);
+        mImgviewReturn.setVisibility(View.GONE);
         mImgviewTelephone.setOnClickListener(
                 new TelephoneClickListener(this, Tool.getTelephone(getApplicationContext())));
         mTxvTitle.setText(R.string.myexhibition);
