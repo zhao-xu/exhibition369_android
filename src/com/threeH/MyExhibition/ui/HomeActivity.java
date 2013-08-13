@@ -1,8 +1,11 @@
 package com.threeH.MyExhibition.ui;
 
+import android.app.AlertDialog;
 import android.app.TabActivity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.*;
@@ -150,5 +153,27 @@ public class HomeActivity extends TabActivity implements ActivityInterface {
             e.printStackTrace();
         }
         return exKey;
+    }
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK
+                && event.getAction() == event.ACTION_DOWN) {
+            new AlertDialog.Builder(this).setTitle("注意").setMessage(
+                    "您确定要退出369会网吗？").setNegativeButton("取消",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    }).setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                }
+            }).show();
+            return true;
+        } else {
+            return super.dispatchKeyEvent(event);
+        }
     }
 }

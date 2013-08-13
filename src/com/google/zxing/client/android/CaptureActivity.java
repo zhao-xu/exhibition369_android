@@ -370,6 +370,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
         lastResult = rawResult;
         String result = lastResult.getText();
         Intent intent = new Intent(CaptureActivity.this, HomeActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         if (result != null && result.startsWith("MEK://")) {
             intent.putExtra("result", result);
         }

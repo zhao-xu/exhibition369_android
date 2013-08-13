@@ -94,6 +94,7 @@ public class SignupActivity extends  BaseActivity implements ActivityInterface{
                            Intent intent = new Intent(SignupActivity.this, HomeActivity.class);
                            SharedPreferencesUtil.removeObject(exKey,context, StringPools.SCAN_EXHIBITION_DATA);
                            intent.putExtra("exKey", exKey);
+                           intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                            startActivity(intent);
                        }
                    }catch (Exception e){

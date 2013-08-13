@@ -29,6 +29,7 @@ public class AttentionClickListener implements View.OnClickListener{
         mExhibition.setAttention(true);
         SharedPreferencesUtil.saveObject(mExhibition, mContext, StringPools.SCAN_EXHIBITION_DATA);
         Intent intent = new Intent(mContext, HomeActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         mContext.startActivity(intent);
     }

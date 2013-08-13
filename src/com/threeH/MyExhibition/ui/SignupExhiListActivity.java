@@ -176,6 +176,7 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
             NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
             Notification notification  = new Notification(R.drawable.appicon,message,System.currentTimeMillis());
             Intent intent = new Intent(context,HomeActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             PendingIntent pendingIntent = PendingIntent.getActivity(context,0,intent,0);
             notification.setLatestEventInfo(context,"展会消息通知",message,pendingIntent);
             notification.defaults = Notification.DEFAULT_SOUND;

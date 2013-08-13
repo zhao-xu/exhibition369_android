@@ -158,7 +158,6 @@ public class ExhibitionListActivity extends BaseActivity implements ActivityInte
 
             @Override
             public void afterTextChanged(Editable s) {
-
             }
         });
         mBtnSearch.setOnClickListener(new View.OnClickListener() {
@@ -173,13 +172,18 @@ public class ExhibitionListActivity extends BaseActivity implements ActivityInte
         try{
             mStrTheme = mEdttxtTheme.getText().toString().trim();
             String str;
-            str = mController.getService().UnErollExList(token,SIZE,-1, mStrTheme);
-            ExhibitionList allExhibitionData = new Gson().fromJson(str,ExhibitionList.class);
-            setCreateAt(allExhibitionData);
-            mData = Tool.makeAllExhibitionListAdapterData(allExhibitionData);
-            mAdapter = new ExhibitionListAdapter(context, mData,token);
-            mLvi.setAdapter(mAdapter);
-            setItemClickdataes(mData);
+            if(null != mStrTheme && !("".equals(mStrTheme))){
+                str = mController.getService().UnErollExList(token,SIZE,-1, mStrTheme);
+                ExhibitionList allExhibitionData = new Gson().fromJson(str,ExhibitionList.class);
+                setCreateAt(allExhibitionData);
+                mData = Tool.makeAllExhibitionListAdapterData(allExhibitionData);
+                mAdapter = new ExhibitionListAdapter(context, mData,token);
+                mLvi.setAdapter(mAdapter);
+                setItemClickdataes(mData);
+            }else {
+                mData.clear();
+                mLvi.setAdapter(null);
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -279,11 +283,13 @@ public class ExhibitionListActivity extends BaseActivity implements ActivityInte
                 @Override
                 public void run() {
                     try {
-                        String str = mController.getService().UnErollExList(token,SIZE,-1, mStrTheme);
-                        mJsonData = new Gson().fromJson(str,ExhibitionList.class);
-                        setCreateAt(mJsonData);
-                        makeAllExhibitionListAdapterData(mJsonData);
-                        sendHandlerMessage(1);
+                        if(null != mStrTheme && !("".equals(mStrTheme))){
+                            String str = mController.getService().UnErollExList(token,SIZE,-1, mStrTheme);
+                            mJsonData = new Gson().fromJson(str,ExhibitionList.class);
+                            setCreateAt(mJsonData);
+                            makeAllExhibitionListAdapterData(mJsonData);
+                            sendHandlerMessage(1);
+                        }
                     } catch (Exception e) {
 
                     }
@@ -306,12 +312,10 @@ public class ExhibitionListActivity extends BaseActivity implements ActivityInte
                         setCreateAt(mJsonData);
                         makeAllExhibitionListAdapterData(mJsonData);
                     } catch (Exception e) {
-
                     }
                 }
             }).start();
             return null;
         }
     }
-
 }
