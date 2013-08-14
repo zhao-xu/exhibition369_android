@@ -5,7 +5,6 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:background="@drawable/list_selector">
-
     <RelativeLayout
             android:id="@+id/iconview_signup"
             android:layout_width="60dp"
@@ -28,8 +27,16 @@
                 android:background="@drawable/new_message"
                 android:visibility="gone"/>
     </RelativeLayout>
+    <ImageView
+            android:id="@+id/signup_list_imageview_signup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/signup_font_btn"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"/>
     <RelativeLayout
             android:id="@+id/signup_list_relativelayout"
+            android:layout_toLeftOf="@id/signup_list_imageview_signup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/iconview_signup"
@@ -42,7 +49,8 @@
                 android:singleLine="true"
                 android:textSize="14dp"
                 android:ellipsize="marquee"
-                android:textColor="@android:color/black"/>
+                android:textColor="@android:color/black"
+                android:focusableInTouchMode="true"/>
         <TextView
                 android:id="@+id/signup_list_exhibition_date"
                 android:layout_width="wrap_content"
@@ -74,12 +82,5 @@
                 android:ellipsize="marquee"
                 android:layout_below="@id/signup_list_exhibition_address"
                 android:textSize="11dp"/>
-        <ImageView
-                android:id="@+id/signup_list_imageview_signup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/signup_font_btn"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"/>
     </RelativeLayout>
 </RelativeLayout>

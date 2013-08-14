@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Base64;
 import com.threeH.MyExhibition.entities.Exhibition;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -35,6 +34,13 @@ public class SharedPreferencesUtil {
         List<Object> list = getObject(context,shaPreName);
         if(null == list){
             list = new ArrayList<Object>();
+        }else{
+            for(Iterator<Object> iterator = list.iterator();iterator.hasNext();){
+                Object obj = iterator.next();
+                if(((Exhibition)object).getExKey().equals(((Exhibition) obj).getExKey())){
+                    return;
+                }
+            }
         }
         list.add(object);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -46,13 +52,11 @@ public class SharedPreferencesUtil {
             editor.commit();
             oos.close();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }finally{
             try {
                 baos.close();
             } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
@@ -78,19 +82,15 @@ public class SharedPreferencesUtil {
             ois.close();
             return list;
         } catch (StreamCorruptedException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }finally{
             try {
                 bais.close();
             } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
@@ -127,7 +127,6 @@ public class SharedPreferencesUtil {
             editor.commit();
             oos.close();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }finally{
             try {
@@ -137,5 +136,4 @@ public class SharedPreferencesUtil {
             }
         }
     }
-
 }

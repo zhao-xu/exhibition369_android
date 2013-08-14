@@ -27,12 +27,18 @@
                 android:visibility="gone"/>
     </RelativeLayout>
 
-
+    <ImageView
+            android:id="@+id/imageview_attention"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"/>
     <RelativeLayout
             android:id="@+id/relativelayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/iconview"
+            android:layout_toLeftOf="@id/imageview_attention"
             android:layout_marginTop="10dp">
     <TextView
             android:id="@+id/exhibition_theme"
@@ -76,10 +82,5 @@
             android:layout_below="@id/exhibition_address"
             android:textSize="11dp"/>
     </RelativeLayout>
-    <ImageView
-            android:id="@+id/imageview_attention"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"/>
+
 </RelativeLayout>

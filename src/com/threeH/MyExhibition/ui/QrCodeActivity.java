@@ -1,26 +1,17 @@
 package com.threeH.MyExhibition.ui;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
-
-import android.widget.PopupWindow;
 import android.widget.TextView;
 import com.threeH.MyExhibition.R;
 import com.threeH.MyExhibition.entities.Exhibition;
-import com.threeH.MyExhibition.listener.SignupClickListener;
-import com.threeH.MyExhibition.listener.TelephoneClickListener;
 import com.threeH.MyExhibition.service.FileService;
 import com.threeH.MyExhibition.tools.ImageURLUtil;
-import com.threeH.MyExhibition.tools.MSYH;
 import com.threeH.MyExhibition.tools.NetworkHelper;
 import com.threeH.MyExhibition.tools.Tool;
 
@@ -38,7 +29,7 @@ public class QrCodeActivity extends BaseActivity implements  ActivityInterface{
     private TextView mTxtPrompt;
     private ImageView mImgviewIcon;
     private Exhibition mExhibition;
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentViewWithNoTitle(R.layout.qrcode);
         initdata();
@@ -93,7 +84,6 @@ public class QrCodeActivity extends BaseActivity implements  ActivityInterface{
         mImgviewQrcode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
             }
         });
         mImgviewQrcode.setOnClickListener(new View.OnClickListener() {
