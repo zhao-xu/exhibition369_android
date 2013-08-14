@@ -1,8 +1,11 @@
 package com.threeH.MyExhibition.ui;
 
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.Gravity;
@@ -120,12 +123,16 @@ public class QrCodeActivity extends BaseActivity implements  ActivityInterface{
     }
 
     private void initPopWindow() {
-        View contentView = getLayoutInflater().inflate(R.layout.popwindow, null);
+        /*View contentView = getLayoutInflater().inflate(R.layout.popwindow, null);
         PopupWindow popupWindow = new PopupWindow(contentView,
                                                   getWindowManager().getDefaultDisplay().getWidth(),
-                                                  getWindowManager().getDefaultDisplay().getWidth());
+                                                  getWindowManager().getDefaultDisplay().getHeight());
         ImageView imageView = (ImageView) contentView.findViewById(R.id.popwindow_imgview_qrcode);
-        ImageURLUtil.loadImage(Tool.makeQrcodeURL(mExhibition.getExKey(),token), imageView);
+        //ImageURLUtil.loadImage(Tool.makeQrcodeURL(mExhibition.getExKey(),token), imageView);
         popupWindow.showAtLocation(contentView, Gravity.CENTER,0,0);
+        //new AlertDialog.Builder(this).setIcon(R.drawable.qrcode_img).show();*/
+        Intent intent = new Intent(this,ShowQrcodeActivity.class);
+        intent.putExtra("exKey",mExhibition.getExKey());
+        startActivity(intent);
     }
 }

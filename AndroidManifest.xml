@@ -62,7 +62,8 @@
                   android:screenOrientation="portrait"/>
         <activity android:name=".ui.ExhibitionBriefActivity"
                   android:screenOrientation="portrait"/>
-
+        <activity android:name=".ui.ShowQrcodeActivity"
+                  android:screenOrientation="portrait"/>
     </application>
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>

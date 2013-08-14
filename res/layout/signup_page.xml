@@ -42,12 +42,10 @@
                         android:inputType="textPersonName"/>
                 <TextView
                         android:id="@+id/signup_tv_name"
+                        style="@style/input_information_prompt"
                         android:layout_below="@id/user_name"
                         android:layout_alignLeft="@id/user_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="请输入姓名"
-                        android:visibility="gone"/>
+                        android:text="请输入姓名"/>
             </RelativeLayout>
             <RelativeLayout
                     android:id="@+id/relativelayout_two"
@@ -77,12 +75,10 @@
                         android:inputType="phone"/>
                 <TextView
                         android:id="@+id/signup_tv_phone"
+                        style="@style/input_information_prompt"
                         android:layout_below="@id/phone_nummber"
                         android:layout_alignLeft="@id/phone_nummber"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="请输入正确的电话号码"
-                        android:visibility="gone"/>
+                        android:text="请输入正确的电话号码"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -113,13 +109,10 @@
                         android:inputType="textAutoCorrect"/>
                 <TextView
                         android:id="@+id/signup_tv_email"
+                        style="@style/input_information_prompt"
                         android:layout_below="@id/email_address"
                         android:layout_alignLeft="@id/email_address"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="请输入正确的邮箱"
-                        android:visibility="gone">
-                </TextView>
+                        android:text="请输入正确的邮箱"/>
             </RelativeLayout>
             <RelativeLayout
                     android:layout_below="@id/relativelayout_three"

@@ -127,11 +127,9 @@ public class SignExhiListAdapter extends BaseAdapter {
                 imageView.setImageResource(R.drawable.pass);
                 SaveQrcodeTask saveQrcodeTask = new SaveQrcodeTask(exKey);
                 saveQrcodeTask.execute();
-
                 break;
             case 'D':
                 imageView.setImageResource(R.drawable.no_pass);
-
                 break;
             default:
                 imageView.setImageResource(R.drawable.signup_font_btn);

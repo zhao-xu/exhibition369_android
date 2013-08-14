@@ -92,6 +92,7 @@ public class ExhibitionBriefActivity extends BaseActivity implements ActivityInt
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(context,"关注成功，您可以报名了！",1).show();
+                    mExhibition.setAttention(true);
                     SharedPreferencesUtil.saveObject(mExhibition, context, StringPools.SCAN_EXHIBITION_DATA);
                     mBtnSignup.setBackgroundResource(R.drawable.signup_font_btn);
                     mBtnSignup.setOnClickListener(new SignupClickListener(context,mExhibition.getExKey()));

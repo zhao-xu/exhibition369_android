@@ -113,7 +113,6 @@ public class SignupActivity extends  BaseActivity implements ActivityInterface{
         editTextName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
@@ -123,7 +122,6 @@ public class SignupActivity extends  BaseActivity implements ActivityInterface{
 
             @Override
             public void afterTextChanged(Editable s) {
-
             }
         });
         editTextTelephone.addTextChangedListener(new TextWatcher() {
@@ -155,7 +153,6 @@ public class SignupActivity extends  BaseActivity implements ActivityInterface{
 
             @Override
             public void afterTextChanged(Editable s) {
-
             }
         });
         mImgviewReturn.setOnClickListener(new View.OnClickListener() {
@@ -185,5 +182,4 @@ public class SignupActivity extends  BaseActivity implements ActivityInterface{
             }
         }
     }
-
 }

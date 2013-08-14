@@ -148,5 +148,4 @@ public class ExhibitionActivity extends TabActivity implements ActivityInterface
                 PixelDpHelper.dip2px(getApplicationContext(), 10), 0, 0);
         imageView.setLayoutParams(mParam);
     }
-
 }

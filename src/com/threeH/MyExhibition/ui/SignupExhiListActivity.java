@@ -1,9 +1,11 @@
 package com.threeH.MyExhibition.ui;
 
+import android.app.AlertDialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -21,7 +23,6 @@ import com.threeH.MyExhibition.entities.Exhibition;
 import com.threeH.MyExhibition.tools.SharedPreferencesUtil;
 import com.threeH.MyExhibition.widget.XListView;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -36,7 +37,7 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
             AdapterView.OnItemClickListener,XListView.IXListViewListener {
     private XListView mListView;
     private List<Exhibition> mDataes = new LinkedList<Exhibition>();
-    private SignExhiListAdapter mSignExhiListAdapter;
+    private SignExhiListAdapter mAdapter;
     private Exhibition[] mMyExhibitions;
     private LoadDataTask loadDataTask;
     private Handler handler = new Handler(){
@@ -54,8 +55,8 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
      * 设置我的展会列表的数据
      */
     private void setAdapter(){
-        mSignExhiListAdapter = new SignExhiListAdapter(SignupExhiListActivity.this, mDataes,token);
-        mListView.setAdapter(mSignExhiListAdapter);
+        mAdapter = new SignExhiListAdapter(SignupExhiListActivity.this, mDataes,token);
+        mListView.setAdapter(mAdapter);
     }
 
     public void onCreate(Bundle savedInstanceState) {
@@ -92,6 +93,30 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
         mListView.setOnItemClickListener(this);
         mListView.setPullLoadEnable(true);
         mListView.setXListViewListener(this);
+        mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                final  int  i = position;
+                if(mDataes.get(i-1).isAttention()){
+                    new AlertDialog.Builder(SignupExhiListActivity.this)
+                            .setTitle("注意")
+                            .setMessage("您确认要删除该展会吗？")
+                            .setPositiveButton("确定",new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    SharedPreferencesUtil.removeObject(mDataes.get(i - 1).getExKey(),
+                                            context,
+                                            StringPools.SCAN_EXHIBITION_DATA);
+                                    mDataes.remove(i-1);
+                                    mAdapter.notifyDataSetChanged();
+                                }
+                            })
+                            .setNegativeButton("取消", null)
+                            .show();
+                }
+                return true;
+            }
+        });
     }
 
     @Override
@@ -135,7 +160,6 @@ public class SignupExhiListActivity extends BaseActivity implements ActivityInte
      * 获得数据后发送消息到消息队列。
      */
     class LoadDataTask extends AsyncTask<Void,Integer,Integer>{
-
         @Override
         protected Integer doInBackground(Void... params) {
             new Thread(new Runnable() {
